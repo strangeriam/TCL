@@ -1,0 +1,12 @@
+# 遞增
+for {set i 0} {$i <= 100} {incr i} {
+      puts "Increase... $i"
+      after 1000
+}
+
+# 倒數 Countdown
+for {set i 5} {$i >= 1} {incr i -1} {
+      puts "Countdown... $i"
+      after 1000
+}
+
