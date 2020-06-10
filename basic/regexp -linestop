@@ -1,0 +1,42 @@
+# Function: 擷取有 “條件字串” 的那一行
+# Syntax: regexp -linestop  {條件字串}  “source string”  新變數名
+# 取條件字串及其後面字串, 需加 “點&星” → {條件字串.*}
+
+# ==============
+# Example Code 1
+# Get Wifi RSSI value "-45".
+# Capture WiFi Power Level under Linux.
+# Refers Linux command "iwconfig" to get necessary data as following.
+
+set aaa "
+1 {iwconfig wlan0 | grep level
+
+          Link Quality=100/100  Signal level=-45 dBm  Noise level=0 dBm
+
+root@android:/ # }
+"
+
+regexp -linestop {Link Quality=100/100  Signal level=.*} $aaa wifiRSSI
+set wifiRSSI [string trim [lindex $wifiRSSI 3] {level=}]
+
+# Response: -45
+
+# ==============
+# Example Code 2
+# 來源檔 sourceFile_tmp 裡有 fail 字串.
+set sourceFile_tmp [file_open "aaa.log" r]
+
+# 將有 fail 的這一整行寫進 bbb.log.
+set targetFile [open bbb.log w]
+
+# 將來源檔內容存入變數 $sourceFile.
+set sourceFile [read $sourceFile_tmp]
+
+file_close $sourceFile_tmp
+
+regexp -linestop {.* fail.*} $sourceFile targetContent
+puts $targetFile $targetContent
+
+# 寫入目的地檔 targetFile, 並觀關閉此 channel id.
+close $targetFile
+
