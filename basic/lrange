@@ -1,0 +1,7 @@
+
+# Syntax: lrange $string [第一個字] [最後一個字]
+
+set familyList "papa mama coco meme"
+lrange $familyList 0 1
+
+# Response: papa mama
