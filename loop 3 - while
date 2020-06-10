@@ -1,0 +1,16 @@
+
+# 遞增
+set i 0
+while {$i < 10} {
+    puts $i
+    after 1000
+    incr i
+}
+
+# 倒數
+set i 10
+while {$i >= 1} {
+    puts $i
+    after 1000
+    incr i -1
+}
