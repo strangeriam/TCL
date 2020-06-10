@@ -1,4 +1,5 @@
-#
+#===========================
+# Example code.
 
 array set familyName {
       papa AgentPAPA
@@ -6,7 +7,29 @@ array set familyName {
       son  AgentSON
 }
 
-#
+puts $familyName(papa)
+# Response: AgentPAPA
+
+puts $familyName(momo)
+# Response: AgentMAMA
+
+#===========================
+# 檢查特定 Array 是否存在.
+# Response: true 1 or false 0
+
 array exists familyName
-# Reply: true 1 or false 0
+
+#===========================
+# List ARRAY variable name
+# Response: papa mama son
+
+array name familyName
+
+#===========================
+# Get ARRAY variable content.
+# Response: papa AgentPAPA mama AgentMAMA son AgentSON
+
+array get familyName
+
+
 
