@@ -1,5 +1,5 @@
 
-# Syntax: lrange $string [第一個字] [最後一個字]
+# Syntax: lrange $string [first word] [last word]
 
 set familyList "papa mama coco meme"
 lrange $familyList 0 1
