@@ -1,0 +1,6 @@
+# read. 讀取檔案.
+
+set readFile [ read [ open $PATH/file.log r] ]
+
+set uartRes ""
+regexp -linestop "Total.*" $readFile uartRes
