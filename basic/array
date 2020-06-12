@@ -7,6 +7,10 @@ array set familyName {
       son  AgentSON
 }
 
+# or
+array set familyName { papa AgentPAPA mama AgentMAMA son AgentSON }
+
+#===========================
 puts $familyName(papa)
 # Response: AgentPAPA
 
