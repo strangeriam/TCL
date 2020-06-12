@@ -11,7 +11,6 @@ if { [file exist "targetFile"] } {
 # 強制複製 "sourceFile" 到 "targetFile".
 file copy -force "sourceFile "targetFile"
 
-
 # 目錄 $folderNmae 如果不存在, 則新建立 $folderName.
 if { ![file isdirectory $folderName] } {
        file mkdir $folderName
