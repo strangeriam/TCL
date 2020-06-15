@@ -3,18 +3,18 @@ package require Thread
 puts "\n*** I'm thread [thread::id]"
 
 # Create 3 threads.
-for {set thread 1} {$thread <= 3} {incr thread} {
+for {set num 1} {$num <= 3} {incr num} {
       set id [thread::create {
             # Print a hello message 3 times,
             # waiting a random amount of time between messages.
-            
+
             for {set i 1} {$i <= 3} {incr i} {
                   after [expr { int(500*rand()) }]
                   puts "\[$i\] Thread [thread::id] says hello."
             }
       }]
 
-      puts "\n\[-$thread-\] Started thread $id"
+      puts "\n\[-$num-\] Started thread $id"
 }
 
 puts "*** Exist threads: [thread::names]\n"
