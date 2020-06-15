@@ -35,29 +35,3 @@ expect_background {
              puts $expect_out(buffer) 
 }}
 
-# Example 5
-# =========
-# Telnet
-# 連線建立成功會有一個 Channel ID.
-spawn plink -telnet 192.168.1.1
-
-expect_background {
-     -i exp2 -re ".*" {
-              puts $expect_out(buffer)
-}}
-
-# 等待有 “root” 的字串時, 送出 “uname -a”, 並按下 Enter “\r”. → → 很像沒啥做用.
-expect -i exp2 "root" { send "uname -a\r" }
-
-# or 直接送出 “uname -a”, 並按下 Enter “\r”.
-expect -i exp2 "" { send "uname -a\r" }
-
-# 直接送出字串 “df -h”, 並按下 Enter “\r”.
-send -i exp2 "df -h\r"
-
-# 送出 “Ctrl + C”.
-send -i exp2 "0\x03"
-
-# 離開 Telnet.
-send -i exp2 "exit\r"
-
