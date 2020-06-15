@@ -1,0 +1,49 @@
+# Get desktop screen resolution.
+# Preparation:
+# cd /
+
+# ========================================
+# Example 1
+package require Expect
+spawn wmic
+
+expect_background {
+     -i exp2 -re ".*" {
+              puts $expect_out(buffer)
+}}
+
+# List HELP.
+exp_send -i exp2 "/?\r"
+
+# Get monitor Resolution.
+exp_send -i exp2 "desktopmonitor get screenheight, screenwidth\r"
+
+# Leave WMIC “Ctrl + C”.
+exp_send -i exp2 "0\x03\r"
+
+# ========================================
+# Example 2
+
+package require Expect
+set timeout 1
+
+spawn wmic.exe
+exp_send "desktopmonitor get screenheight, screenwidth\r"
+
+set resolution {}
+expect {
+     -regexp {..*} {
+            set resolution "${resolution}$expect_out(0,string)"
+            exp_continue
+     }
+}
+
+# Get screen solution of height & width (dpi), eg. 1440 2560.
+set desktop_resolution [regexp -all -inline {[0-9]+} $resolution]
+
+# Get screen solution of height (dpi), eg. 1440.
+set desktop_height     [lindex $desktop_resolution 0]
+
+# Get screen solution of width (dpi), eg. 2560.
+set desktop_width      [lindex $desktop_resolution 1]
+
