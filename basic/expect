@@ -28,8 +28,8 @@ puts $aaa
 package require Expect
 spawn ping 192.168.1.1 -n 1   ;# 此行執行後, 即 ping 就被送出去.
 
-#- exp2, 在執行 expect_background 後就需遞增 exp2.
-#- 直接 $expect_out(buffer) 是讀不到結果, 需下整個 expect_background{} 才行.
+# exp2, 在執行 expect_background 後就需遞增 exp2.
+# 直接 $expect_out(buffer) 是讀不到結果, 需下整個 expect_background{} 才行.
 expect_background {
      -i exp -re ".*" {
              puts $expect_out(buffer) 
