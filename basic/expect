@@ -26,9 +26,7 @@ puts $aaa
 # =========
 # Ping.
 package require Expect
-spawn ping 192.168.1.1 -n 1
-#- 此行執行後, 即 ping 就被送出去.
-#- 英中翻譯 spawn → 產卵, Expect 內部指令.
+spawn ping 192.168.1.1 -n 1   ;# 此行執行後, 即 ping 就被送出去.
 
 #- exp2, 在執行 expect_background 後就需遞增 exp2.
 #- 直接 $expect_out(buffer) 是讀不到結果, 需下整個 expect_background{} 才行.
@@ -53,8 +51,7 @@ expect_background {
 # 等待有 “root” 的字串時, 送出 “uname -a”, 並按下 Enter “\r”. → → 很像沒啥做用.
 expect -i exp2 "root" { send "uname -a\r" }
 
-# or
-# 直接送出 “uname -a”, 並按下 Enter “\r”.
+# or 直接送出 “uname -a”, 並按下 Enter “\r”.
 expect -i exp2 "" { send "uname -a\r" }
 
 # 直接送出字串 “df -h”, 並按下 Enter “\r”.
