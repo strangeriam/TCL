@@ -31,10 +31,9 @@ spawn ping 192.168.1.1 -n 1   ;# 此行執行後, 即 ping 就被送出去.
 #- exp2, 在執行 expect_background 後就需遞增 exp2.
 #- 直接 $expect_out(buffer) 是讀不到結果, 需下整個 expect_background{} 才行.
 expect_background {
-        -i exp -re ".*" {
-                        puts $expect_out(buffer)
-        }
-}
+     -i exp -re ".*" {
+             puts $expect_out(buffer) 
+}}
 
 # Example 5
 # =========
@@ -43,10 +42,9 @@ expect_background {
 spawn plink -telnet 192.168.1.1
 
 expect_background {
-        -i exp2 -re ".*" {
-                        puts $expect_out(buffer)
-        }
-}
+     -i exp2 -re ".*" {
+              puts $expect_out(buffer)
+}}
 
 # 等待有 “root” 的字串時, 送出 “uname -a”, 並按下 Enter “\r”. → → 很像沒啥做用.
 expect -i exp2 "root" { send "uname -a\r" }
