@@ -1,0 +1,34 @@
+
+# Go to telnet client tool path.
+# cd C:\Users\Coding7-2017\Dropbox\12-Office-Sync-MTS\12-TryTryLu\tools\
+
+# Output: 5.43.2
+package require Expect
+
+spawn plink -telnet 192.168.1.201
+
+expect -re ".*login: " {
+        exp_send "igw5000\r"
+}
+
+expect "Password: " {
+        exp_send "igw5000\r"
+}
+
+expect "igw5000@igw5000:~$ " {
+		exp_send "sudo -s"
+}
+
+expect "password for igw5000: " {
+		exp_send "igw5000"
+}
+
+
+exp_send "exit\r"
+
+exp_send_user "Telnet access OK."
+
+
+
+expect -i exp "root" { send "uname -a\r" }
+
