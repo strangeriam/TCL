@@ -22,5 +22,5 @@ expect_background {
 exp_send -i exp2 "df -h\r"
 exp_send -i exp2 "ll\r"
 
-# Leave Telnet.
+# 離開 Telnet.
 exp_send -i exp2 "exit\r"
