@@ -26,3 +26,12 @@ while { [llength [thread::name]] > 1 } {
 }
 
 puts "*** Completed, Bro!"
+
+# Output:
+# *** I'm thread tid000029FC
+# [-1-] Started thread tid00002918
+# [-2-] Started thread tid00002920
+# [-3-] Started thread tid000025BC
+# *** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
+# *** You are under tid000029FC
+# *** Completed, Bro!
