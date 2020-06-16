@@ -17,12 +17,3 @@ puts [set t2 [thread::create]]
 
 # Output: tid00001CD4 tid000019C8 tid00002080
 thread::name
-
-
-# Delete one of thread.
-# =====================
-# 刪除特定 Thread ID (e.g tid000019C8).
-# Output: tid00001CD4 tid00002080
-thread::release $t1
-thread::name
-
