@@ -1,4 +1,6 @@
 
+# Example code
+# ============
 package require Thread
 
 set t1 [thread::create]
@@ -10,3 +12,19 @@ for {set i 0} {$i < 2} {incr i} {
         vwait result
 }
 
+# Example code
+# ============
+package require Thread
+
+proc f_sayHello {} {
+	puts "Hello Everyone..."
+}
+
+while {1} {
+	set t [thread::create]
+	thread::send $t { f_sayHello }
+	#thread::release $t
+}
+
+# Output
+# 結果會出現找不到指令 f_sayHello 的問題.
