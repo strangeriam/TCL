@@ -1,0 +1,12 @@
+
+# Like "wget" to get web page.
+
+package require http
+
+set tok [http::geturl http://blog.got7.org]
+
+set fd [open d:/got7.html w]
+puts $fd [http::data $tok]
+close $fd
+
+http::cleanup $tok
