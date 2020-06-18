@@ -1,0 +1,7 @@
+
+# Output: item1.item2.item3
+set lst_1 {item1.item2.item3}
+
+# Output: item1 item2 item3
+set lst_2 [split $lst_1 "."]
+
