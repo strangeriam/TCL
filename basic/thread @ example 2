@@ -23,7 +23,7 @@ proc f_sayHello {} {
 while {1} {
 	set t [thread::create]
 	thread::send $t { f_sayHello }
-	#thread::release $t
+	thread::release $t
 }
 
 # Output
