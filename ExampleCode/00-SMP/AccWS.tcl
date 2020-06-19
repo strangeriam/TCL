@@ -1,37 +1,37 @@
 encoding system utf-8
 ;############################################################################
-;# ?½ç??°æ­¤è¡Œå?,ä½ ç?ç·¨è¼¯?æ˜¯æ­?¢º??
-;# ?½ç??°æ­¤è¡Œå?ï¼Œä??„ç?è¾‘æ??¯æ­£ç¡®ç???
-;# ?™ã??“ã¨?Œã§?ã¾?™ã??®è??’å??§ã??¦ã?? ã??„ã€ã??ªã??¯ç·¨?†ã?æ­???„ã§?™ã€?
-;# CÃ³ thá»?nhÃ¬n tháº¥y dÃ²ng n?y, báº¡n chá»‰nh sá»­a l? chÃ­nh xÃ¡c.
+;# ?ç•Œ??ç‰ˆî„ç›å±½?,æµ£çŠµ?ç»¶ã„¨é›†?å¶†æ§¸å§?â’‘??
+;# ?ç•Œ??ç‰ˆî„ç›å±½?é”›å±¼??å‹­?æˆæˆ??îˆ›î„œçº­î†¾???
+;# ?æ¬??æ’±ä»º?å±»ä»¹?å¶ƒä¼¨?æ¬??î†¿??æ‘??Ñ??ï¸º??çŠ®??å‹©ï¿½ä½µ??î‚??îˆœæ³•?å—?å§???å‹©ä»¹?æ¬ï¿½?
+;# Cè´¸ thå³„?nhçŸ›n thå²·î™¿ dè²Œng n?y, bå²·î“´ chå³„å¡¶h så³„ç’¦ l? ché“†nh xè°©c.
 ;############################################################################
 set AccWS.tbc {Author:Midas,Alan
-0.2.1-20111220 (1)_f_MesShopFlowUploadResultLog Support TMO ??XT?¹æ?æ¬„ä? , this is deal with MIS from $::other_field.
-               (2)ç§»é™¤_f_sini_profilerd , _f_sini_profilewr 
-			   (3)å°å…¥?¨æ–°??c:\tmp\MES log ä¿ç? 72Hr . å¤§æ–¼ 72Hr ?x‡ª?•ç§»??
+0.2.1-20111220 (1)_f_MesShopFlowUploadResultLog Support TMO ??XT?è§„?å¨†å‹ª? , this is deal with MIS from $::other_field.
+               (2)ç»‰å©šæ«_f_sini_profilerd , _f_sini_profilewr 
+			   (3)çåº¡å†?ã„¦æŸŠ??c:\tmp\MES log æ·‡æ¿ˆ? 72Hr . æ¾¶Ñ„æŸ¤ 72Hr ?xåšœ?æ› Ğ©??
 0.2.0-20111128 (1)Support WebService DLLV2.0 Format
                (2)Drop All DLLV2.0 and None-Used Function
-               (3)Update INI ??Keywords ?¿é? XML ??wording. <>@* .... as DLLV2.0 Format.
-0.1.3-20110927 (1)?¶MES FAIL ???°å‡º $::MesReturn
+               (3)Update INI ??Keywords ?å—? XML ??wording. <>@* .... as DLLV2.0 Format.
+0.1.3-20110927 (1)?ç¦¡ES FAIL ???æ¿åš­ $::MesReturn
 0.1.2-20110805 (1)Fix Syc Time Bug . change use open "cmd /c ..." from "::twapi::create_process"
-			   (2)WebService å¾?60 sec ?¹æ? 5 ?†é?.
-0.1.2-20110717 (1)å¢å? ?ªå·±?´æ–° PC system datetime via Server
-0.1.1-20110711 (1)fix ??inifile è¨­å?ftp log disable ?ºç¾?„éŒ¯èª?--<ALAN>
-0.1.0-20110628 (1)? ä??²å? . When Server Reply abnormal UID. ??show errormsg ?²å…¥ vwait
-               (2)?´æ–°ACCHttpLibX.dll
+			   (2)WebService å¯°?60 sec ?è§„? 5 ?å—›?.
+0.1.2-20110717 (1)æ¾§ç‚²? ?î„ç¹?å­˜æŸŠ PC system datetime via Server
+0.1.1-20110711 (1)fix ??inifile ç‘·î…?ftp log disable ?è™¹å¾“?å‹¯å°Ÿç‘¾?--<ALAN>
+0.1.0-20110628 (1)?çŠ±??æ’? . When Server Reply abnormal UID. ??show errormsg ?æ’å† vwait
+               (2)?å­˜æŸŠACCHttpLibX.dll
 0.0.9-20110624 (1)Fix When No MAC Condidion
-			   (2)? ä? ModelName from "_f_vini_profilerd MYSQL MODELNAME"
-0.0.8-20110623 (1)?°å? ?²å? when WebService No Reply PASS contidion.
-			   (2)ä½¿ç”¨ profilewr/profilerd => c:\tmp\MES_%d.ini fix regsub bug.
-0.0.7-20110622 (1)?°å? LOG_PATH_FN ??MES ??TestResult , ?¹ä¾¿ MIS å¾Œç? FTP LOG è·¯å??„é?å»?
-0.0.6-20110610 (1)_f_MesShopFlowCheckIn ?°å??v•¸ -NoVerControl
-0.0.5-20110523 (1)fix _f_sini_profilerd å¤šä?ä¸€??0x0d ?„å?é¡?<?å??®å? Mes return 0x0d,0x0a?ºç?å°?
+			   (2)?çŠ±? ModelName from "_f_vini_profilerd MYSQL MODELNAME"
+0.0.8-20110623 (1)?æ¿? ?æ’? when WebService No Reply PASS contidion.
+			   (2)æµ£è·¨æ•¤ profilewr/profilerd => c:\tmp\MES_%d.ini fix regsub bug.
+0.0.7-20110622 (1)?æ¿? LOG_PATH_FN ??MES ??TestResult , ?é€›ç©¶ MIS å¯°å²€? FTP LOG ç’ºîˆš??å‹¯?å¯¤?
+0.0.6-20110610 (1)_f_MesShopFlowCheckIn ?æ¿??væš© -NoVerControl
+0.0.5-20110523 (1)fix _f_sini_profilerd æ¾¶æ°«?æ¶“ï¿½??0x0d ?å‹«?æ¤¤?<?å¶…??î†¼? Mes return 0x0d,0x0a?è™¹?ç?
 0.0.4-20110520 (1)add _f_Mes_Reg_TestResult for additional test result need to be address-in MES database.
-               (2)add MainConfig.ini [WebService]->Activate ?¯è¨­å®?ENABLE/DISABLE.
-0.0.3-20110323 (1)fix bug å¢å? "Content="   ==> append ::MesResult_Log "\nContent=\n$logbox" , è§?±º Send Log ?é?.
+               (2)add MainConfig.ini [WebService]->Activate ?îˆÅç€¹?ENABLE/DISABLE.
+0.0.3-20110323 (1)fix bug æ¾§ç‚²? "Content="   ==> append ::MesResult_Log "\nContent=\n$logbox" , ç‘™?ç„™ Send Log ?å¿›?.
 0.0.2-20110322 (1)fix bug _f_sini_profilewr have simulator "key" , ex:  only "d" will take wrong location into "abc_d".
                (2)Suppport Version control , since MIS update the code. "ex: PN=S0P9J46490052,PASS," in [CheckIn] return.
-                  ä¸¦å??? ??shopfloor = Enable ?? ?v¡?–ç?å¼ä¸­æ­?.
+                  æ¶“ï¹€??? ??shopfloor = Enable ?? ?vå¸¯?æ «?å¯®å¿è…‘å§?.
 0.0.1-20110320 first release
 }
 
@@ -47,9 +47,9 @@ set AccWS.tbc {Author:Midas,Alan
 ;############################################################################
 ;# PROCEDURE NAME - _f_WebServiceSini_V2 {sinibox feedback}
 ;#-------------------------------------------------------------------------Ver:0V
-;# DESCRIPTION: ?•ç? WebService ?„å?ä½? ?¶ä¸­ sinibox å­—ä¸²?ºå·±?•ç???
-;#              ç¬¦å? Accton MIS ?€å®šç¾©ä¹‹æ ¼å¼?likes inifile format>
-;#              feedback ??WebService Server ?å‚³ä¹‹å?ä¸²å…§å®? äº¦å???SebService Spec.
+;# DESCRIPTION: ?æ› ? WebService ?å‹«?æµ£? ?æœµè…‘ sinibox ç€›æ¤¾è¦†?å“„ç¹?æ› ???
+;#              ç»—ï¹€? Accton MIS ?ï¿½ç€¹æ°±äº¬æ¶”å¬«ç‰¸å¯®?likes inifile format>
+;#              feedback ??WebService Server ?ç‚²åæ¶”å¬ª?æ¶“æ’åç€¹? æµœï¹€???SebService Spec.
 ;# EXAMPLE : _f_WebServiceSini_V2 $::MesChkInIniBox ::MesReturn
 ;# RETURN: None
 ;############################################################################
@@ -97,10 +97,10 @@ proc _f_WebServiceSini_V2 { sinibox feedback } {
 ;############################################################################
 ;# PROCEDURE NAME - _f_MesShopFlowCheckIn {args}
 ;#-------------------------------------------------------------------------Ver:0W
-;# DESCRIPTION: ?é? webservice ?•ç? CheckIn ?„å?ä½?
-;#              ?¶åŸ·è¡Œæ­¤ function , ç¨‹å??y€é? ?ºæœ¬ ??sfis è³‡æ?. å­˜æ”¾??visual ini è£?
-;#              ?²è? é¡ä¼¼inifile?„å?ä¸²è????é€é? Accton MIS ?ä? ??COM ?t»¶.?²è?,è³‡è?äº¤æ?.
-;#              $args : ?¶å‚³?¥å???-NoVerControl ?‡ä??u?æ¸¬è©¦ç¨‹å??ˆæœ¬?§ç®¡
+;# DESCRIPTION: ?å¿›? webservice ?æ› ? CheckIn ?å‹«?æµ£?
+;#              ?è·ºç…¼ç›å±¾î„ function , ç»‹å¬ª??yï¿½å¿›? ?çƒ˜æ¹° ??sfis ç’©å›¨?. ç€›æ¨»æ–??visual ini ç‘?
+;#              ?èŒ¶? æ¤¤ç‚°æŠ€inifile?å‹«?æ¶“èŒ¶????å¶‰ï¿½å¿›? Accton MIS ?æ„ª? ??COM ?tæ¬¢.?èŒ¶?,ç’©å›ª?æµœã‚†?.
+;#              $args : ?è·ºå?ãƒ¥???-NoVerControl ?å›¦??u?å¨“î„ƒâ”‚ç»‹å¬ª??å Ÿæ¹°?Ñ…î…¸
 ;# EXAMPLE : _f_MesShopFlowCheckIn
 ;#           _f_MesShopFlowCheckIn -NoVerControl
 ;# RETURN: None
@@ -129,8 +129,8 @@ proc _f_MesShopFlowCheckIn {args} {
 
 
 
-#	set ::MesTestResultAddIn "" ;# æ­¤è??¸ç‚ºä¸€å·¨é??‡ä»¤ , ??Basedata of TestResult å®Œæ???, ?v??¶å??„å±¬ä¹?data ?—å…¥ ä¸Šå‚³ MES database æ¸…å–®.
-# æ­?¸¸?¨æ????å? _f_Mes_Reg_TestResult å¢å?ä¸Šå‚³è³‡æ?.
+#	set ::MesTestResultAddIn "" ;# å§ã‚ˆ??å“¥å¤æ¶“ï¿½å®¸ã„©??å›¦æŠ¤ , ??Basedata of TestResult ç€¹å±¾???, ?v??è·º??å‹«çˆ†æ¶”?data ?æ¥€å† æ¶“å©‚å MES database å¨“å‘­æŸˆ.
+# å§?çˆ¶?ã„¦????å¶…? _f_Mes_Reg_TestResult æ¾§ç‚²?æ¶“å©‚åç’©å›¨?.
 #	set ::MesReturn ""
 	unset -nocomplain -- ::ThisUID
 	;#=====================================================================================================================
@@ -154,7 +154,7 @@ proc _f_MesShopFlowCheckIn {args} {
 #	profilewr $::MES_CHKIN_CLIENT_FN 	CheckIn  SN 				$var_sn
 		
 #	if {[string len [_f_vini_profilerd SFIS MAC]] > 0} {
-#		;;# ?²å? check MAC ?„ç¢º??12 Byte ?·åº¦ & 16 ?²åˆ¶ .
+#		;;# ?æ’? check MAC ?å‹­â’‘??12 Byte ?å³°å®³ & 16 ?æ’åŸ— .
 #		if {([string len [_f_vini_profilerd SFIS MAC]] != 12) || ([string is xdigit [_f_vini_profilerd SFIS MAC]]==0)} {
 #			usermsg "mac address len != 12 <[_f_vini_profilerd SFIS MAC]>. please ask TA team for check" ;
 #			vwait xxx ;
@@ -203,7 +203,7 @@ proc _f_MesShopFlowCheckIn {args} {
 	;#=====================================================================================================================
 	if { [_f_WebServiceSini_V2 $::MesChkInIniBox ::MesReturn] ==0 } {
 		#_f_Client_SelectUI "WebService Server Err\n<RetryAgain>\n$::MesReturn" PassOnly
-		;# å°±å? Shop Floor ä¸€æ¨?. Return 0 ?åˆ° ä¸»ç?å¼?è®?User ?¯ä»¥?åˆ· ??check-in.
+		;# çå? Shop Floor æ¶“ï¿½å¦¯?. Return 0 ?ç‚²åŸŒ æ¶“è¤?å¯®?ç’?User ?îˆ™äº’?å¶…åŸ› ??check-in.
 		puts "step1"
 		return 0;
 	}
@@ -217,7 +217,7 @@ proc _f_MesShopFlowCheckIn {args} {
 	#_f_termmsg_V1 $::MesReturn
 	puts $::MesReturn
 	;##=================================================================
-	;##	?ˆæª¢?¥ç”¢æ¸¬ç?å¼ç???
+	;##	?å Ÿî€?ãƒ§æ•˜å¨“î„‚?å¯®å¿•???
 	;##=================================================================
 #	if { $ChkVer } {
 #		set TPVER [profilerd $::MES_CHKIN_SERVER_FN CheckIn TPVER]
@@ -228,7 +228,7 @@ proc _f_MesShopFlowCheckIn {args} {
 #				$::wsobj CallUIException "DUT::$::DUT_Num\n$::MesReturn" $sopcode [$::wsobj DunsNo]
 #			}
 #			#_f_Client_SelectUI "TPVER is invalided with database <$TPVER>,Please Check With System or RD-TA Engineer" PassOnly
-#			;# ??shop = Enable , ?v¡?–ç?å¼ä¸­æ­?.
+#			;# ??shop = Enable , ?vå¸¯?æ «?å¯®å¿è…‘å§?.
 #			if {[_f_vini_profilerd SFIS shop_floor]} {exit}
 #			_f_termmsg_V1 "Test Program Ver is invalided,that can't be found in server\n<$TPVER>\nNow is Debug Mode\nLet Test Program Keep going. \nWhen Shop Floor Enable , test program will be terminated before this message"
 #		} else {
@@ -236,7 +236,7 @@ proc _f_MesShopFlowCheckIn {args} {
 #		}
 #	}
 	;##=================================================================
-	;##	æª¢æŸ¥ SN , MAC_START , PN , OP , WSID , LINE , and Final STATUS == PASS
+	;##	å¦¾ãˆ¡ç…¡ SN , MAC_START , PN , OP , WSID , LINE , and Final STATUS == PASS
 	;##=================================================================
 	foreach keychk {SN,1 MAC_START,0 PN,1 OP,1 WSID,1 LINE,1 STATUS,1} {
 		set index_split [lindex [split $keychk ,] 1]
@@ -291,8 +291,8 @@ proc _f_MesShopFlowCheckIn {args} {
 			set hhmmss [lindex $ServerTime 1]
 			#usermsg "hhmmss=$hhmmss"
 			if {[regexp {23:59:5\d} $hhmmss]} {
-				;# ?¥æ??“æ–¼ 23:59:5x . ?ºé¿??. CPU loading å»¶é² å°è‡´ 23:59:59 è¨­å? ?¥æ???. ?€? æ????°å¸¸ . å°???10 ç§?è¦–ç‚º . ç¦å?.
-				;# ?¥é€²å…¥?°ç??€ . ?‡ç?å¼è‡ª?•é€²å…¥ ?å? æ¨¡å? . ?´åˆ° . ?¿é?æ­¤å?æ®?ç¦å?.
+				;# ?ãƒ¦??æ’´æŸ¤ 23:59:5x . ?æ´ªä¼©??. CPU loading å¯¤å •ä¼ˆ çåº¤åš§ 23:59:59 ç‘·î…? ?ãƒ¦???. ?ï¿½?çŠ³????æ¿çˆ¶ . ç???10 ç»‰?ç‘•æ «å¤ . ç»‚ä½¸?.
+				;# ?ãƒ©ï¿½æ’å†?æ‰®??ï¿½ . ?å›©?å¯®å¿šåšœ?æ›¢ï¿½æ’å† ?ç‚²? å¦¯â€³? . ?æ‘åŸŒ . ?å—?å§ã‚…?å¨ˆ?ç»‚ä½¸?.
 				return [_f_MesShopFlowCheckIn $args]
 			}
 			usermsg "Time Diff more then 10 sec , Had been Set to $ServerTime Already"
@@ -305,9 +305,9 @@ proc _f_MesShopFlowCheckIn {args} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_MesShopFlowUploadResultLog {}
 ;#-------------------------------------------------------------------------Ver:0U
-;# DESCRIPTION: ?é? webservice ?•ç? CheckIn å¾Œç?,è³‡æ?ä¸Šå‚³ ?•ä?.
-;#              ?¶åŸ·è¡Œæ­¤ function , ç¨‹å??y€é? ?ºæœ¬ ??sfis è³‡æ?. å­˜æ”¾??visual ini è£?
-;#              ?²è? é¡ä¼¼inifile?„å?ä¸²è????é€é? Accton MIS ?ä? ??COM ?t»¶.?²è?,è³‡è?ä¸Šå‚³.
+;# DESCRIPTION: ?å¿›? webservice ?æ› ? CheckIn å¯°å²€?,ç’©å›¨?æ¶“å©‚å ?æ›š?.
+;#              ?è·ºç…¼ç›å±¾î„ function , ç»‹å¬ª??yï¿½å¿›? ?çƒ˜æ¹° ??sfis ç’©å›¨?. ç€›æ¨»æ–??visual ini ç‘?
+;#              ?èŒ¶? æ¤¤ç‚°æŠ€inifile?å‹«?æ¶“èŒ¶????å¶‰ï¿½å¿›? Accton MIS ?æ„ª? ??COM ?tæ¬¢.?èŒ¶?,ç’©å›ª?æ¶“å©‚å.
 ;# EXAMPLE : _f_MesShopFlowUploadResultLog
 ;# RETURN: None
 ;############################################################################
@@ -349,7 +349,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 	profilewr $::MES_RESULT_CLIENT_FN TestResult  	SHIFT	    	[$::wsobj ShiftNo]
 	#profilewr $::MES_RESULT_CLIENT_FN TestResult 	DUT_NUM			$::DUT_Num
 	
-	#puts "Serverç«¯è‡ª?•æ›´??
+	#puts "Serverç»”îˆåšœ?æ›Ÿæ´¿??
 	profilewr $::MES_RESULT_CLIENT_FN TestResult		UPDATETIME			"ServerAutoUpdate"
 	profilewr $::MES_RESULT_CLIENT_FN TestResult		CREATEDATETIME	"ServerAutoUpdate"
 	profilewr $::MES_RESULT_CLIENT_FN TestResult  	TEST_PC	   			$::TEST_PC
@@ -384,7 +384,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 	#profilewr $::MES_RESULT_CLIENT_FN TestResult 	MINOR_VER		[_f_RetMinorChangeVerDetail]
 	#profilewr $::MES_RESULT_CLIENT_FN TestResult 	VER_HISTORY		[_f_ModifiedUser]
 
-	;# ?ºè? TMO ?„ç‰¹æ®Šæ?ä½?, ?½ç¹¼çºŒå‚³???¹åˆ¥??MIS Deal å¥? å°?::other_field ?†åˆ¥?å‡º.
+	;# ?é¸¿? TMO ?å‹­å£’å¨ˆå©ƒ?æµ£?, ?ç•Œè¾œç»¾å±½å???ç‘°å¾??MIS Deal æ¿‚? ç?::other_field ?å——å¾?ä½¸åš­.
 	#foreach ext [split $::other_field ,] {
 	#	incr ext_i
 	#	if {[string length $ext] >= 1} {
@@ -395,7 +395,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 	
 #		eval $::MesTestResultAddIn
 	;#=====================================================================================================================
-	;#?ˆæ? Log è®€??
+	;#?å Ÿ? Log ç’ï¿½??
 	;#=====================================================================================================================
 
 	set logch [open "$::capturefilename" r]
@@ -403,7 +403,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 	close $logch
 	profilewr $::MES_RESULT_CLIENT_FN TestLog  		BYTES		[string len $logbox]
 	;#=====================================================================================================================
-	;#å°?Log å¡åˆ° INIFILE ?„æ?å¾Œæ®µ
+	;#ç?Log æ¿‰ç‚²åŸŒ INIFILE ?å‹¬?å¯°å±¾î†Œ
 	;#=====================================================================================================================
 	set ch [open $::MES_RESULT_CLIENT_FN r+]
 	fconfigure $ch -encoding big5
@@ -411,7 +411,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 	puts $ch "\nContent=\n$logbox"
 	close $ch
 	;#=====================================================================================================================
-	;#?æ¬¡??æª”æ?è®€??::MesResult_Log
+	;#?å¶†î‚¼??å¦¾æ—€?ç’ï¿½??::MesResult_Log
 	;#=====================================================================================================================
 	#Kevin
 	#set ::MES_RESULT_CLIENT_FN "[pwd]/tmp/CResult1.ini"
@@ -430,7 +430,7 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 		return 0
 	}
 	;#=====================================================================================================================
-	;#?ŠServer ?æ? ::MesReturn å¯«å…¥ ç¡¬è? C:/tmp ::MesResult_Log
+	;#?å¥¡erver ?ç‚´? ::MesReturn ç€µî‚¢å† çº­î„ƒ? C:/tmp ::MesResult_Log
 	;#=====================================================================================================================
 	set ch [open $::MES_RESULT_SERVER_FN w]
 	fconfigure $ch -encoding big5
@@ -466,14 +466,14 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 #		_f_termmsg_V1 "Send MES Result&Log..Finish"
 	
 	;#=====================================================================================================================
-	;#å°?>72 Hr ?„è?æª??½ç???
+	;#ç?>72 Hr ?å‹®?å¦¾??ç•Œ???
 	;#=====================================================================================================================
 
 #		set mesfnlist [glob c:/tmp/*.ini]
 #		foreach fl $mesfnlist {
 #			set fctime [file mtime $fl]
 #			set fctgap [expr [clock seconds]-$fctime]
-#			;#?Šæ?è¶…é?72Hr ?´æ¥?ä?.
+#			;#?å©ƒ?ç“’å‘´?72Hr ?å­˜å¸´?å¶„?.
 #			if {$fctgap > [expr 72 * 60 * 60]} { 
 #				catch {file delete -force -- $fl}
 #			}
@@ -485,8 +485,8 @@ proc _f_MesShopFlowUploadResultLog {sResult} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_Mes_Reg_TestResult {key value}
 ;#-------------------------------------------------------------------------Ver:0U
-;# DESCRIPTION: ?é? _f_Mes_Reg_TestResult ??unction,ä¾†å?ç¾©é?å¤??„è???
-;#              ?¶åŸ·è¡Œ_f_MesShopFlowUploadResultLog???v??™ä?é¡å??„è??¯ä?ä½µé€ä? MES server.
+;# DESCRIPTION: ?å¿›? _f_Mes_Reg_TestResult ??unction,æ¸šå——?ç¼‡â•…?æ¾¶??å‹®???
+;#              ?è·ºç…¼ç›å®Šf_MesShopFlowUploadResultLog???v??æ¬?æ¤¤å¶…??å‹®??îˆ™?æµ£ç”¸ï¿½ä½·? MES server.
 ;# EXAMPLE : _f_Mes_Reg_TestResult
 ;# RETURN: None
 ;############################################################################
@@ -496,9 +496,9 @@ proc _f_Mes_Reg_TestResult {key value} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_RetMinorChangeVerDetail {}
 ;#-------------------------------------------------------------------------Ver:0U
-;# DESCRIPTION: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??æ¨?å»??hecksumå»ºç??‚é?è³‡è?.
+;# DESCRIPTION: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¶†å¸¹?ç‚²å¹“??hecksumå¯¤è™¹??å‚?ç’©å›ª?.
 ;# EXAMPLE : _f_Mes_Reg_TestResult
-;# RETURN: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??æ¨?å»??hecksumå»ºç??‚é?è³‡è?.
+;# RETURN: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¶†å¸¹?ç‚²å¹“??hecksumå¯¤è™¹??å‚?ç’©å›ª?.
 ;############################################################################
 proc _f_RetMinorChangeVerDetail {} {
 	set 62box "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -523,9 +523,9 @@ proc _f_RetMinorChangeVerDetail {} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_ModifiedUser {}
 ;#-------------------------------------------------------------------------Ver:0U
-;# DESCRIPTION: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??‰è¢«ä¿è­·??nifile section,ä½œè€…è???
+;# DESCRIPTION: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¤î¦æ·‡æ¿Šî„°??nifile section,æµ£æ»†ï¿½å‘°???
 ;# EXAMPLE : _f_ModifiedUser
-;# RETURN: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??‰è¢«ä¿è­·??nifile section,ä½œè€…è???
+;# RETURN: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¤î¦æ·‡æ¿Šî„°??nifile section,æµ£æ»†ï¿½å‘°???
 ;############################################################################
 proc _f_ModifiedUser {} {
 	set secauther ""
@@ -540,9 +540,9 @@ proc _f_ModifiedUser {} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_get_ftp_log {}
 ;#-------------------------------------------------------------------------Ver:0W
-;# DESCRIPTION: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??‰è¢«ä¿è­·??nifile section,ä½œè€…è???
+;# DESCRIPTION: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¤î¦æ·‡æ¿Šî„°??nifile section,æµ£æ»†ï¿½å‘°???
 ;# EXAMPLE : _f_get_ftp_log
-;# RETURN: ?å‚³ä¸€å­—ä¸²,?º[Fool Proof] è£¡æ??‰è¢«ä¿è­·??nifile section,ä½œè€…è???
+;# RETURN: ?ç‚²åæ¶“ï¿½ç€›æ¤¾è¦†,?ç¯¬Fool Proof] ç‘â„ƒ??å¤î¦æ·‡æ¿Šî„°??nifile section,æµ£æ»†ï¿½å‘°???
 ;############################################################################
 proc _f_get_ftp_log {{FTP_Server_tmp {1}}} {
 	set FTP_Log_Tag ""
@@ -568,12 +568,12 @@ proc _f_get_ftp_log {{FTP_Server_tmp {1}}} {
 		set FTP_password [base64::decode [_f_vini_profilerd "FTP Log Server Setup" $S3]]
 		set FTP_TYPE [_f_vini_profilerd "FTP Log Server Setup" $S6]
 		
-		# ä»?¡¨å·²ç??¯æ?å¾Œä??°server
+		# æµ ?ã€ƒå®¸èŒ¬??îˆ›?å¯°å±¼??çšŠerver
 		if {[strlen $FTP_Address]==0 && [strlen $FTP_username]==0 && [strlen $FTP_password]==0 && [strlen $FTP_TYPE]==0} {
 			break;
 		}
 		
-		# Næ¸?Disable, by pass this FTP server
+		# Nå¨“?Disable, by pass this FTP server
 		if { [strfind [_f_vini_profilerd "SFIS" "shop_floor"] "0"] } {
 			if { [strfind [_f_vini_profilerd "FTP Log Server Setup" $S8] "DISABLE"] } {
 				
@@ -604,11 +604,11 @@ proc _f_get_ftp_log {{FTP_Server_tmp {1}}} {
 		return "FTP Log Disable"
 	}
 }
-#============================ ä»¥ä?  ?…ç‚º?«å? ?ªå¯¦??==================================================================================================================
+#============================ æµ ãƒ¤?  ?å‘¯å¤?î‚¢? ?î„î‡›??==================================================================================================================
 ;############################################################################
 ;# PROCEDURE NAME - _f_Mes_Query_Assy_Data {SN}
 ;#-------------------------------------------------------------------------Ver:0w
-;# DESCRIPTION: ?é? webservice ?•ç? ??SN ?¾å? ?€?‰æ›¾ç¶“é€é???[TestResult]
+;# DESCRIPTION: ?å¿›? webservice ?æ› ? ??SN ?æƒ§? ?ï¿½?å¤‹æµ˜ç¼æ’»ï¿½ä¾€???[TestResult]
 ;############################################################################
 proc _f_DataQuerryTestResult {SN} {
 	#set SN BB0211X46199
@@ -623,13 +623,13 @@ proc _f_DataQuerryTestResult {SN} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_vini_sync_SN_via_MAC {PnList}
 ;#-------------------------------------------------------------------------Ver:0w
-;# DESCRIPTION: 	?é? _f_Mes_Query_SN_PN ?´æ–° vini è£¡é¢??SN.
-;#              	å¿…è?æ¢ä»¶ : vini SFIS è£¡é¢??MAC ?€?ºæ??›å·±??
+;# DESCRIPTION: 	?å¿›? _f_Mes_Query_SN_PN ?å­˜æŸŠ vini ç‘ï¿ æ½°??SN.
+;#              	è¹‡å‘°?å§Šæ¿…æ¬¢ : vini SFIS ç‘ï¿ æ½°??MAC ?ï¿½?çƒ˜??æ¶˜ç¹??
 ;# Param:
-;#           $PnList : ?ºä???List ?„è??™ç?æ§??¯ç‚º ?®æ•¸?–è??¸å€‹ä»¥ä¸??ˆhit?°ç??ºå¡Ñ??
+;#           $PnList : ?è½°???List ?å‹®??æ¬‘?å¦²??îˆœå¤ ?î†½æš©?æ ¬??ç¨¿ï¿½å¬©äº’æ¶“??å”it?æ‰®??å“„âŠ™??
 ;# EXAMPLE :  _f_vini_sync_SN_via_MAC "C0P9J4614001A C0P9J4614001B C0P9J4614001C"
-;# RETURN: 0 -> è¡¨ç¤º ?¥ç?ä»»ä?è³‡æ?.
-;#         1 -> è¡¨ç¤º ?å?ç½®æ? vini->[SFIS]->MAC
+;# RETURN: 0 -> ç›ã„§ãš ?ãƒ§?æµ è®³?ç’©å›¨?.
+;#         1 -> ç›ã„§ãš ?æ„¬?ç¼ƒî†½? vini->[SFIS]->MAC
 ;############################################################################
 proc _f_vini_sync_SN_via_MAC { PnList } {
 	set mac [string toupper [_f_vini_profilerd SFIS MAC]]
@@ -651,16 +651,16 @@ proc _f_vini_sync_SN_via_MAC { PnList } {
 ;############################################################################
 ;# PROCEDURE NAME - _f_Mes_Query_SN_PN {MAC DQO}
 ;#-------------------------------------------------------------------------Ver:0w
-;# DESCRIPTION: ?é? webservice ?•ç? ??MAC ?¾å? ?€?³æ??„ç????…å« PN & MAC
-;#              è«‹æ³¨?? ?¥ç•¶ N = C  = P = F ??. S/N ?½ä??´æ? . ?…æ??¾åˆ°ä¸€çµ?S/N.
-;#              ??N   ?ç??Ÿå?   ?®å?æ­?S/N æ­?¥½??C ???‡æ??¾åˆ° (1)N?PN & N?SN (2)C?PN & C?SN (ä¸€?¬ç”¢æ¸???SFIS=Y ?½ç‚ºæ­¤æ?ä¾?
-;# 		        ??N,C ?éMçµæ?å¾??®å?æ­?S/N æ­?¥½??P ???‡æ??¾åˆ° (1)N?PN & N?SN (2)P?PN & P?SN (ä¸€?¬ç”¢æ¸?é©—è??ç? S/N ,?€?y?è©²å????®å??„æ?ç¨‹ç‚ºä½•è?)
+;# DESCRIPTION: ?å¿›? webservice ?æ› ? ??MAC ?æƒ§? ?ï¿½?è™«??å‹­????å‘­æƒˆ PN & MAC
+;#              ç’œå¬«æ•?? ?ãƒ§æš¥ N = C  = P = F ??. S/N ?æˆ’??å­˜? . ?å‘®??æƒ§åŸŒæ¶“ï¿½ç»²?S/N.
+;#              ??N   ?åº£??ç†·?   ?î†¼?å§?S/N å§?ã‚½??C ???å›¨??æƒ§åŸŒ (1)N?å¶±N & N?å¶´N (2)C?å¶±N & C?å¶´N (æ¶“ï¿½?î„‚æ•˜å¨“???SFIS=Y ?ç•Œå¤å§ã‚†?æ¸š?
+;# 		        ??N,C ?åº¨Mç»²æ„­?å¯°??î†¼?å§?S/N å§?ã‚½??P ???å›¨??æƒ§åŸŒ (1)N?å¶±N & N?å¶´N (2)P?å¶±N & P?å¶´N (æ¶“ï¿½?î„‚æ•˜å¨“?æ¤¹æ¥„??æ„®? S/N ,?ï¿½?y?ç‘­æ’????î†¼??å‹¬?ç»‹å¬¬å¤æµ£æ›¡?)
 ;# 	            $MAC : MAC address 12Bytes
-;#              $DQO : ?ºä??‹å‚³?€?„è???, List ??Query è³‡æ??å?å¾?.?t»¥ äºŒå€??w? {PN} {SN} ?ºä?çµ?List ?å‚³.
+;#              $DQO : ?è½°??å¬ªå?ï¿½?å‹®???, List ??Query ç’©å›¨??æ„¬?å¯°?.?täº’ æµœå±½ï¿½??w? {PN} {SN} ?è½°?ç»²?List ?ç‚²å.
 ;# EXAMPLE : _f_Mes_Query_SN_PN
 ;#           _f_DataQuerry
-;# RETURN: 0 -> è¡¨ç¤º ?¥ç?ä»»ä?è³‡æ?.
-;#         1 -> è¡¨ç¤º ?³å??‰ä?çµ„ä»¥ä¸Šç?è³‡æ?.
+;# RETURN: 0 -> ç›ã„§ãš ?ãƒ§?æµ è®³?ç’©å›¨?.
+;#         1 -> ç›ã„§ãš ?å†²??å¤‰?ç»²å‹ªäº’æ¶“å©„?ç’©å›¨?.
 ;############################################################################
 proc _f_Mes_Query_SN_PN {MAC DQO} {
 	upvar $DQO dataquery 
@@ -679,10 +679,10 @@ proc _f_Mes_Query_SN_PN {MAC DQO} {
 ;############################################################################
 ;# PROCEDURE NAME - _f_Mes_Query_Assy_Data {SN DQO}
 ;#-------------------------------------------------------------------------Ver:0w
-;# DESCRIPTION: ?é? webservice ?•ç? ??C-??S/N ?¾å? ?€????çµ„ç??æ®µ ???€??S/N , P/N ??MAC
+;# DESCRIPTION: ?å¿›? webservice ?æ› ? ??C-??S/N ?æƒ§? ?ï¿½????ç»²å‹­??åº¢î†Œ ???ï¿½??S/N , P/N ??MAC
 ;# 	            $SN : MAC address 12Bytes
-;#              $DQO : ?ºä??‹å‚³?€?„è???, List ??Query è³‡æ??å?å¾?.?t»¥ ä¸‰å€??w? {SN} {PN} {MAC}  ?ºä?çµ?List ?å‚³.
-;#                     ???¡MAC ?ºæ?ä»?å­—ä¸² "NO_MAC" ?å‚³
+;#              $DQO : ?è½°??å¬ªå?ï¿½?å‹®???, List ??Query ç’©å›¨??æ„¬?å¯°?.?täº’ æ¶“å¤Šï¿½??w? {SN} {PN} {MAC}  ?è½°?ç»²?List ?ç‚²å.
+;#                     ???î““AC ?çƒ˜?æµ ?ç€›æ¤¾è¦† "NO_MAC" ?ç‚²å
 ;############################################################################
 proc _f_Mes_Query_Assy_Data {SN DQO} {
 	upvar $DQO dataquery
