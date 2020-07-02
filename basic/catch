@@ -7,3 +7,9 @@
 
 catch [twapi::get_process_ids -name tftpd32.exe]
 
+# 搭配判斷式 if..else.
+if {[catch [twapi::get_process_ids -name tftpd32.exe]]} {
+         puts "Have tftpd32.exe."
+} else {
+         puts "Have not tftpd32.exe."
+}
