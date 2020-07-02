@@ -1,8 +1,9 @@
 # 空值判斷
 # 語法: catch script ?resultVarName? ?optionsVarName?
 
-# Example: Get tftpd32.exe process ID on Win7.
+# Example: Check any tftpd32.exe process ID on Win7.
+# If yes, return "1"
+# If no, return "0"
 
-if { [catch {} result] } {
+catch [twapi::get_process_ids -name tftpd32.exe]
 
-}
