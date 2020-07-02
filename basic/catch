@@ -1,0 +1,8 @@
+# 空值判斷
+# 語法: catch script ?resultVarName? ?optionsVarName?
+
+# Example: Get tftpd32.exe process ID on Win7.
+
+if { [catch {} result] } {
+
+}
