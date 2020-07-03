@@ -1,5 +1,0 @@
-# 將字串裡的第一個字母轉為大寫, 其他轉為小寫
-# output: Hello world
-
-set str "hello world"
-string totitle $str
