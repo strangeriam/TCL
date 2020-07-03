@@ -1,0 +1,14 @@
+# 定義值為整數或字串.
+
+# Syntax:
+# scan string format varName ?varName ...?
+
+set str "some 26 34"
+scan $str "some %d %d" num1 num2
+# output: 2
+
+puts $num1
+# output: 26
+
+puts $num2
+# output: 34
