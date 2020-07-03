@@ -1,0 +1,6 @@
+# 移除空白, 只取 0~9.
+# output: 123456
+
+set input "123 456 ab cd"
+regexp {[0-9]+} [string map {" " ""} $input] getNumber
+puts $getNumber
