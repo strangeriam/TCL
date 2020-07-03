@@ -1,22 +1,11 @@
-
 # ==============
 # Example code 1
-# 移除空白, 只取 0~9.
-
-set input "123 456 ab cd"
-regexp {[0-9]+} [string map {" " ""} $input] getNumber
-puts $getNumber
-
-# Response: 123456
-
-# ==============
-# Example code 2
 if { ![regexp "PASS" $var]} {
        set testResult FAIL
 }
 
 # ==============
-# Example code 3
+# Example code 2
 # Actual command in my code.
 # set uartRes [promptwait $com_fd "uname -v" $prompt_linux 2]
 
@@ -44,7 +33,7 @@ if { [regexp $verSW_1 $getVer] } {
 # Response: this is code 1
 
 # ==============
-# Example code 4
+# Example code 3
 # 不能有空字元
 # 比對的字串裡不能有空字元.
 # 舉例: Boot loader 的 prompt 字串是 → (IPQ40xx) #, 將比對不出來, 出現結果為 “UNDEFINE”.
