@@ -1,0 +1,5 @@
+# Example: 將 ":" 置換成空格 " "
+# output: aa bb cc
+
+set aaa "aa:bb:cc"
+string map {: " "} $aaa
