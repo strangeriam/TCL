@@ -1,1 +1,7 @@
 # 字串串接
+# 將 "str2" 接續在目標字串 "str1" 之後.
+# output: Papa, Good morning.
+
+set str1 "Papa"
+set str2 ", Good morning."
+append str1 $str2
