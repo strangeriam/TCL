@@ -1,0 +1,4 @@
+
+::twapi::write_inifile_key "TEST" "LOOP_NUM" $::loopNumber -inifile "$::ENVPATH/necessary/temporary.ini"
+
+[ ::twapi::read_inifile_key "TEST" "LOOP_NUM" -inifile "$::ENVPATH/necessary/temporary.ini" -default "3" ]
