@@ -1,4 +1,5 @@
 # 定義值為整數或字串.
+# 新變數名不帶 $ 符號.
 
 # Syntax:
 # scan string format varName ?varName ...?
