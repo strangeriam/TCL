@@ -20,5 +20,19 @@ proc close_gpib {device} {
 set voltAll [scpi::cmd $com_gpib "MEAS:VOLT:DC? (@302,303,304,305,)"]
 set readData [scpi::cmd $com_gpib ":FETCH?"]
 
+scpi::cmdSend $com_gpib ":FREQ:CENT ${FreqCent}"
+[scpi::cmdRead $com_gpib]
 
+set readData [scpi::cmd $com_gpib "*IDN?"]
+
+scpi::cmdSend $com_gpib "*IDN?"
+[scpi::cmdRead $com_gpib]
+*IDN?
 scpi::cmd $com_gpib "*RST"
+
+# =======================================================
+This Work
+scpi::cmdSend $com_gpib "*IDN?"
+set Frequency [gpib read -device $com_gpib -mode ascii]
+
+
