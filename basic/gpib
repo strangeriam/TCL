@@ -1,5 +1,6 @@
 
 proc f_gpib_open { } {
+      global com_gpib
 
       if { [ catch { set com_gpib [gpib open -address $::gpibPort -sendeoi true] } result ] } {
                 puts "Debug-Lu: NO GPIB Port."
