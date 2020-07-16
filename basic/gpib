@@ -18,10 +18,9 @@ proc close_gpib {device} {
 
 # =======================================================
 This Work 1
-scpi::cmdSend $com_gpib "*IDN?"
 # Query
+scpi::cmdSend $com_gpib "*IDN?"
 set aaa [gpib read -device $com_gpib -mode ascii]
-
 puts $aaa
 # Output: Agilent Technologies,E4418A,,A1.08.04
 
