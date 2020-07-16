@@ -16,6 +16,22 @@ proc close_gpib {device} {
                  gpib close -device $addr
 }}}}
 
+# =======================================================
+This Work 1
+scpi::cmdSend $com_gpib "*IDN?"
+# Query
+set aaa [gpib read -device $com_gpib -mode ascii]
+
+puts $aaa
+# Output: Agilent Technologies,E4418A,,A1.08.04
+
+This Work 1
+scpi::cmdSend $com_gpib ":MEAS1?"
+gpib read -device $com_gpib -mode ascii
+# Output: -3.05027464E+001
+
+# =======================================================
+
 # Read
 set voltAll [scpi::cmd $com_gpib "MEAS:VOLT:DC? (@302,303,304,305,)"]
 set readData [scpi::cmd $com_gpib ":FETCH?"]
@@ -23,16 +39,10 @@ set readData [scpi::cmd $com_gpib ":FETCH?"]
 scpi::cmdSend $com_gpib ":FREQ:CENT ${FreqCent}"
 [scpi::cmdRead $com_gpib]
 
-set readData [scpi::cmd $com_gpib "*IDN?"]
-
 scpi::cmdSend $com_gpib "*IDN?"
 [scpi::cmdRead $com_gpib]
-*IDN?
 scpi::cmd $com_gpib "*RST"
 
-# =======================================================
-This Work
-scpi::cmdSend $com_gpib "*IDN?"
-set Frequency [gpib read -device $com_gpib -mode ascii]
-
-
+# Not Work
+scpi::cmd $com_gpib "*IDN?"
+set aaa [gpib read -device $com_gpib -mode ascii]
