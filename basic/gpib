@@ -1,0 +1,24 @@
+
+proc f_gpib_open { } {
+
+      if { [ catch { set com_gpib [gpib open -address $::gpibPort -sendeoi true] } result ] } {
+                puts "Debug-Lu: NO GPIB Port."
+                return
+      } else {
+                puts "Debug-Lu: open GPIB Addr $::gpibPort success."
+      }
+}
+
+proc close_gpib {device} {
+     catch {
+        foreach addr $device {
+              if { $addr > 0 } {
+                 gpib close -device $addr
+}}}}
+
+# Read
+set voltAll [scpi::cmd $com_gpib "MEAS:VOLT:DC? (@302,303,304,305,)"]
+set readData [scpi::cmd $com_gpib ":FETCH?"]
+
+
+scpi::cmd $com_gpib "*RST"
