@@ -28,10 +28,11 @@ puts $aaa
 This Work 1
 scpi::cmdSend $com_gpib ":MEAS1?"
 gpib read -device $com_gpib -mode ascii
+# 讀取前需要等待一下.
 # Output: -3.05027464E+001
 
 # =======================================================
-
+TRY AREA
 # Read
 set voltAll [scpi::cmd $com_gpib "MEAS:VOLT:DC? (@302,303,304,305,)"]
 set readData [scpi::cmd $com_gpib ":FETCH?"]
