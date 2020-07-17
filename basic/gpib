@@ -18,18 +18,18 @@ proc close_gpib {device} {
 }}}}
 
 # =======================================================
-This Work 1
-# Query
+# This Work 1, Query.
+# gpib read 只能成功讀取一次, 往後讀取就不會有值.
+# Output: Agilent Technologies,E4418A,,A1.08.04
 scpi::cmdSend $com_gpib "*IDN?"
 set aaa [gpib read -device $com_gpib -mode ascii]
 puts $aaa
-# Output: Agilent Technologies,E4418A,,A1.08.04
 
-This Work 1
+#This Work 1
 scpi::cmdSend $com_gpib ":MEAS1?"
 gpib read -device $com_gpib -mode ascii
-# 讀取前需要等待一下.
 # Output: -3.05027464E+001
+# 讀取前需要等待一下, 可使用 ":FETCH?" 取代 ":MEAS1?", 讀取時較穩.
 
 # =======================================================
 TRY AREA
