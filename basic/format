@@ -10,22 +10,12 @@ set age 20
 set msg [format "%s is %d years old" $name $age]
 john is 20 years old
 
-# Example code 2:
 # 定義單一數字為整數.
-set num 88
-set numInt [format %d $num]
+set numInt [format %d "88"]
 
-# Example code 3:
-# 定義單一數字為小數(浮點數).
-set num "8.8"
-set numFlot [format %f $num]
-
-# Example code 4:
 # 定義單一數字為小數(浮點數-實際長度表示).
-set num "8.8"
-set numFlot [format %g $num]
+set numFlot [format %g "8.8"]
 
-# Example code 5:
 # 顏色格式 16進制表示
 # output #6358C7
 set R 102
