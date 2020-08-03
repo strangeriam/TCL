@@ -1,9 +1,23 @@
-
-::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
 # -foreground → 定義文字顏色
 # -background → 定義 frame 顏色
 
+::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
+
+# 擺靠方位
+# =============================================================
+# -anchor [n, e, w, s, center]
 
 pack .label -anchor w
-# 擺靠方位
-# -anchor [n, e, w, s, center]
+
+# -image
+# =============================================================
+# -width [number]
+# -height [number]
+# data string
+
+image create photo imgTelnet -file "$::ENVPATH/metadata/photo/icon/telnet.gif" -width 20 -height 10  
+::ttk::label .f.top.right.f3.lbl1 -text "Telnet Icon" -image imgTelnet
+
+# or
+
+.f.top.right.f3.lbl1 configure -image imgTelnet
