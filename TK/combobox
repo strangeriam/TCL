@@ -15,3 +15,9 @@ bind .f.top.right.f2 <<ComboboxSelected>> {
 			        "C++" { puts "----- 2 ------" }
 			}
 }
+
+# set the combobox's initial value and make it not directly editable as text.
+# Everything else is just changing around how things are named.
+# =============================================================================
+.combo set [lindex $values 0]
+.combo configure -state readonly
