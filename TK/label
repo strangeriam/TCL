@@ -1,0 +1,9 @@
+
+::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
+# -foreground → 定義文字顏色
+# -background → 定義 frame 顏色
+
+
+pack .label -anchor w
+# 擺靠方位
+# -anchor [n, e, w, s, center]
