@@ -7,3 +7,11 @@ pack [ttk::combobox .s1  \
 
 # 預設顯示 "C"
 set combovalue "C"
+
+# 選擇 Item 後, 立即執行.
+bind .f.top.right.f2 <<ComboboxSelected>> {
+			switch [%W get] {
+			        "C"   { puts "----- 1 ------" }
+			        "C++" { puts "----- 2 ------" }
+			}
+}
