@@ -4,4 +4,6 @@ pack [ttk::combobox .s1  \
                     -textvariable combovalue -values $mylist \
                     -background yellow -font {Helvetica -18 bold} \
                     -foreground red -width 40 -justify left -state normal]
+
+# 預設顯示 "C"
 set combovalue "C"
