@@ -1,0 +1,3 @@
+set dmtool_data [exec python.exe dm_test_2_info_antenna.py $::dut_ip_poe $PATH_DMTOOL/CS_0.0.059.1/TALYN_M_B0_WMI_ONLY]
+vwait_seconds 2
+puts "dmtool_data ==>$dmtool_data"
