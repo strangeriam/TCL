@@ -1,0 +1,18 @@
+
+set data_rf [open "|python.exe dm_test_2_info_antenna.py 192.168.1.1 C:/Users/Coding7-2017/Dropbox/12-Office-Sync-MTS/12-TryTryLu/trytryLu-02-CN/tools/wireless/dmClient/CS_0.0.059.1/TALYN_M_B0_WMI_ONLY/" r+]
+read $data_rf
+
+
+# Output
+==============================================
+Connect to DmTools
+Connect to DUT IP : 192.168.1.1
+Connect to Device : 192.168.1.1:12348@PCI!wlan0
+Created device: 192.168.1.1:12348@PCI!wlan0
+
+RF Temperature : 60
+RF Status : RF_OK
+RF Board Name : TLN-A2
+RF BRD# 0x36051005
+
+DMTool, Disconnect with DUT.
