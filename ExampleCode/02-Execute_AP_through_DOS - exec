@@ -1,3 +1,18 @@
 set dmtool_data [exec python.exe dm_test_2_info_antenna.py $::dut_ip_poe $PATH_DMTOOL/CS_0.0.059.1/TALYN_M_B0_WMI_ONLY]
 vwait_seconds 2
 puts "dmtool_data ==>$dmtool_data"
+
+
+# Output
+==============================================
+Connect to DmTools
+Connect to DUT IP : 192.168.1.1
+Connect to Device : 192.168.1.1:12348@PCI!wlan0
+Created device: 192.168.1.1:12348@PCI!wlan0
+
+RF Temperature : 60
+RF Status : RF_OK
+RF Board Name : TLN-A2
+RF BRD# 0x36051005
+
+DMTool, Disconnect with DUT.
