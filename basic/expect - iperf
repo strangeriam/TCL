@@ -1,0 +1,21 @@
+puts "\n Enter the port no : " 
+gets stdin sprt
+
+puts "\n Enter the display intervel (in sec) : "
+gets stdin sint
+
+global spawn_id
+set timeout 40 
+
+spawn telnet $ip
+expect "login:"
+send "$user\r"
+
+set timeout 10
+
+expect "Password:"
+send "$password\r"
+
+expect ".*$"
+send "pwd\r"
+send "iperf -s -u -p $sprt -i $sint" 
