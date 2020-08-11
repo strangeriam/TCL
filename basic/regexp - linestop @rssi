@@ -1,7 +1,5 @@
 # Syntax: regexp -linestop  {條件字串}  “source string”  新變數名
 # 含其後面字串表示: {條件字串.*}
-
-# ==============
 # Example Code 1, Get Wifi RSSI value "-45".
 
 set aaa "
