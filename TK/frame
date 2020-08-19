@@ -1,0 +1,9 @@
+frame .f1 -background red -relief ridge -borderwidth 8 -height 200 -width 200
+button .f1.btn1 -text "Button 1"
+button .f1.btn2 -text "Button 2"
+
+pack .f1.btn1 .f1.btn2 -fill both
+pack .f1
+
+# =================================
+# relief: flat (default), groove, raised, ridge, solid, sunken.
