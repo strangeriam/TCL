@@ -1,0 +1,24 @@
+
+set ::IQFact_Pathloss "$::IQFact_Path/path_loss.csv"
+
+
+     # === Write CSV File ==="
+     set csvFile_write     [open $::IQFact_Pathloss w+]
+     puts $csvFile_write $pathloss
+     close $csvFile_write
+
+     set csvFile_read_tmp [file_open "$::IQFact_Pathloss" r]
+     set csvFile_read [read $csvFile_read_tmp]
+
+     puts "===== Compare INI with CSV ====="
+     puts "\[$pathloss\]"
+     puts ""
+     puts "\[$csvFile_read\]"
+
+     set testResult PASS
+
+     if { ![regexp $pathloss $csvFile_read]} {
+                set testResult FAIL
+     }
+
+     file_close $csvFile_read_tmp
