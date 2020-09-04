@@ -1,0 +1,19 @@
+set ::IQFact_Path     "$ENVPATH\\metadata\\IQfact"
+
+foreach item [list "Log" "Result" "Result_LP" "Result_User"] {
+            foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.txt] {
+                file delete -force $line
+            }
+
+            foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.iqvsa] {
+                file delete -force $line
+            }
+
+            foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.csv] {
+                file delete -force $line
+            }
+            foreach line [glob -nocomplain -directory ${::IQFact_Path} *.csv] {
+                file delete -force $line
+            }
+     }
+     
