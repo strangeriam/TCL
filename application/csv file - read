@@ -1,0 +1,15 @@
+
+set ::ENVPATH [file dirname [info script]]
+set ::path_nvm "$::ENVPATH/metadata/NVM.csv"
+
+set fd [open $::path_nvm r]
+set csv_read [read $fd]
+
+puts "--->\n$csv_read<---"
+--->
+SN,MAC,MODEL,MANUFACTURER,SKU,PCBVER,FAMILY,CHASSIS
+AGB101AYYWW00001,,F419E200100F,IGW5000,Volterra Inc.,5008-002,R0C,IGW,21
+AGB101AYYWW00002,,F419E200200F,IGW5000,Volterra Inc.,5008-002,R0C,IGW,21
+<---
+
+close $fd
