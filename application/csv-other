@@ -17,3 +17,33 @@ foreach item [list "Log" "Result" "Result_LP" "Result_User"] {
             }
      }
      
+     
+     
+     
+set ::ENVPATH [file dirname [info script]]
+set ::path_nvm "$::ENVPATH/metadata/NVM.csv"
+
+set pathloss "${freq},,${DUT1XA},${DUT2XA},"
+
+# === Write CSV File ==="
+set csvFile_write [open $::path_nvm w+]
+puts $csvFile_write $pathloss
+close $csvFile_write
+
+     set csvFile_read_tmp [file_open "$::IQFact_Pathloss" r]
+     set csvFile_read [read $csvFile_read_tmp]
+
+     puts "===== Compare INI with CSV ====="
+     puts "\[$pathloss\]"
+     puts ""
+     puts "\[$csvFile_read\]"
+
+     set testResult PASS
+
+     if { ![regexp $pathloss $csvFile_read]} {
+                set testResult FAIL
+     }
+
+     file_close $csvFile_read_tmp
+
+
