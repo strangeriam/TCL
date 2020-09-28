@@ -11,3 +11,5 @@ switch $num {
               " 7 " { puts "Sunday" }
               " default " { puts "Wrong Value" }
 }
+
+# OUTPUT: Wednesday
