@@ -1,0 +1,13 @@
+
+set num 3
+
+switch $num {
+              " 1 " { puts "Monday" }
+              " 2 " { puts "Tuesday" }
+              " 3 " { puts "Wednesday" }
+              " 4 " { puts "Thursday" }
+              " 5 " { puts "Friday" }
+              " 6 " { puts "Saturday" }
+              " 7 " { puts "Sunday" }
+              " default " { puts "Wrong Value" }
+}
