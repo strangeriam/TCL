@@ -1,0 +1,6 @@
+# 取現在時間
+
+set str [clock seconds]
+clock format $str -format "%y%m%d %H:%M:%S"
+
+# OUTPUT: 200929 09:21:13
