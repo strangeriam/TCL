@@ -1,7 +1,8 @@
+# 列出單句範圍.
+# ============
 
-# Syntax: lrange $string [first word] [last word]
+set var "papa mama coco meme"
+lrange $vsr 0 1
 
-set familyList "papa mama coco meme"
-lrange $familyList 0 1
-
-# Response: papa mama
+# =================
+# OUTPUT: papa mama
