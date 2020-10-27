@@ -1,0 +1,7 @@
+set var "1,,a,aa,aaa,"
+append var "2,b,bb,bbb,"
+append var "3,c,cc,ccc,"
+
+set infile [open test.csv w+]
+puts $infile $var
+close $infile
