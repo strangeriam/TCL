@@ -1,6 +1,8 @@
 
-if [catch {open "|metadata/cmd.exe /c dir" r} pipe ] {
+if [catch {open "|cmd.exe /c dir" r} pipe ] {
       puts "ERROR: Cannot open pipe : $pipe"
+} else {
+      puts "OK: Got pipe."
 }
 
 fileevent $pipe readable [list READER $pipe]
