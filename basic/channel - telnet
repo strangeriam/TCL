@@ -1,0 +1,11 @@
+
+open "|$::path_TELNET/plink -telnet 192.168.1.1" w+
+
+if { [catch { set telnet_fd [open "|$::path_TELNET/plink -telnet $dut_ip" w+] } result] } {
+			   return 0
+} else {
+				 fconfigure $telnet_fd -blocking 0 -buffering line
+				 return $telnet_fd
+}
+
+set telnetRes [ WaitForAllStrings $telnet_fd "root@OpenWrt:"]
