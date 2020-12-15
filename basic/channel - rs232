@@ -1,0 +1,3 @@
+set com_fd [open "COM$port:" r+]
+fconfigure $com_fd -blocking 0 -buffering line -mode 115200,n,8,1 -translation cr
+return $com_fd
