@@ -1,0 +1,27 @@
+## CSV Read
+## ========= 
+set ::ENVPATH [file dirname [info script]]
+set ::path_nvm "$::ENVPATH/metadata/NVM.csv"
+
+set fd [open $::path_nvm r]
+set csv_read [read $fd]
+
+puts "--->\n$csv_read<---"
+--->
+SN,MAC,MODEL,MANUFACTURER,SKU,PCBVER,FAMILY,CHASSIS
+AGB101AYYWW00001,,F419E200100F,IGW5000,Volterra Inc.,5008-002,R0C,IGW,21
+<---
+
+close $fd
+
+
+
+## CSV Write
+## ========= 
+set var "1,,a,aa,aaa,"
+append var "2,b,bb,bbb,"
+append var "3,c,cc,ccc,"
+
+set infile [open test.csv w+]
+puts $infile $var
+close $infile
