@@ -1,0 +1,18 @@
+package require csv
+package require struct::queue
+
+set ::ENVPATH [file dirname [info script]]
+
+set csv [ open $::ENVPATH/metadata/NVM.csv {RDWR} ]
+
+::struct::queue q
+::csv::read2queue $csv q
+set final [ q peek [ q size ]]
+
+
+# #============================
+puts $final
+
+OUTPUT:
+{SN {} MANUF MODEL PCBVER SKU FAMILY MAC CHASSIS} {AGB101AYYWW0TRY1 {} {Volterra Inc.} IGW5000 R0C2 5008-002 IGW5000 F419E200100f 21}
+
