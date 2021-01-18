@@ -1,2 +1,8 @@
 
-db eval "DELETE FROM $StationName WHERE SerialNumber='$SerialNumber'"
+## 如果 Table "NVM" field "CONFIG_SN" 存在 $SN, 則刪除此 field.
+
+set SN "123456"
+
+if { [db exists "SELECT CONFIG_SN FROM NVM WHERE CONFIG_SN = '$SN'"] } {
+      db eval "DELETE FROM NVM WHERE CONFIG_SN='$SN'"
+}
