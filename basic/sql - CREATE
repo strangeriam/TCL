@@ -5,6 +5,7 @@ db timeout 500
 
 ## =============================================================
 ## Create table "NVM" & also create a primary field "CONFIG_SN".
+## Table 名稱可為變數.
 
 db eval {CREATE TABLE NVM (CONFIG_SN TEXT PRIMARY KEY);}
 
@@ -20,5 +21,5 @@ db eval {CREATE TABLE NVM (CONFIG_SN TEXT PRIMARY KEY, MANUF TEXT);}
 ## Value 可為變數, 需用 ''. 例 '$var'
 
 set var 1
-db eval "INSERT INTO NVM(CONFIG_SN,MANUF) values('$var',2)"
+db eval "INSERT INTO NVM(CONFIG_SN,MANUF,MODEL,PCBVER,SKU,FAMILY,MAC_ID,CHASSIS_TYPE) values('$var',2)"
 
