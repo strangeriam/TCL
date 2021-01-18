@@ -1,3 +1,22 @@
-Select * from SFISM4.r_nvw_data_import_t where  config_sn = '$::var_sn'
+package require sqlite3
 
-db exists "SELECT SerialNumber FROM $StationName WHERE SerialNumber = '$SerialNumber'"
+sqlite3 db $::ENVPATH/metadata/trytrylu.db
+db timeout 500
+
+## Table: NVM
+## Field: CONFIG_SN,       MANUF,          MODEL,  PCBVER, SKU,     FAMILY, MAC_ID,      CHASSIS_TYPE
+## Value: AGB101AYYWW0TRY1 {Volterra Inc.} IGW5000 R0C2    5008-002 IGW5000 F419E200100f 21
+
+set SN AGB101AYYWW0TRY1
+
+## 目標選擇
+db eval "select MANUF,MODEL,PCBVER,SKU,FAMILY,MAC_ID,CHASSIS_TYPE FROM NVM WHERE CONFIG_SN='$SN'"
+
+## 全選
+db eval "Select * from NVM where config_sn = '$SN'"
+
+## ================================================================
+## 如果 Table "NVM" field "CONFIG_SN" 存在 $SN, 則刪除此 field.
+if { [db exists "SELECT CONFIG_SN FROM NVM WHERE CONFIG_SN = '$SN'"] } {
+      db eval "DELETE FROM NVM WHERE CONFIG_SN='$SN'"
+}
