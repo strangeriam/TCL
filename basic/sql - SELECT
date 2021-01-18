@@ -1,0 +1,3 @@
+Select * from SFISM4.r_nvw_data_import_t where  config_sn = '$::var_sn'
+
+db exists "SELECT SerialNumber FROM $StationName WHERE SerialNumber = '$SerialNumber'"
