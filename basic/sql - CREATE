@@ -1,0 +1,24 @@
+package require sqlite3
+
+sqlite3 db $::ENVPATH/metadata/trytrylu.db
+db timeout 500
+
+## =============================================================
+## Create table "NVM" & also create a primary field "CONFIG_SN".
+
+db eval {CREATE TABLE NVM (CONFIG_SN TEXT PRIMARY KEY);}
+
+## =============================================
+## After above, also new create a field "MANUF".
+
+db eval {CREATE TABLE NVM (CONFIG_SN TEXT PRIMARY KEY, MANUF TEXT);}
+
+## ==============================================================
+## 在 Table "NVM" 裡的 Field "CONFIG_SN & MANUF", 依序填入 "1 & 2".
+## Field 欄位 CONFIG_SN & MANUF 一定要存在, 才能填入 Value.
+## Field 名稱需為純文字, 不可為變數.
+## Value 可為變數, 需用 ''. 例 '$var'
+
+set var 1
+db eval "INSERT INTO NVM(CONFIG_SN,MANUF) values('$var',2)"
+
