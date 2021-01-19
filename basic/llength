@@ -1,0 +1,4 @@
+set var "i am your teacher"
+
+llength $var
+#output: 4
