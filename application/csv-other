@@ -4,22 +4,18 @@ foreach item [list "Log" "Result" "Result_LP" "Result_User"] {
             foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.txt] {
                 file delete -force $line
             }
-
             foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.iqvsa] {
                 file delete -force $line
             }
-
             foreach line [glob -nocomplain -directory ${::IQFact_Path}/${item} *.csv] {
                 file delete -force $line
             }
             foreach line [glob -nocomplain -directory ${::IQFact_Path} *.csv] {
                 file delete -force $line
             }
-     }
+}
      
-     
-     
-     
+
 set ::ENVPATH [file dirname [info script]]
 set ::path_nvm "$::ENVPATH/metadata/NVM.csv"
 
@@ -30,20 +26,18 @@ set csvFile_write [open $::path_nvm w+]
 puts $csvFile_write $pathloss
 close $csvFile_write
 
-     set csvFile_read_tmp [file_open "$::IQFact_Pathloss" r]
-     set csvFile_read [read $csvFile_read_tmp]
+set csvFile_read_tmp [file_open "$::IQFact_Pathloss" r]
+set csvFile_read [read $csvFile_read_tmp]
 
-     puts "===== Compare INI with CSV ====="
-     puts "\[$pathloss\]"
-     puts ""
-     puts "\[$csvFile_read\]"
+puts "===== Compare INI with CSV ====="
+puts "\[$pathloss\]"
+puts ""
+puts "\[$csvFile_read\]"
 
-     set testResult PASS
+set testResult PASS
 
-     if { ![regexp $pathloss $csvFile_read]} {
-                set testResult FAIL
-     }
+if { ![regexp $pathloss $csvFile_read]} {
+         set testResult FAIL
+}
 
-     file_close $csvFile_read_tmp
-
-
+file_close $csvFile_read_tmp
