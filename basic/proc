@@ -1,0 +1,20 @@
+proc show_a_list {args} {
+    set n 0
+    foreach arg $args {
+        puts "Argument $n: $arg"
+        incr n
+    }
+}
+
+show_a_list A B C D
+puts ""
+show_a_list E F
+
+## OUTPUT
+Argument 0: A
+Argument 1: B
+Argument 2: C
+Argument 3: D
+
+Argument 0: E
+Argument 1: F
