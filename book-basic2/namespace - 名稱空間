@@ -1,5 +1,3 @@
-## 名稱空間
-
 namespace eval MyMath {
       # Create a variable inside the namespace
       variable myResult
