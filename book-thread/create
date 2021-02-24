@@ -9,9 +9,9 @@ thread::name
 # Create 2 threads.
 # =================
 # Output: tid000019C8
-puts [set t1 [thread::create]]
-
 # Output: tid00001CD4
+
+puts [set t1 [thread::create]]
 puts [set t2 [thread::create]]
 
 # Output: tid00001CD4 tid000019C8 tid00002080
