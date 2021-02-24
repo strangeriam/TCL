@@ -1,4 +1,4 @@
-set ::gThread [thread::create {thread::wait} ]
+set ::gThread [thread::create {thread::wait}]
 
 proc printTime {} {
      thread::send -async $::gThread { puts stdout [clock format [clock seconds]] }
