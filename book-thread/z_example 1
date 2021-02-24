@@ -1,8 +1,16 @@
-package require Thread
 
-puts "\n*** I'm thread [thread::id]"
+## Create 3 threads.
+## =================
+## OUTPUT:
+## *** I'm thread tid000029FC
+## [-1-] Started thread tid00002918
+## [-2-] Started thread tid00002920
+## [-3-] Started thread tid000025BC
+## *** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
+## *** You are under tid000029FC
+## *** Completed, Bro!
 
-# Create 3 threads.
+## CODE ===========================================
 for {set num 1} {$num <= 3} {incr num} {
       set id [thread::create {
             # Print a hello message 3 times,
@@ -26,13 +34,3 @@ while { [llength [thread::name]] > 1 } {
 }
 
 puts "*** Completed, Bro!"
-
-# ===============================================================
-# Output:
-# *** I'm thread tid000029FC
-# [-1-] Started thread tid00002918
-# [-2-] Started thread tid00002920
-# [-3-] Started thread tid000025BC
-# *** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
-# *** You are under tid000029FC
-# *** Completed, Bro!
