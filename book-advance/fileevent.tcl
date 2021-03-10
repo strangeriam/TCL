@@ -1,4 +1,4 @@
-# calc.tcl --
+# file: test/calc.tcl --
 #     Demo program
 #
 for {set i 0} {$i < 10} {incr i} {
@@ -7,16 +7,18 @@ for {set i 0} {$i < 10} {incr i} {
       flush stdout
 }
 
+## file: test/test1.tcl
+##    Main program
 proc getline {chan} {
       global done
 
       gets $chan line
 
       if { ! [eof $chan] } {
-            puts ">> $line"
+                  puts ">> $line"
       } else {
-            close $chan
-            set done 1
+                  close $chan
+                  set done 1
       }
 }
 
