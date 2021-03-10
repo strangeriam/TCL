@@ -20,7 +20,7 @@ proc getline {chan} {
       }
 }
 
-set program [open "|tclsh calc.tcl" r]
+set program [open "|tclsh test/calc.tcl" r]
 fileevent $program readable [list getline $program]
 fconfigure $program -buffering line
 
