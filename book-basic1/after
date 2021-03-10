@@ -1,0 +1,9 @@
+
+## wait 1000 milliseconds
+after 1000
+
+## 如果 after 超過 800 ms, 第五次以後的計數, 不會立即顯示.
+for {set i 0} {$i < 10} {incr i} {
+		    after 800
+		    puts $i
+}
