@@ -9,25 +9,26 @@
 # Define two auxiliary procs
 #
 proc serverOpen {channel addr port} {
-    global connected
-    set connected 1
-    fileevent $channel readable [list readLine Server $channel]
-    puts "OPENED"
+        global connected
+
+        set connected 1
+        fileevent $channel readable [list readLine Server $channel]
+        puts "OPENED"
 }
 
 proc readLine {who channel} {
-    global didRead
-    if { [gets $channel line] < 0} {
-        fileevent $channel readable {}
-        after idle "close $channel;set out 1"
-    } else {
-        puts "READ LINE: $line"
-        puts $channel "This is a return"
-        flush $channel;
-        set didRead 1
-    }
-}
+        global didRead
 
+        if { [gets $channel line] < 0} {
+                fileevent $channel readable {}
+                after idle "close $channel;set out 1"
+        } else {
+                puts "READ LINE: $line"
+                puts $channel "This is a return"
+                flush $channel;
+                set didRead 1
+        }
+}
 
 set connected 0
 # catch {socket -server serverOpen 33000} server
