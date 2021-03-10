@@ -1,3 +1,5 @@
+# reference: https://wiki.tcl-lang.org/page/Tcl+Tutorial+Lesson+26a
+
 # file: test/calc.tcl --
 #     Demo program
 #
