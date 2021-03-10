@@ -1,3 +1,10 @@
+## OUTPUT:
+## ===================================
+## OPENED
+## READ LINE: A Test Line
+## Return line: 16 -- This is a return
+## ===================================
+
 #
 # Define two auxiliary procs
 #
