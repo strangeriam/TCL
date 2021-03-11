@@ -11,7 +11,7 @@ proc com_read {consoleid} {
       }
 
       vwait_seconds 1
-      puts \n\nLOG==>\n$str
+      puts LOG==>\n$str
       return $str
 }
 
