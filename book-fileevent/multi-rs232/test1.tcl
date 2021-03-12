@@ -62,15 +62,14 @@ f_com_open_1
 #puts "\n\n=== TEST 1 = START ====================\n\n"
 
 for {set arg1 0} {$arg1 <= 10} {incr arg1} {
-    puts "\n\n=== TEST 1 = $arg1\n\n"
+      puts "\n\n=== TEST 1 = $arg1\n\n"
 
-ConsoleWrite $com_fd1 "cat /etc/openwrt_release | grep DISTRIB_REVISION"
-after 1000
-set com1_log [ConsoleRead $com_fd1]
+      ConsoleWrite $com_fd1 "cat /etc/openwrt_release | grep DISTRIB_REVISION"
+      after 1000
+      set com1_log [ConsoleRead $com_fd1]
 
-puts com1_log==>\n$com1_log
-after 5000
-
+      puts com1_log==>\n$com1_log
+      after 5000
 }
 
 #puts "\n\n=== TEST 1 = END ======================\n\n"
