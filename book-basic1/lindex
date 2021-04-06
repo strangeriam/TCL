@@ -1,2 +1,6 @@
 # 取單一單字
 
+set var "this is my apple"
+lindex $var 2
+
+# OUTPUT: my
