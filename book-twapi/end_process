@@ -1,2 +1,12 @@
 
 twapi::end_process $id
+
+## Kill many IDs with same Application same, such as plink.exe.
+##
+set plink_pids ""
+set plink_pids [twapi::get_process_ids -name plink.exe]
+
+for { set i 0 } {$i < [expr {[llength $plink_pids] }]} {incr i} {
+      set id [lindex $plink_pids [expr {$i + 1}]]
+      catch { twapi::end_process $id } err
+}
