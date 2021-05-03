@@ -1,6 +1,9 @@
 
 open "|$::path_TELNET/plink -telnet 192.168.1.1" w+
 
+
+## 得到 return 0 的條件為, 語法不對 或 plink 的路徑不對.
+## 縱使目標 IP 連不到, Channel 都會被建立起來, 而不是 return 0.
 if { [catch { set telnet_fd [open "|$::path_TELNET/plink -telnet $dut_ip" w+] } result] } {
 			   return 0
 } else {
