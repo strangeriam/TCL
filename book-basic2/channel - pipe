@@ -6,12 +6,10 @@ proc READER {pipe} {
       }
 
       set data [read $pipe]
-
-      if {[string length $pipe] > 0} {
-           puts $data
-      }
+      if {[string length $pipe] > 0} { puts $data }
 }
 
+# Way 1 ================================
 if [catch {open "|cmd.exe /c dir" r} pipe ] {
       puts "ERROR: Cannot open pipe : $pipe"
 } else {
