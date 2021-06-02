@@ -13,3 +13,11 @@ if {[catch [twapi::get_process_ids -name tftpd32.exe]]} {
 } else {
          puts "Have not tftpd32.exe."
 }
+
+## ==========================================================
+set TimeDIR "$::ENVPATH/Log/TIME/TIME-$::testCaseName-$::buildDate"
+
+if { [catch {file mkdir $TimeDIR} err] } {
+          save_msg "\[$err\]: Can't create time log fail folder." ERROR
+          return
+}
