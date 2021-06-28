@@ -25,5 +25,5 @@ Argument 1: F
 ## - 裡頭所使用或新增的變數, 可直接供上層程式使用, 不需 global.
 ## - 上層程式的變數也可直接供 uplevel 裡的程式使用.
 
-proc bar {} uplevel {
+proc bar {} { uplevel {
 }}
