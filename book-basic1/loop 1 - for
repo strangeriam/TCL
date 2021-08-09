@@ -1,16 +1,41 @@
-# object: break, continue
-
-
-# 遞增
+## 遞增
 for {set i 0} {$i <= 100} {incr i} {
       puts "Increase... $i"
       after 1000
 }
 
-# 倒數 Countdown
+## 倒數 Countdown
 for {set i 5} {$i >= 1} {incr i -1} {
       puts "Countdown... $i"
       after 1000
 }
 
-# Example
+## =============
+## object: break
+## example: $i 等於 2, 離開迴圈.
+for {set i 3} {$i >= 1} {incr i -1} {
+		puts $i..aaa
+		if {$i == 2} {break}
+		puts $i..bbb
+}
+
+## OUTPUT:
+1..aaa
+1..bbb
+2..aaa <-- break
+
+## ================
+## object: continue
+## example: $i 等於 2, 不執行後續程式 puts $i..bbb. 直接開始 $i == 3.
+for {set i 3} {$i >= 1} {incr i -1} {
+		puts $i..aaa
+		if {$i == 2} {continue}
+		puts $i..bbb
+}
+
+## OUTPUT:
+1..aaa
+1..bbb
+2..aaa <-- continue
+3..aaa
+3..bbb
