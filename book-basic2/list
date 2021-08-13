@@ -1,0 +1,14 @@
+set list1 [list motocycle car bus truck airplane cablecar]
+
+## Application
+set var [lindex $list1 end-2]
+set var [lrange $list1 1 3]
+
+## 在清單裡插入一新字串 taxi.
+set var [linsert $list1 2 taxi]
+
+## 清單內字串數.
+set var [llength $list1]
+
+## 在清單 $list1 後面加入字串 all, I don’t like.
+lappend list1 all, I don't like
