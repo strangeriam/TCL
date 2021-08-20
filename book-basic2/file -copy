@@ -1,0 +1,7 @@
+Copy multiple files
+
+## Copy to floder "old"
+set infiles [glob -nocomplain *.log]
+if {[llength $infiles]} {
+   file copy {*}$infiles old
+}
