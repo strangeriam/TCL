@@ -1,7 +1,10 @@
-Copy multiple files
-
-## Copy to floder "old"
-set infiles [glob -nocomplain *.log]
+## Copy old log file to folder "old".
+set infiles [glob -nocomplain $::PATH_LOG/*.log]
 if {[llength $infiles]} {
-   file copy {*}$infiles old
+      file copy {*}$infiles $::PATH_LOG/old
+}
+
+## Remove old log file.
+if {[llength $infiles]} {
+      file delete -force {*}$infiles
 }
