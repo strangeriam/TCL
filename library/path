@@ -1,0 +1,5 @@
+## Lib path:
+info library
+puts $tcl_library
+
+## OUTPUT: C:/Tcl/lib/tcl8.5
