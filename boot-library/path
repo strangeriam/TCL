@@ -3,3 +3,13 @@ info library
 puts $tcl_library
 
 ## OUTPUT: C:/Tcl/lib/tcl8.5
+
+
+## TCL 全域變數 auto_path, 它在 tclsh 或 wish啓動的時候被初始化.
+## auto_path中包含了 TCL 和 TK 腳本文件的庫目錄列表.
+## 用 set 查詢.
+## 用 lappend 來設定這個變數定位所需要的軟體路徑.
+(trytryLu-04-MAGMA) 49 % set auto_path
+C:/Tcl/lib/tcl8.5 C:/Tcl/lib c:/tcl/lib/teapot/package/win32-ix86/lib c:/tcl/lib/teapot/package/tcl/lib C:/Tcl/lib/tcllib1.12 C:/Tcl/lib/tk8.5 C:/Tcl/lib/tk8.5/ttk example/ example/ c:/tcl/lib/teapot/package/win32-ix86/lib/Itk3.4 C:/Tcl/lib/iwidgets4.0.2 C:/Tcl/lib/iwidgets4.0.2/generic C:/Tcl/lib/iwidgets4.0.2/scripts
+(trytryLu-04-MAGMA) 50 % 
+
