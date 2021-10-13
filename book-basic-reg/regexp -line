@@ -1,0 +1,27 @@
+## 取 
+Memory type Test result: PASS
+Memory size Test result: PASS
+
+## Example
+set tmp "
+**************************************************
+Memory Bank: NODE 1
+Memory DIMM Location: CPU1_DIMM_A1
+Memory Type: DDR4
+Memory Size: 8192 MB
+Memory Speed: 2666 MT/s
+Memory Manufacturer: <BAD INDEX>
+Memory Serial Number: <BAD INDEX>
+Memory Part Number: <BAD INDEX>
+
+
+Memory type Test result: PASS
+Memory size Test result: PASS
+"
+
+if { ![regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+Memory type Test result: (\w+)\nMemory size Test result: (\w+)} [_f_getconsole] memory_tmp1 DIMM1_TypeResult DIMM1_SizeResult] } {
+		_f_termmsg_V1 "getconsole:regexp -line Memory DIMM Location1: CPU1_DIMM_A1 fail"
+		set ::s0 "getconsole:regexp -line Memory DIMM Location1: CPU1_DIMM_A1 fail;APU CONN22;"
+		set ::ErrorCode "T33"
+		return 0
+}
