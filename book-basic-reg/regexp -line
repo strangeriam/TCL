@@ -26,9 +26,9 @@ Memory size Test result: PASS
 ## Step 1:
 ## 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
 ## =====================================================================================
-set tmp_get ""
-regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp tmp_get
-puts $tmp_get
+set memory_tmp1 ""
+regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp memory_tmp1
+puts $memory_tmp1
 
 ## OUTPUT
 Memory DIMM Location: CPU1_DIMM_A1
@@ -50,9 +50,9 @@ Memory size Test result: PASS
 ## 取 Memory size Test result: PASS
 ## =====================================================================================
 set DIMM1_TypeResult ""
-regexp -linestop {Memory type Test result:.*} $tmp_get DIMM1_TypeResult
+regexp -linestop {Memory type Test result:.*} $memory_tmp1 DIMM1_TypeResult
 puts $DIMM1_TypeResult
 
 set DIMM1_SizeResult ""
-regexp -linestop {Memory size Test result:.*} $tmp_get DIMM1_SizeResult
+regexp -linestop {Memory size Test result:.*} $memory_tmp1 DIMM1_SizeResult
 puts $DIMM1_SizeResult
