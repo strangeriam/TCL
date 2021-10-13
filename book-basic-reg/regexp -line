@@ -1,3 +1,5 @@
+-line	開啓行敏感匹配，與regexp相同。
+
 ## 取 
 Memory type Test result: PASS
 Memory size Test result: PASS
