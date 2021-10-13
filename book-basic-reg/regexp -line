@@ -1,18 +1,12 @@
 -line	開啓行敏感匹配，與regexp相同。
 
-## 取 
-Memory type Test result: PASS
-Memory size Test result: PASS
 
 ## 程式解釋
 \n  ==> 跳行
 .*? ==> 忽略後續字串
 (\w+) ==> 還不曉得做啥的
 
-
-## 程式 A
-## 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
-## ===============================================
+## Example Code
 set tmp "
 **************************************************
 Memory Bank: NODE 1
@@ -29,9 +23,11 @@ Memory type Test result: PASS
 Memory size Test result: PASS
 "
 
-set aaa ""
-regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp aaa
-puts $aaa
+## Step 1: 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
+## =====================================================================================
+set tmp_get ""
+regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp tmp_get
+puts $tmp_get
 
 ## OUTPUT
 Memory DIMM Location: CPU1_DIMM_A1
@@ -57,3 +53,15 @@ Memory type Test result: PASS
 Memory size Test result: PASS
 
 
+
+## Step 2:
+## 取 Memory type Test result: PASS
+## 取 Memory size Test result: PASS
+## =====================================================================================
+set DIMM1_TypeResult ""
+regexp -linestop {Memory type Test result:.*} $tmp_get DIMM1_TypeResult
+puts $DIMM1_TypeResult
+
+set DIMM1_SizeResult ""
+regexp -linestop {Memory size Test result:.*} $tmp_get DIMM1_SizeResult
+puts $DIMM1_SizeResult
