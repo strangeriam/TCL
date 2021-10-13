@@ -4,7 +4,15 @@
 Memory type Test result: PASS
 Memory size Test result: PASS
 
-## Example
+## 程式解釋
+\n  ==> 跳行
+.*? ==> 忽略後續字串
+(\w+) ==> 還不曉得做啥的
+
+
+## 程式 A
+## 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
+## ===============================================
 set tmp "
 **************************************************
 Memory Bank: NODE 1
@@ -19,10 +27,40 @@ Memory Part Number: <BAD INDEX>
 
 Memory type Test result: PASS
 Memory size Test result: PASS
-**************************************************
 "
 
-## 程式
+set aaa ""
+regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp aaa
+puts $aaa
+
+## OUTPUT
+Memory DIMM Location: CPU1_DIMM_A1
+
+Memory Type: DDR4
+
+Memory Size: 8192 MB
+
+Memory Speed: 2666 MT/s
+
+Memory Manufacturer: <BAD INDEX>
+
+Memory Serial Number: <BAD INDEX>
+
+Memory Part Number: <BAD INDEX>
+
+
+
+
+
+Memory type Test result: PASS
+
+Memory size Test result: PASS
+
+
+
+## 程式 B
+## 還不全了解此正規式.
+## ===============================================
 set memory_tmp1 ""
 set DIMM1_TypeResult ""
 set DIMM1_SizeResult ""
@@ -39,7 +77,3 @@ Memory DIMM Location: CPU1_DIMM_A1
 \n+Memory type Test result: (\w+)
 \nMemory size Test result: (\w+)
 
-## 程式解釋
-\n  ==> 跳行
-.*? ==> 忽略後續字串
-(\w+) ==> 還不曉得做啥的
