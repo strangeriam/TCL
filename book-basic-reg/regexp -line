@@ -22,6 +22,13 @@ Memory size Test result: PASS
 **************************************************
 "
 
+## 程式
+set memory_tmp1 ""
+set DIMM1_TypeResult ""
+set DIMM1_SizeResult ""
+regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+Memory type Test result: (\w+)\nMemory size Test result: (\w+)} $tmp memory_tmp1 DIMM1_TypeResult DIMM1_SizeResult
+
+## 語法參考
 Memory DIMM Location: CPU1_DIMM_A1
 \n+.*?
 \n+.*?
@@ -31,17 +38,3 @@ Memory DIMM Location: CPU1_DIMM_A1
 \n+.*?
 \n+Memory type Test result: (\w+)
 \nMemory size Test result: (\w+)
-
-set memory_tmp1 ""
-set DIMM1_TypeResult ""
-set DIMM1_SizeResult ""
-regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+Memory type Test result: (\w+)\nMemory size Test result: (\w+)} $tmp memory_tmp1 DIMM1_TypeResult DIMM1_SizeResult
-
-
-
-if { ![regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+Memory type Test result: (\w+)\nMemory size Test result: (\w+)} [_f_getconsole] memory_tmp1 DIMM1_TypeResult DIMM1_SizeResult] } {
-		_f_termmsg_V1 "getconsole:regexp -line Memory DIMM Location1: CPU1_DIMM_A1 fail"
-		set ::s0 "getconsole:regexp -line Memory DIMM Location1: CPU1_DIMM_A1 fail;APU CONN22;"
-		set ::ErrorCode "T33"
-		return 0
-}
