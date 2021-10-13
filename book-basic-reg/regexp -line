@@ -23,7 +23,8 @@ Memory type Test result: PASS
 Memory size Test result: PASS
 "
 
-## Step 1: 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
+## Step 1:
+## 取 Memory DIMM Location: CPU1_DIMM_A1 到 Memory size Test result: PASS 的字串.
 ## =====================================================================================
 set tmp_get ""
 regexp -line {Memory DIMM Location: CPU1_DIMM_A1\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?\n+.*?} $tmp tmp_get
@@ -31,25 +32,15 @@ puts $tmp_get
 
 ## OUTPUT
 Memory DIMM Location: CPU1_DIMM_A1
-
 Memory Type: DDR4
-
 Memory Size: 8192 MB
-
 Memory Speed: 2666 MT/s
-
 Memory Manufacturer: <BAD INDEX>
-
 Memory Serial Number: <BAD INDEX>
-
 Memory Part Number: <BAD INDEX>
 
 
-
-
-
 Memory type Test result: PASS
-
 Memory size Test result: PASS
 
 
