@@ -1,0 +1,9 @@
+frame .f.top -borderwidth 0
+::ttk::radiobutton .f.top.radioBtn_rs232 -text "RS232"  -value rs232 -variable ::value_ckbtn_com -state enable -command {}
+::ttk::radiobutton .f.top.radioBtn_ssh -text "SSH" -value ssh -variable ::value_ckbtn_com -state enable -command {}
+::ttk::radiobutton .f.top.radioBtn_none -text "NONE" -value none -variable ::value_ckbtn_com -state enable -command {}
+
+pack .f.top.radioBtn_rs232 .f.top.radioBtn_ssh .f.top.radioBtn_none -side left
+
+## shows on GUI, but disallow click.
+.f.top.radioBtn_none configure -state disable
