@@ -1,0 +1,21 @@
+## 無顯示任何確認按鍵 ok yes/no cacel
+
+set img [image create photo -file "$ENVPATH/metadata/Photo/general/power.gif"]
+
+set num 15
+
+while {$num > 1} {
+          set msgEnglish "Short press Reset button..$num"
+          set MesBox [txmbox::messageBox -type none -image $img -message "$msgEnglish" -font {"Consolas" 16 normal bold} -format true -width 30 -height 3 -wait false]
+          set uartRes [promptwait $com_fd "" $prompt_diag 1]
+
+          if { [lindex $uartRes 0] == 0 } {
+                   txmbox::destroyMsgBox $MesBox
+                   break
+          } else {
+                   vwait_seconds 2
+                   txmbox::destroyMsgBox $MesBox
+          }
+
+          incr num -1
+}
