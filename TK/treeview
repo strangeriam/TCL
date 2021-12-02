@@ -1,0 +1,7 @@
+ttk::treeview .tree -columns "Creator Year" -displaycolumns "Year Creator" 
+.tree heading Creator -text "Creator" -anchor center
+.tree heading Year -text "Year" -anchor center
+pack .tree
+.tree insert {} end -id Languages -text "Languages"
+.tree insert Languages end -text C -values [list "Dennis Ritchie" "1990"]
+.tree insert "" end -id Direct -text "Direct"   
