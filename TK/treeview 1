@@ -1,4 +1,5 @@
-ttk::treeview .tree -columns "AAA BBB CCC DDD" -displaycolumns "AAA BBB CCC DDD"
+ttk::treeview .tree -columns "AAA BBB CCC DDD" \
+                                        -displaycolumns "AAA BBB CCC DDD"
 
 .tree heading AAA -text "column 1" -anchor center
 .tree heading BBB -text "column 2" -anchor center
@@ -8,5 +9,7 @@ ttk::treeview .tree -columns "AAA BBB CCC DDD" -displaycolumns "AAA BBB CCC DDD"
 pack .tree
 .tree insert "" end -id ROW_1 -text "row1"
 .tree insert {} end -id ROW_2 -text "row2" -values [list "row2_1" "row2_2" "row2_3" ""]
-.tree insert {} end -id ROW_3 -text "row3" -values [list "row3_1" "row3_2" "row3_3" "row3_4"]
-.tree insert {} end -id ROW_4
+
+.tree insert {} end -id MOTHER_TREE -text "Mother Tree"
+.tree insert {MOTHER_TREE} end -id ROW_3 -text "row3" -values [list "row3_1" "row3_2" "row3_3" "row3_4"]
+.tree insert {MOTHER_TREE} end -id ROW_4 -text "row4" -values [list "row4_1" "row4_2" "row4_3" "row4_4"]
