@@ -1,0 +1,2 @@
+## 將圖形介面最小化.
+bind . <KeyPress-Escape> "wm iconify ."
