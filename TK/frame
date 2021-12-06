@@ -7,3 +7,7 @@ pack .f1
 
 # =================================
 # relief: flat (default), groove, raised, ridge, solid, sunken.
+
+# =================================
+## 底色為白色
+frame .x  -highlightthickness 0 -bg #ffffff
