@@ -1,2 +1,6 @@
 ## 展開全部, 且覆蓋 Windows 工作列.
 wm attributes . -fullscreen 1
+
+## Specifies whether this is a topmost window (displays above all other windows). 
+## 優先於其他已開啟的 Windows, 於最上層顯示.
+wm attributes . -topmost no
