@@ -4,3 +4,6 @@ wm attributes . -fullscreen 1
 ## Specifies whether this is a topmost window (displays above all other windows). 
 ## 優先於其他已開啟的 Windows, 永遠於最上層顯示.
 wm attributes . -topmost no
+
+## Requests that the window should be maximized. This is the same as wm state zoomed on Windows and Mac OS X.
+wm state . zoome
