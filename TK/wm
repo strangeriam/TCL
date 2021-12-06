@@ -10,7 +10,7 @@ wm geometry . [winfo screenwidth .]x[winfo screenheight .]+0+0
 ## ===============================
 
 wm attributes . -fullscreen 1 ;#Method 1
-wm overrideredirect . yes ;#Method 1
+wm overrideredirect . yes ;#Method 2
 
 ## ===============================
 ## Stays on top
