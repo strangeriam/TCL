@@ -1,2 +1,6 @@
 ## 將圖形介面最小化.
 bind . <KeyPress-Escape> "wm iconify ."
+
+## ======================
+## yes/no 無邊滿版面選擇.
+bind . <Expose> "wm overrideredirect . yes; focus -force ."
