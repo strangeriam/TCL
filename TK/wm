@@ -1,0 +1,2 @@
+## 展開全部, 且覆蓋 Windows 工作列.
+wm attributes . -fullscreen 1
