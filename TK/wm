@@ -1,3 +1,6 @@
+## 塞滿整個螢幕.
+wm geometry . [winfo screenwidth .]x[winfo screenheight .]+0+0
+
 ## ===============================
 ## 展開全部, 且覆蓋 Windows 工作列.
 ## Method 1
