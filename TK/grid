@@ -1,0 +1,20 @@
+grid ( 格子 )
+
+Option
+-sticky 方位 → n e w s , 把空間向 “方位” 側延展, 或水平, 垂直, 全部填滿.
+-row n → 放在第 n 列.
+-column n → 放在第 n 行.
+-rowspan n → 佔有的範圍往右延伸, 共佔 n 列.
+-columnspan n → 佔有的範圍往下延伸, 共佔 n 行.
+
+Syntax
+-rowspan N: 讓 slave 佔有的範圍往右延伸, 共佔 N 列.
+-columnspan N: 讓 slvae 佔有的範圍往下延伸, 共佔 N 行.
+grid configure (option eg. "-rowspan" "-column span" 將需要放大的元件往右下角延伸.
+
+Others
+建立 label 或 entry 時, -width 選項的單位是字元數, 往往和 Tcl/Tk 程式中其他的長度單位不同. 解決辦法之一是使用 grid 的 columnconfigure -minsize 或 rowconfigure -minsize
+grid forget W: 把 W 從其 master 中完全移除, 彷彿不曾有過這個 slave 一樣.
+grid remove W: 把 W 從其 master 中暫時移除, 但 gridder 依舊記得 W 原來的位置, span 的行列數, sticky 的方向, ... etc. 下次再被 grid 進去時, 不必再指定這些值.
+grid info W: 看看 W 與其 master 的關係. 傳回值為字串, 正好可以給 grid configure 當做參數.
+grid slaves W: 看看 W 有那些 slaves.
