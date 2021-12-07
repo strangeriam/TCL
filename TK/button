@@ -3,8 +3,8 @@ button .btn -text "Runner" -fg #eeebd2 -bg #6c7a89 -width 10 -height 20 -command
 # -text → 按鈕文字
 # -fg → 文字顏色
 # -bg → 按鈕背景顏色
-# -width → 按鈕寬度
-# -height → 按鈕高度
+# -width → 按鈕寬
+# -height → 按鈕高
 # -command → 按下去所要執行的動作.
 
 ::ttk::button .btn1 -text "normal" -command { puts "normal" }
