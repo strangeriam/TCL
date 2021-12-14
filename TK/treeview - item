@@ -1,0 +1,15 @@
+## item 查詢及設定項目資訊 
+## 將 item 1 改為 item A
+## =====================
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+
+$tree item $item1 -text "item A"
+
+pack $tree -expand 1 -fill both
+puts [$tree item $item1 -text]
+
+## 輸出 $item1 上的文字內容
+puts [$tree item $item1 -text]
