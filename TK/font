@@ -1,0 +1,5 @@
+## - 字型: Courier    Times    Helvetica
+## - 字體: normal (正常)     bold (粗體)      italic (斜體)     underline (底線)     overstrike (刪除線)
+## - 無作用字體: roman
+
+-font { Helvetica 10 {bold}} -fg black -bg white
