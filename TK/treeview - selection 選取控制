@@ -21,3 +21,60 @@ pack $btn -expand 1 -fill both
 ## -selectmode extended --> 多選模式
 
 set tree [::ttk::treeview .tree -show tree -selectmode browse]
+
+
+設定選取狀態 
+## ===============================================================
+Treeview 提供了多種方法讓我們使用程式來改變清單方塊中項目的選取狀態, 現在讓我們先看看如何選取清單中的項目:
+treeview 的 selection set 命令可以用來切換選取的項目,
+selection set 可以接受一個項目 id 的清單, 只要是包含在這個清單上的項目都會被設定為選取狀態, 其它不包含在內的項目則會被設定為未選取.
+這個例子中設定了 "item 1" 及 "item 3". 
+
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+set item3 [$tree insert {} end -text "item 3"]
+
+$tree selection set [list $item1 $item3]
+
+pack $tree -expand 1 -fill both 
+ 
+
+## ===============================================================
+上面的 selection set 可用來切換選取的項目群, 但有些時候我們也會想要用 "添加" 的方式來選取項目,
+也就是在不清除目前選取的項目狀況下加入新的選取項目.
+這樣子的功能可以使用 treeview 的selection add 命令來完成.
+注意到程式的第 6 行，我用添加的方式把 "item 2" 也一併選取了, 所以現在所有的項目都是處於選取中的狀態. 
+
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+set item3 [$tree insert {} end -text "item 3"]
+
+$tree selection set [list $item1 $item3]
+$tree selection add $item2
+
+pack $tree -expand 1 -fill both
+
+
+移除選取狀態
+## ===============================================================
+除了可以設定項目變成選取狀態外, 當然也有對應的移除選取狀態的功能,
+使用 selection remove 即可以移除特定項目群的選取狀態.
+
+例如:
+如果 $item2 目前是處於選取狀態的話, 此行命令會把 $item2 的狀態設為未選取.
+
+$tree selection remove $item2
+
+
+切換選取狀態 
+## ===============================================================
+treeview 也提供了方便的 selection toggle 命令讓你可以切換特定項目群的狀態.
+
+例如:
+程式每執行一次都會讓 $item2 的狀態改變, 也就是反覆的選取, 未選取, 選取, 未選取....
+
+$tree selection toggle $item2
