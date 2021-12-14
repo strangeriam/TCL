@@ -1,0 +1,51 @@
+## 刪除 1 個 "item 1"
+## ==================
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+
+$tree delete $item1
+
+pack $tree -expand 1 -fill both
+
+
+## 刪除 多 個 "item 1"
+## ==================
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+
+$tree delete [list $item1 $item2]
+
+pack $tree -expand 1 -fill both
+
+
+## 清空清單方塊
+## ===========
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+
+$tree delete [$tree children {}]
+
+pack $tree -expand 1 -fill both
+
+
+## item 查詢及設定項目資訊 
+## =====================
+set tree [::ttk::treeview .tree -show tree]
+
+set item1 [$tree insert {} end -text "item 1"]
+set item2 [$tree insert {} end -text "item 2"]
+
+$tree item $item1 -text "item A"
+
+pack $tree -expand 1 -fill both
+puts [$tree item $item1 -text]
+
+## 輸出 $item1 上的文字內容
+puts [$tree item $item1 -text]
+
