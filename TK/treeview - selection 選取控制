@@ -1,0 +1,12 @@
+## 選取控制
+
+set tree [::ttk::treeview .tree -show tree]
+
+foreach item [list 1 2 3 4 5] {
+        $tree insert {} end -text "項目$item"
+}
+
+set btn [::ttk::button .btn -text "選取的項目" -command { puts [.tree selection]}]
+
+pack $tree -expand 1 -fill both
+pack $btn -expand 1 -fill both
