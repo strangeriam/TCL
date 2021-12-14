@@ -1,0 +1,3 @@
+font create MyFont -family "Courier New" -size 12
+ttk::style configure My.TButton {*}[ttk::style configure TButton] -font MyFont
+pack [ttk::button .b -text Styled -style My.TButton]
