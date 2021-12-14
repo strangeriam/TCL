@@ -10,3 +10,14 @@ set btn [::ttk::button .btn -text "選取的項目" -command { puts [.tree selec
 
 pack $tree -expand 1 -fill both
 pack $btn -expand 1 -fill both
+
+## ===============================================================
+
+## treeview 的 selection 命令可以用來取出清單方塊上已選取的項目 id 的清單.
+## 在預設的情況下 treeview 是採用多選模式的, 也就是說你可以配合的 shift 及 ctrl 鍵來選取多個項目.
+
+## 如果想要改成單選模式的話, 可以在建立 treeview 視窗元件時指定 -selectmode 選項.
+## -selectmode browse --> 單選模式
+## -selectmode extended --> 多選模式
+
+set tree [::ttk::treeview .tree -show tree -selectmode browse]
