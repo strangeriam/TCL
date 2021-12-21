@@ -1,0 +1,102 @@
+padx & pady 物件依座標擺放
+
+    pack .nameObject -padx 20 -pady 10
+
+fill 填充 & expand 擴展
+Why are there two different options expand and fill? Are they both needed?
+
+expand causes a widget to expand to fill the space available as a window is stretched, and fill causes a widget to be filled to the cell so that it lines up with other widgets. 
+
+In order to show you the difference graphically, I wrote this demonstration program:
+
+    button .aaa -text "this"
+    button .bbb -text "that is bbb"
+    
+    pack .aaa .bbb
+
+
+-after
+Other must the name of another window. Use its master as the master for the slaves, and insert the slaves just after other in the packing order.
+
+    # Syntax:
+    # 將 .f.object 放在 .f.object2 後面.
+    pack .f.object -after .f.object2
+
+將 object 放置於特定 other object 後面.
+
+- -after 接 other object name
+
+
+-before 
+Other must the name of another window. Use its master as the master for the slaves, and insert the slaves just before other in the packing order. 
+
+    # Syntax:
+    # 將 .f.object 放在 .f.object2 前面.
+    pack .f.object -before .f.object2
+
+將 object 放置於特定 other object 前面.
+
+- -before 接 other object name
+
+
+-anchor 
+
+    # Syntax:
+    # 將 .object 擺放西南方.
+    pack .object -anchor sw
+
+將 object 定錨於 Frame 的方位.
+
+    - n e w s (北 東 西 南)
+    - ne nw (東北 西北)
+    - se sw (東南 西南)
+    - center (中央) → 此為預設是, 如果沒有設定 -anchor.
+
+-expand 
+boolean Specifies whether the slaves should be expanded to consume extra space in their master. Boolean may have any proper boolean value, such as 1 or no.
+Defaults to 0. 
+
+-fill 
+style If a slave's parcel is larger than its requested dimensions, this option may be used to stretch the slave. Style must have one of the following values: 
+
+        none 
+        Give the slave its requested dimensions plus any internal padding requested with -ipadx or -ipady. This is the default. 
+
+        x 
+        Stretch the slave horizontally to fill the entire width of its parcel
+        (except leave external padding as specified by -padx). 
+        橫向填滿上層 frame
+
+        y 
+        Stretch the slave vertically to fill the entire height of its parcel
+        (except leave external padding as specified by -pady). 
+
+        both 
+        Stretch the slave both horizontally and vertically. 
+
+-in 
+other Insert the slave(s) at the end of the packing order for the master window given by other. 
+
+-ipadx 
+amount Amount specifies how much horizontal internal padding to leave on each side of the slave(s). Amount must be a valid screen distance, such as 2 or .5c.
+It defaults to 0. 
+
+-ipady 
+Amount specifies how much vertical internal padding to leave on each side of the slave(s).
+Amount defaults to 0. 
+
+-padx 
+Amount specifies how much horizontal external padding to leave on each side of the slave(s). Amount may be a list of two values to specify padding for left and right separately.
+Amount defaults to 0. 
+物件的左右間隔的寬度
+
+-pady 
+Amount specifies how much vertical external padding to leave on each side of the slave(s). Amount may be a list of two values to specify padding for top and bottom separately.
+Amount defaults to 0.
+物件的上下間隔的高度
+
+-side
+Specifies which side of the master the slave(s) will be packed against. Must be left, right, top, or bottom.
+Defaults to top.
+
+If no -in, -after or -before option is specified then each of the slaves will be inserted at the end of the packing list for its parent unless it is already managed by the packer (in which case it will be left where it is). If one of these options is specified then all the slaves will be inserted at the specified point. If any of the slaves are already managed by the geometry manager then any unspecified options for them retain their previous values rather than receiving default values.
