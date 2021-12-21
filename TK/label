@@ -1,3 +1,12 @@
+## label
+
+
+
+
+## ::label
+
+## ttk 無法定義 -height & weight
+
 # -foreground → 定義文字顏色
 # -background → 定義 frame 顏色
 
