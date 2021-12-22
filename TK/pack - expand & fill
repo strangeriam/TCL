@@ -1,0 +1,27 @@
+fill 填充 & expand 擴展
+Expand causes a widget to expand to fill the space available as a window is stretched, 
+And fill causes a widget to be filled to the cell so that it lines up with other widgets. 
+
+-expand 
+Boolean Specifies whether the slaves should be expanded to consume extra space in their master.
+Boolean may have any proper boolean value, such as 1 or no.
+Defaults to 0. 
+
+-fill 
+Style If a slave's parcel is larger than its requested dimensions, 
+this option may be used to stretch the slave. Style must have one of the following values: 
+
+none 
+Give the slave its requested dimensions plus any internal padding requested with -ipadx or -ipady. This is the default. 
+
+x 
+Stretch the slave horizontally to fill the entire width of its parcel
+(except leave external padding as specified by -padx). 
+橫向填滿上層 frame
+
+y 
+Stretch the slave vertically to fill the entire height of its parcel
+(except leave external padding as specified by -pady). 
+
+both 
+Stretch the slave both horizontally and vertically. 
