@@ -3,20 +3,21 @@ button .bbb -text "that is bbb"
 pack .aaa .bbb
 
 -anchor 
-## 將 object 定錨於 Frame 的方位.
-## 將 .object 擺放西南方.
-pack .object -anchor sw
-
     - n e w s (北 東 西 南)
     - ne nw (東北 西北)
     - se sw (東南 西南)
-    - center (中央) → 此為預設是, 如果沒有設定 -anchor.
+    - center (中央) → Default.
+
+將 object 定錨於 Frame 的方位.
+
+將 .object 擺放西南方.
+pack .object -anchor sw
 
 -in 
 other Insert the slave(s) at the end of the packing order for the master window given by other. 
 
 -side
-Specifies which side of the master the slave(s) will be packed against. Must be left, right, top, or bottom.
-Defaults to top.
+Option: left right top bottom
+Defaults to top. Specifies which side of the master the slave(s) will be packed against.
 
 If no -in, -after or -before option is specified then each of the slaves will be inserted at the end of the packing list for its parent unless it is already managed by the packer (in which case it will be left where it is). If one of these options is specified then all the slaves will be inserted at the specified point. If any of the slaves are already managed by the geometry manager then any unspecified options for them retain their previous values rather than receiving default values.
