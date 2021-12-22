@@ -1,0 +1,15 @@
+標籤式框架和一般的框架有一些小小的不同. 它可在框邊的框線上加上文字說明, 而且預設是會顯示框線的.
+如果是在 Windows 或 Linux 平台的話, 說明文字會剛好卡在框線上.
+
+::ttk::labelframe .f1 -text "Program" 
+::ttk::checkbutton .f1.chk1 -text "Tcl" 
+::ttk::checkbutton .f1.chk2 -text "Python" 
+::ttk::checkbutton .f1.chk3 -text "Ruby" 
+
+pack .f1.chk1 .f1.chk2 .f1.chk3 -side top -expand 1 -fill both 
+pack .f1 -side top -expand 1 -fill both -padx 3 -pady 3
+
+
+-labelanchor 設定說明文字要放在框線上的哪個位置
+Option: nw n ne en e es se s sw ws w wn
+ 
