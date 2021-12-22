@@ -7,11 +7,11 @@ pack .btn
 set img_arduino [image create photo -file $::ENVPATH/metadata/photo/arduino.gif]
 button .btn -text "Arduino" -image $img_arduino -command {}
 
-# 文字不見 → 因預設 -image 的內容會蓋掉 -text 的內容.
+文字不見 → 因預設 -image 的內容會蓋掉 -text 的內容.
+如需圖文並存, 則要指定 -compound.
 
-# 如需圖文並存, 則要指定 -compound (複合意思).
-# option: left, right, top, bottom & none 不要顯示文字.
-
+-compound : (複合意思)
+Option: left right top bottom none (不要顯示文字).
 
 button .f.top.left.f1.btnA.btn2 -text "Arduino"
                                 -image $img_arduino -compound left -command {}
