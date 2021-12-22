@@ -1,78 +1,35 @@
-padx & pady 物件依座標擺放
+button .aaa -text "this"
+button .bbb -text "that is bbb"   
+pack .aaa .bbb
 
-    pack .nameObject -padx 20 -pady 10
+## padx & pady 物件依座標擺放
+pack .nameObject -padx 20 -pady 10
 
-fill 填充 & expand 擴展
-Why are there two different options expand and fill? Are they both needed?
-
-expand causes a widget to expand to fill the space available as a window is stretched, and fill causes a widget to be filled to the cell so that it lines up with other widgets. 
-
-In order to show you the difference graphically, I wrote this demonstration program:
-
-    button .aaa -text "this"
-    button .bbb -text "that is bbb"
-    
-    pack .aaa .bbb
 
 
 -after
-Other must the name of another window. Use its master as the master for the slaves, and insert the slaves just after other in the packing order.
-
-    # Syntax:
-    # 將 .f.object 放在 .f.object2 後面.
-    pack .f.object -after .f.object2
-
-將 object 放置於特定 other object 後面.
-
-- -after 接 other object name
-
+## 將 .f.object 放在 .f.object2 前面.
+## Use its master as the master for the slaves, and insert the slaves just after other in the packing order.
+## 將 .f.object 放在 .f.object2 後面.
+pack .f.object -after .f.object2
 
 -before 
-Other must the name of another window. Use its master as the master for the slaves, and insert the slaves just before other in the packing order. 
-
-    # Syntax:
-    # 將 .f.object 放在 .f.object2 前面.
-    pack .f.object -before .f.object2
-
-將 object 放置於特定 other object 前面.
-
-- -before 接 other object name
-
+## Other must the name of another window.
+## Use its master as the master for the slaves, and insert the slaves just before other in the packing order. 
+## 將 object 放置於特定 other object 前面.
+pack .f.object -before .f.object2
 
 -anchor 
-
-    # Syntax:
-    # 將 .object 擺放西南方.
-    pack .object -anchor sw
-
-將 object 定錨於 Frame 的方位.
+## 將 object 定錨於 Frame 的方位.
+## 將 .object 擺放西南方.
+pack .object -anchor sw
 
     - n e w s (北 東 西 南)
     - ne nw (東北 西北)
     - se sw (東南 西南)
     - center (中央) → 此為預設是, 如果沒有設定 -anchor.
 
--expand 
-boolean Specifies whether the slaves should be expanded to consume extra space in their master. Boolean may have any proper boolean value, such as 1 or no.
-Defaults to 0. 
 
--fill 
-style If a slave's parcel is larger than its requested dimensions, this option may be used to stretch the slave. Style must have one of the following values: 
-
-        none 
-        Give the slave its requested dimensions plus any internal padding requested with -ipadx or -ipady. This is the default. 
-
-        x 
-        Stretch the slave horizontally to fill the entire width of its parcel
-        (except leave external padding as specified by -padx). 
-        橫向填滿上層 frame
-
-        y 
-        Stretch the slave vertically to fill the entire height of its parcel
-        (except leave external padding as specified by -pady). 
-
-        both 
-        Stretch the slave both horizontally and vertically. 
 
 -in 
 other Insert the slave(s) at the end of the packing order for the master window given by other. 
