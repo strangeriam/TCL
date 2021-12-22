@@ -2,21 +2,6 @@ button .aaa -text "this"
 button .bbb -text "that is bbb"   
 pack .aaa .bbb
 
-
-
-
--after
-## 將 .f.object 放在 .f.object2 前面.
-## Use its master as the master for the slaves, and insert the slaves just after other in the packing order.
-## 將 .f.object 放在 .f.object2 後面.
-pack .f.object -after .f.object2
-
--before 
-## Other must the name of another window.
-## Use its master as the master for the slaves, and insert the slaves just before other in the packing order. 
-## 將 object 放置於特定 other object 前面.
-pack .f.object -before .f.object2
-
 -anchor 
 ## 將 object 定錨於 Frame 的方位.
 ## 將 .object 擺放西南方.
@@ -29,8 +14,6 @@ pack .object -anchor sw
 
 -in 
 other Insert the slave(s) at the end of the packing order for the master window given by other. 
-
-
 
 -side
 Specifies which side of the master the slave(s) will be packed against. Must be left, right, top, or bottom.
