@@ -2,8 +2,6 @@ button .aaa -text "this"
 button .bbb -text "that is bbb"   
 pack .aaa .bbb
 
-## padx & pady 物件依座標擺放
-pack .nameObject -padx 20 -pady 10
 
 
 
@@ -29,28 +27,10 @@ pack .object -anchor sw
     - se sw (東南 西南)
     - center (中央) → 此為預設是, 如果沒有設定 -anchor.
 
-
-
 -in 
 other Insert the slave(s) at the end of the packing order for the master window given by other. 
 
--ipadx 
-amount Amount specifies how much horizontal internal padding to leave on each side of the slave(s). Amount must be a valid screen distance, such as 2 or .5c.
-It defaults to 0. 
 
--ipady 
-Amount specifies how much vertical internal padding to leave on each side of the slave(s).
-Amount defaults to 0. 
-
--padx 
-Amount specifies how much horizontal external padding to leave on each side of the slave(s). Amount may be a list of two values to specify padding for left and right separately.
-Amount defaults to 0. 
-物件的左右間隔的寬度
-
--pady 
-Amount specifies how much vertical external padding to leave on each side of the slave(s). Amount may be a list of two values to specify padding for top and bottom separately.
-Amount defaults to 0.
-物件的上下間隔的高度
 
 -side
 Specifies which side of the master the slave(s) will be packed against. Must be left, right, top, or bottom.
