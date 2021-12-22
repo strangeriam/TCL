@@ -1,0 +1,11 @@
+-after
+## 將 .f.object 放在 .f.object2 前面.
+## Use its master as the master for the slaves, and insert the slaves just after other in the packing order.
+## 將 .f.object 放在 .f.object2 後面.
+pack .f.object -after .f.object2
+
+-before 
+## Other must the name of another window.
+## Use its master as the master for the slaves, and insert the slaves just before other in the packing order. 
+## 將 object 放置於特定 other object 前面.
+pack .f.object -before .f.object2
