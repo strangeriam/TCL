@@ -6,13 +6,6 @@
 ## ::label
 
 ## ttk 無法定義 -height & weight
-
-# -foreground → 定義文字顏色
-# -background → 定義 frame 顏色
-
-::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
-
-# -background 指定文字內容的背景顏色
 # -justify 如果說文字內容多於一行，這個選項可以用來設定每一行的對齊方式。它可以指定為left、center或right
 # -padding 文字內容及邊框間加入額外的空間
 
