@@ -3,7 +3,12 @@
 ## 字型使用
 -font { Helvetica 12 {bold} }
 
+# -foreground → 定義文字顏色
+# -background → 定義 frame 顏色
 
+::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
+
+# -background 指定文字內容的背景顏色
 
 ## 建立字型 font
 set f1 [font create -family "Times" -size 24] 
