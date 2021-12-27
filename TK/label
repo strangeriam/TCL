@@ -1,5 +1,8 @@
 ## label
 
+邊框的樣式
+-relief: flat groove raised ridge solid sunken
+
 
 
 
@@ -11,6 +14,12 @@
 # -background → 定義 frame 顏色
 
 ::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
+
+## 建立字型
+set f1 [font create -family "Times" -size 24] 
+::ttk::label .lbl -text "Hello Tcl/Tk!!" -font $f1 
+pack .lbl 
+
 
 # 擺靠方位
 # =============================================================
