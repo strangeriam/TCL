@@ -1,0 +1,17 @@
+## 適用於 TK & TTK
+
+## 字型使用
+-font { Helvetica 12 {bold} }
+
+
+
+## 建立字型 font
+set f1 [font create -family "Times" -size 24] 
+::ttk::label .lbl -text "Hello Tcl/Tk!!" -font $f1 
+pack .lbl 
+
+## font create 命令除了上面的 -family 及 -size 選項之外, 還可以使用下面的選項來設定字型的外觀.
+-weight : 粗體. normal (不要粗體), bold (使用粗體). 
+-slant : 斜體. roman (不要斜體), italic (使用斜體). 
+-underline : 底線. true (加上底線), false (不要底線). 
+-overstrike : 字型刪除線. true (加上刪除線), false (不要刪除線). 
