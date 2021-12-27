@@ -1,0 +1,13 @@
+# -image 文字標籤上的圖示
+-width [number]
+-height [number]
+# data string
+
+image create photo imgTelnet -file "$::ENVPATH/metadata/photo/icon/telnet.gif" -width 20 -height 10  
+::ttk::label .f.top.right.f3.lbl1 -text "Telnet Icon" -image imgTelnet
+
+# or
+
+.f.top.right.f3.lbl1 configure -image imgTelnet
+
+# -compound 圖示及文字內容的排列方式
