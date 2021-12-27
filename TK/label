@@ -3,9 +3,6 @@
 邊框的樣式
 -relief: flat groove raised ridge solid sunken
 
-
-
-
 ## ::label
 
 ## ttk 無法定義 -height & weight
@@ -15,40 +12,13 @@
 
 ::ttk::label .f2.lbl_item.lbl1 -text "DUT IP Address" -font {Helvetica 10 {bold}} -foreground red
 
-# -image 文字標籤上的圖示
-# =============================================================
--width [number]
--height [number]
-# data string
-
-image create photo imgTelnet -file "$::ENVPATH/metadata/photo/icon/telnet.gif" -width 20 -height 10  
-::ttk::label .f.top.right.f3.lbl1 -text "Telnet Icon" -image imgTelnet
-
-# or
-
-.f.top.right.f3.lbl1 configure -image imgTelnet
-
-# -compound 圖示及文字內容的排列方式
 # -background 指定文字內容的背景顏色
 # -justify 如果說文字內容多於一行，這個選項可以用來設定每一行的對齊方式。它可以指定為left、center或right
 # -padding 文字內容及邊框間加入額外的空間
 
-
 ## 適用於 TK & TTK
 # =============================================================
 # -textvariable 指定一個變數來即時反應文字內容
-
-## 建立字型 font
-set f1 [font create -family "Times" -size 24] 
-::ttk::label .lbl -text "Hello Tcl/Tk!!" -font $f1 
-pack .lbl 
-
-## font create 命令除了上面的 -family 及 -size 選項之外, 還可以使用下面的選項來設定字型的外觀.
--weight : 粗體. normal (不要粗體), bold (使用粗體). 
--slant : 斜體. roman (不要斜體), italic (使用斜體). 
--underline : 底線. true (加上底線), false (不要底線). 
--overstrike : 字型刪除線. true (加上刪除線), false (不要刪除線). 
-
 
 # 擺靠方位
 # =============================================================
