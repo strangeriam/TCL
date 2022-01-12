@@ -16,3 +16,7 @@ $dialog_txt tag add para 1.0 2.end
 $dialog_txt tag add hang 3.0 3.end
 
 pack $dialog_txt
+
+
+## 刪除內容文字.
+$dialog_txt delete 1.0 end
