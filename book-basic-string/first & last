@@ -1,0 +1,25 @@
+TCL, string, first & last 字串處理/搜尋
+字串搜尋
+
+* FIRST - 找到第一個 (Find first one which be captured)
+syntax]:
+string  first  string1  string2  startIndex?
+example]:
+set s1 "where tcl is, here tcl is"
+puts [ string first "tcl" "$s1" ]
+puts [ string first "tcl" "$s1" 7 ]
+output]:
+
+6          #<第1個 tcl 在哪? 由 w 開始算且含空白字元, 是落在 6>
+19        #<由第7個字元開始算第1個 tcl 在哪? 是落在 7>
+
+* LAST - 找到最後一個 (Find last one which be captured)
+syntax]:
+string  last  string1 string2  lastIndex?
+example]:
+set s1 "where tcl is, here tcl is"
+puts [ string last "tcl" "$s1" ]
+puts [ string last "tcl" "$s1" end-6 ]
+output]:
+19        #<最後1個ˋtcl 在哪? 是落在第 19 個字元>
+6          #<由倒數第6個字元起始, 已越過第2個 tcl, 所以是第1個 tcl, 也就是第 6 個字元>
