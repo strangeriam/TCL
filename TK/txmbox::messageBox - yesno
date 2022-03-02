@@ -1,0 +1,16 @@
+set img [image create photo -file "$::path_photo/ISV/hdmi.png"]
+set msgEnglish "Screen shows well ???"
+
+set MBox [ txmbox::messageBox -type yesno
+                              -image $img
+                              -message $msgEnglish
+                              -font { "courier new" 16 normal bold } 
+                              -format true 
+                              -width 30 -height 3 
+                              -wait true
+          ]
+puts "MBox =$MBox"
+
+if { [string compare -nocase $MBox "NO"]==0 } {
+        set testResult FAIL
+}
