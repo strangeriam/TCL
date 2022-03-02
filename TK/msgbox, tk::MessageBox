@@ -1,13 +1,21 @@
-
+## =======================================================
 set answer [tk_messageBox -message "Really quit?" \
             -icon question -type yesno \
-            -detail "Select \"Yes\" to make the application exit"]
+            -detail "Select \"Yes\" to make the application exit" \
+           ]
 
 switch -- $answer {
         yes exit
         no {tk_messageBox -message "I know you like this application!" -type ok}
 }
 
+
+## =======================================================
+set msgBox [tk_messageBox -message "Ping..." \
+            -icon info -type abortretryignore \
+            ]
+
+## =======================================================
 -type
     abortretryignore
             Displays three buttons whose symbolic names are abort, retry and ignore.
