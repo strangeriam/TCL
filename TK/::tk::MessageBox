@@ -1,0 +1,25 @@
+
+set answer [tk_messageBox -message "Really quit?" \
+            -icon question -type yesno \
+            -detail "Select \"Yes\" to make the application exit"]
+
+switch -- $answer {
+        yes exit
+        no {tk_messageBox -message "I know you like this application!" -type ok}
+}
+
+-type
+    abortretryignore
+            Displays three buttons whose symbolic names are abort, retry and ignore.
+    ok 
+            Displays one button whose symbolic name is ok.
+    okcancel
+            Displays two buttons whose symbolic names are ok and cancel.
+    retrycancel
+            Displays two buttons whose symbolic names are retry and cancel.
+    yesno
+            Displays two buttons whose symbolic names are yes and no.
+    yesnocancel
+            Displays three buttons whose symbolic names are yes, no and cancel.
+
+-icon: error, info, question or warning
