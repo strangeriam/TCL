@@ -5,7 +5,7 @@ set img [image create photo -file "$::ENVPATH/metadata/photo/magma/magma-reset-b
 set total 10
 for {set num 1} {$num <= $total} {incr num} {
            set uartRes ""
-           set msgWait 	"Waiting.. $num/$total"
+           set msgWait           "Waiting.. $num/$total"
            set msgEnglish 	"Hold Reset Button 2 sec and Release."
            set msgChinese 	"按住重置鍵 2 秒, 然後放開."
            set MesBox [txmbox::messageBox -type none -image $img -message "$msgWait\n\n$msgEnglish\n\n\n$msgChinese" -font {"Consolas" 16 normal bold} -format true -width 40 -height 3 -wait false]
