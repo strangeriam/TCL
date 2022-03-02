@@ -1,21 +1,19 @@
 ## 無顯示任何確認按鍵 ok yes/no cacel
 
-set img [image create photo -file "$ENVPATH/metadata/Photo/general/power.gif"]
+set img [image create photo -file "$::ENVPATH/metadata/photo/magma/magma-reset-button.png"]
 
-set num 15
+set total 10
+for {set num 1} {$num <= $total} {incr num} {
+           set uartRes ""
+           set msgWait 	"Waiting.. $num/$total"
+           set msgEnglish 	"Hold Reset Button 2 sec and Release."
+           set msgChinese 	"按住重置鍵 2 秒, 然後放開."
+           set MesBox [txmbox::messageBox -type none -image $img -message "$msgWait\n\n$msgEnglish\n\n\n$msgChinese" -font {"Consolas" 16 normal bold} -format true -width 40 -height 3 -wait false]
 
-while {$num > 1} {
-          set msgEnglish "Short press Reset button..$num"
-          set MesBox [txmbox::messageBox -type none -image $img -message "$msgEnglish" -font {"Consolas" 16 normal bold} -format true -width 30 -height 3 -wait false]
-          set uartRes [promptwait $com_fd "" $prompt_diag 1]
+          set uartRes [WaitForAllStrings $::com_fd "MemoryInit Done" 2]
 
-          if { [lindex $uartRes 0] == 0 } {
-                   txmbox::destroyMsgBox $MesBox
-                   break
-          } else {
-                   vwait_seconds 2
-                   txmbox::destroyMsgBox $MesBox
-          }
+          if { [lindex $uartRes 0] == 1 } { txmbox::destroyMsgBox $MesBox ; break }
 
-          incr num -1
+          vwait_seconds 2
+          txmbox::destroyMsgBox $MesBox
 }
