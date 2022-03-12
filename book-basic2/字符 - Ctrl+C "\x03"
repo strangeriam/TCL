@@ -14,3 +14,7 @@ Ctrl + [ ... (^[) ==> \x1B .. 字元名 Escape（跳脫）
 \r	回車
 \t	水平製表
 \v	垂直製表
+
+不換行
+-nonewline
+puts -nonewline "AAA"
