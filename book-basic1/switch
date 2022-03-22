@@ -1,6 +1,4 @@
-
 set num 3
-
 switch $num {
               " 1 " { puts "Monday" }
               " 2 " { puts "Tuesday" }
@@ -13,3 +11,18 @@ switch $num {
 }
 
 # OUTPUT: Wednesday
+
+## ======================
+## OR
+set num 2
+switch -glob -- $num {
+        "1" -
+        "2" { puts "Monday & Tuesday are working days."}
+        default { puts "Others" }
+}
+
+set num 2
+switch -regexp -- $num {
+   1|2      { puts "Monday & Tuesday are working days." }
+   default  { puts "Others." }
+}
