@@ -1,0 +1,22 @@
+Example MAC: 00305400000F
+
+set mac 00305400000F
+set mac_oui [string range $mac 0 5]
+set mac_start [string range $mac 6 end-0]
+
+set mac_0_tmp [format %X [expr "0x$mac_start + 0x0"]]
+set mac_0_tmp "[string repeat 0 [expr 6 - [string length $mac_0_tmp]]]$mac_0_tmp"
+set mac_0 "$mac_oui$mac_0_tmp"
+
+
+## 產生連續 4 組 MAC.
+## =================
+set mac 00305400000F
+set mac_oui [string range $mac 0 5]
+set mac_start [string range $mac 6 end-0]
+
+
+puts $mac_0_tmp
+puts $mac_1_tmp
+puts $mac_2_tmp
+puts $mac_3_tmp
