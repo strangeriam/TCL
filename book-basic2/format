@@ -1,11 +1,11 @@
 # 字串格式化
 
-%s	字符串表示
-%d	整數表示
-%f	浮點表示
-%e	指數形式浮點表示
-%x	十六進製表示
-%g  小數
+%s    字符串表示
+%d    整數表示
+%f    浮點表示
+%e    指數形式浮點表示
+%x    十六進製表示
+%g    小數
 
 # Syntax:
 # format formatstring ?vlue value...?
@@ -13,7 +13,6 @@
 format "%s" "Tcl Language"
 format %d "88"          # 定義單一數字為整數.
 format "%d %s" 4 tuts
-
 format "%f" 43.5
 format "%e" 43.5
 format %g "8.8"         # 定義單一數字為小數(浮點數-實際長度表示).
