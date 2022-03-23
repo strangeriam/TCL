@@ -1,6 +1,7 @@
 十六進製表示
 
-%x or %X
+%x  : 小寫輸出 f
+%X  : 大寫輸出 F
 
 puts [format "%x" 40]
 
