@@ -17,12 +17,11 @@ format "%f" 43.5
 format "%e" 43.5
 format %g "8.8"         # 定義單一數字為小數(浮點數-實際長度表示).
 
-
+## ====================================
 ## Example:
-## ========
 
 set name John
 set age 20
-
 set msg [format "%s is %d years old" $name $age]
-john is 20 years old
+
+Output: john is 20 years old
