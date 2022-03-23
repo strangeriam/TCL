@@ -1,3 +1,10 @@
 %x or %X	十六進製表示
 puts [format "%x" 40]
 
+# 顏色格式 16進制表示
+# output #6358C7
+set R 102
+set G 88
+set B 199
+    
+set color [format #%02x%02x%02X $r $g $b]
