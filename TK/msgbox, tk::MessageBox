@@ -11,9 +11,7 @@ switch -- $answer {
 
 
 ## =======================================================
-set msgBox [tk_messageBox -message "Ping..." \
-            -icon info -type abortretryignore \
-            ]
+set msgBox [ tk_messageBox -message "Ping..." -icon info -type abortretryignore ]
 
 ## =======================================================
 -type
