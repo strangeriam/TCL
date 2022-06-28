@@ -1,0 +1,10 @@
+proc timediff {one two} {
+set listone [split $one :]; foreach {h m s} $listone break
+set onesec [expr $h*60*60+$m*60+$s]
+set listtwo [split $two :]; foreach {h m s} $listtwo break
+set twosec [expr $h*60*60+$m*60+$s]
+return [expr abs($onesec-$twosec)]
+}
+
+puts [timediff "14:33:50" "14:34:10"]
+puts [timediff "14:34:20" "14:34:10"]
