@@ -42,3 +42,23 @@ for {set i 1} {$i <= $total} {incr i} {
       after 1000
 }
 
+## ====================================
+
+set time_1 [clock seconds]
+set time_2 [clock seconds]
+
+set total 70
+for {set i 1} {$i < $total} {incr i} {
+      
+      if {$i == 1} {
+            set time_1 [clock seconds]
+      }
+
+      after 1000
+      set time_2 [clock seconds]
+
+      set time_A [expr $time_2 - $time_1]
+      set time_B [clock format $time_A -format "%M:%S"]
+      puts $time_B
+}
+
