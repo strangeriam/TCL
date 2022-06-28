@@ -44,9 +44,6 @@ for {set i 1} {$i <= $total} {incr i} {
 
 ## ====================================
 
-set time_1 [clock seconds]
-set time_2 [clock seconds]
-
 set total 70
 for {set i 1} {$i < $total} {incr i} {
       
