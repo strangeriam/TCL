@@ -1,7 +1,6 @@
 proc test_case_time_1 { init } {
-		global test_case_time_init
 
-		if { $init == 1 } {
+		if { $::var_lbl_status == "TEST" && $::test_case_time_init == "" } {
 				set ::test_case_time_init [clock seconds]
 		}
 
