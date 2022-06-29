@@ -1,0 +1,39 @@
+proc test_case_time_1 {} {
+		global test_case_time_init
+
+		if { $test_case_time_init == "off" } {
+				set tmp off
+		} else {
+				set tmp [clock seconds]
+				set tmp [expr $tmp - $test_case_time_init]
+				set tmp [clock format $tmp -format "%M:%S"]
+		}
+
+		return $tmp
+}
+
+## Syntax:
+## set test_case_time_init [clock seconds]
+## test_case_time_1
+## test_case_time_2_show
+## Stop Time Counting: set test_case_time_init ""
+proc test_case_time_2_show {} {
+		global test_case_time_init
+
+		if { $test_case_time_init == "" } {
+				if {$user == "LU" } { puts "\nLEAVE Test Time Counting...\n"
+				return 0
+		}
+
+   	 	set ::var_lbl_time [test_case_time_1]
+
+  	 	after 500 test_case_time_2_show
+}
+
+set test_case_time_init [clock seconds]
+test_case_time_1
+test_case_time_2_show
+
+## Stop Time Counting
+set test_case_time_init ""
+
