@@ -1,39 +1,32 @@
-proc test_case_time_1 {} {
+proc test_case_time_1 { init } {
 		global test_case_time_init
 
-		if { $test_case_time_init == "off" } {
-				set tmp off
-		} else {
-				set tmp [clock seconds]
-				set tmp [expr $tmp - $test_case_time_init]
-				set tmp [clock format $tmp -format "%M:%S"]
+		if { $init == 1 } {
+				set ::test_case_time_init [clock seconds]
 		}
 
-		return $tmp
+		set tmp [clock seconds]
+		set tmp [expr $tmp - $::test_case_time_init]
+
+		return [clock format $tmp -format "%M:%S"]
 }
 
-## Syntax:
-## set test_case_time_init [clock seconds]
-## test_case_time_1
-## test_case_time_2_show
-## Stop Time Counting: set test_case_time_init ""
 proc test_case_time_2_show {} {
-		global test_case_time_init
 
-		if { $test_case_time_init == "" } {
-				if {$user == "LU" } { puts "\nLEAVE Test Time Counting...\n"
+		if { $::var_lbl_status == "PASS" || $::var_lbl_status == "FAIL" } {
+				if { $::user == "LU" } { puts "\nLEAVE Test Time Counting...\n" }
 				return 0
 		}
 
-   	 	set ::var_lbl_time [test_case_time_1]
+   	 	set ::var_lbl_time [test_case_time_1 0]
 
   	 	after 500 test_case_time_2_show
 }
 
-set test_case_time_init [clock seconds]
-test_case_time_1
+set ::test_case_time_init ""
+test_case_time_1 1
 test_case_time_2_show
 
 ## Stop Time Counting
-set test_case_time_init ""
-
+## $::var_lbl_status : PASS or FAIL
+set ::var_lbl_status FAIL
