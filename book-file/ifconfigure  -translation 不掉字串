@@ -9,3 +9,4 @@ puts $fd2 $aaa
 
 close $fd
 close $fd2
+
