@@ -1,5 +1,3 @@
-Lu: Not sure this work !!!
-
 set fd [open aaa.txt r]
 fconfigure $fd -translation binary
 set aaa [read $fd]
