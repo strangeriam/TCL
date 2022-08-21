@@ -1,4 +1,0 @@
-Lu: Not sure this work !!!
-
-set fd [open filename r]
-fconfigure $fd -translation binary

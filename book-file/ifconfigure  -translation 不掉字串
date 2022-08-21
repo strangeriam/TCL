@@ -1,0 +1,13 @@
+Lu: Not sure this work !!!
+
+set fd [open aaa.txt r]
+fconfigure $fd -translation binary
+set aaa [read $fd]
+
+
+set fd2 [open bbb.txt w]
+fconfigure $fd2 -translation binary
+puts $fd2 $aaa
+
+close $fd
+close fd2
