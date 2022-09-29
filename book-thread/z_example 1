@@ -8,14 +8,12 @@
 package require Thread
 
 for {set i 1} {$i <= 3} {incr i} {
-
       set id [thread::create {
             for {set j 1} {$j <= 3} {incr j} {
                   after [expr { int(500*rand()) }]
-                  puts "\[$i\] Thread [thread::id] says hello."
+                  puts "\[$i\] Thread [thread::id] says hello." ;# 這裡無法顯示.
             }
       }]
-
       puts "\n$i, Started thread id - $id"
 }
 
