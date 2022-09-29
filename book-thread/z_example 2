@@ -4,9 +4,9 @@
 package require Thread
 
 set t1 [thread::create]
-set t2 [thread::create] 
+set t2 [thread::create]
 thread::send -async $t1 "set a 1" result
-thread::send -async $t2 "set b 2" result 
+thread::send -async $t2 "set b 2" result
 
 for {set i 0} {$i < 2} {incr i} {
         vwait result
