@@ -1,25 +1,3 @@
-package require Thread
-
-for {set i 1} {$i <= 3} {incr i} {
-      set id [thread::create {
-            for {set j 1} {$j <= 3} {incr j} {
-                  after [expr { int(500*rand()) }]
-                  puts "\[$i\] Thread [thread::id] says hello." ;# 這裡無法顯示.
-            }
-      }]
-      puts "\n$i, Started thread id - $id"
-}
-
-puts "*** Exist threads: [thread::names]\n"
-
-while { [llength [thread::name]] > 1 } {
-        after 500
-        puts "*** You are under [thread::names]\n"
-}
-
-puts "*** Completed, Bro!"
-
-
 ## =============
 ## Dai 建議這樣寫
 ## =============
@@ -38,3 +16,106 @@ vwait ::bye
 
 thread::join $tid
 puts "bye~~~"
+
+
+## =============
+## 應用 220929
+## =============
+package require Thread
+
+proc f_sayHello_john {} {
+	puts "\nHello John...\n"
+	for {set i 1} {$i <= 5} {incr i} {
+		puts "John $i"
+		after 500
+	}
+	puts "End John"
+}
+
+f_sayHello_john
+
+tsv::set share mainTid [thread::id]
+
+set tid [thread::create -joinable {
+            set mainTid [tsv::get share mainTid]
+            thread::send -async $mainTid [list f_sayHello_john]
+}]
+
+set ::bye 0
+after 3000 [list set ::bye 1]
+vwait ::bye
+
+thread::join $tid
+puts "bye~~~"
+
+
+## ===========
+## 輸出 220929
+## ===========
+
+2.7.2
+
+tid00003508
+tid00005D98
+0
+after#2
+
+Hello John...
+
+John 1
+John 2
+John 3
+John 4
+John 5
+End John
+0
+bye~~~
+
+
+## ==============
+## 輸出講解 220929
+## ==============
+
+package require Thread
+## 2.7.2    ;# 印出 Thread 版本
+
+proc f_sayHello_john {} {
+	puts "\nHello John...\n"
+	for {set i 1} {$i <= 5} {incr i} {
+		puts "John $i"
+		after 500
+	}
+	puts "End John"
+}
+
+tsv::set share mainTid [thread::id]
+## tid00003508    ;# 印出 mainTid 的 Thread ID.
+
+set tid [thread::create -joinable {
+            set mainTid [tsv::get share mainTid]
+            thread::send -async $mainTid [list f_sayHello_john]
+}]
+
+## tid00005D98 ;# 印出 tid 的 Thread ID.
+
+set ::bye 0
+## 0
+
+after 3000 [list set ::bye 1]
+## after#2
+
+vwait ::bye
+## 0
+
+thread::join $tid
+## Hello John...
+## 
+## John 1
+## John 2
+## John 3
+## John 4
+## John 5
+## End John
+
+puts "bye~~~"
+## bye~~~   ;# 印出 bye~~~
