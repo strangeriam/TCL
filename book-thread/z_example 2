@@ -26,5 +26,7 @@ while 1 {
 	thread::release $t
 }
 
+
+
 # Output
 一直重複 Hello Everyone...
