@@ -22,16 +22,22 @@ f_sayHi_Lu
 package require Thread
 tsv::set share mainTid [thread::id]
 
-set tid [thread::create -joinable {
+set tid1 [thread::create -joinable {
             set mainTid [tsv::get share mainTid]
             thread::send -async $mainTid [list f_sayHello_john]
+}]
+
+set tid2 [thread::create -joinable {
+            set mainTid [tsv::get share mainTid]
+            thread::send -async $mainTid [list f_sayHi_Lu]
 }]
 
 set ::bye 0
 after 3000 [list set ::bye 1]
 vwait ::bye
 
-thread::join $tid
+thread::join $tid1
+thread::join $tid2
 puts "bye~~~"
 
 
