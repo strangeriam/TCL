@@ -4,7 +4,7 @@
 ## waiting a random amount of time between messages.
 
 
-## CODE 說明 ===========================================
+## CODE ==============
 package require Thread
 
 proc f_sayHello {} {
@@ -42,9 +42,3 @@ puts "*** Completed, Bro!"
 *** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
 *** You are under tid000029FC
 *** Completed, Bro!
-
-# NOTE:
-使用 tkcon, 無法輸出 
-[-1-] Started thread tid00002918
-[-2-] Started thread tid00002920
-[-3-] Started thread tid000025BC
