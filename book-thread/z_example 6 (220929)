@@ -16,9 +16,6 @@ proc f_sayHi_Lu {} {
 	puts \n
 }
 
-f_sayHello_john
-f_sayHi_Lu
-
 package require Thread
 tsv::set share mainTid [thread::id]
 
