@@ -11,19 +11,19 @@ proc make_worker_thread {logger_id body} {
       } \n $body
 
       thread::create $newbody
-} 
+}
 
 set logger [thread::create {
-      package require logger 
+      package require logger
 
-      proc log {severity msg} { 
-            puts "hey, that's it: ($severity) $msg" 
-      } 
+      proc log {severity msg} {
+            puts "hey, that's it: ($severity) $msg"
+      }
 
-      puts "logger thread created: [thread::id]" 
+      puts "logger thread created: [thread::id]"
 
-      thread::wait 
-}] 
+      thread::wait
+}]
 
 for {set i 0} {$i < 3} {incr i} {
         make_worker_thread $logger {
