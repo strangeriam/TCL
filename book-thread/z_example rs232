@@ -1,0 +1,11 @@
+proc aa {} {
+            puts "console_port : $::console_port"
+            com_open $::console_port
+            ConsoleWrite $::com_fd "ifconfig"
+            vwait_seconds 1
+            set uartRes [ConsoleRead $::com_fd]
+            puts "uartRes : $uartRes"
+}
+
+package require Thread
+set id [thread::create [aa]]
