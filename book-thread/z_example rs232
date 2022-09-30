@@ -28,3 +28,6 @@ for {set i 1} {$i <= 3} {incr i} {
         set tid1 [thread::create [dut1]]
         set tid2 [thread::create [dut2]]
 }
+
+
+## Code End
