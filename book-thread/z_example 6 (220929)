@@ -1,18 +1,25 @@
-## =============
-## 應用 220929
-## =============
 package require Thread
 
 proc f_sayHello_john {} {
 	puts "\nHello John...\n"
 	for {set i 1} {$i <= 5} {incr i} {
-		puts "John $i"
+		puts "H e l l o ... $i"
 		after 500
 	}
 	puts "End John"
 }
 
+proc f_sayHi_Lu {} {
+	puts "\nHi... Lu.\n"
+	for {set i 1} {$i <= 5} {incr i} {
+		puts "H I ... $i"
+		after 500
+	}
+	puts "End Lu"
+}
+
 f_sayHello_john
+f_sayHi_Lu
 
 tsv::set share mainTid [thread::id]
 
