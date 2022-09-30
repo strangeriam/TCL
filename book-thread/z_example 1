@@ -9,6 +9,41 @@ package require Thread
 
 proc f_sayHello {} {
       for {set i 1} {$i <= 3} {incr i} {
+              after [expr { int(500*rand()) }]
+              puts "\[$i\] Thread [thread::id] says hello."
+      }
+}
+
+for {set num 1} {$num <= 3} {incr num} {
+      set id [thread::create [f_sayHello]]
+      puts "\n\[-$num-\] Started thread $id"
+}
+
+puts "Exist threads: [thread::names]\n"
+
+while { [llength [thread::name]] > 1 } {
+        after 500
+        puts "You are under [thread::names]\n"
+}
+
+puts "Code End"
+
+
+## OUTPUT:
+*** I'm thread tid000029FC
+[-1-] Started thread tid00002918
+[-2-] Started thread tid00002920
+[-3-] Started thread tid000025BC
+*** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
+*** You are under tid000029FC
+*** Completed, Bro!
+
+
+## Code 解說
+package require Thread
+
+proc f_sayHello {} {
+      for {set i 1} {$i <= 3} {incr i} {
               ## 產生亂數 0~499, [expr { int(500*rand()) }]
               ## 依亂數時間 0~499 等待, after
               after [expr { int(500*rand()) }]
@@ -32,13 +67,3 @@ while { [llength [thread::name]] > 1 } {
 }
 
 puts "*** Completed, Bro!"
-
-
-## OUTPUT:
-*** I'm thread tid000029FC
-[-1-] Started thread tid00002918
-[-2-] Started thread tid00002920
-[-3-] Started thread tid000025BC
-*** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
-*** You are under tid000029FC
-*** Completed, Bro!
