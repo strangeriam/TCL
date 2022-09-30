@@ -5,6 +5,7 @@ package require Thread
 proc f_sayHello {} {
       for {set i 1} {$i <= 3} {incr i} {
               after [expr { int(500*rand()) }]
+              puts \n
               puts "\[$i\] Thread [thread::id] says hello."
       }
 }
@@ -63,11 +64,21 @@ puts "*** Completed, Bro!"
 ## waiting a random amount of time between messages.
 
 
-*** I'm thread tid000029FC
-[-1-] Started thread tid00002918
-[-2-] Started thread tid00002920
-[-3-] Started thread tid000025BC
-*** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
-*** You are under tid000029FC
-*** Completed, Bro!
+[1] Thread tid00003978 says hello.
+[2] Thread tid00003978 says hello.
+[3] Thread tid00003978 says hello.
 
+[-1-] Started thread tid0000512C
+[1] Thread tid00003978 says hello.
+[2] Thread tid00003978 says hello.
+[3] Thread tid00003978 says hello.
+
+[-2-] Started thread tid0000408C
+[1] Thread tid00003978 says hello.
+[2] Thread tid00003978 says hello.
+[3] Thread tid00003978 says hello.
+
+[-3-] Started thread tid000023BC
+*** Exist threads: tid00003978
+
+*** Completed, Bro!
