@@ -1,19 +1,19 @@
 proc f_sayHello_john {} {
-	puts "\nHello John...\n"
+	puts \n
 	for {set i 1} {$i <= 5} {incr i} {
 		puts "H e l l o ... $i"
 		after 500
 	}
-	puts "End John"
+	puts \n
 }
 
 proc f_sayHi_Lu {} {
-	puts "\nHi... Lu.\n"
+	puts \n
 	for {set i 1} {$i <= 5} {incr i} {
 		puts "H I ... $i"
 		after 500
 	}
-	puts "End Lu"
+	puts \n
 }
 
 f_sayHello_john
@@ -46,19 +46,10 @@ puts "bye~~~"
 ## ===========
 
 2.7.2
-
-tid00003508
-tid00005D98
+tid00004AFC
+tid00004124
 0
 after#2
-
-Hello John...
-
-John 1
-John 2
-John 3
-John 4
-John 5
-End John
-0
+1
+1
 bye~~~
