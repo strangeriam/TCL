@@ -1,14 +1,34 @@
-tsv::set share mainTid [thread::id]
+package require Thread
 
-set tid [thread::create -joinable {
-        set mainTid [tsv::get share mainTid]
-        thread::send -async $mainTid [list puts "Hello"]
-}]
+## Code
+thread::create {
+        package require fileutil
 
-set ::bye 0
-after 3000 [list set ::bye 1]
-vwait ::bye
+        set files [fileutil::findByPattern [pwd] *.tcl]
 
-thread::join $tid
+        set fid [open files.txt w]
+        puts $fid [join $files \n]
+        close $fid
+}
 
-puts "bye~~~"
+
+## 程式解說
+# Create a separate thread to search the current directory
+# and all its subdirectories, recursively, for all files
+# ending in the extension ".tcl". Store the results in the
+# file "files.txt".
+
+thread::create {
+# Load the Tcllib fileutil package to use its
+# findByPattern procedure.
+
+package require fileutil
+
+set files [fileutil::findByPattern [pwd] *.tcl]
+
+set fid [open files.txt w]
+puts $fid [join $files \n]
+close $fid
+}
+
+# The main thread can perform other tasks in parallel...
