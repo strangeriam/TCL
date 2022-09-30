@@ -1,10 +1,5 @@
-## Create 3 threads.
-## =================
-## Print a hello message 3 times,
-## waiting a random amount of time between messages.
-
-
 ## CODE ==============
+
 package require Thread
 
 proc f_sayHello {} {
@@ -29,17 +24,9 @@ while { [llength [thread::name]] > 1 } {
 puts "Code End"
 
 
-## OUTPUT:
-*** I'm thread tid000029FC
-[-1-] Started thread tid00002918
-[-2-] Started thread tid00002920
-[-3-] Started thread tid000025BC
-*** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
-*** You are under tid000029FC
-*** Completed, Bro!
 
-
-## Code 解說
+## Code 解說 =====
+## ===============
 package require Thread
 
 proc f_sayHello {} {
@@ -67,3 +54,20 @@ while { [llength [thread::name]] > 1 } {
 }
 
 puts "*** Completed, Bro!"
+
+
+## OUTPUT:
+## Create 3 threads.
+## =================
+## Print a hello message 3 times,
+## waiting a random amount of time between messages.
+
+
+*** I'm thread tid000029FC
+[-1-] Started thread tid00002918
+[-2-] Started thread tid00002920
+[-3-] Started thread tid000025BC
+*** Exist threads: tid000025BC tid00002920 tid00002918 tid000029FC
+*** You are under tid000029FC
+*** Completed, Bro!
+
