@@ -7,21 +7,19 @@
 ## CODE 說明 ===========================================
 package require Thread
 
+proc f_sayHello {} {
+      for {set i 1} {$i <= 3} {incr i} {
+              ## 產生亂數 0~499, [expr { int(500*rand()) }]
+              ## 依亂數時間 0~499 等待, after
+              after [expr { int(500*rand()) }]
+
+              ## 列印 Thread ID.
+              puts "\[$i\] Thread [thread::id] says hello."
+      }
+}
+
 for {set num 1} {$num <= 3} {incr num} {
-
-      set id [thread::create {
-
-            for {set i 1} {$i <= 3} {incr i} {
-
-                  ## 產生亂數 0~499, [expr { int(500*rand()) }]
-                  ## 依亂數時間 0~499 等待, after
-                  after [expr { int(500*rand()) }]
-
-                  ## 列印 Thread ID.
-                  puts "\[$i\] Thread [thread::id] says hello."
-            }
-      }]
-
+      set id [thread::create [f_sayHello]]
       puts "\n\[-$num-\] Started thread $id"
 }
 
