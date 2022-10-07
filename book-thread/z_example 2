@@ -14,12 +14,11 @@ for {set i 0} {$i < 2} {incr i} {
 
 # Example code
 # ============
-package require Thread
-
 proc f_sayHello {} {
 	puts "Hello Everyone..."
 }
 
+package require Thread
 while 1 {
 	set t [thread::create]
 	thread::send $t [f_sayHello]
