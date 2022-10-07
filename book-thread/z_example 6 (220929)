@@ -22,7 +22,6 @@ tsv::set share mainTid [thread::id]
 set tid1 [thread::create -joinable {
             set mainTid [tsv::get share mainTid]
             thread::send -async $mainTid [list f_sayHello_john]
-	    thread::send -async $mainTid [list f_sayHi_Lu]
 }]
 
 set tid2 [thread::create -joinable {
