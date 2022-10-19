@@ -1,10 +1,14 @@
 # 啟用特定執行檔
 
+## Method 1
 cd $::ENVPATH/tools/wireless/DmClient2
 set aaa [exec dm_test.bat]
 
-# or
-
+## Method 2
 set dut_ip "192.168.1.1"
 set path_fw "$::ENVPATH/tools/wireless/CS_0.0.059.1/TALYN_M_B0_WMI_ONLY"
 set aaa [exec python.exe dm_test.py $dut_ip $path_fw]
+
+## Method 3
+cd metadata/apcode_certification
+exec plink.exe -ssh root@192.168.1.1 -pw openwifi < E001A63FB622.tar.gz "cat > /tmp/E001A63FB622.tar.gz"
