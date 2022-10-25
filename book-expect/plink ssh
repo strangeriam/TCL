@@ -1,0 +1,22 @@
+Prepare
+ping 10.36.192.11
+
+
+## ==============================
+spawn plink -ssh root@10.36.192.11
+
+expect -i exp2 ".*login: " { exp_send "root\r" }
+expect -i exp2 "Password: " { exp_send "pppppp\r" }
+
+# 以上 Telnet 登入成功後,
+# 再下 expect_background, 往後的輸入皆會有 Log 輸出.
+expect_background {
+     -i exp2 -re ".*" {
+              puts $expect_out(buffer)
+}}
+
+exp_send -i exp2 "df -h\r"
+exp_send -i exp2 "ll\r"
+
+# 離開 Telnet.
+exp_send -i exp2 "exit\r"
