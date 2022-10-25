@@ -3,10 +3,21 @@ ping 10.36.192.11
 
 
 ## ==============================
+package require Expect
+
+spawn ping 192.168.1.101
+expect -i exp2 ".*Lost = " { exp_send "dir\r" }
+
 spawn plink -ssh root@10.36.192.11
+spawn plink -ssh admin@192.168.1.1
+
 
 expect -i exp2 ".*login: " { exp_send "root\r" }
+expect -i exp2 ".*login: " { exp_send "admin\r" }
+
+
 expect -i exp2 "Password: " { exp_send "pppppp\r" }
+expect -i exp2 "Password: " { exp_send "admin\r" }
 
 # 以上 Telnet 登入成功後,
 # 再下 expect_background, 往後的輸入皆會有 Log 輸出.
