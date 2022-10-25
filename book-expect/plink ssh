@@ -1,33 +1,32 @@
-Prepare
-ping 10.36.192.11
+set timeout 30
+spawn /usr/local/bin/scp -P 36000 user@ip:/data/myfile  /data1
+expect {           
+    password: {
+        send "password\r"
+    } "yes/no)?" {
+        send "yes\r"
+        set timeout -1
+    } timeout {
+        exit
+    } eof {
+        exit
+    }
+}
 
 
-## ==============================
-package require Expect
+scp file_source user@ip:file_destination
 
-spawn ping 192.168.1.101
-expect -i exp2 ".*Lost = " { exp_send "dir\r" }
-
-spawn plink -ssh root@10.36.192.11
-spawn plink -ssh admin@192.168.1.1
-
-
-expect -i exp2 ".*login: " { exp_send "root\r" }
-expect -i exp2 ".*login: " { exp_send "admin\r" }
-
-
-expect -i exp2 "Password: " { exp_send "pppppp\r" }
-expect -i exp2 "Password: " { exp_send "admin\r" }
-
-# 以上 Telnet 登入成功後,
-# 再下 expect_background, 往後的輸入皆會有 Log 輸出.
-expect_background {
-     -i exp2 -re ".*" {
-              puts $expect_out(buffer)
-}}
-
-exp_send -i exp2 "df -h\r"
-exp_send -i exp2 "ll\r"
-
-# 離開 Telnet.
-exp_send -i exp2 "exit\r"
+set timeout 30
+spawn scp -P 36000 test.jpg admin@192.168.1.1:/tmp/test.jpg
+expect {           
+    password: {
+        send "admin\r"
+    } "yes/no)?" {
+        send "yes\r"
+        set timeout -1
+    } timeout {
+        exit
+    } eof {
+        exit
+    }
+}
