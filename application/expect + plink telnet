@@ -29,7 +29,10 @@ admin@EAP104:~#
 
 
 ## Code #####
-
+spawn plink -telnet 192.168.2.1
+expect -timeout 2 ".*login: " { send "admin\n" }
+expect "Password:" { send "admin\n" }
+send_user "It's OK\r"
 
 
 
