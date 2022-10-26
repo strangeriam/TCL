@@ -3,3 +3,30 @@
 ## 當我們僅需要將一個或少數檔案從 PC client 端 upload 到 Server 端時, 這套軟體就提供非常安全的方法, 使得所傳送的內容不會被其他人給竊聽.
 ## 若 Server 有提供 SSH2, 還是使用 PSFTP 會比較安全.
 
+
+## Command, Copy from Windows to Linux
+pscp.exe -scp 222.tar.gz admin@192.168.2.1:/tmp/
+
+
+
+## TCL Expect #############################
+package require Expect
+# Output: 5.43.2
+
+spawn plink -telnet 192.168.2.1
+
+expect -i exp2 ".*login: " { exp_send "admin\r" }
+expect -i exp2 "Password: " { exp_send "admin\r" }
+
+# 以上 Telnet 登入成功後,
+# 再下 expect_background, 往後的輸入皆會有 Log 輸出.
+expect_background {
+     -i exp2 -re ".*" {
+              puts $expect_out(buffer)
+}}
+
+exp_send -i exp2 "df -h\r"
+exp_send -i exp2 "ll\r"
+
+# 離開 Telnet.
+exp_send -i exp2 "exit\r"
