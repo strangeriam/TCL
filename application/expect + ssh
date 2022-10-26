@@ -1,0 +1,38 @@
+Command:
+ssh -t admin@192.168.2.1
+
+## Example:
+## =============================================================
+D:\worktmp>ssh -t admin@192.168.2.1
+The authenticity of host '192.168.2.1 (192.168.2.1)' can't be established.
+ED25519 key fingerprint is SHA256:Z7cpxjQRriD5dDKevMV5+ZWzmWJ1X2wRg0dZTm6pmkk.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.2.1' (ED25519) to the list of known hosts.
+admin@192.168.2.1's password:
+
+
+BusyBox v1.33.1 (2022-07-05 02:38:08 UTC) built-in shell (ash)
+
+  ______      _                                          ______
+ |  ____|    | |                                        |  ____|
+ | |__     __| |  __ _   ___           ___   ___   _ __ | |__
+ |  __|   / _` | / _` | / _ \ ______  / __| / _ \ | '__||  __|
+ | |____ | (_| || (_| ||  __/|______|| (__ | (_) || |   | |____
+ |______| \__,_| \__, | \___|         \___| \___/ |_|   |______|
+                  __/ |
+                 |___/
+ ---------------------------------------------------------------
+   TRANSFORMING THE WAY THE WORLD CONNECTS (12.0.0, 629)
+ ---------------------------------------------------------------
+admin@EAP104:~#
+
+## =============================================================
+
+
+## Code
+spawn ssh -t admin@192.168.2.1 "$*"
+expect -timeout 2 "Are you sure you want to continue connecting (yes/no/[fingerprint])?" { send "yes\n" }
+expect "s password:" { send "amin\n" }
+send_user "It's OK\r"
+
+## 程式說明
