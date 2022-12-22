@@ -1,1 +1,5 @@
 全部被匹配, 返回匹配的個數, 如果指定了匹配變量, 那麼最後一個匹配到的字符串將儲存在這些變量中.
+
+regexp -all {[0-7]} $string
+
+regexp -all -inline {/S+} $string
