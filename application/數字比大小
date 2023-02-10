@@ -1,0 +1,13 @@
+
+set power_list [list $tx_power_1 $tx_power_2 $tx_power_3 $tx_power_4 $tx_power_5 $tx_power_6 $tx_power_7 $tx_power_8 $tx_power_9 $tx_power_10 ]
+set tx_power [findMax $power_list]
+
+proc findMax {array} {
+      set maxValue [lindex $array 0]
+      foreach value $array {
+			      if {$value > $maxValue} {
+	      			set maxValue $value
+	          }
+  		}
+  		return $maxValue
+}
