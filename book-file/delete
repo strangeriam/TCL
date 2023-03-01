@@ -11,3 +11,6 @@ file delete $pathname
 
 ## 刪除當前所在目錄
 file delete -force [pwd]
+
+## 強制內含檔案的目錄 worktmp
+file delete -force "$::ASPECTPATH/worktmp"
