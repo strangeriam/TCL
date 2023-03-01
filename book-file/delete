@@ -1,0 +1,7 @@
+## 刪除所有副檔名是 high 的檔案.
+
+set infiles [glob -nocomplain *.high]
+
+if {[llength $infiles]} {
+      file delete -force {*}$infiles
+}
