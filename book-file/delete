@@ -8,3 +8,6 @@ if {[llength $infiles]} {
 
 ## 刪除目錄, 且裡面是空的.
 file delete $pathname
+
+## 刪除當前所在目錄
+file delete -force [pwd]
