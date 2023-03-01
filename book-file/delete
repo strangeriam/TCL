@@ -5,3 +5,6 @@ set infiles [glob -nocomplain *.high]
 if {[llength $infiles]} {
       file delete -force {*}$infiles
 }
+
+## 刪除目錄, 且裡面是空的.
+file delete $pathname
