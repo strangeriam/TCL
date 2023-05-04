@@ -1,0 +1,2 @@
+_f_transmit "cat /etc/version\r"
+_f_waitfor $::kernel_prompt
