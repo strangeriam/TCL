@@ -1,0 +1,7 @@
+if { [_f_waitor [list $::kernel_prompt "login" "y/n"] 30 $::Console_Main -multiple] } {
+					if { [regexp "y/n" [_f_getconsole $::Console_Main]] } {
+			    }
+
+          if { [regexp "login" [_f_getconsole $::Console_Main]] } {
+			    }
+}
