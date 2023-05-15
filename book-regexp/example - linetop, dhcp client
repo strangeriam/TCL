@@ -14,3 +14,5 @@ set dhcp_ip ""
 if { [regexp -linestop "$mac.*" $aaa dhcp_ip] == 1 } {
       set dut_ip [lindex $dhcp_ip 1]
 }
+
+puts "dut_ip : $dut_ip"
