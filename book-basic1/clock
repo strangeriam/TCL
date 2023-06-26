@@ -2,5 +2,7 @@
 
 set str [clock seconds]
 clock format $str -format "%y%m%d %H:%M:%S"
-
 # OUTPUT: 200929 09:21:13
+
+clock format $str -format "%Y/%m/%d %H:%M:%S"
+# OUTPUT: 2023/05/18 08:34:52
