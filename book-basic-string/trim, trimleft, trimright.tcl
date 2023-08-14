@@ -4,6 +4,11 @@
 # → string trimleft  $str char → 刪除 $str 左邊含有 char 字元.
 # → string trimright $str char → 刪除 $str 右邊含有 char 字元
 
+# 特殊字元
+# \0 : 空字元 (NULL)
+# \t : 定位字元 (TAB)
+# \n : 換行字元 (ENTER)
+
 set str "HelloWorld papa WorldHello"
 
 string trim $str "Hello"
