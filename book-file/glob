@@ -1,3 +1,8 @@
 
 ## 顯示指定目錄內的 檔名 清單, 不含目錄名稱.
+
 glob -directory "data/cpk_log" -tails *
+
+;# -tails
+;# 表示只顯示文件名.
+;# 可以與-directory 和 -path 一起使用.
