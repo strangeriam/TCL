@@ -1,0 +1,3 @@
+
+## 顯示指定目錄內的 檔名 清單, 不含目錄名稱.
+glob -directory "data/cpk_log" -tails *
