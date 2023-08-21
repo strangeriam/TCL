@@ -1,1 +1,14 @@
 
+;# Log 存放路徑.
+set ::cpk_log_path "data/cpk_log"
+
+;# 列出所有 Log 檔.
+set ::file_list [glob -directory $::cpk_log_path -tails *]
+;# OUTPUT
+EC2330000401_PASS_Y_1_111001.cap EC2330000402_PASS_Y_1_113611.cap EC2330000403_PASS_Y_1_113937.cap EC2330000404_PASS_Y_1_113210.cap EC2330000405_PASS_Y_1_111440.cap EC2330000406_PASS_Y_1_143541.cap EC2330000407_PASS_Y_1_112228.cap EC2330000408_PASS_Y_1_105918.cap EC2330000409_PASS_Y_1_112602.cap EC2330000410_PASS_Y_1_112842.cap EC2330000411_PASS_Y_1_105320.cap EC2330000412_PASS_Y_1_111838.cap
+
+;# Log 檔總數.
+set ::file_num [llength $::file_list]
+;# OUTPUT
+12
+
