@@ -1,0 +1,38 @@
+;############################################################################
+;# PROCEDURE NAME - _f_transmit {txkey args}
+;#-------------------------------------------------------------------------Ver:1B
+;# DESCRIPTION: 下命令到console
+;#              $txkey : 所要下的命令
+;#              $args : 所要下命令的 console name , 預設是 Console_Main
+;# EXAMPLE :  _f_transmit test
+;#			  _f_transmit \n $::COS2
+;#			  _f_transmit \\r $::dosid
+;# Support OS : Windows (V) , Linux (V)
+;# RETURN: None
+;############################################################################ 
+
+;############################################################################
+;# PROCEDURE NAME - _f_perfect_transmit {txkey delayms args}
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 下命令到console,並且會檢查是否掉字,如果掉字會自動重下命令
+;#              $txkey : 要輸入的 Key
+;#              $delayms : 字與字 delay 的 max ms . 只要字串出現 就不再等待 .
+;#              $args : 所要下命令的 console name , 預設是 Console_Main
+;# EXAMPLE :  _f_perfect_transmit "admin\r" 100 $::COS2
+;# Support OS : Windows (V) , Linux (V)
+;# RETURN: None
+;############################################################################ 
+
+;############################################################################
+;# PROCEDURE NAME - _f_transmit_delay {txkey time args}
+;#-------------------------------------------------------------------------Ver:0Q
+;# DESCRIPTION: 下命令到console ,每一個字等待time ms
+;#              $txkey : 所要下的命令
+;#              $time : 所要等待的時間, 單位 ms
+;#              $args : 所要下命令的 console name , 預設是 Console_Main
+;# EXAMPLE :  _f_transmit_delay test 150
+;#			  _f_transmit_delay \n 150 $::COS2
+;#			  _f_transmit_delay \\r 150 $::dosid
+;# Support OS : Windows (V) , Linux (V)
+;# RETURN: None
+;############################################################################ 
