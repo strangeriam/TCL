@@ -5,3 +5,12 @@
 set str1 "Papa"
 set str2 ", Good morning."
 append str1 $str2
+
+
+Example:
+set str1 papa
+set str2 mama
+set qq [append str1]
+set qq [append qq $str2]
+
+OUTPUT: papamama
