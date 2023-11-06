@@ -15,5 +15,5 @@ glob -no -directory $log_dir -tails *
 ## 會跳出錯誤訊息
 no files matched glob pattern "*"
 
-可用 -no 避開.
+可用 -no (-nocomplain) 避開.
 glob -no -directory $log_dir -tails *
