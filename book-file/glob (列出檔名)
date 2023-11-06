@@ -6,3 +6,14 @@ glob -directory "data/cpk_log" -tails *
 ;# -tails
 ;# 表示只顯示文件名.
 ;# 可以與-directory 和 -path 一起使用.
+
+
+
+## 有時目錄裡沒有檔案, 如果下了指令
+set log_dir "D:/EVT_TEST_LOG/02_Process/log_2_current/2023_10_24/"
+glob -no -directory $log_dir -tails *
+## 會跳出錯誤訊息
+no files matched glob pattern "*"
+
+可用 -no 避開.
+glob -no -directory $log_dir -tails *
