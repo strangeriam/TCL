@@ -1,0 +1,19 @@
+Update: 231212
+
+在 MainConfig.ini 裡的 Loop Test 設定
+DUT_1={COS1=COMMON CMD=} {LOOPTEST=50} {FAILCONTINUE=1}
+
+LOOPTEST=50 --> 設定測試的總 Loop
+FAILCONTINUE=1 --> 設定 FAIL 時, 是否繼續測試.
+0: Fail 時, 測試停止.
+1: Fail 時, 測試繼續.
+
+使用以下指令讀取
+1. Loop 總執行次數
+_f_vini_profilerd INILINE LOOPTEST
+
+2. 目前正在執行的 Loop
+_f_vini_profilerd INILINE LOOPTEST_COUNT
+
+3. 寫入 Loop 數 10 次. (可 run time 改變次數.)
+_f_vini_profilewr INILINE LOOPTEST 10
