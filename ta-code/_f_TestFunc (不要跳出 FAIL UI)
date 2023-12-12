@@ -1,4 +1,7 @@
 ## Alan Code =============================
+## 將下面程式的 return 0
+## 但試過沒效.
+
 proc _f_TestFunc { FuncName FuncDesc args} {
 
 	foreach FuncNameUnit $FuncName {
