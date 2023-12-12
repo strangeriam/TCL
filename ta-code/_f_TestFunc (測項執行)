@@ -1,0 +1,193 @@
+## Alan Code =============================
+proc _f_TestFunc { FuncName FuncDesc args} {
+
+	foreach FuncNameUnit $FuncName {
+		append FuncNameCmd "$FuncNameUnit "
+	}
+
+	_f_vini_profilewr STATUS TestFunc $FuncDesc
+
+	_f_vini_profilewr STATUS TestFuncName $FuncName
+
+	set StartTime [clock seconds]
+
+	_f_termmsg_V1 "[_f_vini_profilerd SFIS ws_id] $FuncDesc"
+
+	if { [tsv::get MainGUI Mode] == 2} {
+
+		if { [lsearch $args -TestItem] >= 0 } {
+
+			_f_hit_listmode_testitem [lindex $args [expr [lsearch $args -TestItem] + 1]] yellow
+
+		}
+
+	}
+
+	set ::G_RunTestFuncName [string trim $FuncNameCmd]
+
+	set testresult [eval $FuncNameCmd]
+
+	set ::ThisStepSpendTime [expr [clock seconds]-$StartTime]
+
+	if { $::G_Save_Func_Test_Time } {
+
+		lappend ::G_FuncTestItemTime $FuncName $StartTime $::ThisStepSpendTime
+
+	}
+
+	if { [_f_vini_profilerd SFIS shop_floor] == 0 } {
+
+		if { [_f_vini_profilerd INILINE LOOPTEST] > 1 } {
+
+			if { ! [info exists ::G_FuncTestNameList] } { set ::G_FuncTestNameList ""}
+
+			if { [lsearch $::G_FuncTestNameList $FuncName] == -1 } {
+
+				lappend ::G_FuncTestNameList $FuncName
+
+			}
+
+			if { $testresult } {
+
+				if { [info exists ::G_FuncTestNameResult($FuncName,PASS)] } {
+
+					incr ::G_FuncTestNameResult($FuncName,PASS)
+
+				} else {
+
+					set ::G_FuncTestNameResult($FuncName,PASS) 1
+
+				}
+
+				if { ! [info exists ::G_FuncTestNameResult($FuncName,FAIL)] } {
+
+					set ::G_FuncTestNameResult($FuncName,FAIL) 0
+
+				}
+
+			} else {
+
+				if { [info exists ::G_FuncTestNameResult($FuncName,FAIL)] } {
+
+					incr ::G_FuncTestNameResult($FuncName,FAIL)
+
+				} else {
+
+					set ::G_FuncTestNameResult($FuncName,FAIL) 1
+
+				}
+
+				if { ! [info exists ::G_FuncTestNameResult($FuncName,PASS)] } {
+
+					set ::G_FuncTestNameResult($FuncName,PASS) 0
+
+				}
+
+			}
+
+			if { [_f_vini_profilerd INILINE FAILCONTINUE] == 1 } {
+
+				set testresult 1
+
+			}
+
+		}
+
+	}
+
+	# if {[lsearch $args -NoGuiUpdate] == -1} {
+
+		# _f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
+
+		# if { $::G_Set_Time_Stamp_TestFunc } {
+
+			# set mtime [clock milliseconds]
+
+			# _f_vini_profilewr STATUS "[clock format [expr $mtime / 1000] -format %H%M%S].[string range $mtime end-2 end]<$FuncName>" "$::ThisStepSpendTime seconds"
+
+		# } else {
+
+			# _f_vini_profilewr STATUS "<$FuncName>" "$::ThisStepSpendTime seconds"
+
+		# }
+
+	# }
+
+	_f_termmsg_V1 "<$FuncName> spent $::ThisStepSpendTime Seconds"
+
+	_f_vini_profilewr SFIS result RUNNING
+
+	if { $::G_TestFuncBIMode } {
+
+		if { $testresult!=1 } {
+
+			if { [tsv::get MainGUI Mode] == 2 } {
+
+				if { [lsearch $args -TestItem] >= 0 } {
+
+					_f_hit_listmode_testitem [lindex $args [expr [lsearch $args -TestItem] + 1]] red
+
+				}
+
+			}
+
+			eval $::FuncFailPatchCodeBI
+
+			return 0
+
+		} else {
+
+			if { [tsv::get MainGUI Mode] == 2 } {
+
+				if { [lsearch $args -TestItem] >= 0 } {
+
+					_f_hit_listmode_testitem [lindex $args [expr [lsearch $args -TestItem] + 1]] green
+
+				}
+
+			}
+
+			eval $::FuncPassPatchCodeBI
+
+			return 1
+
+		}
+
+	} else {
+
+		if { $testresult!=1 } {
+
+			if { [tsv::get MainGUI Mode] == 2 } {
+
+				if { [lsearch $args -TestItem] >= 0 } {
+
+					_f_hit_listmode_testitem [lindex $args [expr [lsearch $args -TestItem] + 1]] red
+
+				}
+
+			}
+
+			eval $::FuncFailPatchCode
+
+			return 0
+			
+		} else {
+
+			if { [tsv::get MainGUI Mode] == 2 } {
+
+				if { [lsearch $args -TestItem] >= 0 } {
+
+					_f_hit_listmode_testitem [lindex $args [expr [lsearch $args -TestItem] + 1]] green
+
+				}
+
+			}
+
+			eval $::FuncPassPatchCode
+
+			return 1
+
+		}
+
+	}
+}
