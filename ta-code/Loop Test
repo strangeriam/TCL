@@ -17,3 +17,28 @@ _f_vini_profilerd INILINE LOOPTEST_COUNT
 
 3. 寫入 Loop 數 10 次. (可 run time 改變次數.)
 _f_vini_profilewr INILINE LOOPTEST 10
+
+
+## 提前結束 Loop
+## 應該是可行的, 因為程式是 run time 讀取 loop 次數.
+[‎2023/‎12/‎15 下午 03:41]  alan_lee 李建龍:  
+_f_vini_profilewr INILINE LOOPTEST  5
+			if { [string length [_f_vini_profilerd INILINE LOOPTEST_COUNT]] == 0 } {
+				_f_vini_profilewr INILINE LOOPTEST_COUNT 1
+			} elseif { [_f_vini_profilerd INILINE LOOPTEST] == [_f_vini_profilerd INILINE LOOPTEST_COUNT] } {
+				_f_vini_profilewr INILINE LOOPTEST_COUNT 1
+			} else {
+				_f_vini_profilewr INILINE LOOPTEST_COUNT [expr [_f_vini_profilerd INILINE LOOPTEST_COUNT] + 1]
+				return 1
+			} 
+ 
+[‎2023/‎12/‎15 下午 03:43]  alan_lee 李建龍:  
+	if { [_f_vini_profilerd SFIS shop_floor] == 0 } {
+		if { [_f_vini_profilerd INILINE LOOPTEST] > 1 } {
+			if { [_f_vini_profilerd INILINE LOOPTEST] == [_f_vini_profilerd INILINE LOOPTEST_COUNT] } {
+				array unset ::G_FuncTestNameResult
+				set ::G_FuncTestNameList ""
+			}
+		}
+	} 
+ 
