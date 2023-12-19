@@ -1,4 +1,8 @@
-Update: 231212
+# Function List
+_f_vini_profilewr INILINE LOOPTEST 2
+_f_vini_profilerd INILINE LOOPTEST
+_f_vini_profilerd INILINE LOOPTEST_COUNT
+_f_vini_profilerd INILINE FAILCONTINUE
 
 在 MainConfig.ini 裡的 Loop Test 設定
 DUT_1={COS1=COMMON CMD=} {LOOPTEST=50} {FAILCONTINUE=1}
