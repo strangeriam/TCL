@@ -1,0 +1,1 @@
+_f_CreateNewConsole $::COS2 "pscp_64.exe -scp admuser@10.150.192.41:/EdgeCore_wlan-pki-cert-scripts/generated/B46AD4C4A162.tar.gz . 2>@1"
