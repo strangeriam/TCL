@@ -1,0 +1,16 @@
+前置
+需在 MainConfig.ini 的 Startup_1 加入對應主題, 如下範例使用 SYSTEM.
+
+Config file: MainConfig.ini
+[CFG_LEG_3_PTC]
+DUT_1={COS1=WDO CMD=} {COS2=VHUB CMD=} {UI=SHOW} {LIST=1,1} {LOOPTEST=1} {FAILCONTINUE=1} {SN=EC2344000497} {MAC=B46AD4398300}
+Startup_1={Active=DUT} {script=05_DUT_PTC.tcl} {SyncIni=DutScanSpec Adaptername SYSTEM PTC_CYCLE_1 VOLTAGE FX_BOX } {DEBUG=2023/12/27}
+
+[SYSTEM]
+DUT_NUM_TOTAL=1
+
+## CODE READ
+set read_dut_num_total [_f_vini_profilerd SYSTEM DUT_NUM_TOTAL]
+
+## CODE WRITE
+set write_dut_num_total [_f_vini_profilewr SYSTEM DUT_NUM_TOTAL 9]
