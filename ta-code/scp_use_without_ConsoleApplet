@@ -3,3 +3,4 @@ _f_CreateNewConsole $::COS2 "pscp_64.exe -scp admuser@10.150.192.41:/EdgeCore_wl
 
 
 _f_CreateNewConsole $::COS2 "./evdv/02_ipc_vhub/ssr_on.exe 01_vhub_fx_box_7.ini 2>@1"
+_f_CreateNewConsole $::COS2 "./evdv/02_ipc_vhub/ssr_off.exe 01_vhub_fx_box_7.ini 2>@1"
