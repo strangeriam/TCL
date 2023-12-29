@@ -5,5 +5,7 @@ catch {_f_taskkill_xp_im "vhub.exe"}
 _f_CreateNewConsole $::COS2 "./evdv/02_ipc_vhub/ssr_on.exe evdv/02_ipc_vhub/01_vhub_fx_box_7.ini 2>@1"
 _f_CreateNewConsole $::COS2 "./evdv/02_ipc_vhub/ssr_off.exe evdv/02_ipc_vhub/01_vhub_fx_box_7.ini 2>@1"
 
+
+## 此例無法使用
 _f_CreateNewConsole $::COS5 "./60g/DmServer/DmTools.Server.exe 2>@1"
 _f_termmsg_V1 [_f_getconsole $::COS5]
