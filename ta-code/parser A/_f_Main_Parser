@@ -1,0 +1,134 @@
+encoding system utf-8
+;############################################################################
+;# 能看到此行字,你的編輯才是正確的.
+;# 能看到此行字，你的编辑才是正确的。
+;# することができますこの行を参照してください、あなたは編集が正しいです。
+;# Có thể nhìn thấy dòng này, bạn chỉnh sửa là chính xác.
+;############################################################################
+
+set parserLogPath "C:/testlog/[tsv::get lu_data parserLogPath]"
+set ::parserResultPath "$parserLogPath/Result"
+
+set ::rawSource_pws "$parserLogPath/RawData/log_1_pws"
+set ::rawSource_current "$parserLogPath/RawData/log_2_current"
+set ::rawSource_syc "$parserLogPath/RawData/log_3_sys"
+set ::rawSource_iperf "$parserLogPath/RawData/log_4_iperf"
+set ::rawSource_memtest "$parserLogPath/RawData/log_5_memtest"
+
+set ::criteria_CI0 [_f_vini_profilerd Criteria CI0]
+set ::criteria_CI1 [_f_vini_profilerd Criteria CI1]
+set ::criteria_CI2 [_f_vini_profilerd Criteria CI2]
+set ::criteria_CI3 [_f_vini_profilerd Criteria CI3]
+
+set ::criteria_CT0 [_f_vini_profilerd Criteria CT0]
+set ::criteria_CT1 [_f_vini_profilerd Criteria CT1]
+set ::criteria_CT2 [_f_vini_profilerd Criteria CT2]
+set ::criteria_CT3 [_f_vini_profilerd Criteria CT3]
+set ::criteria_CT4 [_f_vini_profilerd Criteria CT4]
+set ::criteria_CT5 [_f_vini_profilerd Criteria CT5]
+set ::criteria_CT6 [_f_vini_profilerd Criteria CT6]
+
+set ::criteria_PYT [_f_vini_profilerd Criteria PYT]
+
+set ::criteria_WILMAC [_f_vini_profilerd Criteria WILMAC]
+set ::criteria_WILRADIO [_f_vini_profilerd Criteria WILRADIO]
+
+set ::criteria_Current [_f_vini_profilerd Criteria Current]
+
+set ::criteria_RXBI [_f_vini_profilerd Criteria RXBI]
+set ::criteria_TXBI [_f_vini_profilerd Criteria TXBI]
+set ::criteria_RSSI [_f_vini_profilerd Criteria RSSI]
+set ::criteria_MCS [_f_vini_profilerd Criteria MCS]
+set ::criteria_TXPI [_f_vini_profilerd Criteria TXPI]
+
+proc _f_Main {} {
+	switch -regexp -- [_f_vini_profilerd SFIS ws_id] {
+			(Parser) { _f_Main_Parser }
+			default { usermsg "wsid not expect" ; exit ;}
+	}
+}
+
+proc _f_Main_Parser {} {
+		set ::screenbufferline 50000 ;# 設定console screen buffer 行數
+		_f_vini_profilewr STATUS LOCATION TEST
+		set ::Fail_Test_Process2 {_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: FAIL" * -nodisplaytime}
+
+		while 1 {
+			_f_clear
+			;# ##############################################################################
+			;# 輸入 DUT 的 Info . 由 INIFILE 定義, 亦可自行 Define in tcl script.
+			;# ##############################################################################
+			_f_ScanDutInfo
+			file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]
+			;# ##############################################################################
+			;# 初始化必要之變數環境.
+			;# ##############################################################################
+			_f_StartCountTestTime
+			_f_termmsg_V2 "Header Information" "Product: [_f_vini_profilerd SFIS MODELNAME]\nWork Order: [_f_vini_profilerd SFIS lot_no]\nSTATION ID: [_f_vini_profilerd SFIS ws_id]\nSN: [_f_vini_profilerd SFIS SN]\nMAC: [_f_vini_profilerd SFIS MAC]\nTest Program Version: [_f_vini_profilerd SFIS program_ver]\nTest Date and Start Time: [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]" * -nodisplaytime		
+			;# ##############################################################################
+			;# SFIS 處理
+			;# ##############################################################################
+			if { ! [_f_shopfloor] } {
+					_f_capture off
+					continue
+			}
+			;############################################################################
+			;# Test Step - _f_Parser
+			;############################################################################
+			if { ! [_f_TestFunc _f_Parser "Parser"] } {
+					break
+			}
+			# ##############################################################################
+			# PASS 處理
+			# ##############################################################################
+			_f_SetError
+			_f_sfis_Save_Test_Result P ""
+			_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: PASS" * -nodisplaytime
+			_f_capture off
+			_f_vini_profilewr STATUS TestFunc ""
+			_f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
+			_f_sfis_Save_Test_Data
+		}
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_ScanDutInfo
+;############################################################################
+proc _f_ScanDutInfo {} {
+	if { $::MaxDutNum == 1 } {
+		set ScanUnlockMsg ""
+	} else {
+		set ScanUnlockMsg DUT$::DUT_Num
+	}
+	switch [_f_vini_profilerd SFIS result] {
+		"PASS" {
+			_f_Client_Scan_DUT_Vini PASS $ScanUnlockMsg "SN:[_f_vini_profilerd SFIS SN]\\nMAC:[_f_vini_profilerd SFIS MAC]\\nSpent:[_f_date_time_diff [_f_vini_profilerd SFIS start_time]] Seconds" "DutScanSpec"
+		}
+		"FAIL" {
+			_f_Client_Scan_DUT_Vini FAIL $ScanUnlockMsg "SN:[_f_vini_profilerd SFIS SN]\\nMAC:[_f_vini_profilerd SFIS MAC]\\nErrorCode:$::ErrorCode\\nErrorMsg:$::s0\\nSpent:[_f_date_time_diff [_f_vini_profilerd SFIS start_time]] Seconds" "DutScanSpec"
+		}
+		"default" {
+			_f_Client_Scan_DUT_Vini NEW $ScanUnlockMsg "" "DutScanSpec"
+		}
+	}
+	_f_vini_clear_status
+	_f_vini_profilewr STATUS LOCATION TEST
+	_f_vini_profilewr STATUS SN [_f_vini_profilerd SFIS SN]
+	_f_vini_profilewr STATUS MAC [_f_vini_profilerd SFIS MAC]
+	_f_vini_profilewr STATUS ErrorCode ""
+	_f_vini_profilewr STATUS ErrorMessage ""
+	_f_vini_profilewr STATUS SpentTime 0
+	_f_vini_profilewr STATUS TestFunc ""
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_StartCountTestTime
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 抓取初始時間回存到虛擬ini
+;# EXAMPLE :
+;# RETURN: None
+;############################################################################
+proc _f_StartCountTestTime {} {
+	_f_vini_profilewr SFIS start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+	_f_capture on
+}
