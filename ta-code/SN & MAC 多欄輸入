@@ -1,0 +1,9 @@
+[DIAGCODE-to-KWIKBIT]
+DUT_1={COS1=DUT CMD=} {COS2=APC CMD=} {COS3=MtsPC CMD=} {COS4=CertServer CMD=} {COS5=DUT COM=1,115200,N,8,1} {UI=SHOW} {LIST=1,10} {SN=EC2150000828} {MAC=98192CAE32DA} {KB_SN=0022AC23020000001KB-00-00-DA:1} {KB_MAC=70:88:6B:00:00:DA}
+Startup_1={Active=DUT} {script=DUTxKwikbit.tcl} {SyncIni=DutScanSpec_Kwikbit Adaptername APC} {DEBUG=2023/08/16}
+
+[DutScanSpec_Kwikbit]
+01_SN=^EC([0-9A-Z]{10})$
+02_MAC=^(98192C)([0-9A-F]{6})$
+03_KB_SN=^0221AC([0-9A-Z]{13}-)([0-9A-Z]{2}-)([0-9A-Z]{2}-)([0-9A-Z]{2}:)([0-9A-Z]{1})$
+04_KB_MAC=^(70:88:6B:)([0-9A-F]{2}:)([0-9A-F]{2}:)([0-9A-F]{2})$
