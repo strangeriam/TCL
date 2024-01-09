@@ -1,9 +1,10 @@
 # A
 # 顯示指定目錄內的 檔名 清單, 不含目錄名稱.
-# -tails 讓回傳的清單只包含檔名及目錄名稱而不包含路徑.
+
 glob -directory "data/cpk_log" -tails *
 
 ;# -tails
+;# -tails 讓回傳的清單只包含檔名及目錄名稱而不包含路徑.
 ;# 表示只顯示文件名.
 ;# 可以與-directory 和 -path 一起使用.
 
@@ -17,3 +18,22 @@ no files matched glob pattern "*"
 # 如果 glob 命令執行時沒有找到任何檔案或目錄, 它會抱怨找不到檔案.
 # 加上 -nocomplain 告訴 glob 不要產生抱怨訊息.
 glob -no -directory $log_dir -tails *
+
+;# C
+glob -nocomplain -types f -directory $folder $pattern
+限定搜尋的檔案類型,
+必需要為包含以下字元的清單:
+b (block special file)
+c (character special file)
+d (directory)
+f (plain file)
+l (symbolic link)
+p (named pipe)
+s (socket) 
+r (可讀)
+w (可寫)
+x (可執行)
+readonly (唯讀)
+hidden (隱藏檔)。
+
+;# -types
