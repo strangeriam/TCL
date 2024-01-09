@@ -3,26 +3,26 @@
 # Error message
 error copying "C:/testlog/trytryLu/CN2/AAA": file already exists
 
+# 強制複製
+file copy -force ../../file1.txt file2.txt
 
-## Copy old log file to folder "old".
-## 將副檔名是 log 的檔案, 複製到資料夾 old.
+# A, Copy old log file to folder "old".
+# 將副檔名是 log 的檔案, 複製到資料夾 old.
 
 set infiles [glob -nocomplain $::PATH_LOG/*.log]
 if {[llength $infiles]} {
       file copy {*}$infiles $::PATH_LOG/old
 }
 
-## Remove old log file.
+# Remove old log file.
 if {[llength $infiles]} {
       file delete -force {*}$infiles
 }
 
-
-## 將檔名前有 "EC2303003461" 的檔案, 複製到資料夾 old.
-## 並且將檔名改為 EC2303003461.txt
+# B, 將檔名前有 "EC2303003461" 的檔案, 複製到資料夾 old.
+# 並且將檔名改為 EC2303003461.txt
 
 set path "$ENVPATH/log/01_test/"
-
 set infiles [glob -nocomplain $path/EC2303003461*.*]
 if {[llength $infiles]} {
       file copy {*}$infiles $path/old/EC2303003461.txt
