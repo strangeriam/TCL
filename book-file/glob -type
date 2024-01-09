@@ -1,0 +1,17 @@
+
+glob -nocomplain -types f -directory $folder $pattern
+
+限定搜尋的檔案類型,
+必需要為包含以下字元的清單:
+b (block special file)
+c (character special file)
+d (directory)
+f (plain file)
+l (symbolic link)
+p (named pipe)
+s (socket) 
+r (可讀)
+w (可寫)
+x (可執行)
+readonly (唯讀)
+hidden (隱藏檔)。
