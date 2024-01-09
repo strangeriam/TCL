@@ -1,26 +1,17 @@
 
-file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf
+## 來源檔所放置位置 $sourceDir
+set sourceDir "C:/testlog/trytryLu/tmp"
 
-foreach file [_f_GetFilePaths $::rawSource_iperf -expectedFiles *.csv] {
-	set targetfile $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf/[file tail $file]
-	file copy -force $file $targetfile
+## 將所有副檔名 .csv 複製到 $targetDir
+## 將所有附檔名 .log 複製到 $targetDir/raw
+set targetDir "C:/testlog/trytryLu/log_iperf_all"
 
-	if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
-		file delete -force $file
-	}
-
-	if { [string first FAIL $targetfile] >= 0 } {
-		append ::FailMessage "[file tail $targetfile] FAIL\n"
-	}
+foreach file [_f_GetFilePaths $sourceDir -expectedFiles *.csv] {
+	set targetFile "$targetDir/[file tail $file]"
+	file copy -force $file $targetFile
 }
 
-## Lu-240102: Purpose for delete log file after CSV result check done.
-foreach file [_f_GetFilePaths $::rawSource_iperf -expectedFiles *.log] {
-	set targetfile $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf/[file tail $file]
-	file copy -force $file $targetfile
-
-	if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
-		file delete -force $file
-	}
-	_f_termmsg_V1 $targetfile
+foreach file [_f_GetFilePaths $sourceDir -expectedFiles *.log] {
+	set targetFile "$targetDir/raw/[file tail $file]"
+	file copy -force $file $targetFile
 }
