@@ -1,6 +1,3 @@
-## ================================
-## Memory Test, Check Log filename.
-## ================================
 file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/memtest
 
 foreach file [_f_GetFilePaths $::rawSource_memtest -expectedFiles *.log] {
