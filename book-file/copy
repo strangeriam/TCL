@@ -1,3 +1,9 @@
+## Note
+# 1. Copy 資料夾, 無法複製到相同資料夾名稱, 雖然內含檔案名稱不同, 也不可以.
+# Error message
+error copying "C:/testlog/trytryLu/CN2/AAA": file already exists
+
+
 ## Copy old log file to folder "old".
 ## 將副檔名是 log 的檔案, 複製到資料夾 old.
 
