@@ -1,54 +1,58 @@
-			## ================================
-			## System Log, Check Log.
-			## ================================
-			file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys
+## ================================
+## System Log, Check Log.
+## ================================
+file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys
 
-			foreach file [_f_GetFilePaths $::rawSource_syc -expectedFiles *.log] {
-					set targetfile $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys/[file tail $file]
-					file copy -force $file $targetfile
+foreach file [_f_GetFilePaths $::rawSource_syc -expectedFiles *.log] {
+	set targetfile $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys/[file tail $file]
+	file copy -force $file $targetfile
 
-					if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
-							file delete -force $file
-					}
+	if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+		file delete -force $file
+	}
 
-					_f_termmsg_V1 $targetfile
-					set sysdata [_f_ReadFile $targetfile]
+	_f_termmsg_V1 $targetfile
+	set sysdata [_f_ReadFile $targetfile]
 
-					foreach CIitem [regexp -all -inline -- {:CI0:-{0,1}\d+\.\d+:} $sysdata] {
-						set CI0 [lindex [split $CIitem :] 2]
-						if { $CI0 <= $::criteria_CI0 } {
-							append ::FailMessage "[file tail $targetfile] CI0 FAIL\n"
-							break
-						}
-					}
-					foreach CIitem [regexp -all -inline -- {:CI1:-{0,1}\d+\.\d+:} $sysdata] {
-						set CI1 [lindex [split $CIitem :] 2]
-						if { $CI1 <= $::criteria_CI1 } {
-							append ::FailMessage "[file tail $targetfile] CI1 FAIL\n"
-							break
-						}
-					}
-					foreach CIitem [regexp -all -inline -- {:CI2:-{0,1}\d+\.\d+:} $sysdata] {
-						set CI2 [lindex [split $CIitem :] 2]
-						if { $CI2 <= $::criteria_CI2 } {
-							append ::FailMessage "[file tail $targetfile] CI2 FAIL\n"
-							break
-						}
-					}
-					foreach CIitem [regexp -all -inline -- {:CI3:-{0,1}\d+\.\d+:} $sysdata] {
-						set CI3 [lindex [split $CIitem :] 2]
-						if { $CI3 <= $::criteria_CI3 } {
-							append ::FailMessage "[file tail $targetfile] CI3 FAIL\n"
-							break
-						}
-					}
-					foreach CTitem [regexp -all -inline -- {:CT0:-{0,1}\d+:} $sysdata] {
-						set CT0 [lindex [split $CTitem :] 2]
-						if { $CT0 <= $::criteria_CT0 } {
-							append ::FailMessage "[file tail $targetfile] CT0 FAIL\n"
-							break
-						}
-					}
+	foreach CIitem [regexp -all -inline -- {:CI0:-{0,1}\d+\.\d+:} $sysdata] {
+		set CI0 [lindex [split $CIitem :] 2]
+		if { $CI0 <= $::criteria_CI0 } {
+			append ::FailMessage "[file tail $targetfile] CI0 FAIL\n"
+			break
+		}
+	}
+
+	foreach CIitem [regexp -all -inline -- {:CI1:-{0,1}\d+\.\d+:} $sysdata] {
+		set CI1 [lindex [split $CIitem :] 2]
+		if { $CI1 <= $::criteria_CI1 } {
+			append ::FailMessage "[file tail $targetfile] CI1 FAIL\n"
+			break
+		}
+	}
+
+	foreach CIitem [regexp -all -inline -- {:CI2:-{0,1}\d+\.\d+:} $sysdata] {
+		set CI2 [lindex [split $CIitem :] 2]
+		if { $CI2 <= $::criteria_CI2 } {
+			append ::FailMessage "[file tail $targetfile] CI2 FAIL\n"
+			break
+		}
+	}
+
+	foreach CIitem [regexp -all -inline -- {:CI3:-{0,1}\d+\.\d+:} $sysdata] {
+		set CI3 [lindex [split $CIitem :] 2]
+		if { $CI3 <= $::criteria_CI3 } {
+			append ::FailMessage "[file tail $targetfile] CI3 FAIL\n"
+			break
+		}
+	}
+
+	foreach CTitem [regexp -all -inline -- {:CT0:-{0,1}\d+:} $sysdata] {
+		set CT0 [lindex [split $CTitem :] 2]
+		if { $CT0 <= $::criteria_CT0 } {
+			append ::FailMessage "[file tail $targetfile] CT0 FAIL\n"
+			break
+		}
+	}
 					foreach CTitem [regexp -all -inline -- {:CT1:-{0,1}\d+:} $sysdata] {
 						set CT1 [lindex [split $CTitem :] 2]
 						if { $CT1 <= $::criteria_CT1 } {
@@ -154,4 +158,4 @@
 						}
 					}
 
-			}
+}
