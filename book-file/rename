@@ -1,0 +1,3 @@
+;# Sytax: 
+file rename [sourceFile] [targetFile]
+file rename -force [sourceFile] [targetFile]
