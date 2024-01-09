@@ -1,0 +1,21 @@
+			## ================================
+			## VCP Current, Check Log.
+			## ================================
+			file mkdir $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/current
+
+			foreach file [_f_GetFilePaths $::rawSource_current -expectedFiles *.log] {
+					set targetfile $::parserResultPath/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/current/[file tail $file]
+					file copy -force $file $targetfile
+					if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+						file delete -force $file
+					}
+					_f_termmsg_V1 $targetfile
+					set memdata [_f_ReadFile $targetfile]
+					foreach item [regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $memdata] {
+						set curr [string map [list A ""] [lindex [split $item =] end]]
+						if { $curr > $::criteria_Current } {
+							append ::FailMessage "[file tail $targetfile] FAIL\n"
+							break
+						}
+					}
+			}
