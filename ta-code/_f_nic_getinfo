@@ -1,0 +1,17 @@
+
+
+## DUT.tcl
+proc _f_nic_disable {NICNAME} {
+	if { $::G_64BitsOS } {
+		exec ${::ASPECTPATH}extapp/Devcon/devcon_64.exe disable @$::nicinfo(${NICNAME},PnpInstanceID)
+	} else {
+		exec ${::ASPECTPATH}extapp/Devcon/devcon.exe disable @$::nicinfo(${NICNAME},PnpInstanceID)
+	}
+}
+proc _f_nic_enable {NICNAME} {
+	if { $::G_64BitsOS } {
+		exec ${::ASPECTPATH}extapp/Devcon/devcon_64.exe enable @$::nicinfo(${NICNAME},PnpInstanceID)
+	} else {
+		exec ${::ASPECTPATH}extapp/Devcon/devcon.exe enable @$::nicinfo(${NICNAME},PnpInstanceID)
+	}
+}
