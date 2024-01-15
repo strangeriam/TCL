@@ -1,6 +1,15 @@
 
+
 ## MainThreadStartUI.tcl
 set G_Load_Package(NIC) 1   ;# NIC Control Api (include WiFiconfig)
+
+## MainConfig.ini
+[PT2]
+DUT_1={COS1=DUT COM=8,115200,N,8,1} {COS2=Golden CMD=} {COS3=BT_CMD CMD=} {UI=SHOW} {LIST=2,10} {WEIGHT=100}
+Startup_1={Active=DUT} {script=DUT.tcl} {SyncIni=DutScanSpec_PT Adaptername system CableLost.BT {FTP Log Server Setup} } {DEBUG=2020/12/11}
+[Adaptername]
+NIC1=LAN1
+NIC2=WAN
 
 ## DUT.tcl
 proc _f_nic_disable {NICNAME} {
@@ -17,3 +26,24 @@ proc _f_nic_enable {NICNAME} {
 		exec ${::ASPECTPATH}extapp/Devcon/devcon.exe enable @$::nicinfo(${NICNAME},PnpInstanceID)
 	}
 }
+
+
+## ========================================================================
+_f_nic_getinfo
+
+if { ! [info exists ::nicinfo([_f_vini_profilerd Adaptername NIC1],PnpInstanceID)] } {
+	_f_Client_SelectUI "Please check MainConfig.ini\n\\\[Adaptername\\\]\nNIC1=[_f_vini_profilerd Adaptername NIC1]" FailOnly
+	exit
+}
+
+if { ! [info exists ::nicinfo([_f_vini_profilerd Adaptername NIC2],PnpInstanceID)] } {
+	_f_Client_SelectUI "Please check MainConfig.ini\n\\\[Adaptername\\\]\nNIC2=[_f_vini_profilerd Adaptername NIC2]" FailOnly
+	exit
+}
+
+_f_nic_disable [_f_vini_profilerd Adaptername NIC1]
+_f_nic_disable [_f_vini_profilerd Adaptername NIC2]
+_f_pause 2
+_f_nic_enable [_f_vini_profilerd Adaptername NIC1]
+_f_nic_enable [_f_vini_profilerd Adaptername NIC2]
+_f_pause 2
