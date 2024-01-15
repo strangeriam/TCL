@@ -1,4 +1,6 @@
 
+## MainThreadStartUI.tcl
+set G_Load_Package(NIC) 1   ;# NIC Control Api (include WiFiconfig)
 
 ## DUT.tcl
 proc _f_nic_disable {NICNAME} {
