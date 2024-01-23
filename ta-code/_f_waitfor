@@ -1,1 +1,4 @@
 _f_waitfor "Plink>" $::Console_Main
+
+## 等待 "Plink>" 30 秒.
+_f_waitfor "Plink>" 30 $::Console_Main
