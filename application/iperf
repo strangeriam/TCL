@@ -1,0 +1,51 @@
+		set iperf_spec 0
+
+		set d_time [_f_LTIME]
+		while 1 {
+				if { [expr [_f_LTIME] - $d_time] > 60 } {
+					_f_termmsg_V1 "eth iperf test,FAIL" ; _f_termmsg_V2 "" [_f_getconsole $::COS4] =
+					set ::s0 "eth iperf test,FAIL" ; set ::ErrorCode "ETH"
+					return 0
+				}
+
+				## FX_1B, IPerf Server
+				## =====================================
+				_f_clear $::COS5
+
+				_f_transmit "\r" $::COS5
+				_f_waitfor $::wdo_fixture_prompt $::COS5
+
+				_f_transmit "killall iperf3\r" $::COS5
+				_f_waitfor $::wdo_fixture_prompt $::COS5
+				_f_pause 1
+
+				_f_transmit "iperf3 -s -f m&\r" $::COS5
+				_f_waitfor $::wdo_fixture_prompt $::COS5
+
+
+				## FX_1A, IPerf Client
+				## =====================================
+				_f_clear $::COS4
+
+				_f_transmit "\r" $::COS4
+				_f_waitfor $::wdo_fixture_prompt $::COS4
+
+				_f_transmit "killall iperf3\r" $::COS4
+				_f_waitfor $::wdo_fixture_prompt $::COS4
+
+				_f_transmit "\r" $::COS4
+				_f_waitfor $::wdo_fixture_prompt $::COS4
+
+				_f_transmit "iperf3 -c $::FX_1B_IP -t 10 -i 3 -f m -bidir\r" $::COS4
+				_f_waitfor $::wdo_fixture_prompt $::COS4
+
+				if { [regexp {[.|\d]+-[.|\d]+\s+sec+\s+[.|\d]+ GBytes+\s+[.|\d]+\s+Mbits/sec+\s+receiver} [_f_getconsole $::COS4]] } {
+						regexp {[.|\d]+-[.|\d]+\s+sec+\s+[.|\d]+ GBytes+\s+([.|\d]+)\s+Mbits/sec+\s+receiver} [_f_getconsole $::COS4] -> speed
+
+						if { $speed >= $iperf_spec } {
+							_f_termmsg_V1 "eth iperf test $speed Mbits >= $iperf_spec,PASS"
+							_f_termmsg_V2 "FX_1A IPerf Client" [_f_getconsole $::COS4] =
+							break
+						}
+				}
+		}
