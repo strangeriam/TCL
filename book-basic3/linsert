@@ -1,0 +1,4 @@
+linsert 和 lappend 不同, 它可以把新的項目插入到清單的任意位置.
+
+linsert list index element ?element element ...?
+
