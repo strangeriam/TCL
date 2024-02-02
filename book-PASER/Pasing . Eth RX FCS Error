@@ -3,31 +3,20 @@
 #; 1: Log 檔名清單 (::file_list)
 #; 2: Log 檔案總數 (::file_num)
 #; ###########################
-proc _f_go_item2 {} {
-		puts [set go_item "=== f_go_item[set id 2] ==="]
-		f_debug_level 1 "\n$go_item\n"
-		go_item_status $id running ""
 
-		set ::cpk_log_path "data/cpk_log"
+set ::cpk_log_path "data/cpk_log"
 
-		set ::file_list [glob -directory $::cpk_log_path -tails *]
-		# puts "::file_list : \n$::file_list"
+set ::file_list [glob -directory $::cpk_log_path -tails *]
+# puts "::file_list : \n$::file_list"
 
-		set ::file_num [llength $::file_list]
-		# puts "\n::file_num : $::file_num"
+set ::file_num [llength $::file_list]
+# puts "\n::file_num : $::file_num"
 
-		if { $::file_num == ""} { set ::file_num 0 }
+if { $::file_num == ""} { set ::file_num 0 }
 
-		set ::item_update "$::coloumItem_2"
-        set ::coloumNote_$id "Log 數量: $::file_num"
+set ::item_update "$::coloumItem_2"
+set ::coloumNote_$id "Log 數量: $::file_num"
 
-		if {$::file_num == 0 } {
-				go_item_status $id fail ""
-				return
-		}
-
-		go_item_status $id ok ""
-}
 
 #; ###########################
 #; 從 Log 檔名取得
