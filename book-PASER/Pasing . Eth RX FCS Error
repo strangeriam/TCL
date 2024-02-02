@@ -63,7 +63,6 @@ if { $::sn_num == 0 || $::sn_num != $::file_num } {
 #; Step 1: 產生 CSV 檔.
 #; Step 2: 從 Log 檔內取得各 SN 的 ETH & PoE RX FCS Error 值.
 
-
 ## CSV
 set filename_csv "report\_$::buildDate\_[clock format [clock seconds] -format %H%M%S].csv"
 set ::cpk_report_path "data/cpk_report/$filename_csv"
