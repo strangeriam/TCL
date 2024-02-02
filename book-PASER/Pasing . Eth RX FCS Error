@@ -5,7 +5,7 @@
 #; ###########################
 
 set sourceDir "$::ENVPATH/worktmp/step_1_original"
-set targetDir "$::ENVPATH/worktmp/step_2_process"
+set targetDir "$::ENVPATH/worktmp/step_2_target"
 set finishDir "$::ENVPATH/worktmp/step_3_finish"
 set reportDir "$::ENVPATH/worktmp/step_4_report"
 
