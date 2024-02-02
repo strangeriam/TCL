@@ -61,7 +61,7 @@ if { $::sn_num == 0 || $::sn_num != $::file_num } {
 ## Stage D, 製作 Report.csv 檔
 ## =========================================================================
 #; Step 1: 產生 CSV 檔.
-#; Step 2: 從 Log 檔內取得各 SN 的 TX & RX Throughput and RSSI 值.
+#; Step 2: 從 Log 檔內取得各 SN 的 ETH & PoE RX FCS Error 值.
 
 
 ## CSV
