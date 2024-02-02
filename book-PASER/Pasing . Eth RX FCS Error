@@ -9,6 +9,8 @@ set reportDir "$::ENVPATH/worktmp/step_4_report"
 foreach file [_f_GetFilePaths $sourceDir -expectedFiles *.cap] {
 		set targetFile "$targetDir/[file tail $file]"
 		file copy -force $file $targetFile
+
+		#: 複製完, 刪除 $sourceDir
 		# file delete -force $file
 }
 
