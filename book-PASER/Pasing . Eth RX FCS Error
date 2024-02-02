@@ -4,6 +4,12 @@
 #; 2: Log 檔案總數 (::file_num)
 #; ###########################
 
+set sourceDir "$::ENVPATH/worktmp/step_1_original"
+set targetDir "$::ENVPATH/worktmp/step_2_process"
+set finishDir "$::ENVPATH/worktmp/step_3_finish"
+set reportDir "$::ENVPATH/worktmp/step_4_report"
+
+
 set ::cpk_log_path "data/cpk_log"
 
 set ::file_list [glob -directory $::cpk_log_path -tails *]
