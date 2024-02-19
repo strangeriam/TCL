@@ -1,0 +1,74 @@
+proc Audio_Vpp {scope_channel LR gpib_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName
+		global serialCmd
+		global addrnum
+		global LAudio_Vpp					       
+		global RAudio_Vpp					   
+		global Audio_Vpp_hi         
+		global Audio_Vpp_low		      
+		global Vrms_Offset
+		global Vpp_offset
+		
+		set respone 0
+		set start [clock seconds]
+		set var_stName "Audio_Vpp_$LR"
+		lappend infoField "Audio_Vpp_$LR"
+		
+		set	Audio_Vrms "N/A"
+		if { $LR == "Left" } {
+				set LAudio_Vpp "N/A"
+		} else {
+    		set RAudio_Vpp "N/A"
+    }
+		
+		scpi::cmdSend $gpib_cmd ":MEASure:SOURce $scope_channel"
+		
+		for { set i 0 } {$i < 10 } { incr i } {
+				scpi::cmdSend $gpib_cmd ":MEASure:VPP?"
+				after 600
+				set AudioVpp [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $AudioVpp "" AudioVpp
+				
+				if { $AudioVpp == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($var_stName)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($var_stName)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($var_stName)]\]: $fail_msg"]
+				}
+				if {$AudioVpp != "?" && $AudioVpp != "" } {
+						set AudioVpp [expr double ($AudioVpp)]
+						set AudioVpp [expr {$AudioVpp + $Vpp_offset} ]
+						if { $LR == "Left" } {
+    						set LAudio_Vpp $AudioVpp
+    				} else {
+    						set RAudio_Vpp $AudioVpp
+    				}
+    				puts "AudioVpp = $AudioVpp ,Audio_Vpp_low= $Audio_Vpp_low , Audio_Vpp_hi = $Audio_Vpp_hi"
+    				if { $AudioVpp >= $Audio_Vpp_low && $AudioVpp <= $Audio_Vpp_hi  } {
+    					set respone 1
+    					break
+    				} else {
+    					set respone 0
+    				}
+				}
+				after 500
+		}
+		return 0
+
+
+		if { $respone == 1 } { 
+			lappend infoValue "PASS_$AudioVpp"
+			save_msg "\[[set errCode($var_stName)]\]: RCA audio Vpp $LR $AudioVpp PASS"
+			lappend time_log "\[[set errCode($var_stName)]\]: RCA audio $LR $AudioVpp test PASS, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$AudioVpp"
+			set fail_msg "Scope Channel$scope_channel not open!!!"
+			save_msg "\[[set errCode($var_stName)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($var_stName)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($var_stName)]\]: $fail_msg"]
+		}			
+		
+}
