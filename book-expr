@@ -1,10 +1,18 @@
 
-;# 設定取 小數點下 2 位 0.00
+# Example A: 設定取 小數點下 2 位 0.00
 set tcl_precision 2
 expr 1 / 3.0
 OUTPUT: 0.33
 
-;# 設定取 小數點下 1 位 0.0
+# Example B: 設定取 小數點下 1 位 0.0
 set tcl_precision 1
 expr 1 / 3.0
 OUTPUT: 0.3
+
+# Example C: 四什五入
+expr 1 / 3.1
+OUTPUT: 0.3225806451612903
+
+set tcl_precision 3 ;# 求小數點下 3 位.
+expr 1 / 3.1
+OUTPUT: 0.323
