@@ -1,0 +1,6 @@
+proc ::Arp_cmd {} {
+
+# clear IP table command
+catch {exec arp.exe -d} result
+
+}
