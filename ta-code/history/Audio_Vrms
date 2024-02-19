@@ -1,0 +1,114 @@
+proc Audio_Vrms {scope_channel LR gpib_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName errc failmsg TestItem
+		global addrnum
+		global LAudio_Vrms
+		global RAudio_Vrms
+		global Audio_Vpp_hi         
+		global Audio_Vpp_low		      
+		global Vrms_Offset
+		global Audio_Vrms_low Audio_Vrms_hi
+		set	Audio_Vrms 0
+		
+		set respone 0
+		set start [clock seconds]
+		set var_stName "Audio_Vrms_$LR"
+		set TestItem "Audio_Vrms_$LR"
+		lappend infoField $TestItem
+		
+		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 1"
+		scpi::cmdSend $gpib_cmd ":MEASure:VRMS?"
+		after 500
+		set Audio_Vrms [gpib read -device $gpib_cmd -mode ascii]
+		regsub -all " " $Audio_Vrms "" Audio_Vrms
+		if { $Audio_Vrms == "?" || $Audio_Vrms == "chanoff" } {
+				after 500
+				scpi::cmdSend $gpib_cmd ":MEASure:VRMS?"
+				after 500
+				set Audio_Vrms [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $Audio_Vrms "" Audio_Vrms
+				if { $Audio_Vrms == "?" || $Audio_Vrms == "chanoff" } {
+						set Audio_Vrms "N/A"
+						if { $LR == "Left" } {
+    						set LAudio_Vrms $Audio_Vrms
+    				} else {
+    						set RAudio_Vrms $Audio_Vrms
+    				}
+						#scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 0"
+						return 0
+				}
+		}
+		set Audio_Vrms [expr double ($Audio_Vrms)]
+		set Audio_Vrms [expr {$Audio_Vrms + $Vrms_Offset} ]
+		set Audio_Vrms [format "%3.2f" $Audio_Vrms]
+		#ok_dialog $Audio_Vrms
+				
+		set cur_time [clock seconds]
+    while { [expr {[clock seconds]- $cur_time}] <= 10} {
+    	puts "Audio_Vrms = $Audio_Vrms ,Audio_Vrms_low= $Audio_Vrms_low , Audio_Vrms_hi = $Audio_Vrms_hi"
+    		if { $Audio_Vrms >= $Audio_Vrms_low && $Audio_Vrms <= $Audio_Vrms_hi } {
+    				if { $LR == "Left" } {
+    						set LAudio_Vrms $Audio_Vrms
+    				} else {
+    						set RAudio_Vrms $Audio_Vrms
+    				}
+    				#scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 0"
+    				set respone 1
+    				break
+    		} else {
+    				after 500
+    				scpi::cmdSend $gpib_cmd ":MEASure:VRMS?"
+    				after 500
+    				set Audio_Vrms [gpib read -device $gpib_cmd -mode ascii]
+    				regsub -all " " $Audio_Vrms "" Audio_Vrms
+    				if { $Audio_Vrms == "?" || $Audio_Vrms == "chanoff" } {
+								after 500
+								scpi::cmdSend $gpib_cmd ":MEASure:VRMS?"
+								after 500
+								set Audio_Vrms [gpib read -device $gpib_cmd -mode ascii]
+								regsub -all " " $Audio_Vrms "" Audio_Vrms
+								if { $Audio_Vrms == "?" || $Audio_Vrms == "chanoff" } {
+										set Audio_Vrms "N/A"
+										if { $LR == "Left" } {
+    										set LAudio_Vrms $Audio_Vrms
+    								} else {
+    										set RAudio_Vrms $Audio_Vrms
+    								}
+										#scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 0"
+										lappend infoValue "FAIL"
+										set fail_msg "Scope Channel$scope_channel not open!!!"
+										save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+										lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+										return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+								}
+						}
+						set Audio_Vrms [expr double ($Audio_Vrms)]
+						set Audio_Vrms [expr {$Audio_Vrms + $Vrms_Offset} ]
+						set Audio_Vrms [format "%3.2f" $Audio_Vrms]
+						set respone 0
+    		}
+    }
+   # scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 0"
+    if { $LR == "Left" } {
+    		#ok_dialog "Left Audio Vrms Fail->$Audio_Vrms V"
+    		set LAudio_Vrms $Audio_Vrms
+    } else {
+    		#ok_dialog "Right Audio Vrms Fail->$Audio_Vrms V"
+    		set RAudio_Vrms $Audio_Vrms
+    }
+
+    
+		if { $respone == 1 } { 
+			lappend infoValue "PASS_$Audio_Vrms"
+			save_msg "\[[set errCode($TestItem)]\]: RCA audio Vrms $LR $Audio_Vrms test PASS"
+			lappend time_log "\[[set errCode($TestItem)]\]: RCA audio Vrms $LR $Audio_Vrms test PASS, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$Audio_Vrms"
+			#set fail_msg "Scope Channel$scope_channel not open!!!"
+			set fail_msg "RCA audio Vrms $LR $Audio_Vrms test FAIL."
+			save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}			       
+}
