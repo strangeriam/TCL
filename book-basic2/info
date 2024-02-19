@@ -1,0 +1,11 @@
+1.info命令列表
+
+該命令使用的匹配式規則和string match 一致，並且如果不適用匹配式，返回所有的項。
+
+序號	命令	描述
+1	info commands ?pattern?	返回匹配的命令列表
+2	info exists varName	變數存在返回1，否則返回0
+3	info globals?pattern?	返回全域性變數列表
+4	info locals? pattern?	返回區域性變數列表
+5	info procs?pattern?	返回過程列表
+6	info vars?pattern?	返回變數列表
