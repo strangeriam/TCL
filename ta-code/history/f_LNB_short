@@ -1,0 +1,105 @@
+proc f_LNB_short {com_fd gpib_cmd gpib_rfswitch_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName TestItem errc failmsg
+		global serialCmd
+		global addrnum
+		global LNBShort_min LNBShort_max 
+
+
+    #Set USB command path	   
+		set USBPortPath "/mnt/sda/sda"
+		append USBPortPath "1"
+		puts "USBPortPath= $USBPortPath"
+		
+				
+		#Set RF-switch CH2
+    scpi::cmdSend $gpib_rfswitch_cmd "a123b310" 	  
+    after 1000 
+		
+		set respone 0
+	  set start [clock seconds]
+		set var_stName "LNB Short Pulse"
+		set TestItem "LNB_Short"
+		lappend infoField $TestItem
+		
+		
+		if {0} {
+		set check_LNB_Short [ txmbox::messageBox -type yesno -icon question \
+      -title "Warning" \
+      -message "LNB Short has been ready for testing" \
+      -force true -grab true -font {"Consolas" 20 normal bold} \
+      -beep true -resize false -showtime true ]
+         
+ 
+    set check_LNB_Short [string tolower $check_LNB_Short]
+    if { $check_LNB_Short == yes } {
+#      show_status "Composite Function Test PASS"
+       save_msg "LNB Short has been ready for testing Test PASS"
+    } else {
+#      show_status "Composite Function Test FAIL" ERROR
+       lappend infoValue "FAIL"
+			 set fail_msg "LNB Short has been ready for testing Test FAIL"
+			 save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			 lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			 return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+    }}
+    
+		#Command
+    #ConsoleWrite $com_fd "sony_example_dvbs_tune_monitor 1550000 220000 0 1 0 1 1"
+    #vwait_seconds 1 
+
+
+    scpi::cmdSend $gpib_cmd "*RCL S1"
+    after 3000
+    
+    scpi::cmdSend $gpib_cmd ":CHANnel1:DISPlay 0"
+    scpi::cmdSend $gpib_cmd ":CHANnel2:DISPlay 0"
+	  scpi::cmdSend $gpib_cmd ":CHANnel3:DISPlay 0"
+	  scpi::cmdSend $gpib_cmd ":CHANnel4:DISPlay 1"
+	  scpi::cmdSend $gpib_cmd ":CHANnel4:COUPling 1"
+	  scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 3"
+	  scpi::cmdSend $gpib_cmd ":TRIGger:LEVel 2.00E+0"
+	  scpi::cmdSend $gpib_cmd ":AUToset"
+	  scpi::cmdSend $gpib_cmd ":TIMebase:SCALe 50e-3"
+	  scpi::cmdSend $gpib_cmd ":CHANnel4:SCALe 5.00E+0"
+    scpi::cmdSend $gpib_cmd ":MEASure:SOURce 4"
+	  #scpi::cmdSend $gpib_meter_cmd "VDC"
+	  after 3000
+
+		
+		for { set i 0 } {$i < 10 } { incr i } {
+				scpi::cmdSend $gpib_cmd ":MEASure:PWIDth?"
+				after 500
+				set LNB_Short [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $LNB_Short "" LNB_Short
+
+				if {$LNB_Short != "?" && $LNB_Short != "" } {
+						set LNB_Short [expr double ($LNB_Short) ] 
+    				puts "LNB_Short=$LNB_Short"
+    		
+    				if { $LNB_Short >= $LNBShort_min} {
+    						set respone 1
+    						break
+    				  } else {
+    					  set respone 0
+    				}
+				}
+				after 500
+		}
+		
+		if { $respone == 1 } { 
+			#default LNB
+			ConsoleWrite $com_fd "$USBPortPath/sony_example_dvbs_tune_monitor 1550000 22000 1"
+			lappend infoValue "PASS_$LNB_Short "
+			save_msg "\[[set errCode($TestItem)]\]: LNB Short Pulse with 15V/670mA test PASS"
+			lappend time_log "\[[set errCode($TestItem)]\]: LNB Short Pulse test PASS, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$LNB_Short"
+			#set fail_msg "Scope Channel$scope_channel not open!!!"
+			set fail_msg "LNB Short Pulse 15V/670mA test FAIL."
+			save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}		
+}
