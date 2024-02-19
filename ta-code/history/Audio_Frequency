@@ -1,3 +1,15 @@
+## Command
+:CHANnel1:DISPlay 1\n
+:TIMebase:SCALe 250e-6\n
+:TRIGger:TYPe 0\n
+:TRIGger:SOURce 0\n
+:TRIGger:MODe 1\n
+:CHANnel1:SCALe 1.00E+0\n
+:MEASure:SOURce 1\n
+
+:MEASure:FREQuency?\n
+
+
 proc Audio_Frequency {scope_channel LR gpib_cmd} {
 		global infoField infoValue diag_prompt time_log errCode var_stName errc failmsg errCode
 		global serialCmd TestItem
