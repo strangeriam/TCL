@@ -1,3 +1,21 @@
-# this is a comment
-or
-set var "hello world" ; # this is a comment
+
+# A. 單行註解
+# ==========
+set aaa "hellow"
+# set bbb "hi" <-- 此行註解
+
+
+# B. 程式說明的註解
+set aaa "hello" ;# 欲說明的文字放這裡.
+
+
+# C. 多行註解
+# ==========
+# TCL 沒有如其他語言的多行註解
+# 例如 /* */
+# 但可用 if 0 {...} 或 if {0} {...}
+
+if 0 {
+    set aaa "hello"
+    set bbb "hi"
+}
