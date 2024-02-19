@@ -1,0 +1,98 @@
+proc f_volt_tuner { com_fd gpib_volt_cmd } {
+  global infoField infoValue var_stName errCode time_log diag_prompt uboot_prompt eMMC_Check TestItem errc failmsg
+  
+  set start [clock seconds]
+	set TestItem "GPIB"
+	
+	if { [info exists gpib_volt_cmd] && $gpib_volt_cmd == 0 } {
+		set fail_msg "$TestItem volt tuner console error"
+		save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+		lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+    return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+	}
+
+	set var_stName "Voltage Tuner Test"
+	save_msg "Voltage Tuner Test"
+	
+  set VoltField [list Voltage_Tuner_10V Voltage_Tuner_5_0V Voltage_Tuner_3_3V Voltage_Tuner_2_5V Voltage_Tuner_1_1V]
+
+	
+	set VoltSpec [list 10.0 5.0 3.3 2.5 1.1]
+  set VoltErrorCode [list T1431 T1284 T1290 T1283 T1427]
+	set VoltSpecMax [list [expr [lindex $VoltSpec 0]*1.05] \
+  											[expr [lindex $VoltSpec 1]*1.05] \
+  											[expr [lindex $VoltSpec 2]+1.05] \
+                        [expr [lindex $VoltSpec 3]*1.05] \
+                        [expr [lindex $VoltSpec 4]*1.05] ]
+ 
+              
+  set VoltSpecMin [list [expr [lindex $VoltSpec 0]*0.95] \
+  											[expr [lindex $VoltSpec 1]*0.95] \
+  											[expr [lindex $VoltSpec 2]*0.95] \
+                        [expr [lindex $VoltSpec 3]*0.95] \
+                        [expr [lindex $VoltSpec 4]*0.95] ]
+#     
+#
+#	if { 0 == $eMMC_Check } {
+#		set uartRes [WaitForString $com_fd "Press Ctrl+C to stop autoboot" ]
+#		if { ![lindex $uartRes 0] } {
+#			lappend infoValue "FAIL"
+#			set fail_msg "UART Read FAIL"
+#			save_msg "\[[set errCode(UART)]\]: $fail_msg" ERROR
+#			lappend time_log "\[[set errCode(UART)]\]: $fail_msg, Time --> [test_time $start]"
+#			return [list 0 "\[[set errCode(UART)]\]: $fail_msg"]
+#		}
+#	
+#		set uartRes [promptwait $com_fd "\0\x3\r " $uboot_prompt]
+#		if { ![lindex $uartRes 0] } {
+#			lappend infoValue "FAIL"
+#			set fail_msg "UART Write FAIL"
+#			save_msg "\[[set errCode(UART)]\]: $fail_msg" ERROR
+#			lappend time_log "\[[set errCode(UART)]\]: $fail_msg, Time --> [test_time $start]"
+#			return [list 0 "\[[set errCode(UART)]\]: $fail_msg"]
+#		}
+#  	               
+#	}
+#
+#	set uartRes [promptwait $com_fd "run bootcmd" "adb_open"]
+#	if { ![lindex $uartRes 0] } {
+#		lappend infoValue "FAIL"
+#		set fail_msg "Boot to system from uboot FAIL"
+#		save_msg "\[[set errCode(Volt)]\]: $fail_msg" ERROR
+#		lappend time_log "\[[set errCode(Volt)]\]: $fail_msg, Time --> [test_time $start]"
+#		return [list 0 "\[[set errCode(Volt)]\]: $fail_msg"]
+#	}
+#
+  scpi::cmd $gpib_volt_cmd "*RST"
+  
+#  set voltAll [scpi::cmd $gpib_volt_cmd "MEAS:VOLT:DC? (@301, 302,303,304,305,306,307,308,309,310,311, 312, 313, 314, 315, 316 )"]
+	set voltAll [scpi::cmd $gpib_volt_cmd "MEAS:VOLT:DC? (@302,303,304,305,306,)"]
+
+	set voltAll [split $voltAll ,]
+ 		
+ 	for {set i 0} { $i < [llength $voltAll]} {incr i} {
+
+    puts "[lindex $VoltField $i]"
+    puts "[lindex $voltAll $i]"
+    set TestItem "[lindex $VoltField $i]"
+    lappend infoField "[lindex $VoltField $i]"
+    lappend infoValue "[lindex $voltAll $i]"
+    
+	
+    	if {[lindex $voltAll $i] <= [lindex $VoltSpecMax $i] && [lindex $voltAll $i] >= [lindex $VoltSpecMin $i]} {
+				save_msg "\[[set errCode($TestItem)]\]: [lindex $VoltField $i]: [lindex $voltAll $i] v -> PASS"
+				lappend time_log "\[[set errCode($TestItem)]\]: [lindex $VoltField $i]: [lindex $voltAll $i] v -> PASS, Time --> [test_time $start]"      
+    	} else {
+      	set fail_msg "[lindex $voltAll $i] v -> FAIL ( [lindex $VoltSpecMin $i] ~ [lindex $VoltSpecMax $i])"
+				save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+      	lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+      	return [list 0 "[lindex $VoltErrorCode $i]: $fail_msg"]
+    	}
+     
+  }
+  
+  #puts "\[[set errCode(Volt)]\]: Voltage test pass."
+  save_msg "Voltage Tuner Test PASS"
+  #lappend time_log "\[[set errCode(Volt)]\]: Voltage Test PASS, Time --> [test_time $start]"
+  return 1
+}
