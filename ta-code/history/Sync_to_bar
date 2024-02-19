@@ -1,0 +1,88 @@
+proc Sync_to_bar {scope_channel gpib_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName errc failmsg
+		global serialCmd TestItem
+		global addrnum
+		global SyncVpp
+		global SyncVpp_low
+		global SyncVpp_hi
+		set	SyncVpp "N/A"	
+		global dbresult
+		global portCmd_TV_enable
+		
+		
+		
+		#kevin
+		if { $portCmd_TV_enable == 1 } {
+			set SerialTV 0
+  		set SerialTV [open com$portCmd_TV r+]
+  		fconfigure $SerialTV -blocking 0 -mode 9600,n,8,1
+  		after 200
+  		#RCA connect
+  		puts $SerialTV "IAVD4   "
+			flush $SerialTV
+			after 300
+			close $SerialTV
+		}
+
+		
+		set respone 0
+		set start [clock seconds]
+		set var_stName "SyncToBar"
+		set TestItem "SyncToBar"
+		lappend infoField $TestItem
+	
+		#puts $serialCmd "scart_vcrmode 0"
+		#flush $serialCmd
+		#after 100
+		#scpi::cmdSend $gpib_cmd ":AUToset"
+		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 1"
+		scpi::cmdSend $gpib_cmd ":TIMebase:SCALe 25e-6"
+		scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 0"
+		scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 1"							;#select trigger type -> 0:Edge 1:Video
+		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:SCALe 2.00E-1"
+		scpi::cmdSend $gpib_cmd ":MEASure:SOURce $scope_channel"
+		for { set i 0 } {$i < 10 } { incr i } {
+				scpi::cmdSend $gpib_cmd ":MEASure:VPP?"
+				after 1000
+				set SyncVpp [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $SyncVpp "" SyncVpp
+				
+				if { $SyncVpp == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+
+				if {$SyncVpp != "?" && $SyncVpp != "" } {
+						set SyncVpp [expr double ($SyncVpp)]
+						set SyncVpp [expr $SyncVpp * 1000]
+						set SyncVpp [format "%4.2f" $SyncVpp]
+						puts "SyncVpp=$SyncVpp ,SyncVpp_low=$SyncVpp_low ,SyncVpp_hi=$SyncVpp_hi"
+						if { $SyncVpp >= $SyncVpp_low && $SyncVpp <= $SyncVpp_hi } {
+							set respone 1
+							break
+    				} else {
+    					set respone 0
+    				}
+				}
+				after 500
+		}
+		
+		if { $respone == 1 } { 
+			lappend infoValue "PASS_$SyncVpp"
+			save_msg "\[[set errCode($TestItem)]\]: RCA SyncToBar $SyncVpp test PASS"
+			lappend time_log "\[[set errCode($TestItem)]\]: RCA SyncToBar $SyncVpp test pass, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			#return
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$SyncVpp"
+			#set fail_msg "Scope Channel$scope_channel not open!!!"
+			set fail_msg "RCA SyncToBar $SyncVpp test fail."
+			save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}
+}
