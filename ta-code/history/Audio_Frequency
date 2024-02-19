@@ -24,14 +24,14 @@ proc Audio_Frequency {scope_channel LR gpib_cmd} {
 
 		if { $LR == "Left" } {
 			#scpi::cmdSend $gpib_cmd ":AUToset"
-				scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"							;#select trigger type -> 0:Edge 1:Video
-				scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 1"  					;# 0:CH1,1:CH2 ...
-				scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"											
+			scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0" 	;#select trigger type -> 0:Edge 1:Video
+			scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 1"  	;# 0:CH1,1:CH2 ...
+			scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"											
 		} else {
 			#scpi::cmdSend $gpib_cmd ":AUToset"
-				scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"							;#select trigger type -> 0:Edge 1:Video
-				scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 2"  					;# 0:CH1,1:CH2 ...
-				scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"			
+			scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"	;#select trigger type -> 0:Edge 1:Video
+			scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 2"  	;# 0:CH1,1:CH2 ...
+			scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"			
 		}
 		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:SCALe 1.00E+0"
 		scpi::cmdSend $gpib_cmd ":MEASure:SOURce $scope_channel"
