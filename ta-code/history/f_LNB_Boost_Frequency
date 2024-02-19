@@ -1,0 +1,80 @@
+proc f_LNB_Boost_Frequency {com_fd gpib_cmd gpib_rfswitch_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName TestItem errc failmsg
+		global serialCmd
+		global addrnum
+		global LNBFreq_380
+
+    #Set USB command path	   
+		set USBPortPath "/mnt/sda/sda"
+		append USBPortPath "1"
+		puts "USBPortPath= $USBPortPath"
+		
+				
+		 #Set RF-switch CH2
+     scpi::cmdSend $gpib_rfswitch_cmd "a123b223" 	  
+     after 1000 
+		
+		set respone 0
+	  set start [clock seconds]
+		set var_stName "LNB Boost Switching Freq"
+		set TestItem "LNB_Freq_380"
+		lappend infoField $TestItem
+		
+		#Command
+    ConsoleWrite $com_fd "$USBPortPath/sony_example_dvbs_tune_monitor 1550000 220000 0 1 0 1 1"
+    vwait_seconds 1 
+   
+    scpi::cmdSend $gpib_cmd ":CHANnel1:DISPlay 0"
+    scpi::cmdSend $gpib_cmd ":CHANnel2:DISPlay 0"
+	  scpi::cmdSend $gpib_cmd ":CHANnel3:DISPlay 1"
+		scpi::cmdSend $gpib_cmd ":TIMebase:SCALe 500e-6"
+
+	  scpi::cmdSend $gpib_cmd ":AUToset"
+		scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"							;#select trigger type -> 0:Edge 1:Video
+		scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 2"  					;# 0:CH1,1:CH2 ...
+		scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"			
+		
+		scpi::cmdSend $gpib_cmd ":CHANnel3:SCALe 2.00E+0"
+		scpi::cmdSend $gpib_cmd ":MEASure:SOURce 3"
+		
+		for { set i 0 } {$i < 10 } { incr i } {
+				scpi::cmdSend $gpib_cmd ":MEASure:FREQuency?"
+				after 500
+				set LNB_Freq [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $LNB_Freq "" LNB_Freq
+				if { $LNB_Freq == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel1 not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+				if {$LNB_Freq != "?" && $LNB_Freq != "" } {
+						set LNB_Freq [expr [expr double ($LNB_Freq) ]/1000] 
+    				puts "LNB_Freq=$LNB_Freq"
+    				puts "LNB_Freq = $LNB_Freq ,LNB_Freq_spec= $LNBFreq_380"
+    				if { $LNB_Freq >= $LNBFreq_380 } {
+    						set respone 1
+    						break
+    				} else {
+    					set respone 0
+    				}
+				}
+				after 500
+		}
+		
+		if { $respone == 1 } { 
+			lappend infoValue "PASS_$LNB_Freq KHz"
+			save_msg "\[[set errCode($TestItem)]\]: LNB frequency with 15V/500mA test PASS"
+			lappend time_log "\[[set errCode($TestItem)]\]: LNB frequency test PASS, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$LNB_Freq KHz"
+			#set fail_msg "Scope Channel$scope_channel not open!!!"
+			set fail_msg "LNB frequency with 15V/500mA test FAIL."
+			save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}		
+}
