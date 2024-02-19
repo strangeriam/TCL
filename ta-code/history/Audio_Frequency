@@ -1,0 +1,84 @@
+proc Audio_Frequency {scope_channel LR gpib_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName errc failmsg errCode
+		global serialCmd TestItem
+		global addrnum
+		global LAudio_Freq
+		global RAudio_Freq
+		global Audio_Freq_low
+		global Audio_Freq_hi
+		
+		set respone 0
+		set start [clock seconds]
+		set var_stName "Audio_Frequency_$LR"
+		set TestItem "Audio_Frequency_$LR"
+		lappend infoField $TestItem
+		set	Audio_Freq "N/A"
+		if { $LR == "Left" } {
+				set LAudio_Freq "N/A"
+		} else {
+    		set RAudio_Freq "N/A"
+    }
+    
+		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:DISPlay 1"
+		scpi::cmdSend $gpib_cmd ":TIMebase:SCALe 250e-6"
+
+		if { $LR == "Left" } {
+			#scpi::cmdSend $gpib_cmd ":AUToset"
+				scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"							;#select trigger type -> 0:Edge 1:Video
+				scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 1"  					;# 0:CH1,1:CH2 ...
+				scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"											
+		} else {
+			#scpi::cmdSend $gpib_cmd ":AUToset"
+				scpi::cmdSend $gpib_cmd ":TRIGger:TYPe 0"							;#select trigger type -> 0:Edge 1:Video
+				scpi::cmdSend $gpib_cmd ":TRIGger:SOURce 2"  					;# 0:CH1,1:CH2 ...
+				scpi::cmdSend $gpib_cmd ":TRIGger:MODe 1"			
+		}
+		scpi::cmdSend $gpib_cmd ":CHANnel$scope_channel:SCALe 1.00E+0"
+		scpi::cmdSend $gpib_cmd ":MEASure:SOURce $scope_channel"
+		
+		for { set i 0 } {$i < 10 } { incr i } {
+				scpi::cmdSend $gpib_cmd ":MEASure:FREQuency?"
+				after 500
+				set Audio_Freq [gpib read -device $gpib_cmd -mode ascii]
+				regsub -all " " $Audio_Freq "" Audio_Freq
+				if { $Audio_Freq == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+				if {$Audio_Freq != "?" && $Audio_Freq != "" } {
+						set Audio_Freq [expr double ($Audio_Freq)]
+						if { $LR == "Left" } {
+    						set LAudio_Freq $Audio_Freq
+    				} else {
+    						set RAudio_Freq $Audio_Freq
+    				}
+    				puts "Audio_Freq = $Audio_Freq ,Audio_Freq_low= $Audio_Freq_low , Audio_Freq_hi = $Audio_Freq_hi"
+    				if { $Audio_Freq >= $Audio_Freq_low && $Audio_Freq <= $Audio_Freq_hi } {
+    						set respone 1
+    						break
+    				} else {
+    					set respone 0
+    				}
+				}
+				after 500
+		}
+		
+		if { $respone == 1 } { 
+			lappend infoValue "PASS_$Audio_Freq"
+			save_msg "\[[set errCode($TestItem)]\]: RCA audio $LR frequency $Audio_Freq test PASS"
+			lappend time_log "\[[set errCode($TestItem)]\]: RCA audio $LR frequency $Audio_Freq test PASS, Time --> [test_time $start]"
+			#txmbox::destroyMsgBox $MBox
+			return 1  
+		} else {
+			lappend infoValue "FAIL_$Audio_Freq"
+			#set fail_msg "Scope Channel$scope_channel not open!!!"
+			set fail_msg "RCA audio $LR frequency $Audio_Freq test FAIL."
+			save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}		
+		
+}
