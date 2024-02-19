@@ -1,0 +1,273 @@
+proc f_LNB_power {com_fd gpib_cmd gpib_rfswitch_cmd} {
+		global infoField infoValue diag_prompt time_log errCode var_stName TestItem errc failmsg
+		global serialCmd
+		global addrnum
+		global LNBmin_16 LNBmax_16 LNBACmin_16 LNBACmax_16
+		global LNBmin_12 LNBmax_12 LNBACmin_12 LNBACmax_12
+
+      
+ ####### LNB 12V ##############
+   set var_stName "LNB Vertical power regulation"
+   set TestItem "LNB_Ver_12"
+	 lappend infoField $TestItem  
+      
+      
+    if { [info exist gpib_cmd] && $gpib_cmd == 0} {
+#    show_status "GPIB Descr Error." ERROR
+		lappend infoValue "FAIL"
+		set fail_msg "$TestItem Scope GPIB Descr error"
+		save_msg "\[[set errCode($TestItem)]\]: GPIB Console Descr Error" ERROR
+		lappend time_log "\[[set errCode($TestItem)]\]: GPIB Console Descr Error, Time --> [test_time $start]"
+    return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+  }
+  
+    if { [info exist gpib_rfswitch_cmd] && $gpib_rfswitch_cmd == 0} {
+#    show_status "GPIB Descr Error." ERROR
+		lappend infoValue "FAIL"
+		set fail_msg "$TestItem RF-Switch GPIB Descr error"
+		save_msg "\[[set errCode($TestItem)]\]: GPIB Console Descr Error" ERROR
+		lappend time_log "\[[set errCode($TestItem)]\]: GPIB Console Descr Error, Time --> [test_time $start]"
+    return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+  }
+    
+    #Set USB command path	   
+		set USBPortPath "/mnt/sda/sda"
+		append USBPortPath "1"
+		puts "USBPortPath= $USBPortPath"
+    
+		set respone 0
+	  set start [clock seconds]
+	  
+
+	if {0} {	set check_LNB [ txmbox::messageBox -type yesno -icon question \
+      -title "Warning" \
+      -message "Check Cable has already removed from Tuner" \
+      -force true -grab true -font {"Consolas" 20 normal bold} \
+      -beep true -resize false -showtime true ]
+         
+ 	####### LNB Pre-Check ##############
+    set check_LNB [string tolower $check_LNB]
+    if { $check_LNB == yes } {
+#      show_status "Composite Function Test PASS"
+       save_msg "Check Cable has already removed from Tuner Test PASS"
+    } else {
+#      show_status "Composite Function Test FAIL" ERROR
+       lappend infoValue "FAIL"
+			 set fail_msg "Check TV cable has already removed from TV tuner Test FAIL"
+			 save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+			 lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+			 return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+    }}
+		 
+		 
+		 #Set RF-switch CH1
+     scpi::cmdSend $gpib_rfswitch_cmd "a123b123" 	  
+     after 1000 
+     
+		 #Command
+		 ConsoleWrite $com_fd "$USBPortPath/sony_example_dvbs_tune_monitor 1550000 220000 0 0 0 1 1"
+     #puts $serialCmd "I2C\_write 0 \#14 \#04"
+     #flush $serialCmd
+     after 300
+     #after 500
+     scpi::cmdSend $gpib_cmd ":CHANnel2:DISPlay 0"
+     scpi::cmdSend $gpib_cmd ":CHANnel3:DISPlay 0"
+     scpi::cmdSend $gpib_cmd ":CHANnel4:DISPlay 0"
+     scpi::cmdSend $gpib_cmd ":CHANnel1:DISPlay 1"
+     #scpi::cmdSend $gpib_cmd ":CHANnel2:DISPlay 1"
+     scpi::cmdSend $gpib_cmd ":CHANnel1:COUPling 1"
+     scpi::cmdSend $gpib_cmd ":AUToset"
+     scpi::cmdSend $gpib_cmd ":MEASure:SOURce 1"
+     after 500
+     for { set i 0 } {$i < 10 } { incr i } {
+     scpi::cmdSend $gpib_cmd ":MEASure:VAVerage?"
+     after 1000
+     set LNBv_12 [gpib read -device $gpib_cmd -mode ascii]
+	   regsub -all " " $LNBv_12 "" LNBv_12
+	   
+	   if { $LNBv_12 == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+				
+				if {$LNBv_12 != "?" && $LNBv_12 != "" } {
+						set LNBv_12 [expr double ($LNBv_12)]
+						puts "LNB12=$LNBv_12"
+						if { $LNBv_12 >= $LNBmin_12 && $LNBv_12 <= $LNBmax_12 } {
+							set respone 1
+							break
+    				} else {
+    					set respone 0
+    				}
+    			}
+    				after 500
+    	}
+    	if { $respone == 1 } { 
+						lappend infoValue "PASS_$LNBv_12 V"
+						save_msg "\[[set errCode($TestItem)]\]: LNB 12V 500mA test PASS"
+						lappend time_log "\[[set errCode($TestItem)]\]: LNB 12V 500mA test PASS, Time --> [test_time $start]"
+		} else {
+						lappend infoValue "FAIL_$LNBv_12 V"
+						set fail_msg "LNB 12V 500mA test FAIL."
+						save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+						lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+						return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}
+		
+	
+	 
+####### LNB 16V ##############
+    set var_stName "LNB Horizontal power regulation"
+		set TestItem "LNB_Hor_16"
+		lappend infoField $TestItem
+		
+		 #Set RF-switch CH2
+     scpi::cmdSend $gpib_rfswitch_cmd "a123b223" 	  
+     after 1000 
+     
+     #Command
+     promptwait $com_fd "$USBPortPath/sony_example_dvbs_tune_monitor 1550000 220000 0 1 0 1 1" "root@android:/ #" 
+     #vwait_seconds 1
+     
+     scpi::cmd $gpib_cmd "*RST"
+	   #after 500
+     scpi::cmdSend $gpib_cmd ":CHANnel1:DISPlay 0"
+     scpi::cmdSend $gpib_cmd ":CHANnel2:DISPlay 1"
+     scpi::cmdSend $gpib_cmd ":CHANnel2:COUPling 1"
+     scpi::cmdSend $gpib_cmd ":AUToset"
+     scpi::cmdSend $gpib_cmd ":MEASure:SOURce 2"
+     #after 500
+     for { set i 0 } {$i < 10 } { incr i } {
+     scpi::cmdSend $gpib_cmd ":MEASure:VAVerage?"
+     #after 1000
+     set LNBv_16 [gpib read -device $gpib_cmd -mode ascii]
+	   regsub -all " " $LNBv_16 "" LNBv_16
+	   
+	   if { $LNBv_16 == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+				
+				if {$LNBv_16 != "?" && $LNBv_16 != "" } {
+						set LNBv_16 [expr double ($LNBv_16)]
+						puts "LNB16=$LNBv_16"
+						if { $LNBv_16 >= $LNBmin_16 && $LNBv_16 <= $LNBmax_16 } {
+							set respone 1
+							break
+    				} else {
+    					set respone 0
+    				}
+    			}
+    				after 500
+    	}
+    	if { $respone == 1 } { 
+						lappend infoValue "PASS_$LNBv_16 V"
+						save_msg "\[[set errCode($TestItem)]\]: LNB 16V 500mA test PASS"
+						lappend time_log "\[[set errCode($TestItem)]\]: LNB 16V 500mA test PASS, Time --> [test_time $start]"
+		} else {
+						lappend infoValue "FAIL_$LNBv_16 V"
+						set fail_msg "LNB 16V 500mA test FAIL."
+						save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+						lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+						return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}
+    	
+ ####### LNB AC 16V ##############
+ 		 set TestItem "LNBAC_Hor_16"
+		 lappend infoField $TestItem
+		 
+		 #Command
+		 ConsoleWrite $com_fd "$USBPortPath/sony_example_dvbs_tune_monitor 1550000 220000 0 1 1 1 1"
+     after 300
+     scpi::cmdSend $gpib_cmd ":AUToset"
+     scpi::cmdSend $gpib_cmd ":MEASure:SOURce 2"
+     after 500
+     for { set i 0 } {$i < 10 } { incr i } {
+     scpi::cmdSend $gpib_cmd ":MEASure:VPP?"
+     after 1000
+     set LNBACv_16 [gpib read -device $gpib_cmd -mode ascii]
+	   regsub -all " " $LNBACv_16 "" LNBACv_16
+	   
+	   if { $LNBACv_16 == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+		if {$LNBACv_16 != "?" && $LNBACv_16 != "" } {
+						set LNBACv_16 [expr double ($LNBACv_16)]
+						puts "LNBAC16=$LNBACv_16"
+						if { $LNBACv_16 >= $LNBACmin_16 && $LNBACv_16 <= $LNBACmax_16 } {
+							set respone 1
+							break
+    				} else {
+    					set respone 0
+    				}
+    			}
+    				after 500
+    	}
+    	if { $respone == 1 } { 
+						lappend infoValue "PASS_$LNBACv_16 V"
+						save_msg "\[[set errCode($TestItem)]\]: LNB AC mVPP 16V 44KHz on test PASS"
+						lappend time_log "\[[set errCode($TestItem)]\]: LNB AC mVPP 16V 44KHz on test PASS, Time --> [test_time $start]"
+		} else {
+						lappend infoValue "FAIL_$LNBACv_16 V"
+						set fail_msg "LNB AC mVPP 16V 44KHz on test FAIL."
+						save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+						lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+						return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}
+		if {0} {
+####### LNB AC 12V ##############
+ 		 set TestItem "LNBAC_Ver_12"
+		 lappend infoField $TestItem
+		 #Command
+		 #ConsoleWrite $com_fd "sony_example_dvbs_tune_monitor 1550000 220000 0 1 1 1 1"
+     after 300
+     scpi::cmdSend $gpib_cmd ":AUToset"
+     scpi::cmdSend $gpib_cmd ":MEASure:SOURce 2"
+     after 500
+     for { set i 0 } {$i < 10 } { incr i } {
+     scpi::cmdSend $gpib_cmd ":MEASure:VPP?"
+     after 1000
+     set LNBACv_12 [gpib read -device $gpib_cmd -mode ascii]
+	   regsub -all " " $LNBACv_12 "" LNBACv_12
+	   
+	   if { $LNBACv_12 == "chanoff" } {
+					lappend infoValue "FAIL"
+					set fail_msg "Scope Channel$scope_channel not open!!!"
+					save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+					lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+					return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+				}
+		if {$LNBACv_12 != "?" && $LNBACv_12 != "" } {
+						set LNBACv_12 [expr double ($LNBACv_12)]
+						if { $LNBACv_12 >= $LNBACmin_12 && $LNBACv_12 <= $LNBACmax_12 } {
+							set respone 1
+							break
+    				} else {
+    					set respone 0
+    				}
+    			}
+    				after 500
+    	}
+    	if { $respone == 1 } { 
+						lappend infoValue "PASS_$LNBACv_12"
+						save_msg "\[[set errCode($TestItem)]\]: LNB AC mVPP 12V 44KHz on test PASS"
+						lappend time_log "\[[set errCode($TestItem)]\]: LNB AC mVPP 12V 44KHz on test PASS, Time --> [test_time $start]"
+		} else {
+						lappend infoValue "FAIL_$LNBACv_12"
+						set fail_msg "LNB AC mVPP 12V 44KHz on test FAIL."
+						save_msg "\[[set errCode($TestItem)]\]: $fail_msg" ERROR
+						lappend time_log "\[[set errCode($TestItem)]\]: $fail_msg, Time --> [test_time $start]"
+						return [list 0 "\[[set errCode($TestItem)]\]: $fail_msg"]
+		}}     
+		return 1
+}		
