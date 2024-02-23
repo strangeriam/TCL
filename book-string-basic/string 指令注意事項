@@ -1,0 +1,13 @@
+字串的比較儘量使用 string compare 或 string equal，例如：
+
+if {[string compare $s1 $s2] == 0} {
+    # s1 and s2 are equal
+}
+
+if {[string equal $s1 $s2]} {
+    # s1 and s2 are equal
+}
+
+避免使用 == 來比較字串，雖然下列程式碼中，比較的兩個字串有不一樣的內容，仍會輸出 ack 的訊息，這是因為 TCL 會試圖將字串轉換為數字再進行比較，於是16進位的0xa會等於十進位的10，這可不是我們所期望的結果，因此建議儘量使用 string compare 或 string equal 來取代這種寫法：
+
+if { “0xa” == “10”} { puts “ack” }
