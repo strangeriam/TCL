@@ -1,0 +1,8 @@
+lindex list i
+
+傳回在list之中第i個項目的內容。可以指定多個 index，以取出巢狀 list 中的項目。
+例：
+% set x {r i c k}
+=>r i c k
+% lindex $x 2
+=>c
