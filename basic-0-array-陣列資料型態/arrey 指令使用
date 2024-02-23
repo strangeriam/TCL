@@ -1,0 +1,80 @@
+TCL 的array 和 Perl 的 associative array 類似，陣列是以字串作為索引。陣列在 TCL 語言中舉足輕重，許多資料結構都是以陣列為基礎設計而成。陣列元素內容的設定一樣是使用 set 指令：
+% set price(apple) 10
+% set price(orange) 12
+% set quantity(apple) 5
+% set discount(apple) 0.8
+puts $price(apple)
+=>10
+
+array exists arr	判斷 arr 是否為一個陣列。傳回 1 代表是陣列。
+例：
+% set price(apple) 10
+% array exists price
+=>1
+array get arr
+?pattern?	將 arr 的索引及元素值交錯建立成一個 list 後傳回。可以使用樣式(Pattern)來做比對。
+例：
+% set price(apple) 10
+% set price(orange) 12
+% array get price
+=>orange 12 apple 10
+array names arr
+?mode? ?pattern?	傳回 arr 的索引list。可以使用 mode 指定樣式的比對方式 (可為 –exact、-glob(default) 或 –regexp)。
+例：
+% array names price
+=>orange apple
+array set arr list	根據list的內容建構一個陣列。
+例：
+% array set price [list apple 10 orange 12]
+% array get price
+=>orange 12 apple 10
+array size arr	傳回 arr 的大小。
+例：
+% array size price
+=>2
+array unset arr
+?pattern?	釋放符合樣式的陣列元素。如果沒有指定樣式，則會釋放整個陣列。
+例：
+% array set price [list apple 10 orange 12]
+% array get price
+=>orange 12 apple 10
+% array unset price app*
+% array get price
+=>orange 12
+% set price(apple) 10
+% array get price
+=>orange 12 apple 10
+% array unset price
+% set price
+=>can't read "price": no such variable
+array startsearch arr	起始陣列的搜尋功能，並傳回一個標記(token id)。
+array nextelement arr id	在陣列token-id所標記的搜尋中，將下一個元素的索引傳回。沒有元素時傳回空字串。
+array anymore arr id	檢查陣列token-id所標記的搜尋中，是否還有元素可取用，還有元素傳回1否則傳回0。
+array donesearch arr id	結束 id 所識別的搜尋。
+array statistics arr	傳回arr陣列雜湊表(hash table)的統計表。
+陣列也常拿來與 foreach 迴圈搭配使用，例如：
+% set price(apple) 10
+% set price(orange) 12
+% array get price
+=>orange 12 apple 10
+% foreach {key value} [array get price] {
+     “price($key) = $value”
+}
+=>price(orange) = 12
+=>price(apple) = 10
+
+或者這樣寫，程式的結果也會一樣：
+% foreach key [array names price] {
+    “price($key) = $price($key)”
+}
+
+因為使用 array get 或foreach 時，TCL 的作法是先產生一個暫時性的list，這樣會浪費一些記憶體空間與執行速度。改用 array 的搜尋功可以加快陣列元素巡訪(iterate)的速度：
+% set searchToken [array startsearch price]
+% while {[array anymore price $searchToken]} {
+    set key [array nextelement price $searchToken]
+    set value $price($key)
+    puts “$key = $value”
+ }
+ array donesearch price $searchToken
+=>orange = 12
+=>apple = 10
