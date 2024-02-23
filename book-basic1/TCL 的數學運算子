@@ -1,46 +1,48 @@
 
 - ~ !
-「減號(Unary minus)」 / 「NOT位元運算(Bit-wise not)」 / 「NOT布林邏輯運算(Logical not)」.
-這些運算不可以用來操作字串(string)運算元，而且「NOT位元運算」只限於整數的操作。
+「減號(Unary minus)」 / 「NOT位元運算(Bit-wise not)」 / 「NOT布林邏輯運算(Logical not)」
+這些運算不可以用來操作字串(string)運算元，而且「NOT位元運算」只限於整數的操作.
 
 * / %
-「乘(Multiply)」 / 「除(divide)」 / 「餘數(remainder)」.
+「乘(Multiply)」 / 「除(divide)」 / 「餘數(remainder)」
 這些運算不可以用來操作字串(string)運算元, 而且「餘數」運算只限於整數的操作.
 
 + -
-「加(Add)」與「減(subtract)」.
+「加(Add)」/「減(subtract)」
 限用於數值運算元.
 
-<<     >>	
-「左右移位運算 (Shift Left / Right)」.
+<<  >>
+「左右移位運算 (Shift Left / Right)」
 運算只限於整數的操作.
  
 < > <= >=
-布林運算「小於(less)」/「大於(greater)」/「小於等於(less than or equal)」/「大於等於(greater than or equal)」.
+布林運算「小於(less)」/「大於(greater)」/「小於等於(less than or equal)」/「大於等於(greater than or equal)」
 如果條件成立這些運算子會產生「1」的結果，否則產生「0」.
 
 == !=
-布林運算「等於(equal)」/「不等於(not equal)」.
-每個運算會產生0/1的結果. 可適用於任何運算元.
+布林運算「等於(equal)」/「不等於(not equal)」
+每個運算會產生 0/1 的結果. 可適用於任何運算元.
 
 &
-「AND位元運算(Bit-wise and)」.
+「AND 位元運算(Bit-wise and)」
 限於整數的操作.
 
 ^
- 「XOR位元運算(Bit-wise exclusive or)。限於整數的操作。
+「XOR 位元運算(Bit-wise exclusive or).
+限於整數的操作.
  
 |
- 「OR位元運算(Bit-wise or)。限於整數的操作。
+「OR 位元運算(Bit-wise or).
+限於整數的操作.
  
 &&
-「AND布林邏輯運算 (Logical and)」.
-如果參與的兩個運算元都非零的話會得到 1 的結果, 否則的話會得到 0 .
+「AND 布林邏輯運算 (Logical and)」.
+如果參與的兩個運算元都非零的話會得到 1 的結果, 否則的話會得到 0.
 限用於數值運算元（不限整數或小數）.
  
 ||
-「OR布林邏輯運算(Logical or)」.
-如果參與的兩個運算元都是零的話會得到 0 的結果, 否則的話會得到 1 .
+「OR 布林邏輯運算(Logical or)」.
+如果參與的兩個運算元都是零的話會得到 0 的結果, 否則的話會得到 1.
 限用於數值運算元（不限整數或小數）.
  
  x ? y : z
