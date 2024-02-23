@@ -12,37 +12,28 @@ list arg1 arg2…..	將 list 指令的參數將建構成一個 list。
 用 set 指令建構一個list：
 % set mylist {rick test}
 =>rick test
-lindex list i	傳回在list之中第i個項目的內容。可以指定多個 index，以取出巢狀 list 中的項目。
-例：
-% set x {r i c k}
-=>r i c k
-% lindex $x 2
-=>c
 
-lappend listVar arg arg…..	附加項目到listVar之後
-例：
-% set list rick
-=>rick
-% lappend list iloveyou
-=>rick iloveyou
 Linsert list index arg arg..	將資料插入在第i個項目之前。
 例：
 % set list {i love rick}
 =>i love rick
 % linsert $list 1 really
 =>i really love rick
+
 lreplace list i j arg arg…	將 list 中從i 到 j 個的項目取代為指定的參數。lreplace　傳回取代後的新 list。
 例：
 % set list {i love rick}
 =>i love rick
 % set list2 [lreplace $list 1 1 hate]
 =>i hate rick
+
 lsearch ?options? list pattern	傳回與 pattern 比對相符合的第一個元素位置，傳回 -1 如果沒有相符的元素。預設的比對方式為 Glob。
 例：
 % set list {i love rick}
 =>i love rick
 % lsearch $list love
 =>1
+
 lset listVar index
 ?index…? value	使用 value 設定 list 第i 個元素的值。
 例：
@@ -50,11 +41,13 @@ lset listVar index
 =>i love rick
 % lset list 1 hate
 =>i hate rick
+
 lsort ?switches? list	根據switch 所指定的選項為 list 排序。可用的選項有-ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.。
 例：
 % set list [list maa cxlin ognoc]
 % lsort $list
 =>cxlin maa ognoc
+
 concat list list …	將多個 list 串成一個。
 例：
 % set list1 [list 1 maa]
@@ -63,6 +56,7 @@ concat list list …	將多個 list 串成一個。
 % set listAll [concat list1 list2 list3]
 % llength $listAll
 =>6
+
 join list ?joinString?	將list中的項目合併成一個字串。可以指定 joinString 作為每個項目間的分隔，預設的分隔字元為空白。
 例：
 % set list [list i love rick]
@@ -72,22 +66,3 @@ join list ?joinString?	將list中的項目合併成一個字串。可以指定 j
 =>i###love###rick
 
 
-通常我們會把 list 與 foreach 結合運用。例如底下的 foreach迴圈列出環境變數的名稱及內容(array names 可取出指定陣列的所有 index)：
-% foreach index [array names env] { 
-    %     puts “$index = $env(index)”
-    % }
-    =>OS = Windows NT
-    =>windir = C:\Windows
-    =>ComSpec = C:\WINDOWS\system32\cmd.exe
-    =>(略)
-
-利用 foreach 與 list 寫個 join 指令：
-proc join {list sep{} } {
-   set s {}  ;# s is the current separator
-   set result {}
-   foreach x $list {
-      append result $s $x
-      set s $sep
-   }
-   return $result
-}
