@@ -1,3 +1,5 @@
+append 指令用來將新的項目附加到指定變數的內容後.
+
 # 字串串接
 # 將 "str2" 接續在目標字串 "str1" 之後.
 # output: Papa, Good morning.
