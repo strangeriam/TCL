@@ -1,0 +1,26 @@
+binary format template value ?value ….?
+    Binary scan value template variable ?variable …?
+這邊我們看看幾個 binary 指令常用的用法，至於詳細 template 的設定方法請參閱 manual page。
+
+使用 c 為模板(template)，將數值 97 格式化為 ASCII字元：
+% binary format c 97
+=>a
+
+
+使用 c 為模板(template)，將字元 6 的 ASCII 值讀進 var1 變數中：
+% set input 6
+% binary scan $input c var1
+% set var1
+=> 54
+
+一次scan 多個字元碼到 list 中：
+% binary scan abcde “c3” list
+    % set list
+    => 97 98 99
+    % lindex list 1    ;# 取出 list 中第 1 個元素
+    => 98
+
+換個方式，scan 到多個個別變數中：
+% binary scan abcde “ccc” x y z
+    % puts “x = $x y = $y z = $z”
+    % x = 97 y = 98 z = 99
