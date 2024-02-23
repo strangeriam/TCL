@@ -1,0 +1,115 @@
+下表總結 string 指令的用法：
+      
+string bytelength str	傳回字串的位元組數(以UTF-8 encoding計算)，傳回值可能會跟計算字元數的string length有所不同
+string compare ? -nocase? ?-length len?str1 str2	比較兩字串的內容，若相同傳回『0』、其他的傳回『1』。
+-nocase：表示不分大小寫
+例：
+% string compare –nocase Rick rick
+=>0
+-length：可以指定要比較的字串長度
+例：
+string compare –length 3 rick ricp
+=>0
+string equal ?-nocase? str1 str2	比較str1和str2的內容，若相同傳回『1』、否則傳回『0』
+string first subString string
+ startIndex	傳回 string 中相符子字串第一個出現的位置，若無則傳回『-1』。startIndex 代表從字串指定位置開始搜尋子字串。
+例：
+% string first rick ilovericktoo
+=>5 
+string index string charIndex	傳回index位置所在的字元，index的計算從『0』開始，使用『end』代表最後一個字元或使用『end-N』代表相對於最後一個字元的位置。
+例：
+% string index rick 2
+=>c
+% string index rick end
+=>k
+% string index rick end-2
+=>i
+string last string	傳回 string 中最後一個與子字串相符的位置，若無則傳回『-1』。startIndex 代表從字串指定位置開始搜尋子字串。
+例：
+% string frist rick rickANDrick
+=>0
+% string last rick rickANDrick
+=>7
+string length string	傳回字串的字元數
+string map ?-nocase? charMap string	依據 charMap 中的字串對應表，更換字串中的內容。
+例：
+% string map {i c} rick
+=>rcck
+% string map {ri ja} rick
+=>jack
+% string map {r j i a} rick
+=>jack
+string match ?-nocase? pattern str	將字串拿來與pattern比對，若是相同則傳回『1』，若不同則傳回『0』。字串比對的方式為 glob style pattern match：
+?：表示一個任意字元
+*：表示隨意數量的任意字元。
+[ ]：表示中括號中集合的一個任意字元，[abc]定義符合 abc 任意一個字元，[a-z] 定義符合所有小寫英文字母任意一個字元。
+\?：表示一個問號字元。
+
+例：
+% string match tcl* tcltk
+=>1
+% string match tcl* rick
+=>0
+『?』表示一個任意字元。
+例：
+% string match ric? rick
+=>1
+% string match ri?? rick
+=>1
+% string match ric? rickpeng
+=>0
+『[ ]』表示在中括號集合中任意一個字元。
+例：
+% string match {[a-z]} rick
+=>0
+% string match {[a-z][a-z][a-z][a-z]} rick
+=>1
+string range str i j	取出str字串中從i到j位置的字元。可用 end 字元代表最後一個字元。
+例：
+% set x [string range iloverick 2 5]
+=>over
+string repeat str count	將str字串重覆印出count所表示的次數。
+例：
+% string repeat rick 3
+=>rickrickrick
+string replace str first last ?newstr?	以空字串或 newstr取代指定範圍的字串。First與last分別為所要取代的字串其頭、尾位置，newstr則為所欲代換成的字串，newstr 預設為空字串代表要截斷指定範圍的字串。
+例：
+% string replace iloverick 1 4 hate
+ihaterick
+string tolower string ?first? ?last?	將所定義的字串範圍中之字元轉換為小寫字元。
+例：
+% string tolower ILOVERICK 1 4
+=>IloveRICK
+string totitle string ?first? ?last?	將所定義的字串範圍中第一個字母轉換成大寫。
+例：
+% string totitle iloverick 1 4
+=>iLoverick
+string toupper string ?first? ?last?	將所定義的字串範圍中之字元轉換為大寫字元。
+例：
+% string toupper iloverick 1 4
+iLOVErick
+string trim string ?chars?	去除指定字串頭、尾中包含在chars中定義的任何字元。chars系統預設為空白字元。
+例：
+% string trim ililoverick rick
+lilove
+% string trim kkkloverickkkkk rick
+=>love
+string trimleft string ?chars?	去除在string左側包含在 chars中定義的任何字元，chars系統預設為空白字元。
+例：
+% string trimleft iloverick i
+=>loverick
+% string trimleft kkkloverickkkk lk
+=>overickkkk
+string trimright string ?chars?	去除在string右側包含在 chars中定義的任何字元，chars 系統預設為空白字元。
+例：
+% string trimright iloverick rick
+=>ilove
+string wordend str index	傳回指定 str 字串中指定位置上的單字的下一個位置。
+例：
+% string wordend {I love rick} 5
+=>6
+string wordstart str index	傳回str字串中指定位置上單字的起始位置。
+例：
+% string wordstart iloverick 9
+=>0
+
