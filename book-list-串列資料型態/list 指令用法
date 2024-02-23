@@ -18,18 +18,7 @@ lindex list i	傳回在list之中第i個項目的內容。可以指定多個 ind
 =>r i c k
 % lindex $x 2
 =>c
-llength list	傳回在list之中的項目數。
-例：
-% set x {r i c k}
-=>r i c k
-% llength $x
-=>4
-lrange list i j	傳回list之中從i至j的項目。
-例：
-% set list {t p t s 1}
-=>t p t s 1
-% set y [lrange $list 1 2]
-=>p t
+
 lappend listVar arg arg…..	附加項目到listVar之後
 例：
 % set list rick
@@ -81,16 +70,8 @@ join list ?joinString?	將list中的項目合併成一個字串。可以指定 j
 =>i love rick
 % join $list ###
 =>i###love###rick
-split string
-?splitchars?	將字串分割成一個list。可以指定 splitChars 作為字串中每個項目的分隔識別符號。
-例：
-% set list [split ”a b c”]
-% length $list
-=>3
-% set list [split “a#b#c” “#”]
-=>a b c
-% lrange $list 0 end
-=>a b c
+
+
 通常我們會把 list 與 foreach 結合運用。例如底下的 foreach迴圈列出環境變數的名稱及內容(array names 可取出指定陣列的所有 index)：
 % foreach index [array names env] { 
     %     puts “$index = $env(index)”
