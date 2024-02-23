@@ -11,3 +11,14 @@ varName 必需是一個變數的名稱, 如果變數不存在 lappend 會自動�
 1 2
 % lappend var 3 4 5
 1 2 3 4 5
+
+
+
+lappend listVar arg arg…..
+
+附加項目到listVar之後
+例：
+% set list rick
+=>rick
+% lappend list iloveyou
+=>rick iloveyou
