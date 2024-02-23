@@ -1,3 +1,18 @@
 
 split "item1.item2.item3" "."
 # Output: item1 item2 item3
+
+
+
+split string
+?splitchars?
+
+將字串分割成一個list。可以指定 splitChars 作為字串中每個項目的分隔識別符號。
+例：
+% set list [split ”a b c”]
+% length $list
+=>3
+% set list [split “a#b#c” “#”]
+=>a b c
+% lrange $list 0 end
+=>a b c
