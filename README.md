@@ -1,6 +1,6 @@
-TCL 的全名為 Tool Command Language, 唸作 ”Tickle”.
+TCL (Tool Command Language)
 
-事實上它是一個 Scripting Language（俗稱劇本語言或腳本語言）, 也是一個直譯器 (Interpreter).
+它是一個 Scripting Language（腳本語言）, 也是一個直譯器 (Interpreter).
 
 TCL 的身份如同 UNIX 裡的 Shell languages,
 像是 Bourne Shell (sh)、C Shell (csh)、Korn Shell (ksh) 與 Perl一樣, 用來執行與控制系統上的程式.
