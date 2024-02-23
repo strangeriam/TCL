@@ -1,0 +1,6 @@
+傳遞一個錯誤的參數給 string 指令, 透過這個方式查看 string 指令有哪些可用的方法.
+
+string whoami  ;# 隨意不存在字串, ex "whoami".
+
+OUTPUT:
+unknown or ambiguous subcommand "whoami": must be bytelength, compare, equal, first, index, is, last, length, map, match, range, repeat, replace, reverse, tolower, totitle, toupper, trim, trimleft, trimright, wordend, or wordstart
