@@ -1,0 +1,8 @@
+lrange list i j
+
+傳回list之中從i至j的項目。
+例：
+% set list {t p t s 1}
+=>t p t s 1
+% set y [lrange $list 1 2]
+=>p t
