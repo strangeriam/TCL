@@ -5,15 +5,14 @@ _f_CreateNewConsole $::COS2 "pscp_64.exe -scp admuser@10.150.192.41:/EdgeCore_wl
 
 Download from Windows to DUT/Linux
 if { $::G_64BitsOS } {
-				set scp_exe "${::ASPECTPATH}extapp/FTP_TFTP_AUTO/pscp_64.exe -scp"
+	set scp_exe "${::ASPECTPATH}extapp/FTP_TFTP_AUTO/pscp_64.exe -scp"
 } else {
-				set scp_exe "${::ASPECTPATH}extapp/FTP_TFTP_AUTO/pscp_32.exe -scp"
+	set scp_exe "${::ASPECTPATH}extapp/FTP_TFTP_AUTO/pscp_32.exe -scp"
 }
 
 _f_CreateNewConsole $::COS2 "$scp_exe ${::ASPECTPATH}extapp/FTP_TFTP_AUTO/$::apcode_image root@$::DUT_IP:/tmp/norplusnand-ipq6018-apps.img 2>@1"
 DOS command:
 pscp_32.exe -scp apcode_1.4.4/Edgecore_MLTG-CN_1.4.4-00367-48609eb.bin root@192.168.2.1:/tmp/norplusnand-ipq6018-apps.img
-
 
 
 catch {_f_taskkill_xp_im "vhub.exe"}
