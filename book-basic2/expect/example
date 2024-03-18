@@ -35,3 +35,9 @@ expect_background {
              puts $expect_out(buffer) 
 }}
 
+## =========================
+spawn ping 192.168.1.1 -n 1
+expect_background {
+     -i exp -re ".*" {
+             puts $expect_out(buffer) 
+}}
