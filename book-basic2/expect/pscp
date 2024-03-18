@@ -15,17 +15,10 @@ expect {
     }
 }
 
-set timeout 30
-spawn pscp -scp test.jpg root@192.168.2.1:/tmp/.
+set timeout 10
+spawn pscp_64.exe -scp parameters-reliability_1A.ini root@192.168.2.1:/tmp/.
 expect {
-    password: {
-        send "admin\r"
-    } "yes/no)?" {
-        send "yes\r"
-        set timeout -1
-    } timeout {
-        exit
-    } eof {
-        exit
+    100 {
+        send "dir\r"
     }
 }
