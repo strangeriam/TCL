@@ -1,0 +1,16 @@
+set fd [open "|cmd.exe" r+]
+fconfigure $fd -blocking 0 -buffering line
+
+ConsoleWrite $fd "dir"
+vwait_mseconds 200
+set aaa [ConsoleRead $fd]
+
+ConsoleWrite $fd "cd $::ASPECTPATH/code"
+vwait_mseconds 200
+set aaa [ConsoleRead $fd]
+
+ConsoleWrite $fd "pscp_64.exe -scp fx_param_r0b/ptc/parameters-reliability_1A.ini root@192.168.2.1:/tmp/."
+vwait_mseconds 200
+set aaa [ConsoleRead $fd]
+
+com_close $fd
