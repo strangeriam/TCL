@@ -1,5 +1,5 @@
 ## Code
-spawn ssh -t admin@192.168.2.1 "$*"
-expect -timeout 2 "Are you sure you want to continue connecting (yes/no/[fingerprint])?" { send "yes\n" }
+spawn ssh -t root@192.168.2.1 "#*"
+expect -timeout 2 "Are you sure you want to continue connecting" { send "yes\n" }
 expect "s password:" { send "amin\n" }
 send_user "It's OK\r"
