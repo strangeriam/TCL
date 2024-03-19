@@ -7,3 +7,23 @@ parameters-reliability_1A | 0 kB |   0.8 kB/s | ETA: 00:00:00 | 100%
 
 (code) 184 % 
 
+Note:
+第一次登入時, 會有下面訊息, 需要輸入 y.
+但是無法輸入.
+
+D:\Dropbox\12-Office-Sync-MTS\31-WDO\WDO_DV_Bulider\code>pscp_64.exe -scp fx_param_r0b/ptc/parameters-reliability_1A.ini root@192.168.2.1:/tmp/.
+WARNING - POTENTIAL SECURITY BREACH!
+The server's host key does not match the one PuTTY has
+cached. This means that either the server administrator
+has changed the host key, or you have actually connected
+to another computer pretending to be the server.
+The new rsa2 key fingerprint is:
+ssh-rsa 2048 SHA256:p5vOJ7HqUSCSh9UbP0Eewo+JRIWXJhjiUNDakurAJaM
+If you were expecting this change and trust the new key,
+enter "y" to update PuTTY's cache and continue connecting.
+If you want to carry on connecting but without updating
+the cache, enter "n".
+If you want to abandon the connection completely, press
+Return to cancel. Pressing Return is the ONLY guaranteed
+safe choice.
+Update cached key? (y/n, Return cancels connection, i for more info) y
