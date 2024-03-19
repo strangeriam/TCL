@@ -1,0 +1,9 @@
+(code) 180 % cd D:/Dropbox/12-Office-Sync-MTS/31-WDO/WDO_DV_Bulider/code
+(code) 181 % set fd [open "|pscp_64.exe -scp fx_param_r0b/ptc/parameters-reliability_1A.ini root@192.168.2.1:/tmp/." r+]
+file50fe9e0
+(code) 182 % read $fd
+
+parameters-reliability_1A | 0 kB |   0.8 kB/s | ETA: 00:00:00 | 100%
+
+(code) 184 % 
+
