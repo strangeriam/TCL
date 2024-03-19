@@ -4,7 +4,7 @@ package require Expect
 
 spawn plink -telnet 192.168.2.1
 
-expect -i exp2 ".*login: " { exp_send "admin\r" }
+expect -i exp2 ".*OpenWrt " { exp_send "df-h\r" }
 expect -i exp2 "Password: " { exp_send "admin\r" }
 
 # 以上 Telnet 登入成功後,
