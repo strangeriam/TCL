@@ -1,3 +1,5 @@
+## 此方式不會有傳輸檔案時的 Log.
+
 set fd [open "|cmd.exe" r+]
 fconfigure $fd -blocking 0 -buffering line
 
