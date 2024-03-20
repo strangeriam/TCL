@@ -1,4 +1,5 @@
 ## 無顯示任何確認按鍵 ok yes/no cacel
+## none 的 -wait 必須是 false
 
 set img [image create photo -file "$::ENVPATH/metadata/photo/magma/magma-reset-button.png"]
 
@@ -8,12 +9,12 @@ for {set num 1} {$num <= $total} {incr num} {
            set msgWait           "Waiting.. $num/$total"
            set msgEnglish 	"Hold Reset Button 2 sec and Release."
            set msgChinese 	"按住重置鍵 2 秒, 然後放開."
-           set MesBox [txmbox::messageBox -type none -image $img -message "$msgWait\n\n$msgEnglish\n\n\n$msgChinese" -font {"Consolas" 16 normal bold} -format true -width 40 -height 3 -wait false]
+           set MsgBox [txmbox::messageBox -type none -image $img -message "$msgWait\n\n$msgEnglish\n\n\n$msgChinese" -font {"Consolas" 16 normal bold} -format true -width 40 -height 3 -wait false]
 
           set uartRes [WaitForAllStrings $::com_fd "MemoryInit Done" 2]
 
           if { [lindex $uartRes 0] == 1 } { txmbox::destroyMsgBox $MesBox ; break }
 
           vwait_seconds 2
-          txmbox::destroyMsgBox $MesBox
+          txmbox::destroyMsgBox $MsgBox
 }
