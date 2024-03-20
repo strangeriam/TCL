@@ -1,6 +1,7 @@
 ## 無顯示任何確認按鍵 ok yes/no cacel
 ## none 的 -wait 必須是 false
 
+## Example A
 set img [image create photo -file "$::ENVPATH/metadata/photo/magma/magma-reset-button.png"]
 
 set total 10
@@ -17,4 +18,26 @@ for {set num 1} {$num <= $total} {incr num} {
 
           vwait_seconds 2
           txmbox::destroyMsgBox $MsgBox
+}
+
+
+## Example B
+proc f_os_wait_bootloader {} {
+	set msgEnglish "Power ON DUT (Hurry Up)."
+	set msgChinese "打開 電源 (快點開電)."
+	set img [image create photo -file "metadata/photo/general/Power.gif"]
+	set MsgBox [txmbox::messageBox -type none -image $img -message "$msgEnglish\n\n\n$msgChinese" -font {"Consolas" 16 normal bold} -format true -width 40 -height 3 -wait false]
+	vwait_seconds 1
+
+	set uartRes [WaitForAllStrings $::com_fd "Hit any key to stop autoboot" 30]
+	txmbox::destroyMsgBox $MsgBox
+	if { [lindex $uartRes 0] == 0 } { return 0 }
+
+	ConsoleWrite $::com_fd "\x03"
+	vwait_mseconds 200
+
+	set uartRes [promptwait $::com_fd "" "$::boot_prompt" 5]
+	if { [lindex $uartRes 0] != 1 } { return 0}
+
+        return 1
 }
