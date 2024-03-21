@@ -1,12 +1,11 @@
+## Method A
 ## Go to snmp folder
 cd D:/Dropbox/12-Office-Sync-MTS/31-WDO/WDO_DV_11A_Bulider/metadata/snmp/
 
-## Turn on port A (-val:1,0,-1,-1,-1,-1,-1,-1)
-## Turn off port B
+## Turn on port A & turn off B (-val:1,0,-1,-1,-1,-1,-1,-1)
 exec SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:1,0,-1,-1,-1,-1,-1,-1
 
-## Turn on port B (-val:0,1,-1,-1,-1,-1,-1,-1)
-## Turn off port A
+## Turn on port B & turn off A (-val:0,1,-1,-1,-1,-1,-1,-1)
 exec SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:0,1,-1,-1,-1,-1,-1,-1
 
 ## Turn off port A & B both (-val:0,0,-1,-1,-1,-1,-1,-1)
@@ -18,3 +17,25 @@ SnmpSet v1.01 - Copyright (C) 2009 SnmpSoft Company
 
 OK
 (WDO_DV_11A_Bulider) 120 % 
+
+## Method B
+## 此方式無法讀取到 Log
+proc network_power_manager_spi1502_221013 { a_b_off } {
+      set fd [open "|cmd.exe" r+]
+		  fconfigure $fd -blocking 0 -buffering line
+
+		  ConsoleWrite $fd "cd metadata/snmp/"
+
+		  if { $a_b_off == "A" } {
+				    ConsoleWrite $fd {SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:1,0,-1,-1,-1,-1,-1,-1}
+		  } elseif { $a_b_off == "B" } {
+				    ConsoleWrite $fd {SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:0,1,-1,-1,-1,-1,-1,-1}
+		  } elseif { $a_b_off == "OFF" } {
+				    ConsoleWrite $fd {SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:0,0,-1,-1,-1,-1,-1,-1}
+		  } else {
+				    ConsoleWrite $fd {SnmpSet.exe -r:192.168.0.200 -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:0,0,-1,-1,-1,-1,-1,-1}
+		  }
+
+		  ConsoleRead $fd
+		  com_close $fd
+}
