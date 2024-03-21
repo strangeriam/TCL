@@ -1,31 +1,37 @@
 ## Check status period: 10 seconds.
 ## f_apc_spi_1502_240321 192.168.0.200 B on
-proc f_apc_spi_1502_240321 {host port {switchport ""}} {
-		_f_termmsg_V1 "APC_Debug:\nhost: $host\nport: $port\nswitchport: $switchport"
+## proc f_apc_spi_1502_240321 {host port {switchport ""}} {}
 
-		set fd [exec metadata/snmp/SnmpGet.exe -r:192.168.0.200 -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
-		vwait_seconds 1
+set host "192.168.0.200"
+set switchport "ON"
+set port "B"
 
-		set status ""
-		regexp -linestop {Value=.*} $fd status
-		set status [string map { = " "} $status]
-		puts $status
+set switchport [string tolower $switchport]
+puts "APC_Debug:\nhost: $host\nport: $port\nswitchport: $switchport"
 
-		set PORT1 [lindex [split [lindex $status end] ,] 0]
-		set PORT2 [lindex [split [lindex $status end] ,] 1]
-		if { $switchport eq "on" } { set SPort 1 }
-		if { $switchport eq "off" } { set SPort 0 }
-		puts "[lindex $status end] $switchport,PORT1=$PORT1,PORT2=$PORT2,SPort=$SPort"
+set fd [exec metadata/snmp/SnmpGet.exe -r:$host -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
+vwait_seconds 1
 
-		switch $port {
-				"A"	{
-					if { $switchport eq "" } { return $PORT1 }
+set status ""
+regexp -linestop {Value=.*} $fd status
+set status [string map { = " "} $status]
+puts $status
 
-					_f_clear $::COS2
-					_f_CreateNewConsole $::COS2 "./extapp/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$SPort,$PORT2,-1,-1,-1,-1,-1,-1"
-					_f_pause 1
+set PORT1 [lindex [split [lindex $status end] ,] 0]
+set PORT2 [lindex [split [lindex $status end] ,] 1]
+if { $switchport eq "on" } { set SPort 1 }
+if { $switchport eq "off" } { set SPort 0 }
+puts "[lindex $status end] $switchport,PORT1=$PORT1,PORT2=$PORT2,SPort=$SPort"
 
-					set d_time [_f_LTIME]
+switch -regexp -- $port {
+	"A"	{
+			if { $switchport eq "" } { return $PORT1 }
+
+			_f_clear $::COS2
+			_f_CreateNewConsole $::COS2 "./extapp/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$SPort,$PORT2,-1,-1,-1,-1,-1,-1"
+			_f_pause 1
+
+			set d_time [_f_LTIME]
 					while 1 {
 							if { [expr [_f_LTIME] - $d_time] > 15 } { return 0}
 							after 500 {update}
@@ -81,7 +87,7 @@ proc f_apc_spi_1502_240321 {host port {switchport ""}} {
 				}
 
 				default { return 0 }
-		}
+}
 
 		return 0
 }
