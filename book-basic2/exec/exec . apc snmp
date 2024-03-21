@@ -1,6 +1,6 @@
 
 ## Go to snmp folder
-cd D:\Dropbox\12-Office-Sync-MTS\31-WDO\WDO_DV_11A_Bulider\metadata\snmp\
+cd D:/Dropbox/12-Office-Sync-MTS/31-WDO/WDO_DV_11A_Bulider/metadata/snmp/
 
 ## Turn on port A (-val:1,0,-1,-1,-1,-1,-1,-1)
 ## Turn off port B
