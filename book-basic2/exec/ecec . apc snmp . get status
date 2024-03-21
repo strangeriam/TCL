@@ -1,0 +1,12 @@
+exec SnmpGet.exe -r:192.168.0.200 -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0
+set fd [exec SnmpGet.exe -r:192.168.0.200 -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
+
+set fd [exec metadata/snmp/SnmpGet.exe -r:192.168.0.200 -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
+puts $fd
+SnmpGet v1.01 - Copyright (C) 2009 SnmpSoft Company
+[ More useful network tools on http://www.snmpsoft.com ]
+
+OID=.1.3.6.1.4.1.17420.1.2.9.1.13.0
+Type=OctetString
+Value=0,0,-1,-1,-1,-1,-1,-1
+(WDO_DV_11A_Bulider) 121 % 
