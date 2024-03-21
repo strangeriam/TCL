@@ -38,9 +38,9 @@ switch -regexp -- $port {
 		set fd [exec metadata/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$SPort,$PORT2,-1,-1,-1,-1,-1,-1]
 		vwait_seconds 1
 
-		set d_time [_f_LTIME]
+		set d_time [_f_LTIME_240314]
 		while 1 {
-			if { [expr [_f_LTIME] - $d_time] > 15 } { return 0}
+			if { [expr [_f_LTIME_240314] - $d_time] > 15 } { return 0}
 			after 500 {update}
 
 			set fd ""
@@ -69,9 +69,9 @@ switch -regexp -- $port {
 		set fd [exec metadata/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$PORT1,$SPort,-1,-1,-1,-1,-1,-1]
 		vwait_seconds 1
 
-		set d_time [_f_LTIME]
+		set d_time [_f_LTIME_240314]
 		while 1 {
-			if { [expr [_f_LTIME] - $d_time] > 10 } { return 0}
+			if { [expr [_f_LTIME_240314] - $d_time] > 10 } { return 0}
 			after 500 {update}
 
 			set fd ""
