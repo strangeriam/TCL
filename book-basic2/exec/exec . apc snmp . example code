@@ -8,9 +8,11 @@ proc _f_LTIME_240314 {} {
 }
 
 set host "192.168.0.200"
-set switchport "ON"
-set port "B"
+set switchport "OFF"
+set port "A"
 
+## Below can be "proc f_apc_spi_1502_240321 {host port {switchport ""}} {}"
+## ========================================================================
 set switchport [string tolower $switchport]
 puts "APC_Debug:\nhost: $host\nport: $port\nswitchport: $switchport"
 
