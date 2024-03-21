@@ -32,6 +32,7 @@ switch -regexp -- $port {
 	"A" {
 		if { $switchport eq "" } { return $PORT1 }
 
+		set fd ""
 		set fd [exec metadata/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$SPort,$PORT2,-1,-1,-1,-1,-1,-1]
 		vwait_seconds 1
 
@@ -40,12 +41,12 @@ switch -regexp -- $port {
 			if { [expr [_f_LTIME] - $d_time] > 15 } { return 0}
 			after 500 {update}
 
-			_f_clear $::COS2
-			_f_CreateNewConsole $::COS2 "./extapp/snmp/SnmpGet.exe -r:$host -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0"
-			_f_pause 1
+			set fd ""
+			set fd [exec metadata/snmp/SnmpGet.exe -r:$host -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
+			vwait_seconds 1
 
 			set status ""
-			regexp -linestop {Value=.*} [_f_getconsole $::COS2] status
+			regexp -linestop {Value=.*} $fd status
 			set status [string map { = " "} $status]
 			puts $status
 
@@ -62,21 +63,21 @@ switch -regexp -- $port {
 	"B" {
 		if { $switchport eq "" } { return $PORT2 }
 
-		_f_clear $::COS2
-		_f_CreateNewConsole $::COS2 "./extapp/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$PORT1,$SPort,-1,-1,-1,-1,-1,-1"
-		_f_pause 1
+		set fd ""
+		set fd [exec metadata/snmp/SnmpSet.exe -r:$host -c:public -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0 -val:$PORT1,$SPort,-1,-1,-1,-1,-1,-1]
+		vwait_seconds 1
 
 		set d_time [_f_LTIME]
 		while 1 {
 			if { [expr [_f_LTIME] - $d_time] > 10 } { return 0}
 			after 500 {update}
 
-			_f_clear $::COS2
-			_f_CreateNewConsole $::COS2 "./extapp/snmp/SnmpGet.exe -r:$host -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0"
-			_f_pause 1
+			set fd ""
+			set fd [exec metadata/snmp/SnmpGet.exe -r:$host -o:.1.3.6.1.4.1.17420.1.2.9.1.13.0]
+			vwait_seconds 1
 
 			set status ""
-			regexp -linestop {Value=.*} [_f_getconsole $::COS2] status
+			regexp -linestop {Value=.*} $fd status
 			set status [string map { = " "} $status]
 			puts $status
 
