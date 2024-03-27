@@ -1,0 +1,7 @@
+proc f_msg_popup {info {Type "message"} } {
+		tk_messageBox -message $info -icon question -type ok
+}
+
+f_msg_popup "Fail SSH DUT !!!"
+
+## 跳出訊息框, 顯示 Fail SSH DUT !!!
