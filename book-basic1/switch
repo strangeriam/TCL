@@ -1,3 +1,7 @@
+#; 注意
+#; 使用 switch -regexp -- $num {}, 判斷式不可超過 10 (含)筆.
+#; 不然超過 10 (含)筆的判斷式, 將使用判斷式第一筆.
+
 set num 3
 switch $num {
               " 1 " { puts "Monday" }
