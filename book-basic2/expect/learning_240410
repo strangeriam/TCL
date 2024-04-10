@@ -1,5 +1,11 @@
 2024-04-10
 Note 1: EC APcode Login: root / spOspowISwuC5LGE&Rey
+Note 2: Login Log.
+
+Store key in cache? (y/n)
+login as: root
+root@192.168.2.1's password:
+root@node-98-19-2c-ae-32-dc:~#
 
 #; Code Start Here.
 lappend auto_path lib/Expect5.43.2
