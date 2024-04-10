@@ -1,4 +1,6 @@
+lappend auto_path lib/Expect5.43.2
 package require Expect
+
 set timeout 1
 
 spawn cd d\:
