@@ -11,9 +11,20 @@ root@node-98-19-2c-ae-32-dc:~#
 lappend auto_path lib/Expect5.43.2
 package require Expect
 
-spawn plink -telnet 192.168.2.51
+spawn plink -ssh 192.168.2.51
+expect -i exp2 "Store key in cache? (y/n)" { exp_send "root\r" }
+expect -i exp2 "login as: " { exp_send "root\r" }
+expect -i exp2 "root@192.168.2.1's password: " { exp_send "spOspowISwuC5LGE&Rey\r" }
+expect -i exp2 "root@node-98-19-2c-ae-32-dc:~# " { exp_send "ls -la\r" }
 
-expect -i exp2 "root@" { exp_send "ls -la\r" }
+expect_background {
+     -i exp2 -re ".*" {
+              puts $expect_out(buffer)
+}}
+
+exp_send -i exp2 "df -h\r"
+exp_send -i exp2 "ll\r"
+
 
 expect -i exp2 ".*login: " { exp_send "igw5000\r" }
 expect -i exp2 "Password: " { exp_send "igw5000\r" }
