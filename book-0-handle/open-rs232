@@ -6,3 +6,10 @@ return $com_fd
 ## 支援 十位數以上的 COM port number.
 set ::com_fd [open \\\\.\\COM$port r+]
 fconfigure $::com_fd -blocking 0 -buffering line -mode $::console_baud_rate,n,8,1 -translation cr
+
+proc com_close { consoleid } {
+          catch {close $consoleid}
+          set consoleid 0
+}
+
+com_close $::com_fd
