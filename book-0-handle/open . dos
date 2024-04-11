@@ -1,0 +1,11 @@
+
+set fd [open "|cmd.exe" r+]
+fconfigure $fd -blocking 0 -buffering line
+
+puts $fd "dir"
+set aaa [read $fd]
+
+
+## Close DOS
+catch {close $::fd}
+set consoleid 0
