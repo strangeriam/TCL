@@ -1,1 +1,18 @@
 
+proc picture_create {} {
+
+		set yWindowHeight  340
+
+        set toplevelPhoto [toplevel .photo]
+        set xScreenWidth  [expr {([winfo screenwidth .] - $xPhotoWidth)/2}]
+        set yScreenHeight [expr {([winfo screenheight .] - [expr $yWindowHeight + $yPhotoHeight])/2}]
+
+        wm geometry $toplevelPhoto [set xPhotoWidth]x[set yPhotoHeight]+$xScreenWidth+[expr $yScreenHeight + $yWindowHeight]
+        wm title $toplevelPhoto "Not myChair Not myProblem"
+        wm protocol $toplevelPhoto WM_DELETE_WINDOW {destroy $toplevelPhoto}
+
+        image create photo guiFace -file $picSource
+
+        set labelPhoto [label .photo.label -image guiFace]
+        pack $labelPhoto
+}
