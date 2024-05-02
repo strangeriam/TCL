@@ -1,0 +1,70 @@
+
+set ::MODELNAME WDO_BUILDER
+set ::program_version DV_240502
+set ::station_name ""
+set ::STARTTIME_LOG ""
+
+array set ::array_st_dut_data {
+			ST_Name { {ST_Description} {ST_Env_Pic} {UI_TestCase_Number} {DUT_Total_Number} }
+
+			ST1 	{ {ST 1 . REL FX} 		{bitmap/stations/station_1_fx_download_600x300.png} 	{10} {9} }
+			ST2 	{ {ST 2 . REL WDO} 		{bitmap/stations/station_2_wdo_download_600x300.png} 	{15} {9} }
+			ST3 	{ {} 					{bitmap/stations/under-construction-600x300.png} 	{} {} }
+			ST4 	{ {} 					{bitmap/stations/under-construction-600x300.png} 	{} {} }
+			ST5 	{ {ST 5 . 5 Point FX} 	{bitmap/stations/station_3_fx_5point_600x300.png} 		{10} {20} }
+			ST6 	{ {ST 6 . 5 Point WDO} 	{bitmap/stations/station_2_wdo_download_600x300.png} 	{15} {10} }
+}
+
+proc message_init {} {
+
+		## total character is 54.
+		set num 53
+		set mark_1 "*[string repeat * $num]"
+		set mark_2 "#[string repeat # $num]"
+
+		set line_0 "* Header Information"
+		set line_1 "* Product: $::MODELNAME"
+		set line_2 "* Program Version: $::program_version"
+		set line_3 "* STATION ID : $::station_name"
+		set line_4 "* STATION Description: [lindex $::array_st_dut_data(ST1) 0]"
+		set line_5 "* Test Date and Start Time: $::STARTTIME_LOG"
+
+		set line_11 "# \[TestLog\]"
+		set line_12 "# STATUS="
+
+		append content "================ Capture start , PC: [_f_info_pc_name] ================\n"
+		append content \n$mark_1\n
+		append content "$line_0[string repeat " " [expr $num - [string length $line_0]]]*\n"
+		append content $mark_1\n
+		append content "$line_1[string repeat " " [expr $num - [string length $line_1]]]*\n"
+		append content "$line_2[string repeat " " [expr $num - [string length $line_2]]]*\n"
+		append content "$line_3[string repeat " " [expr $num - [string length $line_3]]]*\n"
+		append content "$line_4[string repeat " " [expr $num - [string length $line_4]]]*\n"
+		append content "$line_5[string repeat " " [expr $num - [string length $line_5]]]*\n"
+		append content $mark_1\n
+		append content \n$mark_2\n
+		append content "$line_11[string repeat " " [expr $num - [string length $line_11]]]#\n"
+		append content "$line_12[string repeat " " [expr $num - [string length $line_12]]]#\n"
+		append content $mark_2\n\n
+
+		return "$content"
+}
+
+## OUTPUT:
+================ Capture start , PC: NB-OFFICE-ASUS ================
+
+******************************************************
+* Header Information                                 *
+******************************************************
+* Product: WDO_BUILDER                               *
+* Program Version: DV_240502                         *
+* STATION ID : ST1                                   *
+* STATION Description: ST 1 . REL FX                 *
+* Test Date and Start Time: 2024/05/02 12:30:26      *
+******************************************************
+
+
+######################################################
+# [TestLog]                                          #
+# STATUS=                                            #
+######################################################
