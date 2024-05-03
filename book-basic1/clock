@@ -1,8 +1,14 @@
 # 取現在時間
 
-set str [clock seconds]
-clock format $str -format "%y%m%d %H:%M:%S"
+Format
+%y%m%d --> 240503
+%Y/%m/%d --> 2024/05/03
+
+%H:%M:%S --> 10:40:21
+%H%M%S --> 104021
+
+clock format [clock seconds] -format "%y%m%d %H:%M:%S"
 # OUTPUT: 200929 09:21:13
 
-clock format $str -format "%Y/%m/%d %H:%M:%S"
+clock format [clock seconds] -format "%Y/%m/%d %H%M%S"
 # OUTPUT: 2023/05/18 08:34:52
