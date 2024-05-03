@@ -1,0 +1,9 @@
+proc time_to_milliseconds {} {
+		set get_ms [clock milliseconds]
+		set sec [string range $get_ms 0 9]
+		set ms [string range $get_ms end-2 end-0]
+
+		return [clock format $sec -format %H:%M:%S:$ms]
+}
+
+OUTPUT: 13:29:03:704
