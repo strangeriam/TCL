@@ -12,3 +12,11 @@ clock format [clock seconds] -format "%y%m%d %H:%M:%S"
 
 clock format [clock seconds] -format "%Y/%m/%d %H%M%S"
 # OUTPUT: 2023/05/18 08:34:52
+
+clock format : 秒數 --> 轉換 --> 其他時間格式
+clock scan (反向): 秒數 <-- 轉換 <-- 其他時間格式
+clock clicks
+clock and : 時間加減, 支援負數
+clock seconds : 1970年 1月 1日 到現在的秒數
+clock milliseconds 毫秒
+clock microseconds 微秒
