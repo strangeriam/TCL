@@ -1,0 +1,22 @@
+_f_ThreadCrossMultiLineTransmit {LockArrayName ThreadId cmdlistbox Timeout}
+set Fixture_Return [_f_ThreadCrossMultiLineTransmitFixture $lockflag $Fixturethreadid $cmdlistbox $timeout]
+set Fixture_Return [_f_ThreadCrossMultiLineTransmit $lockflag $Fixturethreadid $cmdlistbox $timeout]
+
+
+
+		# _f_clear $::COS3
+
+		# 	tsv::lock POE {
+		# 	        _f_CreateNewConsole $::COS3 com1,9600,n,8,1
+
+		# 	        _f_transmit "\r" $::COS3
+		# 			set uartRes [_f_waitfor "OL" $::COS3]
+
+		# 			for {set i 1} {$i <= 3} {incr i} {
+		# 					_f_transmit "\r" $::COS3
+		# 					set uartRes [_f_waitfor "OL" $::COS3]
+		# 					if { [lindex $uartRes 0] == 1 } { break }
+		# 			}
+
+		# 	        _f_ConfigConsole $::COS3 disconnect
+		# 	}
