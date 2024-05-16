@@ -14,3 +14,11 @@ file delete -force [pwd]
 
 ## 強制內含檔案的目錄 worktmp
 file delete -force "$::ASPECTPATH/worktmp"
+
+## 刪除所有檔名頭是 memtest 的檔案
+filename:
+memtest_B46AD439830C_PASS_240331_030046.log
+memtest_B46AD439836A_PASS_240331_030046.log
+memtest_B46AD4398298_PASS_240331_030047.log
+
+file delete -force "$::ASPECTPATH/worktmp/memtest*.*"
