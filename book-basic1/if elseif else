@@ -1,0 +1,10 @@
+!= : 不等於, 也可使用 "ne"
+if { a != b } {
+    puts "a not equal b"
+}
+
+if { a ne b} {
+    puts "a not equal b"
+}
+
+Note: Also comparing text with ne is faster than !=.
