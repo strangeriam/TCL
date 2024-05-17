@@ -6,4 +6,4 @@ set str "2024/03/31,15:07:39,vcp1_dut_1_B46AD4398300,SerialNumber=625977,port=0,
 regexp -all {[0-7]} $str
 OUTPUT: 2 0 2 4 0 3 3 1 1 5 0 7 3 1 1 4 6 4 3 3 0 0 6 2 5 7 7 0 0 0 1 0 7 4 2
 
-regexp -all -inline {/S+} $string
+regexp -all -inline {/S+} $str
