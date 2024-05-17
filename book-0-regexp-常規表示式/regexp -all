@@ -1,5 +1,9 @@
 全部被匹配, 返回匹配的個數, 如果指定了匹配變量, 那麼最後一個匹配到的字符串將儲存在這些變量中.
 
-regexp -all {[0-7]} $string
+set str "2024/03/31,15:07:39,vcp1_dut_1_B46AD4398300,SerialNumber=625977,port=0,Current=0.010742A"
+
+## 輸出所有 0 ~ 7 的數字.
+regexp -all {[0-7]} $str
+OUTPUT: 2 0 2 4 0 3 3 1 1 5 0 7 3 1 1 4 6 4 3 3 0 0 6 2 5 7 7 0 0 0 1 0 7 4 2
 
 regexp -all -inline {/S+} $string
