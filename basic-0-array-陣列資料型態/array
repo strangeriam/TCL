@@ -18,12 +18,6 @@ puts $familyName(momo)
 # Response: AgentMAMA
 
 #===========================
-# 檢查特定 Array 是否存在.
-# Response: true 1 or false 0
-
-array exists familyName
-
-#===========================
 # List ARRAY variable name
 # Response: papa mama son
 
