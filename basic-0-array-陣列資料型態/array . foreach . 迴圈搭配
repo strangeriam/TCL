@@ -1,0 +1,15 @@
+陣列也常拿來與 foreach 迴圈搭配使用.
+% set price(apple) 10
+% set price(orange) 12
+% array get price
+=>orange 12 apple 10
+% foreach {key value} [array get price] {
+     “price($key) = $value”
+}
+=>price(orange) = 12
+=>price(apple) = 10
+
+或者這樣寫，程式的結果也會一樣：
+% foreach key [array names price] {
+    “price($key) = $price($key)”
+}
