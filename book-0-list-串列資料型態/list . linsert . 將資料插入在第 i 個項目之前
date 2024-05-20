@@ -1,0 +1,12 @@
+LInsert 將資料插入在第 i 個項目之前.
+Syntax: linsert list index arg arg..
+
+#; Example
+#; =======
+#; 將 really 插入 I 和 love 之間.
+
+set list1 [list I love Taipei]
+#; OUTPUT=> I love Taipei
+
+linsert $list1 1 really
+#; OUTPUT=> I really love Taipei
