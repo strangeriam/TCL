@@ -28,8 +28,3 @@ set list2 [split $list1 "_"]
 
 llength $list1
 # OUTPUT: 5
-
-#; Example: 額外 lrange
-#; 取出 new Taipei city
-lrange $list2 2 end
-#; OUTPUT: new Taipei city
