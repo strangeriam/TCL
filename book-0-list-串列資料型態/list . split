@@ -1,0 +1,35 @@
+將字串分割成一個 list. 可以指定 splitChars 作為字串中每個項目的分隔識別符號.
+Syntax: 
+split string
+?splitchars?
+
+#; Example A:
+#; ==========
+將字串之間的 . 轉換成 " " 空白.
+split "I.love.new.Taipei.City" "."
+
+# OUTPUT: I love new Taipei City
+
+#; Example B1:
+#; ==========
+#; 正常 List, 以下為 1 個值.
+set list1 [list I_love_new_Taipei_city]
+llength $list1
+
+# OUTPUT: 1
+
+#; Example B2:
+#; ==========
+#; 將上面的 "_" 底線移除, 就變成 5 個值.
+set list1 [list I_love_new_Taipei_city]
+set list2 [split $list1 "_"]
+
+# OUTPUT: I love new Taipei city
+
+llength $list1
+# OUTPUT: 5
+
+#; Example: 額外 lrange
+#; 取出 new Taipei city
+lrange $list2 2 end
+#; OUTPUT: new Taipei city
