@@ -1,8 +1,0 @@
-llength list
-
-傳回在list之中的項目數。
-例：
-% set x {r i c k}
-=>r i c k
-% llength $x
-=>4
