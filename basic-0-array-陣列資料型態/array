@@ -10,24 +10,8 @@ array set familyName {
 # or
 array set familyName { papa AgentPAPA mama AgentMAMA son AgentSON }
 
-#===========================
 puts $familyName(papa)
 # Response: AgentPAPA
 
 puts $familyName(momo)
 # Response: AgentMAMA
-
-#===========================
-# List ARRAY variable name
-# Response: papa mama son
-
-array name familyName
-
-#===========================
-# Get ARRAY variable content.
-# Response: papa AgentPAPA mama AgentMAMA son AgentSON
-
-array get familyName
-
-
-
