@@ -7,8 +7,19 @@ array set array1 {
       son  AgentSON
 }
 
-#; Example:
-#; ========
+#; Example A
+#; =========
 array get array1
-
 #; OUTPUT=> papa AgentPAPA mama AgentMAMA son AgentSON
+
+
+#; Example B
+#; =========
+#; 將 arr 的索引及元素值交錯建立成一個 list 後傳回。可以使用樣式(Pattern)來做比對。
+#; ?pattern?	
+
+set price(apple) 10
+set price(orange) 12
+array get price
+
+#; OUTPUT => orange 12 apple 10
