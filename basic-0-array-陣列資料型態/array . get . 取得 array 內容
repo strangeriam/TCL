@@ -1,8 +1,14 @@
 取得 array 內容
 Get ARRAY variable content.
-Response: papa AgentPAPA mama AgentMAMA son AgentSON
+
+array set array1 {
+      papa AgentPAPA
+      mama AgentMAMA
+      son  AgentSON
+}
 
 #; Example:
 #; ========
 array get array1
 
+#; OUTPUT=> papa AgentPAPA mama AgentMAMA son AgentSON
