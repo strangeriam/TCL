@@ -25,18 +25,3 @@ foreach key [array names arrayPrice] {
 
 #; OUTPUT=> arrayPrice(orange) = 12
 #; OUTPUT=> arrayPrice(apple) = 10
-
-
-#; 因為使用 array get 或 foreach 時, TCL 的作法是先產生一個暫時性的list, 這樣會浪費一些記憶體空間與執行速度.
-#; 改用 array 的搜尋功可以加快陣列元素巡訪 (iterate) 的速度.
-
-set searchToken [array startsearch price]
-while {[array anymore price $searchToken]} {
-     set key [array nextelement price $searchToken]
-     set value $price($key)
-     puts "$key = $value"
-}
-
-array donesearch price $searchToken
-#; OUTPUT=> orange = 12
-#; OUTPUT=> apple = 10
