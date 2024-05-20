@@ -1,0 +1,24 @@
+#; 檢查特定 Array 是否存在.
+#; Response: true 1 or false 0
+
+array set array1 {
+      papa AgentPAPA
+      mama AgentMAMA
+      son  AgentSON
+}
+
+#; Example A
+#; =========
+#; 陣列存在, 回傳 1 (true)
+
+array exists array1
+
+#; OUTPUT=> 1
+
+#; Example B
+#; =========
+#; 陣列不存在, 回傳 0 (false)
+
+array exists array2
+
+#; OUTPUT=> 0
