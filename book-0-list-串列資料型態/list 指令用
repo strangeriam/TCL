@@ -13,13 +13,6 @@ list arg1 arg2…..	將 list 指令的參數將建構成一個 list。
 % set mylist {rick test}
 =>rick test
 
-lreplace list i j arg arg…	將 list 中從i 到 j 個的項目取代為指定的參數。lreplace　傳回取代後的新 list。
-例：
-% set list {i love rick}
-=>i love rick
-% set list2 [lreplace $list 1 1 hate]
-=>i hate rick
-
 lsort ?switches? list	根據switch 所指定的選項為 list 排序。可用的選項有-ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.。
 例：
 % set list [list maa cxlin ognoc]
