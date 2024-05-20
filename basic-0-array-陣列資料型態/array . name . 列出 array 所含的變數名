@@ -1,0 +1,14 @@
+List ARRAY variable name
+
+array set array1 {
+      papa AgentPAPA
+      mama AgentMAMA
+      son  AgentSON
+}
+
+#; Example:
+#; ========
+
+array name array1
+
+#; OUTPUT=> papa mama son
