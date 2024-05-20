@@ -1,11 +1,3 @@
-TCL 的array 和 Perl 的 associative array 類似，陣列是以字串作為索引。陣列在 TCL 語言中舉足輕重，許多資料結構都是以陣列為基礎設計而成。陣列元素內容的設定一樣是使用 set 指令：
-% set price(apple) 10
-% set price(orange) 12
-% set quantity(apple) 5
-% set discount(apple) 0.8
-puts $price(apple)
-=>10
-
 array startsearch arr	起始陣列的搜尋功能，並傳回一個標記(token id)。
 array nextelement arr id	在陣列token-id所標記的搜尋中，將下一個元素的索引傳回。沒有元素時傳回空字串。
 array anymore arr id	檢查陣列token-id所標記的搜尋中，是否還有元素可取用，還有元素傳回1否則傳回0。
