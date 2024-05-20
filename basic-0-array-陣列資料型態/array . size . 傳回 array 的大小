@@ -1,0 +1,8 @@
+傳回 array 的大小
+
+set price(apple) 10
+set price(orange) 12
+
+#; Example
+array size price
+#; OUTPUT=> 2
