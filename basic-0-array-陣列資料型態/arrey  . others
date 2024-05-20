@@ -1,5 +1,0 @@
-array startsearch arr	起始陣列的搜尋功能，並傳回一個標記(token id)。
-array nextelement arr id	在陣列token-id所標記的搜尋中，將下一個元素的索引傳回。沒有元素時傳回空字串。
-array anymore arr id	檢查陣列token-id所標記的搜尋中，是否還有元素可取用，還有元素傳回1否則傳回0。
-array donesearch arr id	結束 id 所識別的搜尋。
-array statistics arr	傳回arr陣列雜湊表(hash table)的統計表。

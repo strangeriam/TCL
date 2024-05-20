@@ -1,0 +1,21 @@
+#; 因為使用 array get 或 foreach 時, TCL 的作法是先產生一個暫時性的list, 這樣會浪費一些記憶體空間與執行速度.
+#; 改用 array 的搜尋功可以加快陣列元素巡訪 (iterate) 的速度.
+
+set searchToken [array startsearch price]
+while {[array anymore price $searchToken]} {
+     set key [array nextelement price $searchToken]
+     set value $price($key)
+     puts "$key = $value"
+}
+
+array donesearch price $searchToken
+#; OUTPUT=> orange = 12
+#; OUTPUT=> apple = 10
+
+
+
+array startsearch arr	起始陣列的搜尋功能, 並傳回一個標記 (token id).
+array nextelement arr id	在陣列 token-id 所標記的搜尋中, 將下一個元素的索引傳回. 沒有元素時傳回空字串.
+array anymore arr id	檢查陣列 token-id 所標記的搜尋中, 是否還有元素可取用, 還有元素傳回 1 否則傳回 0.
+array donesearch arr id	結束 id 所識別的搜尋.
+array statistics arr	傳回 arr 陣列雜湊表 (hash table) 的統計表.
