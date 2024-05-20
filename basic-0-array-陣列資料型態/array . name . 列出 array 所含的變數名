@@ -1,5 +1,4 @@
 列出 array 所含的變數名
-List ARRAY variable name
 
 array set array1 {
       papa AgentPAPA
@@ -7,8 +6,20 @@ array set array1 {
       son  AgentSON
 }
 
-#; Example:
-#; ========
+#; Example A
+#; =========
 array name array1
-
 #; OUTPUT=> papa mama son
+
+
+#; Example B
+#; =========
+#; 傳回 array 的索引 list.
+#; 可以使用 mode 指定樣式的比對方式.
+#; 可為 –exact、-glob(default) 或 –regexp
+
+set price(apple) 10
+set price(orange) 12
+
+array names price
+#; OUTPUT=> orange apple
