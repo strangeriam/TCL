@@ -1,6 +1,0 @@
-lsearch ?options? list pattern	傳回與 pattern 比對相符合的第一個元素位置，傳回 -1 如果沒有相符的元素。預設的比對方式為 Glob。
-例：
-% set list {i love rick}
-=>i love rick
-% lsearch $list love
-=>1

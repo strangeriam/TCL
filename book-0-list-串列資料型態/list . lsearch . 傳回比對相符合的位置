@@ -1,0 +1,26 @@
+傳回與 pattern 比對相符合的第一個元素位置. 預設的比對方式為 Glob.
+Syntax: lsearch ?options? list pattern
+
+傳回
+0~n: 有相符的元素的位置
+-1 : 如果沒有相符的元素
+
+#; Example A: 有相符的元素
+#; ==========
+set list1 [list I love Taipei]
+lsearch $list1 "Taipei"
+#; OUTPUT=> 2
+
+set list1 [list I love Taipei]
+lsearch $list1 "love"
+#; OUTPUT=> 1
+
+#; Example B: 無相符的元素
+#; ==========
+set list1 [list I love Taipei]
+lsearch $list1 "Taipe"
+#; OUTPUT=> -1
+
+set list1 [list I love Taipei]
+lsearch $list1 "Love"
+#; OUTPUT=> -1
