@@ -1,5 +1,10 @@
-lsort ?switches? list	根據switch 所指定的選項為 list 排序。可用的選項有-ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.。
-例：
-% set list [list maa cxlin ognoc]
-% lsort $list
-=>cxlin maa ognoc
+根據 switch 所指定的選項為 list 排序.
+可用的選項有 -ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.
+Syntax: lsort ?switches? list
+
+#; Example:
+#; ========
+set list [list maa cxlin ognoc]
+lsort $list
+
+#; OUTPUT=> cxlin maa ognoc
