@@ -4,7 +4,7 @@ Syntax: lsort ?switches? list
 
 #; Example:
 #; ========
-set list [list maa cxlin ognoc]
-lsort $list
+set list1 [list I love Taipei]
+lsort $list1
 
-#; OUTPUT=> cxlin maa ognoc
+#; OUTPUT=> I Taipei love
