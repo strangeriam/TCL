@@ -11,29 +11,3 @@ array nextelement arr id	在陣列token-id所標記的搜尋中，將下一個�
 array anymore arr id	檢查陣列token-id所標記的搜尋中，是否還有元素可取用，還有元素傳回1否則傳回0。
 array donesearch arr id	結束 id 所識別的搜尋。
 array statistics arr	傳回arr陣列雜湊表(hash table)的統計表。
-陣列也常拿來與 foreach 迴圈搭配使用，例如：
-% set price(apple) 10
-% set price(orange) 12
-% array get price
-=>orange 12 apple 10
-% foreach {key value} [array get price] {
-     “price($key) = $value”
-}
-=>price(orange) = 12
-=>price(apple) = 10
-
-或者這樣寫，程式的結果也會一樣：
-% foreach key [array names price] {
-    “price($key) = $price($key)”
-}
-
-因為使用 array get 或foreach 時，TCL 的作法是先產生一個暫時性的list，這樣會浪費一些記憶體空間與執行速度。改用 array 的搜尋功可以加快陣列元素巡訪(iterate)的速度：
-% set searchToken [array startsearch price]
-% while {[array anymore price $searchToken]} {
-    set key [array nextelement price $searchToken]
-    set value $price($key)
-    puts “$key = $value”
- }
- array donesearch price $searchToken
-=>orange = 12
-=>apple = 10
