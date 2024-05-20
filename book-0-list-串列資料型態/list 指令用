@@ -1,21 +1,18 @@
 List 串列資料型態
+list, lindex, llength, lrange, lappend, linsert, lreplace, lsearch, lset, lsort, concat, join, and split
+提供將資料放入 list, 取出 list 中的元素, 計算 list 的元素數量, 取代 list 中的指定元素等等功能.
+通常我們會搭配 foreach 的使用, 將 list 中的元素一一取出做運算.
+然而, 在表現比較複雜的資料結構時, list 並不是最好的選擇方案, 在這些場合裏使用 Array 型態會比 List 更加適合.
 
-TCL 的 list 指令有 list, lindex, llength, lrange, lappend, linsert, lreplace,
-lsearch, lset, lsort, concat, join, and split 等，提供您將資料放入 list、取出 list 中的元素、計算 list 的元素數量、取代 list 中的指定元素等等功能。通常我們會搭配 foreach 的使用，將 list 中的元素一一取出做運算。
+將 list 指令的參數將建構成一個 list
+Syntax: list arg1 arg2…..
 
-然而，在表現比較複雜的資料結構時，list 並不是最好的選擇方案，在這些場合裏使用 TCL 的 array 型態會比 list 更加適合。
+#; Example:
+#; ========
+list I love Taipei
+#; OUTPUT=> I love Taipei
 
-list arg1 arg2…..	將 list 指令的參數將建構成一個 list。
-例：
-% list rick test
-=>rick test
-用 set 指令建構一個list：
-% set mylist {rick test}
-=>rick test
-
-lsort ?switches? list	根據switch 所指定的選項為 list 排序。可用的選項有-ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.。
-例：
-% set list [list maa cxlin ognoc]
-% lsort $list
-=>cxlin maa ognoc
-
+#; 用 set 指令建構一個 list
+set list1 [list I love Taipei]
+puts $list1
+#; OUTPUT=> I love Taipei
