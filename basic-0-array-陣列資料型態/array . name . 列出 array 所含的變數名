@@ -1,3 +1,4 @@
+列出 array 所含的變數名
 List ARRAY variable name
 
 array set array1 {
@@ -8,7 +9,6 @@ array set array1 {
 
 #; Example:
 #; ========
-
 array name array1
 
 #; OUTPUT=> papa mama son
