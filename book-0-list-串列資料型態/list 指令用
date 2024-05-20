@@ -27,13 +27,6 @@ lreplace list i j arg arg…	將 list 中從i 到 j 個的項目取代為指定�
 % set list2 [lreplace $list 1 1 hate]
 =>i hate rick
 
-lsearch ?options? list pattern	傳回與 pattern 比對相符合的第一個元素位置，傳回 -1 如果沒有相符的元素。預設的比對方式為 Glob。
-例：
-% set list {i love rick}
-=>i love rick
-% lsearch $list love
-=>1
-
 lset listVar index
 ?index…? value	使用 value 設定 list 第i 個元素的值。
 例：
