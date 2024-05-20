@@ -7,18 +7,30 @@ array set array1 {
       son  AgentSON
 }
 
-#; Example A
-#; =========
+#; Example A1
+#; ==========
 #; 陣列存在, 回傳 1 (true)
 
 array exists array1
 
 #; OUTPUT=> 1
 
-#; Example B
-#; =========
+#; Example A2
+#; ==========
 #; 陣列不存在, 回傳 0 (false)
 
 array exists array2
 
+#; OUTPUT=> 0
+
+
+#; Example B
+#; =========
+#; 判斷是否為一個陣列.
+
+set price(apple) 10
+array exists price
+#; OUTPUT=> 1
+
+array exists pric
 #; OUTPUT=> 0
