@@ -20,14 +20,6 @@ lreplace list i j arg arg…	將 list 中從i 到 j 個的項目取代為指定�
 % set list2 [lreplace $list 1 1 hate]
 =>i hate rick
 
-lset listVar index
-?index…? value	使用 value 設定 list 第i 個元素的值。
-例：
-% set list {i love rick}
-=>i love rick
-% lset list 1 hate
-=>i hate rick
-
 lsort ?switches? list	根據switch 所指定的選項為 list 排序。可用的選項有-ascii, -dictionary, -integer, -real, -increasing, -decreasing, -index ix, -unique, -command command.。
 例：
 % set list [list maa cxlin ognoc]
