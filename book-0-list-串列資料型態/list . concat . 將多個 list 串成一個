@@ -1,0 +1,9 @@
+concat list list … 將多個 list 串成一個.
+
+Example：
+% set list1 [list 1 maa]
+% set list2 [list 2 cxlin]
+% set list3 [list 3 ognoc]
+% set listAll [concat list1 list2 list3]
+% llength $listAll
+=>6
