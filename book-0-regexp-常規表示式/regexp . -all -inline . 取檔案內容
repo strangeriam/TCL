@@ -1,0 +1,1 @@
+regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $file_content
