@@ -1,0 +1,17 @@
+01. lappend 可以用來把新的項目附加至清單變數的尾巴.
+02. lappend 把 value 的值逐一附加在 varName 的尾巴, 最後回傳附加後的結果.
+03. varName 必需是一個變數的名稱, 如果變數不存在 lappend 會自動建立.
+04. 如果沒有指定任何 value 則不附加任何項目.
+
+Syntax: lappend listVar arg arg…..
+
+#; Example A:
+#; ==========
+set list1 [list 1 2 3]
+set list2 [lappend list1 "A"]
+
+puts "list1 : $list1"
+puts "list2 : $list2"
+
+#; OUTPUT=> 1 2 3
+#; OUTPUT=> 1 2 3 A
