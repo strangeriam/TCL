@@ -6,11 +6,6 @@ TCL 的array 和 Perl 的 associative array 類似，陣列是以字串作為索
 puts $price(apple)
 =>10
 
-array names arr
-?mode? ?pattern?	傳回 arr 的索引list。可以使用 mode 指定樣式的比對方式 (可為 –exact、-glob(default) 或 –regexp)。
-例：
-% array names price
-=>orange apple
 array set arr list	根據list的內容建構一個陣列。
 例：
 % array set price [list apple 10 orange 12]
