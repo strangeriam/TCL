@@ -6,15 +6,7 @@ TCL 的array 和 Perl 的 associative array 類似，陣列是以字串作為索
 puts $price(apple)
 =>10
 
-array set arr list	根據list的內容建構一個陣列。
-例：
-% array set price [list apple 10 orange 12]
-% array get price
-=>orange 12 apple 10
-array size arr	傳回 arr 的大小。
-例：
-% array size price
-=>2
+
 array unset arr
 ?pattern?	釋放符合樣式的陣列元素。如果沒有指定樣式，則會釋放整個陣列。
 例：
