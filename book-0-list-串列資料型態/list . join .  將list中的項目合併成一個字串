@@ -1,7 +1,19 @@
-join list ?joinString?	將list中的項目合併成一個字串。可以指定 joinString 作為每個項目間的分隔，預設的分隔字元為空白。
-例：
-% set list [list i love rick]
-% join $list
-=>i love rick
-% join $list ###
-=>i###love###rick
+將 list 中的項目合併成一個字串.
+可以指定 joinString 作為每個項目間的分隔, 預設的分隔字元為空白.
+join list ?joinString?
+
+#; Example A:
+#; 預設的分隔字元為空白.
+#; ===================
+set list1 [list I love Taipei]
+join $list1
+
+#; OUTPUT=> i love rick
+
+#; Example B:
+#; 可以指定 joinString 作為每個項目間的分隔.
+#; ======================================
+set list2 [list Taipei I love]
+join $list2 "_"
+
+#; OUTPUT=> Taipei_I_love
