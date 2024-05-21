@@ -1,3 +1,6 @@
+## Example:
+set sample "Where there is a will, There is a way." 
+
 ## -all 字串取代
 ## 將所有含 “is a” 都置換為 “are”, 並將取代後的整句存入新變數 $sample2.
 ## 此例有兩個 “is a” 都被改為 “are”.
