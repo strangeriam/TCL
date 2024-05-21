@@ -1,5 +1,8 @@
-regsub -all -line ".*ssr.*" $infile "" infile2
-set infile2
+#; Example:
+#; Step 1: 將檔案內容存入 $infile
+set namefile "C:/testlog/testLog_current/2024_03_31_15_07_37_wdo.log"
+set infile [_f_ReadFile $namefile]
+set infile
 
 #; OUTPUT:
 2024/03/31,15:07:39,vcp1_dut_1_B46AD4398300,SerialNumber=625977,port=0,Current=0.010742A
@@ -39,9 +42,9 @@ set infile2
 2024/03/31,15:07:43,vcp2_dut_4_B46AD4398298,SerialNumber=626059,port=1,Current=0.280624A
 2024/03/31,15:07:43,vcp2_dut_6_B46AD43982D2,SerialNumber=626059,port=2,Current=0.284607A
 
-#; Step 3: 抹除 空白行.
-set infile3 [regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $infile2 ""]
-set infile3
+#; 抹除 空白行.
+set infile2 [regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $infile ""]
+set infile2
 
 #; OUTPUT:
 2024/03/31,15:07:39,vcp1_dut_1_B46AD4398300,SerialNumber=625977,port=0,Current=0.010742A
