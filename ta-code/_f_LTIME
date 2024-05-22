@@ -1,0 +1,4 @@
+set d_time [_f_LTIME]
+if { [expr {[_f_LTIME] - $d_time}] > 60 } {
+		return 0
+}
