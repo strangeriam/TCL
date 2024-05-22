@@ -1,0 +1,46 @@
+
+proc _f_ReadFile { fname } {
+	if { [file exists $fname] } {
+		set fd [open $fname r]
+		set data [read $fd]
+		close $fd
+		return $data
+	} else {
+		return ""
+	}
+}
+proc _f_WriteFile { fname access data } {
+	if { [catch {
+		set fd [open $fname $access]
+		puts -nonewline $fd $data
+		close $fd
+	} retmsg] } {
+		return 0
+	} else {
+		return 1
+	}
+}
+proc usermsg { s_message } {
+	tk_messageBox -title "User Message" -type ok -message $s_message
+}
+set starttime [clock sec]
+foreach filename [glob -no *.csv] {
+	file delete -force $filename
+}
+set data [_f_ReadFile ./2024_03_29_14_34_41_wdo.log]
+set res {}
+foreach line [regexp -all -inline -- {[^\n]+} $data] {
+	set line1 [split $line ,]
+	if { [llength $line1] < 4 } { continue }
+
+	set mac [lindex [split [lindex $line1 2] _] end]
+	
+	append dataarray($mac) "[lindex $line1 0],[lindex $line1 1],$mac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
+	# append res "[lindex $line1 0],[lindex $line1 1],$mac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
+}
+# _f_WriteFile ./output.csv w $res
+foreach name [array names dataarray] {
+	_f_WriteFile ./$name.csv w $dataarray($name)
+}
+usermsg "OK [expr [clock sec ] - $starttime] s"
+exit
