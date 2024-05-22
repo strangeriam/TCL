@@ -1,0 +1,11 @@
+proc _f_ReadBinaryFile { fname } {
+			if { [file exists $fname] } {
+				set fd [open $fname r]
+				fconfigure $fd -translation binary
+				set data [read $fd]
+				close $fd
+				return $data
+		} else {
+				return ""
+		}
+}
