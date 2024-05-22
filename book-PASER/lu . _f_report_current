@@ -1,0 +1,44 @@
+proc _f_report_current {} {
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set raw "C:/testlog2/raw"
+
+		set folder1 ""
+		set tmpfolder $raw
+
+		foreach folder1 [glob -nocomplain -types d -directory $tmpfolder *] {
+				set tmpfolder $folder1
+
+				set folder1 [lindex [string map {/ " "} $folder1] end-0]
+				puts "folder1 : $folder1"
+
+				foreach file [_f_GetFilePaths C:/testlog2/raw/folderA/log_2_current -expectedFiles *.log] {
+						set currentdata [_f_ReadFile $file]
+						regsub -all -line ".*ssr.*" $currentdata "" infile
+						set infile [regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $infile ""]
+
+						set total_line [expr [llength $infile] -1]
+
+						for {set i 0} {$i <= $total_line} {incr i} {
+								set line [lindex $infile $i]
+								set dataAll [split $line ,]
+
+								set dataDate [lindex $dataAll 0]
+								set dataTime [lindex $dataAll 1]
+								set dataMac [lindex [split [lindex $dataAll 2] _] 3]
+								set dataCurrent [string map {A ""} [lindex [split [lindex $dataAll 5] =] end]]
+
+								set report "C:/testlog2/report/report_02_current_$dataMac-$build_time.csv"
+								set csv_content "$dataDate,$dataTime,$dataMac,$dataCurrent"
+
+								set fd [open $report a+]
+								_f_mspause 5
+								puts $fd $csv_content
+								close $fd
+						}
+				}
+		}
+
+		return 1
+}
