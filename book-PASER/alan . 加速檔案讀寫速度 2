@@ -35,22 +35,33 @@ proc _f_WriteFile { fname access data } {
 proc usermsg { s_message } {
 	tk_messageBox -title "User Message" -type ok -message $s_message
 }
+
 set starttime [clock sec]
 foreach filename [glob -no *.csv] {
 	file delete -force $filename
 }
+
 set data [_f_ReadFile ./2024_03_29_14_34_41_wdo.log]
-set res {}
+
 foreach line [regexp -all -inline -- {[^\n]+} $data] {
 	set line1 [split $line ,]
+
+	
 	if { [llength $line1] < 4 } { continue }
 
 	set mac [lindex [split [lindex $line1 2] _] end]
-	
+
+	#; Lu:
+	#; 2024/03/29,14:34:43,vcp2_dut_6_B46AD43982D2,SerialNumber=626059,port=2,Current=0.005219A
+	#; [lindex $line1 0] : 讀出第 0 個, 2024/03/29
+	#; [lindex $line1 1] : 讀出第 1 個, 14:34:43
+	#; $mac : 將 MAC address 寫入此 Array.
+	#; [string map [list A ""] [lindex [split [lindex $line1 5] =] end]] : 讀出第 5 個,  : Current=0.005219A : 並去掉 "=" : 輸出 0.005219
 	append dataarray($mac) "[lindex $line1 0],[lindex $line1 1],$mac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
-	# append res "[lindex $line1 0],[lindex $line1 1],$mac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
 }
-# _f_WriteFile ./output.csv w $res
+
+#; Lu: 讀出 array 名稱 : array names dataarray
+#; Lu: 此名稱是 dataarray($mac), 也就是 MAC address.
 foreach name [array names dataarray] {
 	_f_WriteFile ./$name.csv w $dataarray($name)
 }
