@@ -1,6 +1,16 @@
 ## Stage 1: 將內含 85000 行的字串裡取出需要的 值存到另一 csv 檔.
 ## Stage 2: 再用取出的其中 1 個值 "MAC address" 為這個 csv 檔命名.
 
+## 每行內含字串例如:
+2024/03/29,14:34:43,vcp1_dut_1_B46AD4398300,SerialNumber=625977,port=0,Current=0.009109A
+2024/03/29,14:34:43,vcp1_dut_3_B46AD4398364,SerialNumber=625977,port=1,Current=0.005402A
+2024/03/29,14:34:43,vcp1_dut_5_B46AD439836A,SerialNumber=625977,port=2,Current=-0.005203A
+2024/03/29,14:34:43,vcp2_dut_2_B46AD439830C,SerialNumber=626059,port=0,Current=0.005844A
+2024/03/29,14:34:43,vcp2_dut_4_B46AD4398298,SerialNumber=626059,port=1,Current=-0.002213A
+2024/03/29,14:34:43,vcp2_dut_6_B46AD43982D2,SerialNumber=626059,port=2,Current=0.005219A
+
+
+## ======================================================================
 proc _f_ReadFile { fname } {
 	if { [file exists $fname] } {
 		set fd [open $fname r]
