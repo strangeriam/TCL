@@ -1,3 +1,5 @@
+## Stage 1: 將內含 85000 行的字串裡取出需要的 值存到另一 csv 檔.
+
 
 proc _f_ReadFile { fname } {
 	if { [file exists $fname] } {
