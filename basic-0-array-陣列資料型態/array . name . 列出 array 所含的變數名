@@ -1,4 +1,5 @@
-列出 array 所含的變數名
+## 列出 array 所含的變數名
+## name 和 names, 似乎是一樣功能.
 
 array set array1 {
       papa AgentPAPA
@@ -9,7 +10,10 @@ array set array1 {
 #; Example A
 #; =========
 array name array1
-#; OUTPUT=> papa mama son
+#; OUTPUT=> son mama papa
+
+array names array1
+#; OUTPUT=> son mama papa
 
 
 #; Example B
