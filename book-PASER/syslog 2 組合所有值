@@ -50,3 +50,18 @@ foreach itemPYID [regexp -all -inline -- $pattern_pyid $infile] {
 		puts $data_pyid
 }
 
+## CT
+foreach itemCT [regexp -all -inline -- $pattern_ct $infile] {
+		set data_ct [split $itemCT :]
+		set data_ct_0 [lindex $data_ct 1]
+		set data_ct_1 [lindex $data_ct 3]
+		set data_ct_2 [lindex $data_ct 5]
+		set data_ct_3 [lindex $data_ct 7]
+		set data_ct_4 [lindex $data_ct 9]
+		set data_ct_5 [lindex $data_ct 11]
+		set data_ct_6 [lindex $data_ct 13]
+
+		set data_ct "$data_ct_0\,$data_ct_1\,$data_ct_2\,$data_ct_3\,$data_ct_4\,$data_ct_5\,$data_ct_6"
+		puts $data_ct
+}
+
