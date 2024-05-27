@@ -84,4 +84,13 @@ foreach itemWIFI1 [regexp -all -inline -- $pattern_wifi1 $infile] {
 		puts $data_wifi1
 }
 
+## WIFI2 (CHAN)
+foreach itemWIFI2 [regexp -all -inline -- $pattern_wifi2 $infile] {
+		set data_wifi2 [split $itemWIFI2 :]
+		set data_wifi2_0 [lindex $data_wifi2 1]
+
+		set data_wifi2 "$data_wifi2_0"
+		puts $data_wifi2
+}
+
 
