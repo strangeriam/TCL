@@ -11,13 +11,13 @@ set pattern_7_wifi1 	{WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
 set pattern_8_wifi2 	{CHAN: -{0,1}\d+}
 
 ## MAC
-foreach itemMAC [regexp -all -inline -- $pattern_mac $infile] {
+foreach itemMAC [regexp -all -inline -- $pattern_1_mac $infile] {
 		set dataMAC [lindex [split $itemMAC :] 2]
 		puts $dataMAC
 }
 
 ## CI
-foreach itemCI [regexp -all -inline -- $pattern_ci $infile] {
+foreach itemCI [regexp -all -inline -- $pattern_2_ci $infile] {
 		set data_ci [split $itemCI :]
 		set data_ci_0 [lindex $data_ci 1]
 		set data_ci_1 [lindex $data_ci 3]
@@ -30,7 +30,7 @@ foreach itemCI [regexp -all -inline -- $pattern_ci $infile] {
 }
 
 ## MT, MS, MF
-foreach itemM [regexp -all -inline -- $pattern_m $infile] {
+foreach itemM [regexp -all -inline -- $pattern_3_m $infile] {
 		set data_m [split $itemM :]
 		set data_m_0 [lindex $data_m 1]
 		set data_m_1 [lindex $data_m 3]
@@ -41,7 +41,7 @@ foreach itemM [regexp -all -inline -- $pattern_m $infile] {
 }
 
 ## PYID
-foreach itemPYID [regexp -all -inline -- $pattern_pyid $infile] {
+foreach itemPYID [regexp -all -inline -- $pattern_4_pyid $infile] {
 		set data_pyid [split $itemPYID :]
 		set data_pyid_0 [lindex $data_pyid 1]
 		set data_pyid_1 [lindex $data_pyid 3]
@@ -51,7 +51,7 @@ foreach itemPYID [regexp -all -inline -- $pattern_pyid $infile] {
 }
 
 ## CT
-foreach itemCT [regexp -all -inline -- $pattern_ct $infile] {
+foreach itemCT [regexp -all -inline -- $pattern_5_ct $infile] {
 		set data_ct [split $itemCT :]
 		set data_ct_0 [lindex $data_ct 1]
 		set data_ct_1 [lindex $data_ct 3]
@@ -66,7 +66,7 @@ foreach itemCT [regexp -all -inline -- $pattern_ct $infile] {
 }
 
 ## PYT
-foreach itemPYT [regexp -all -inline -- $pattern_pyt $infile] {
+foreach itemPYT [regexp -all -inline -- $pattern_6_pyt $infile] {
 		set data_pyt [split $itemPYT :]
 		set data_pyt_0 [lindex $data_pyt 1]
 
@@ -75,7 +75,7 @@ foreach itemPYT [regexp -all -inline -- $pattern_pyt $infile] {
 }
 
 ## WIFI1 (WILMAC, WILRADIO)
-foreach itemWIFI1 [regexp -all -inline -- $pattern_wifi1 $infile] {
+foreach itemWIFI1 [regexp -all -inline -- $pattern_7_wifi1 $infile] {
 		set data_wifi1 [split $itemWIFI1 :]
 		set data_wifi1_0 [lindex $data_wifi1 1]
 		set data_wifi1_1 [lindex $data_wifi1 3]
@@ -85,7 +85,7 @@ foreach itemWIFI1 [regexp -all -inline -- $pattern_wifi1 $infile] {
 }
 
 ## WIFI2 (CHAN)
-foreach itemWIFI2 [regexp -all -inline -- $pattern_wifi2 $infile] {
+foreach itemWIFI2 [regexp -all -inline -- $pattern_8_wifi2 $infile] {
 		set data_wifi2 [split $itemWIFI2 :]
 		set data_wifi2_0 [lindex $data_wifi2 1]
 
