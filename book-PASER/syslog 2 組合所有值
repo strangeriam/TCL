@@ -65,3 +65,11 @@ foreach itemCT [regexp -all -inline -- $pattern_ct $infile] {
 		puts $data_ct
 }
 
+## PYT
+foreach itemPYT [regexp -all -inline -- $pattern_pyt $infile] {
+		set data_pyt [split $itemPYT :]
+		set data_pyt_0 [lindex $data_pyt 1]
+
+		set data_pyt "$data_ct_0"
+		puts $data_pyt
+}
