@@ -1,0 +1,24 @@
+192.168.10.1	May 13 13:51:24		user	notice	WDO	root: MAC:B46AD4398354:CIA:86.54:CI0:84.60:CI1:94.90:CI2:91.74:CI3:74.77:MT:908868:MS:184628:MF:724076:PYID1:0x002b:PYID2:0x0800:CT0:72:CT1:72:CT2:72:CT3:71:CT4:72:CT5:71:CT6:73:PYT:64.48:WILMAC:34.000:WILRADIO:33.328:CHAN: 3:RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31
+
+# 1 dataMac  ; root: MAC:B46AD4398312:
+# 2 dataCI   ; CIA:86.62:CI0:88.32:CI1:95.28:CI2:87.40:CI3:75.50:
+# 3 dataM    ; MT:908868:MS:185340:MF:723628:
+# 4 dataPYID ; PYID1:0x002b:PYID2:0x0800:
+# 5 dataCT   ; CT0:71:CT1:72:CT2:70:CT3:71:CT4:72:CT5:71:CT6:72:
+# 6 dataPYT  ; PYT:60.65:
+# 7 dataW1   ; WILMAC:85.000:WILRADIO:52.397:
+# 8 dataW2   ; CHAN: 3:RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31
+
+foreach CIitem [regexp -all -inline -- {$Pattern} $infile] {
+		puts $CIitem
+}
+
+# Pattern
+# 1 dataMAC  ; {root: MAC:[0-9A-F]+}
+# 2 dataCI   ; {:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
+# 3 dataM    ; {MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
+# 4 dataPYID ; {PYID1:[0-9a-z]+:PYID2:[0-9a-z]+}
+# 5 dataCT   ; {CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
+# 6 dataPYT  ; {PYT:-{0,1}\d+\.\d+}
+# 7 dataW1   ; {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
+# 8 dataW2   ; 
