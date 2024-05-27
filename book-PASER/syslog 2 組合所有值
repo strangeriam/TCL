@@ -1,14 +1,14 @@
 set fname "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
 set infile [_f_ReadFile $fname]
 
-set pattern_mac 	{root: MAC:[0-9A-F]+}
-set pattern_ci 		{CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+}
-set pattern_m 		{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
-set pattern_pyid 	{PYID1:[0-9a-z]+:PYID2:[0-9a-z]+}
-set pattern_ct 		{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
-set pattern_pyt 	{PYT:-{0,1}\d+\.\d+}
-set pattern_wifi1 	{WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
-set pattern_wifi2 	{CHAN: -{0,1}\d+}
+set pattern_1_mac 	{root: MAC:[0-9A-F]+}
+set pattern_2_ci 	{CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+}
+set pattern_3_m 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
+set pattern_4_pyid 	{PYID1:[0-9a-z]+:PYID2:[0-9a-z]+}
+set pattern_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
+set pattern_6_pyt 	{PYT:-{0,1}\d+\.\d+}
+set pattern_7_wifi1 	{WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
+set pattern_8_wifi2 	{CHAN: -{0,1}\d+}
 
 ## MAC
 foreach itemMAC [regexp -all -inline -- $pattern_mac $infile] {
