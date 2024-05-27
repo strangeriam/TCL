@@ -40,4 +40,13 @@ foreach itemM [regexp -all -inline -- $pattern_m $infile] {
 		puts $data_m
 }
 
+## PYID
+foreach itemPYID [regexp -all -inline -- $pattern_pyid $infile] {
+		set data_pyid [split $itemPYID :]
+		set data_pyid_0 [lindex $data_pyid 1]
+		set data_pyid_1 [lindex $data_pyid 3]
+
+		set data_pyid "$data_pyid_0\,$data_pyid_1"
+		puts $data_pyid
+}
 
