@@ -1,20 +1,9 @@
-proc _f_ReadFile { fname } {
-		if { [file exists $fname] } {
-				set fd [open $fname r]
-				set data [read $fd]
-				close $fd
-				return $data
-		} else {
-				return ""
-		}
-}
-
 set fname "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
 set infile [_f_ReadFile $fname]
 
 set pattern_mac 	{root: MAC:[0-9A-F]+}
 set pattern_ci 		{CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+}
-set pattern_mtmsmf 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
+set pattern_m 		{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
 set pattern_pyid 	{PYID1:[0-9a-z]+:PYID2:[0-9a-z]+}
 set pattern_ct 		{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
 set pattern_pyt 	{PYT:-{0,1}\d+\.\d+}
@@ -39,3 +28,16 @@ foreach itemCI [regexp -all -inline -- $pattern_ci $infile] {
 
 		puts $data_ci
 }
+
+## MT, MS, MF
+foreach itemM [regexp -all -inline -- $pattern_m $infile] {
+		set data_m [split $itemM :]
+		set data_m_0 [lindex $data_m 1]
+		set data_m_1 [lindex $data_m 3]
+		set data_m_2 [lindex $data_m 5]
+
+		set data_m "$data_m_0\,$data_m_1\,$data_m_2"
+		puts $data_m
+}
+
+
