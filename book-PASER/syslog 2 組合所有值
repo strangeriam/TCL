@@ -73,3 +73,15 @@ foreach itemPYT [regexp -all -inline -- $pattern_pyt $infile] {
 		set data_pyt "$data_ct_0"
 		puts $data_pyt
 }
+
+## WIFI1 (WILMAC, WILRADIO)
+foreach itemWIFI1 [regexp -all -inline -- $pattern_wifi1 $infile] {
+		set data_wifi1 [split $itemWIFI1 :]
+		set data_wifi1_0 [lindex $data_wifi1 1]
+		set data_wifi1_1 [lindex $data_wifi1 3]
+
+		set data_wifi1 "$data_wifi1_0\,$data_wifi1_1"
+		puts $data_wifi1
+}
+
+
