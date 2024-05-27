@@ -1,18 +1,20 @@
-set pattern_3_m 	  {MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
+set pattern_2_ci 	{CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+}
+set pattern_3_m 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+}
 set pattern_4_pyid 	{PYID1:[0-9a-z]+:PYID2:[0-9a-z]+}
-set pattern_5_ct 	  {CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
+set pattern_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+}
 set pattern_6_pyt 	{PYT:-{0,1}\d+\.\d+}
-set pattern_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
-set pattern_8_wifi2 {CHAN: -{0,1}\d+}
+set pattern_7_wifi1 	{WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+}
+set pattern_8_wifi2 	{CHAN: -{0,1}\d+}
 
-set pattern {MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:PYID1:[0-9a-z]+:PYID2:[0-9a-z]+:CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:PYT:-{0,1}\d+\.\d+:WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+}
+set pattern {CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:PYID1:[0-9a-z]+:PYID2:[0-9a-z]+:CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:PYT:-{0,1}\d+\.\d+:WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+}
 
 foreach itemM [regexp -all -inline -- $pattern $infile] {
 		set data_m [split $itemM :]
-		set data_m "[lindex $data_m 1],[lindex $data_m 3],[lindex $data_m 5],[lindex $data_m 7],[lindex $data_m 9],[lindex $data_m 11],[lindex $data_m 13],[lindex $data_m 15],[lindex $data_m 17],[lindex $data_m 19],[lindex $data_m 21],[lindex $data_m 23],[lindex $data_m 25],[lindex $data_m 27],[lindex $data_m 29],[lindex $data_m 31],"
+		set data_m "[lindex $data_m 1],[lindex $data_m 3],[lindex $data_m 5],[lindex $data_m 7],[lindex $data_m 9],[lindex $data_m 11],[lindex $data_m 13],[lindex $data_m 15],[lindex $data_m 17],[lindex $data_m 19],[lindex $data_m 21],[lindex $data_m 23],[lindex $data_m 25],[lindex $data_m 27],[lindex $data_m 29],[lindex $data_m 31],[lindex $data_m 33],[lindex $data_m 35],[lindex $data_m 37],[lindex $data_m 39],"
 
 		puts $data_m
 }
 
 puts \n\nDONE\n\n
+
 
