@@ -21,26 +21,30 @@ proc _f_WriteFile { fname access data } {
 	}
 }
 
-## =================================================
+#; Stage A:
+#; ========
+#; 定義要取的 Pattern
+#; ==============================================
 set sys_1_mac 	{MAC:\w+:}
 set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
 set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:}
 set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:}
 set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:}
 set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:}
-set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:}
-set sys_8_wifi2 {CHAN: -{0,1}\d+:}
+
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+:} ;# item 39, 41, 43
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-\d{0,2}:MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}} ;# item 45, 47, 49, 51, 53
 
 set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
 
-#; Stage A:
+#; Stage B:
 #; ========
 #; 讀出來源 Log.
 #; ============
-set sourceFile "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
+set sourceFile "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog2.log"
 set inSource [_f_ReadFile $sourceFile]
 
-#; Stage B:
+#; Stage C:
 #; ========
 #; 建立 tmp 資料夾.
 #; ================
@@ -48,7 +52,7 @@ set tmpDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
 if { [file exist $tmpDir] } { file delete -force $tmpDir }
 if { ![file exist $tmpDir] } { file mkdir $tmpDir }
 
-#; Stage C:
+#; Stage D:
 #; ========
 #; 1. 從來源 Log 取出需要的行.
 #; 2. 讀出值.
@@ -62,7 +66,7 @@ foreach item [regexp -all -inline -- $pattern $inSource] {
 		set inItem [split $item :]
 		set data ""
 
-		set total 43
+		set total 53
 		for {set i 0} {$i <= $total} {incr i} {
 				if {$i == 0} {
 						set mac [lindex $inItem 1]
@@ -84,7 +88,7 @@ foreach item [regexp -all -inline -- $pattern $inSource] {
 puts "\n\nDONE 1\n\n"
 
 
-#; Stage D:
+#; Stage E:
 #; ========
 #; 1. 將項目說明寫入 Report.csv 檔的第一行.
 #; 2. 從來源 log 取出的值, 寫入 Report.csv.
@@ -107,7 +111,7 @@ foreach fname [glob -no -directory $tmpDir -tails *.csv] {
 				_f_WriteFile $reportFile a+ $inTMP
 }
 
-#; Stage E:
+#; Stage F:
 #; ========
 #; 刪除操作暫用的 tmp 資寮夾和檔案.
 #; ============================================
