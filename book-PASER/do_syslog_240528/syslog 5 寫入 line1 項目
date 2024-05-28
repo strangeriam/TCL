@@ -109,7 +109,7 @@ foreach fname [glob -no -directory $tmpDir -tails *.csv] {
 
 #; Stage E:
 #; ========
-#; 刪除操暫用的 tmp 資寮夾和檔案.
+#; 刪除操作暫用的 tmp 資寮夾和檔案.
 #; ============================================
 if { [file exist $tmpDir] } { file delete -force $tmpDir }
 
