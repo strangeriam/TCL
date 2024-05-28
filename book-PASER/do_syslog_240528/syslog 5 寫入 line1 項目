@@ -21,10 +21,6 @@ proc _f_WriteFile { fname access data } {
 	}
 }
 
-
-set fname "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
-set infile [_f_ReadFile $fname]
-
 ## =================================================
 set sys_1_mac 	{MAC:\w+:}
 set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
@@ -37,65 +33,84 @@ set sys_8_wifi2 {CHAN: -{0,1}\d+:}
 
 set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
 
-set reportDir_tmp "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
-if { ![file exist $reportDir_tmp] } { file mkdir $reportDir_tmp }
+#; Stage A:
+#; ========
+#; 讀出來源 Log.
+#; ============
+set sourceFile "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
+set inSource [_f_ReadFile $sourceFile]
 
+#; Stage B:
+#; ========
+#; 建立 tmp 資料夾.
+#; ================
+set tmpDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
+if { [file exist $tmpDir] } { file delete -force $tmpDir }
+if { ![file exist $tmpDir] } { file mkdir $tmpDir }
 
+#; Stage C:
+#; ========
+#; 1. 從來源 Log 取出需要的行.
+#; 2. 讀出值.
+#; 3. 寫入 tmp 資料夾裡的 tmp 檔.
+#; ==============================================
 if {[array exist dataarray]} {
 		array unset dataarray
 }
 
-foreach item [regexp -all -inline -- $pattern $infile] {
-		set initem [split $item :]
-
+foreach item [regexp -all -inline -- $pattern $inSource] {
+		set inItem [split $item :]
 		set data ""
 
 		set total 43
 		for {set i 0} {$i <= $total} {incr i} {
 				if {$i == 0} {
-						set mac [lindex $initem 1]
+						set mac [lindex $inItem 1]
 				}
 
 				set i [expr $i +1]
-				append data "[lindex $initem $i],"
+				append data "[lindex $inItem $i],"
 		}
 
 		# puts \n$mac
 		# puts $data
 		# after 500
-
 		append dataarray($mac) "$data\n"
 		foreach name [array names dataarray] {
-			_f_WriteFile "$reportDir_tmp/log_3_sys_$name\_tmp.csv" w $dataarray($name)
+			_f_WriteFile "${tmpDir}/log_3_sys_$name\_tmp.csv" w $dataarray($name)
 		}
 }
 
 puts "\n\nDONE 1\n\n"
 
 
-## =================================================
+#; Stage D:
+#; ========
+#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+#; ==============================================
 set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
 set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
-set csv_line_1 "MAC,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI"
-
+set csv_line_1 "MAC,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI\n"
 set reportDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys"
-set reportDirTmp "$reportDir\/tmp"
 
-foreach fname [glob -no -directory $reportDirTmp -tails *.csv] {
+foreach fname [glob -no -directory $tmpDir -tails *.csv] {
 				# puts "fname : $fname"
 
-				set fname2 [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]]
-				set mac [lindex $fname2 3]
-				# puts "mac : $mac"
+				set mac [lindex [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]] 3]
 
 				set reportFile "$::reportDir/log_3_sys_$mac\_$build_time.csv"
 				_f_WriteFile $reportFile w $csv_line_1
 
-				set infile [_f_ReadFile $reportDirTmp\/$fname]
-				_f_WriteFile $reportFile a+ $infile
+				set inTMP [_f_ReadFile ${tmpDir}/$fname]
+				_f_WriteFile $reportFile a+ $inTMP
 }
 
-file delete -force $reportDirTmp
+#; Stage E:
+#; ========
+#; 刪除操暫用的 tmp 資寮夾和檔案.
+#; ============================================
+if { [file exist $tmpDir] } { file delete -force $tmpDir }
 
 puts "\n\nDONE 2\n\n"
