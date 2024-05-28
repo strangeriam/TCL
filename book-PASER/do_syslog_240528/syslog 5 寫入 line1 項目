@@ -25,15 +25,14 @@ proc _f_WriteFile { fname access data } {
 #; ========
 #; 定義要取的 Pattern
 #; ==============================================
-set sys_1_mac 	{MAC:\w+:}
-set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
-set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:}
-set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:}
-set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:}
-set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:}
-
-set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+:} ;# item 39, 41, 43
-set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-\d{0,2}:MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}} ;# item 45, 47, 49, 51, 53
+set sys_1_mac 	{MAC:\w+:} 																								;# item 01
+set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:} 		;# item 03 05 07 09 11
+set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:} 																;# item 13 15 17
+set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:} 																					;# item 19 21
+set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:} 	;# item 23 25 27 29 31 33 35
+set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:} 																					;# item 37
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+:} 										;# item 39, 41, 43
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-\d{0,2}:MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}} 	;# item 45, 47, 49, 51, 53
 
 set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
 
