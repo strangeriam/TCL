@@ -1,0 +1,41 @@
+(12-Office-Sync-MTS) 359 % set line {RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31}
+regexp -- {RSSI:\s{0,1}-\d{0,2}} $line hit
+puts $hit
+RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31
+(12-Office-Sync-MTS) 360 % 1
+(12-Office-Sync-MTS) 361 % puts $hit
+RSSI: -36
+(12-Office-Sync-MTS) 362 % 
+(12-Office-Sync-MTS) 362 % 
+(12-Office-Sync-MTS) 362 % set line {RXBI: 30:TXBI: 30:RSSI::MCS: 9:TXPI: 31}
+regexp -- {RSSI:\s{0,1}-\d{0,2}} $line hit
+RXBI: 30:TXBI: 30:RSSI::MCS: 9:TXPI: 31
+(12-Office-Sync-MTS) 363 % regexp -- {RSSI:\s{0,1}-\d{0,2}} $line hit
+0
+(12-Office-Sync-MTS) 364 % 
+
+
+Alan
+(Desktop) 49 % set line {RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31}
+RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31
+(Desktop) 51 % regexp -- {RSSI:\s{0,1}-{0,1}\d{0,3}} $line hit
+1
+(Desktop) 52 % puts $hit
+RSSI: -36
+(Desktop) 53 % set line {RXBI: 30:TXBI: 30:RSSI::MCS: 9:TXPI: 31}
+RXBI: 30:TXBI: 30:RSSI::MCS: 9:TXPI: 31
+(Desktop) 54 % 
+(Desktop) 54 % 
+(Desktop) 54 % regexp -- {RSSI:\s{0,1}-{0,1}\d{0,3}} $line hit
+1
+(Desktop) 55 % puts $hit
+RSSI:
+(Desktop) 56 %
+
+
+[下午 05:50] lu_lin 林吉裕
+{0,1} {0,3} 表示啥?
+[下午 05:50] alan_lee 李建龍
+{0,1} -> 0~1個
+[下午 05:50] alan_lee 李建龍
+{0,3} 0~3個
