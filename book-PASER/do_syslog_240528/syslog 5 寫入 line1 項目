@@ -1,0 +1,101 @@
+proc _f_ReadFile { fname } {
+		if { [file exists $fname] } {
+				set fd [open $fname r]
+				set data [read $fd]
+				close $fd
+				return $data
+		} else {
+				return ""
+		}
+}
+
+proc _f_WriteFile { fname access data } {
+	if { [catch {
+		set fd [open $fname $access]
+		puts -nonewline $fd $data
+		close $fd
+	} retmsg] } {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+
+set fname "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
+set infile [_f_ReadFile $fname]
+
+## =================================================
+set sys_1_mac 	{MAC:\w+:}
+set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
+set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:}
+set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:}
+set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:}
+set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:}
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:}
+set sys_8_wifi2 {CHAN: -{0,1}\d+:}
+
+set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
+
+set reportDir_tmp "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
+if { ![file exist $reportDir_tmp] } { file mkdir $reportDir_tmp }
+
+
+if {[array exist dataarray]} {
+		array unset dataarray
+}
+
+foreach item [regexp -all -inline -- $pattern $infile] {
+		set initem [split $item :]
+
+		set data ""
+
+		set total 43
+		for {set i 0} {$i <= $total} {incr i} {
+				if {$i == 0} {
+						set mac [lindex $initem 1]
+				}
+
+				set i [expr $i +1]
+				append data "[lindex $initem $i],"
+		}
+
+		# puts \n$mac
+		# puts $data
+		# after 500
+
+		append dataarray($mac) "$data\n"
+		foreach name [array names dataarray] {
+			_f_WriteFile "$reportDir_tmp/log_3_sys_$name\_tmp.csv" w $dataarray($name)
+		}
+}
+
+puts "\n\nDONE 1\n\n"
+
+
+## =================================================
+set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+set csv_line_1 "MAC,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI"
+
+set reportDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys"
+set reportDirTmp "$reportDir\/tmp"
+
+foreach fname [glob -no -directory $reportDirTmp -tails *.csv] {
+				# puts "fname : $fname"
+
+				set fname2 [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]]
+				set mac [lindex $fname2 3]
+				# puts "mac : $mac"
+
+				set reportFile "$::reportDir/log_3_sys_$mac\_$build_time.csv"
+				_f_WriteFile $reportFile w $csv_line_1
+
+				set infile [_f_ReadFile $reportDirTmp\/$fname]
+				_f_WriteFile $reportFile a+ $infile
+}
+
+file delete -force $reportDirTmp
+
+puts "\n\nDONE 2\n\n"
