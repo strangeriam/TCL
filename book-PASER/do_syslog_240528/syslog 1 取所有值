@@ -10,7 +10,9 @@
 # 8 dataCHAN ; CHAN: 3
 
 # 9 dataW2   ; RXBI: 30:TXBI: 30:RSSI: -36:MCS: 9:TXPI: 31
-# 9 dataW2   ; RXBI::TXBI::RSSI::MCS::TXPI: --> 是空值, 無法取出.
+# 9 dataW2   ; RXBI::TXBI::RSSI::MCS::TXPI:
+--> 是空值, 無法取出.
+--> 解決: 需改變取出的格式, 使用 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-\d{0,2}:MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}}
 
 foreach CIitem [regexp -all -inline -- {$Pattern} $infile] {
 		puts $CIitem
