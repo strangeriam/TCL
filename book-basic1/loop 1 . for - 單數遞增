@@ -1,0 +1,32 @@
+#; 單數 遞增.
+set total 43
+for {set i 1} {$i <= $total} {incr i} {
+	puts "$i"
+	set i [expr $i +1]
+}
+
+#; OUTPUT:
+(12-Office-Sync-MTS) 565 %
+1
+3
+5
+7
+9
+11
+13
+15
+17
+19
+21
+23
+25
+27
+29
+31
+33
+35
+37
+39
+41
+43
+(12-Office-Sync-MTS) 565 %
