@@ -75,3 +75,4 @@ foreach item [regexp -all -inline -- $pattern $infile] {
 }
 
 puts \n\nDONE\n\n
+
