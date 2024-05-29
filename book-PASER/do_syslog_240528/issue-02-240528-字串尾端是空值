@@ -1,0 +1,27 @@
+#; 正常的字串是
+192.168.10.2	May 13 13:51:21		user	notice	WDO	root: MAC:B46AD43982FC:CIA:87.36:CI0:87.56:CI1:91.72:CI2:95.43:CI3:74.71:MT:908868:MS:182608:MF:726260:PYID1:0x002b:PYID2:0x0800:CT0:72:CT1:73:CT2:72:CT3:71:CT4:74:CT5:72:CT6:73:PYT:67.37:WILMAC:85.000:WILRADIO:77.543:CHAN: 3:RXBI: 21:TXBI: 31:RSSI: -41:MCS: 9:TXPI: 51
+
+#; 最尾端是 :WILRADIO:77.543:CHAN: 3:RXBI: 21:TXBI: 31:RSSI: -41:MCS: 9:TXPI: 51
+#; 這樣使用
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+:}
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-{0,1}\d{0,3}:MCS:\s{0,1}\d{0,2}:}
+set sys_9_wifi3 {TXPI:\s{0,1}\d{0,2}}
+
+#; 在 $sys_9_wifi3 就可以讀到 TXPI 的值 51
+
+#; Issue here
+#; ==========
+
+但是因測試時, 會常常無法讀取到 60G 的值, 而顯示成
+#; 最尾端是 :WILRADIO:52.397:CHAN: 3:RXBI::TXBI::RSSI::MCS::TXPI:
+set sys_9_wifi3 {TXPI:\s{0,1}\d{0,2}}
+
+#; 在 $sys_9_wifi3 就無法讀到 TXPI 的值 "\d{0,2}" 而讀到下一行的頭兩個字 "19"
+192.168.10.3	May 13 13:51:23		user	notice	WDO	root: MAC:B46AD4398312:CIA:86.62:CI0:88.32:CI1:95.28:CI2:87.40:CI3:75.50:MT:908868:MS:185340:MF:723628:PYID1:0x002b:PYID2:0x0800:CT0:71:CT1:72:CT2:70:CT3:71:CT4:72:CT5:71:CT6:72:PYT:60.65:WILMAC:85.000:WILRADIO:52.397:CHAN: 3:RXBI::TXBI::RSSI::MCS::TXPI:
+192.168.10.1	May 13 13:51:24		user	notice	WDO	root: MAC:B46AD4398354:CIA:
+
+#; Fix way
+#; =======
+#; 這是暫時的解決方式.
+#; 在 Log 生成時, 加入結束字串 :END .
+#; 這樣就能正確取得所需的 空值.
