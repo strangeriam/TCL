@@ -16,3 +16,14 @@ set hit ""
 regexp -- {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[A-Z]/[A/Z]:} $line hit
 
 
+set line {WILRADIO:N/A:}
+set hit ""
+regexp -- {WILRADIO:([^:]+):} $line hit
+puts $hit
+--> WILRADIO:N/A:
+
+set line {WILRADIO:64.673:}
+set hit ""
+regexp -- {WILRADIO:([^:]+):} $line hit
+puts $hit
+--> WILRADIO:64.673:
