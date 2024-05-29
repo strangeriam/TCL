@@ -1,1 +1,18 @@
+set sys_1_mac 	{MAC:\w+:}
+set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:}
+set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:}
+set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:}
+set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:}
+set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:}
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:-{0,1}\d+\.\d+:CHAN: -{0,1}\d+:}
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-\d{0,2}:MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}}
+
+
+
 N/A --> [A-Z]/[A/Z]
+#; ================
+set line {WILMAC:83.000:WILRADIO:N/A:}
+set hit ""
+regexp -- {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[A-Z]/[A/Z]:} $line hit
+
+
