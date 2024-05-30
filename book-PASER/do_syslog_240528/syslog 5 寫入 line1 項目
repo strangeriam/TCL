@@ -113,7 +113,7 @@ foreach fname [glob -no -directory $tmpDir -tails *.csv] {
 
 				set mac [lindex [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]] 3]
 
-				set reportFile "$::reportDir/log_3_sys_$mac\_$build_time.csv"
+				set reportFile "$reportDir/log_3_sys_$mac\_$build_time.csv"
 				_f_WriteFile $reportFile w $csv_line_1
 
 				set inTMP [_f_ReadFile ${tmpDir}/$fname]
