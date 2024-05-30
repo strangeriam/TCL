@@ -1,0 +1,119 @@
+proc _f_ReadFile { fname } {
+		if { [file exists $fname] } {
+				set fd [open $fname r]
+				set data [read $fd]
+				close $fd
+				return $data
+		} else {
+				return ""
+		}
+}
+
+proc _f_WriteFile { fname access data } {
+	if { [catch {
+		set fd [open $fname $access]
+		puts -nonewline $fd $data
+		close $fd
+	} retmsg] } {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+proc _f_GetFilePaths {
+	    filePath
+	    {-expected {-expectedFiles -expectedFolders}}
+	    {pattern *}
+	    {-makeRelative -makeRelativeNo}
+	    {-recursive ""}
+	} {
+	    ## Prepare the list for this invokation.
+	    set result ""
+
+	    ## Deal with each folder at filePath level.
+	    ## Only if recurse is allowed.
+	    if {${-recursive} ne "-recursiveNo"} {
+		        foreach folder [glob -nocomplain -types d -directory $filePath *] {
+		            # Recurse.
+		            if {${-recursive} eq ""} {
+			                lappend result {*}[_f_GetFilePaths \
+			                    $folder ${-expected} $pattern ${-makeRelative} $filePath
+			                ]
+		            } else {
+			                lappend result {*}[_f_GetFilePaths \
+			                    $folder ${-expected} $pattern ${-makeRelative} ${-recursive}
+			                ]
+		            }
+
+		            ## If files are needed, process each folder to get them.
+		            if {"-expectedFiles" in ${-expected}} {
+			                foreach file [glob -nocomplain -types f -directory $folder $pattern] {
+
+			                    # Make relative if needed.
+
+			                    if {${-makeRelative} eq "-makeRelativeYes"} {
+				                        lappend result [
+				                            MakeRelative $filePath $file ${-recursive}
+				                        ]
+			                    } else {
+			                        	lappend result $file
+			                    }
+			                }
+		            }
+
+		            ## If folders are needed, append them to the result list.
+		            ## This is done after files are added.
+		            ## To provide results in an order that suits rm command.
+		            if {"-expectedFolders" in ${-expected}} {
+
+			                # Make relative if needed.
+
+			                if {${-makeRelative} eq "-makeRelativeYes"} {
+				                    lappend result [
+				                        MakeRelative $filePath $folder ${-recursive}
+				                    ]
+			                } else {
+			                    	lappend result $folder
+			                }
+		            }
+		        };# Each folder.
+	    };# Folders at filePath level if not -recurseNo.
+
+	    ## Do not forget to process files at top level if they are needed.
+	    if {
+	        (
+	            (${-recursive} eq "") ||
+	            (${-recursive} eq "-recursiveNo")
+	        ) && ("-expectedFiles" in ${-expected})
+	    } {
+	        foreach file [glob -nocomplain -types f -directory $filePath $pattern] {
+
+	            # Make relative if needed.
+
+	            if {${-makeRelative} eq "-makeRelativeYes"} {
+	                lappend result [MakeRelative $filePath $file ${-recursive}]
+	            } else {
+	                lappend result $file
+	            }
+	        }
+	    }
+
+	    ## Do not forget to process folders at top level if they are needed.
+	    if {
+	        (${-recursive} eq "-recursiveNo") &&
+	        ("-expectedFolders" in ${-expected})
+	    } {
+	        foreach file [glob -nocomplain -types d -directory $filePath $pattern] {
+	            # Make relative if needed.
+	            if {${-makeRelative} eq "-makeRelativeYes"} {
+	                lappend result [MakeRelative $filePath $file ${-recursive}]
+	            } else {
+	                lappend result $file
+	            }
+	        }
+	    }
+	    ## Return the list with results.
+	    return $result
+}
+
