@@ -3,3 +3,242 @@
 #; 必須使用 WILRADIO:([^:]+)
 
 
+proc _f_ReadFile { fname } {
+		if { [file exists $fname] } {
+				set fd [open $fname r]
+				set data [read $fd]
+				close $fd
+				return $data
+		} else {
+				return ""
+		}
+}
+
+proc _f_WriteFile { fname access data } {
+	if { [catch {
+		set fd [open $fname $access]
+		puts -nonewline $fd $data
+		close $fd
+	} retmsg] } {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+proc _f_GetFilePaths {
+	    filePath
+	    {-expected {-expectedFiles -expectedFolders}}
+	    {pattern *}
+	    {-makeRelative -makeRelativeNo}
+	    {-recursive ""}
+	} {
+	    ## Prepare the list for this invokation.
+	    set result ""
+
+	    ## Deal with each folder at filePath level.
+	    ## Only if recurse is allowed.
+	    if {${-recursive} ne "-recursiveNo"} {
+		        foreach folder [glob -nocomplain -types d -directory $filePath *] {
+		            # Recurse.
+		            if {${-recursive} eq ""} {
+			                lappend result {*}[_f_GetFilePaths \
+			                    $folder ${-expected} $pattern ${-makeRelative} $filePath
+			                ]
+		            } else {
+			                lappend result {*}[_f_GetFilePaths \
+			                    $folder ${-expected} $pattern ${-makeRelative} ${-recursive}
+			                ]
+		            }
+
+		            ## If files are needed, process each folder to get them.
+		            if {"-expectedFiles" in ${-expected}} {
+			                foreach file [glob -nocomplain -types f -directory $folder $pattern] {
+
+			                    # Make relative if needed.
+
+			                    if {${-makeRelative} eq "-makeRelativeYes"} {
+				                        lappend result [
+				                            MakeRelative $filePath $file ${-recursive}
+				                        ]
+			                    } else {
+			                        	lappend result $file
+			                    }
+			                }
+		            }
+
+		            ## If folders are needed, append them to the result list.
+		            ## This is done after files are added.
+		            ## To provide results in an order that suits rm command.
+		            if {"-expectedFolders" in ${-expected}} {
+
+			                # Make relative if needed.
+
+			                if {${-makeRelative} eq "-makeRelativeYes"} {
+				                    lappend result [
+				                        MakeRelative $filePath $folder ${-recursive}
+				                    ]
+			                } else {
+			                    	lappend result $folder
+			                }
+		            }
+		        };# Each folder.
+	    };# Folders at filePath level if not -recurseNo.
+
+	    ## Do not forget to process files at top level if they are needed.
+	    if {
+	        (
+	            (${-recursive} eq "") ||
+	            (${-recursive} eq "-recursiveNo")
+	        ) && ("-expectedFiles" in ${-expected})
+	    } {
+	        foreach file [glob -nocomplain -types f -directory $filePath $pattern] {
+
+	            # Make relative if needed.
+
+	            if {${-makeRelative} eq "-makeRelativeYes"} {
+	                lappend result [MakeRelative $filePath $file ${-recursive}]
+	            } else {
+	                lappend result $file
+	            }
+	        }
+	    }
+
+	    ## Do not forget to process folders at top level if they are needed.
+	    if {
+	        (${-recursive} eq "-recursiveNo") &&
+	        ("-expectedFolders" in ${-expected})
+	    } {
+	        foreach file [glob -nocomplain -types d -directory $filePath $pattern] {
+	            # Make relative if needed.
+	            if {${-makeRelative} eq "-makeRelativeYes"} {
+	                lappend result [MakeRelative $filePath $file ${-recursive}]
+	            } else {
+	                lappend result $file
+	            }
+	        }
+	    }
+	    ## Return the list with results.
+	    return $result
+}
+
+
+#; Stage A:
+#; ========
+#; 定義要取的 Pattern
+#; ==============================================
+set itemTotal 51
+
+set sys_1_mac 	{MAC:\w+:} 																								;# item 01
+set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:} 		;# item 03 05 07 09 11
+set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:} 																;# item 13 15 17
+set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:} 																					;# item 19 21
+set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:} 	;# item 23 25 27 29 31 33 35
+set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:} 																					;# item 37
+
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:([^:]+):CHAN: -{0,1}\d+:} 												;# item 39 41 43
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-{0,1}\d{0,3}:MCS:\s{0,1}\d{0,2}:} 				;# item 45 47 49 51
+
+set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
+
+# set sys_9_wifi3 {TXPI:\s{0,1}\d{0,2}} 				;# item 53
+# set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2$sys_9_wifi3"
+
+
+#; ==============================================
+#; ==============================================
+set rawDir 		"C:/testlog/WDO_PARSER_RAW/101_Try1/01_RAW"
+set reportDir 	"C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys"
+if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+set workDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
+if { [file exist $workDir] } { file delete -force $workDir }
+if { ![file exist $workDir] } { file mkdir $workDir }
+
+set tmpDir $rawDir
+
+set dataDir1 ""
+## example 1: 240513
+foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+		set tmpDir $dataDir1
+
+		set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+		puts "\ndataDir1 : $dataDir1"
+
+				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir2
+
+					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+					puts "\ndataDir2 : $dataDir2"
+
+					## example 3: RAW_LOOP_1_240513_134916
+					foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
+							set tmpDir $dataDir3
+
+							set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+							puts "dataDir3 : $dataDir3"
+
+							foreach fname [_f_GetFilePaths $tmpDir/log_3_sys -expectedFiles *.log] {
+									puts "fname : $fname"
+									set inSource [_f_ReadFile $fname]
+
+									if {[array exist dataarray]} {
+											array unset dataarray
+									}
+
+									foreach item [regexp -all -inline -- $pattern $inSource] {
+											set inItem [split $item :]
+											set data ""
+
+											set total $itemTotal
+											for {set i 0} {$i <= $total} {incr i} {
+													if {$i == 0} { set mac [lindex $inItem 1] }
+
+													set i [expr $i +1]
+													append data "[lindex $inItem $i],"
+											}
+
+											append dataarray($mac) "$data\n"
+									}
+
+									foreach name [array names dataarray] {
+											_f_WriteFile "${workDir}/log_3_sys_$name\_tmp.csv" a+ $dataarray($name)
+											after 10
+									}
+
+									puts "\n\nDONE 1\n\n"
+							}
+					}
+		}
+}
+
+
+#; Stage E:
+#; ========
+#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+#; ==============================================
+set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+set csv_line_1 "MAC,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI\n"
+
+foreach fname [glob -no -directory $workDir -tails *.csv] {
+				# puts "fname : $fname"
+				set mac [lindex [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]] 3]
+
+				set reportFile "$reportDir/log_3_sys_$mac\_$build_time.csv"
+				_f_WriteFile $reportFile w $csv_line_1
+
+				set inTMP [_f_ReadFile ${workDir}/$fname]
+				_f_WriteFile $reportFile a+ $inTMP
+}
+
+#; Stage F:
+#; ========
+#; 刪除操作暫用的 tmp 資寮夾和檔案.
+#; ============================================
+if { [file exist $workDir] } { file delete -force $workDir }
+
+puts "\n\nDONE 2\n\n"
