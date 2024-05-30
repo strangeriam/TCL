@@ -7,10 +7,13 @@
 #; log_3_sys__tmp.csv 裡的內容全是 ,,,,,,,,,,,,,,,,,,,,,,,,,,
 
 
+
 #; Stage A:
 #; ========
 #; 定義要取的 Pattern
 #; ==============================================
+clear
+
 set itemTotal 51
 
 set sys_1_mac 	{MAC:\w+:} 																								;# item 01
@@ -20,7 +23,9 @@ set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:} 																					;# item 19 21
 set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:} 	;# item 23 25 27 29 31 33 35
 set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:} 																					;# item 37
 
-set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:([^:]+):CHAN: -{0,1}\d+:} 												;# item 39 41 43
+# set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:([^:]+):CHAN: -{0,1}\d+:} 												;# item 39 41 43
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[^:]+:CHAN: -{0,1}\d+:}
+
 set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-{0,1}\d{0,3}:MCS:\s{0,1}\d{0,2}:} 				;# item 45 47 49 51
 
 set pattern "$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
@@ -37,6 +42,7 @@ if { ![file exist $reportDir] } { file mkdir $reportDir }
 
 set workDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
 if { [file exist $workDir] } { file delete -force $workDir }
+after 1000
 if { ![file exist $workDir] } { file mkdir $workDir }
 
 set tmpDir $rawDir
@@ -84,11 +90,16 @@ foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
 											}
 
 											append dataarray($mac) "$data\n"
+
+											# puts "dataarray 1: $dataarray($mac)"
+											# after 10
 									}
 
 									foreach name [array names dataarray] {
+											# puts "dataarray 2:\n$dataarray($name)"
+											# after 50
 											_f_WriteFile "${workDir}/log_3_sys_$name\_tmp.csv" a+ $dataarray($name)
-											after 10
+											# after 10
 									}
 
 									puts "\n\nDONE 1\n\n"
@@ -96,7 +107,6 @@ foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
 					}
 		}
 }
-
 
 #; Stage E:
 #; ========
@@ -126,3 +136,5 @@ foreach fname [glob -no -directory $workDir -tails *.csv] {
 if { [file exist $workDir] } { file delete -force $workDir }
 
 puts "\n\nDONE 2\n\n"
+
+
