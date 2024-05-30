@@ -1,25 +1,3 @@
-proc _f_ReadFile { fname } {
-		if { [file exists $fname] } {
-				set fd [open $fname r]
-				set data [read $fd]
-				close $fd
-				return $data
-		} else {
-				return ""
-		}
-}
-
-proc _f_WriteFile { fname access data } {
-	if { [catch {
-		set fd [open $fname $access]
-		puts -nonewline $fd $data
-		close $fd
-	} retmsg] } {
-		return 0
-	} else {
-		return 1
-	}
-}
 
 set fname "C:/testlog/WDO_PARSER_RAW/101_Try1/syslog.log"
 set infile [_f_ReadFile $fname]
