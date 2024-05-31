@@ -1,0 +1,128 @@
+192.168.10.5	May 29 16:24:00		user	notice	WDO	root: 
+T1:2024/05/29:T2:16!24!00:MAC:
+B46AD439836A:CIA:75.60:CI0:78.27:CI1:83.61:CI2:62.53:CI3:78.01:MT:908868:MS:184088:MF:724780:
+PYID1:0x002b:PYID2:0x0800:CT0:41:CT1:41:CT2:41:CT3:40:CT4:43:CT5:41:CT6:42:PYT:28.42:
+WILMAC:49.000:WILRADIO:33.983:CHAN: 1:RXBI::TXBI::RSSI::MCS::TXPI::END
+
+
+#; Stage A:
+#; ========
+#; 定義要取的 Pattern
+#; ==============================================
+# set d_time [_f_LTIME]
+clear
+
+set itemTotal 55
+
+set sys_0_time 	{T1:-{0,3}\d+\/{0,1}\d+\/{0,1}\d+:T2:-{0,1}\d+\!{0,1}\d+\!{0,1}\d+:} 									;# item 01 03
+set sys_1_mac 	{MAC:\w+:} 																								;# item 05
+set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:} 		;# item 07 09 11 13 15
+set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:} 																;# item 17 19 21
+set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:} 																					;# item 23 25
+set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:} 	;# item 27 29 31 33 35 37 39
+set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:} 																					;# item 41
+set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[^:]+:CHAN:\s{0,1}\d{0,2}:}												;# item 43 45 47
+set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-{0,1}\d{0,3}:MCS:\s{0,1}\d{0,2}:} 				;# item 49 51 53 55
+
+set pattern "$sys_0_time$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2"
+
+
+#; ==============================================
+#; ==============================================
+set rawDir 		"C:/testlog/WDO_PARSER_RAW/101_Try1/01_RAW"
+set reportDir 	"C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys"
+if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+set workDir "C:/testlog/WDO_PARSER_RAW/101_Try1/log_3_sys/tmp"
+if { [file exist $workDir] } { file delete -force $workDir }
+if { ![file exist $workDir] } { file mkdir $workDir }
+
+set tmpDir $rawDir
+
+set dataDir1 ""
+## example 1: 240513
+foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+		set tmpDir $dataDir1
+
+		set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+		puts "\ndataDir1 : $dataDir1"
+
+				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir2
+
+					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+					puts "\ndataDir2 : $dataDir2"
+
+					## example 3: RAW_LOOP_1_240513_134916
+					# foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
+					# 		set tmpDir $dataDir3
+
+					# 		set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+					# 		puts "dataDir3 : $dataDir3"
+
+							foreach fname [_f_GetFilePaths $tmpDir/log_3_sys -expectedFiles *.log] {
+									puts "fname : $fname"
+									set inSource [_f_ReadFile $fname]
+									puts "Debug: inSource OK"
+
+									if {[array exist dataarray]} {
+											array unset dataarray
+									}
+
+									foreach item [regexp -all -inline -- $pattern $inSource] {
+											set inItem [split $item :]
+											set data ""
+
+											set total $itemTotal
+											for {set i 0} {$i <= $total} {incr i} {
+													if {$i == 0} { set mac [lindex $inItem 5] }
+
+													set i [expr $i +1]
+													append data "[lindex $inItem $i],"
+											}
+
+											append dataarray($mac) "$data\n"
+									}
+
+									foreach name [array names dataarray] {
+											puts "dataarray 2:\n$dataarray($name)"
+											_f_WriteFile "${workDir}/log_3_sys_$name\_tmp.csv" a+ $dataarray($name)
+									}
+
+									puts "\n\nDONE 1\n\n"
+							}
+					# }
+		}
+}
+
+#; Stage E:
+#; ========
+#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+#; ==============================================
+set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+set csv_line_1 "MAC,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI\n"
+
+foreach fname [glob -no -directory $workDir -tails *.csv] {
+				# puts "fname : $fname"
+				set mac [lindex [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]] 3]
+
+				set reportFile "$reportDir/log_3_sys_$mac\_$build_time.csv"
+				_f_WriteFile $reportFile w $csv_line_1
+
+				set inTMP [_f_ReadFile ${workDir}/$fname]
+				_f_WriteFile $reportFile a+ $inTMP
+}
+
+#; Stage F:
+#; ========
+#; 刪除操作暫用的 tmp 資寮夾和檔案.
+#; ============================================
+if { [file exist $workDir] } { file delete -force $workDir }
+
+puts "\n\nDONE 2\n\n"
+# puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+
