@@ -33,5 +33,10 @@ regexp -- {T1:-{0,3}\d+\/{0,1}\d+\/{0,1}\d+:T2:-{0,1}\d+\!{0,1}\d+\!{0,1}\d+:MAC
 puts $hit
 --> T1:2024/05/29:T2:16!24!00:MAC:B46AD439836A:
 
+set line {IP:192.168.10.4:}
+set hit ""
+regexp -- {IP:[^:]+:} $line hit
+puts $hit
+
 
 
