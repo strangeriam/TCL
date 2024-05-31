@@ -15,7 +15,6 @@ set line {WILMAC:83.000:WILRADIO:N/A:}
 set hit ""
 regexp -- {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[A-Z]/[A/Z]:} $line hit
 
-
 set line {WILRADIO:N/A:}
 set hit ""
 regexp -- {WILRADIO:([^:]+):} $line hit
@@ -27,3 +26,12 @@ set hit ""
 regexp -- {WILRADIO:([^:]+):} $line hit
 puts $hit
 --> WILRADIO:64.673:
+
+set line {T1:2024/05/29:T2:16!24!00:MAC:B46AD439836A:}
+set hit ""
+regexp -- {T1:-{0,3}\d+\/{0,1}\d+\/{0,1}\d+:T2:-{0,1}\d+\!{0,1}\d+\!{0,1}\d+:MAC:\w+:} $line hit
+puts $hit
+--> T1:2024/05/29:T2:16!24!00:MAC:B46AD439836A:
+
+
+
