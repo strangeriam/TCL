@@ -1,5 +1,0 @@
-set aa [clock seconds]
-1717381446
-
-set bb [clock format $aa -format %Y%m%d_%H%M%S]
-20240603_102406
