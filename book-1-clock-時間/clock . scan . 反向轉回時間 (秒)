@@ -1,4 +1,4 @@
-
+clock scan (反向): 秒數 <-- 轉換 <-- 其他時間格式
 clock scan inputString ?-option value...?
 
 #; A. 年份
