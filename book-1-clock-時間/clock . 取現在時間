@@ -18,10 +18,3 @@ clock scan (反向): 秒數 <-- 轉換 <-- 其他時間格式
 clock clicks
 clock and : 時間加減, 支援負數
 clock seconds : 1970年 1月 1日 到現在的秒數
-clock milliseconds 毫秒
-clock microseconds 微秒
-
-
-#; Note:
-#; 微秒, 等於百萬分之一秒, 它的符號是 μs.
-#; 毫秒, 等於千分之一秒, 0.0001 秒, 1000 微秒.
