@@ -5,7 +5,7 @@ clock microseconds 微秒
 #; 微秒, 等於百萬分之一秒, 它的符號是 μs.
 #; 毫秒, 等於千分之一秒, 0.0001 秒, 1000 微秒.
 
-
+#; 顯示到毫秒
 proc time_to_milliseconds {} {
 		set get_ms [clock milliseconds]
 		set sec [string range $get_ms 0 9]
