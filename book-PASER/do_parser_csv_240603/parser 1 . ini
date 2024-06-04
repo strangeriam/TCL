@@ -1,3 +1,5 @@
+set d_time [_f_LTIME]
+
 set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
 set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
@@ -165,3 +167,6 @@ foreach fnameCU [_f_GetFilePaths $reportDir/report_2_current -expectedFiles *.cs
 				_f_WriteFile "$dbDir/db_$CUmac\_$build_date_time\.csv" w $dataarray($name)
 		}
 }
+
+puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+
