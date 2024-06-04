@@ -1,0 +1,167 @@
+set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+set reportDir 	"C:/testlog/WDO_PARSER_RAW/11_PARSER_REPORT"
+set dbDir 		"C:/testlog/WDO_PARSER_RAW/12_PARSER_DB"
+
+# if {[array exist dataarray]} { array unset dataarray }
+
+#; example 1:
+#; report_2_current/report_02_B46AD43982A6_144929.csv
+foreach fnameCU [_f_GetFilePaths $reportDir/report_2_current -expectedFiles *.csv] {
+		puts "\nfnameCU : $fnameCU"
+		# _f_pause 1
+
+		set infileCU [_f_ReadFile $fnameCU]
+		# puts $infileCU
+		# _f_pause 1
+
+		if {[array exist dataarray]} { array unset dataarray }
+
+		set lineCUtmp ""
+		foreach lineCUtmp [regexp -all -inline -- {[^\n]+} $infileCU] {
+				# puts "lineCUtmp : $lineCUtmp"
+				# _f_pause 1
+
+				set lineCU [split $lineCUtmp ,]
+				# puts "lineCU : $lineCU"
+
+				if { [llength $lineCU] < 5 } { continue }
+
+				set CUsec [lindex $lineCU 0]
+				set CUmac [lindex $lineCU 3]
+
+				set CUdate [lindex $lineCU 1]
+				set CUtime [lindex $lineCU 2]
+				set CUcurr [lindex $lineCU 4]
+
+
+				## IPerf
+				## =====
+				set IPdate "" ; set IPtime "" ; set IPmac "" ; set IPresult "" ; set IPtxrx ""
+				# set fnameIP "" ; set fnameIPx "" ; set infileIPx ""
+
+				foreach fnameIP [glob -no -directory $reportDir/report_4_iperf -tails *] {
+						# puts "fnameIP : $fnameIP"
+
+						if { [regexp -linestop "report_04_iperf_$CUmac\_.*" $fnameIP fnameIPx] } {
+									set fnameIPx "$reportDir/report_4_iperf/$fnameIPx"
+									set infileIPx [_f_ReadFile $fnameIPx]
+
+									set lineIP ""
+									if { [regexp -linestop "$CUsec.*" $infileIPx lineIP]} {
+											set lineIP 		[split $lineIP ,]
+
+											set IPdate 		[lindex $lineIP 1]
+											set IPtime 		[lindex $lineIP 2]
+											set IPmac 		[lindex $lineIP 3]
+											set IPresult 	[lindex $lineIP 4]
+											set IPtxrx	 	[lindex $lineIP 5]
+									}
+						}
+				}
+
+				## Mem
+				## =====
+				set MEMdate "" ; set MEMtime "" ; set MEMmac "" ; set MEMresult ""
+
+				foreach fnameMEM [glob -no -directory $reportDir/report_5_mem -tails *] {
+						# puts "fnameMEM : $fnameMEM"
+						if { [regexp -linestop "report_05_mem_$CUmac\_.*" $fnameMEM fnameMEMx] } {
+									set fnameMEMx "$reportDir/report_5_mem/$fnameMEMx"
+									set infileMEMx [_f_ReadFile $fnameMEMx]
+
+									set lineMEM ""
+									if { [regexp -linestop "$CUsec.*" $infileMEMx lineMEM]} {
+											set lineMEM 	[split $lineMEM ,]
+
+											set MEMdate 	[lindex $lineMEM 1]
+											set MEMtime 	[lindex $lineMEM 2]
+											set MEMmac 		[lindex $lineMEM 3]
+											set MEMresult 	[lindex $lineMEM 4]
+									}
+						}
+				}
+
+
+				## SYS
+				## =====
+				set sys_01_date "" 	; set sys_02_time ""
+				set sys_11_mac "" 	; set sys_12_ip ""
+
+				set sys_21_cia "" 		; set sys_22_ci0 "" 	; set sys_23_ci1 ""
+				set sys_24_ci2 "" 		; set sys_25_ci3 ""
+
+				set sys_31_mt "" 		; set sys_32_ms "" 		; set sys_33_mf ""
+				set sys_41_pyid1 "" 	; set sys_42_pyid2 ""
+
+				set sys_51_ct0 "" 		; set sys_52_ct1 "" 	; set sys_53_ct2 ""
+				set sys_54_ct3 "" 		; set sys_55_ct4 ""		; set sys_56_ct5 ""
+				set sys_57_ct6 ""
+
+				set sys_61_pyt ""
+				set sys_71_wimac "" 	; set sys_72_wiradio "" ; set sys_73_wichan ""
+				set sys_81_wirxbi "" 	; set sys_82_witxbi "" 	; set sys_83_wirssi ""
+				set sys_91_wimcs "" 	; set sys_92_witxpi ""
+
+				foreach fnameSYS [glob -no -directory $reportDir/report_3_sys -tails *] {
+						# puts "fnameSYS : $fnameSYS"
+						if { [regexp -linestop "log_3_sys_$CUmac\_.*" $fnameSYS fnameSYSx] } {
+									set fnameSYSx "$reportDir/report_3_sys/$fnameSYSx"
+									# puts "fnameSYSx : $fnameSYSx"
+									# _f_mspause 1
+
+									set infileSYSx [_f_ReadFile $fnameSYSx]
+
+									set lineSYS ""
+									if { [regexp -linestop "$CUsec.*" $infileSYSx lineSYS]} {
+											set lineSYS 	[split $lineSYS ,]
+
+											set sys_01_date 	[lindex $lineSYS 1] ; set sys_02_time [lindex $lineSYS 2]
+											set sys_11_mac 		[lindex $lineSYS 3] ; set sys_12_ip [lindex $lineSYS 4]
+
+											set sys_21_cia 		[lindex $lineSYS 5] ; set sys_22_ci0 [lindex $lineSYS 6] ; set sys_23_ci1 [lindex $lineSYS 7]
+											set sys_24_ci2 		[lindex $lineSYS 8] ; set sys_25_ci3 [lindex $lineSYS 9]
+
+											set sys_31_mt 		[lindex $lineSYS 10] ; set sys_32_ms [lindex $lineSYS 11] ; set sys_33_mf [lindex $lineSYS 12]
+											set sys_41_pyid1	[lindex $lineSYS 13] ; set sys_42_pyid2	[lindex $lineSYS 14]
+
+											set sys_51_ct0 		[lindex $lineSYS 15] ; set sys_52_ct1 [lindex $lineSYS 16] ; set sys_53_ct2 [lindex $lineSYS 17]
+											set sys_54_ct3 		[lindex $lineSYS 18] ; set sys_55_ct4 [lindex $lineSYS 19] ; set sys_56_ct5 [lindex $lineSYS 20]
+											set sys_57_ct6 		[lindex $lineSYS 21]
+
+											set sys_61_pyt 		[lindex $lineSYS 22]
+
+											set sys_71_wimac 	[lindex $lineSYS 23] ; set sys_72_wiradio [lindex $lineSYS 24] ; set sys_73_wichan [lindex $lineSYS 25]
+											set sys_81_wirxbi 	[lindex $lineSYS 26] ; set sys_82_witxbi [lindex $lineSYS 27] ; set sys_83_wirssi [lindex $lineSYS 28]
+											set sys_91_wimcs 	[lindex $lineSYS 29] ; set sys_92_witxpi [lindex $lineSYS 30]
+									}
+						}
+				}
+
+				set pattern_CU "$CUsec,$CUdate,$CUtime,$CUmac,$CUcurr"
+				set pattern_IP "$IPdate,$IPtime,$IPmac,$IPresult,$IPtxrx"
+				set pattern_ME "$MEMdate,$MEMtime,$MEMmac,$MEMresult"
+
+				set pattern_SY1 "$sys_01_date,$sys_02_time,$sys_11_mac,$sys_12_ip"
+				set pattern_SY2 "$sys_21_cia,$sys_22_ci0,$sys_23_ci1,$sys_24_ci2,$sys_25_ci3"
+				set pattern_SY3 "$sys_31_mt,$sys_32_ms,$sys_33_mf,$sys_41_pyid1,$sys_42_pyid2"
+				set pattern_SY4 "$sys_51_ct0,$sys_52_ct1,$sys_53_ct2,$sys_54_ct3,$sys_55_ct4,$sys_56_ct5,$sys_57_ct6,$sys_61_pyt"
+				set pattern_SY5 "$sys_71_wimac,$sys_72_wiradio,$sys_73_wichan,$sys_81_wirxbi,$sys_82_witxbi,$sys_83_wirssi,$sys_91_wimcs,$sys_92_witxpi"
+
+				append dataarray($CUmac) "$pattern_CU,$pattern_SY1,$pattern_SY2,$pattern_SY3,$pattern_SY4,$pattern_SY5,$pattern_IP,$pattern_ME\n"
+
+				# set pattern_CU "$CUsec,$CUdate,$CUtime,$CUmac,$CUcurr"
+				# set pattern_IP "$IPdate,$IPtime,$IPmac,$IPresult,$IPtxrx"
+				# set pattern_ME "$MEMdate,$MEMtime,$MEMmac,$MEMresult"
+
+				# append dataarray($CUmac) "$pattern_CU,$pattern_IP,$pattern_ME\n"
+
+				# append dataarray($CUmac) "$CUsec,$CUdate,$CUtime,$CUmac,$CUcurr,$IPdate,$IPtime,$IPmac,$IPresult,$IPtxrx,$MEMdate,$MEMtime,$MEMmac,$MEMresult\n"
+				# puts "dataarray : $dataarray($dataCUmac)"
+		}
+
+		foreach name [array names dataarray] {
+				_f_WriteFile "$dbDir/db_$CUmac\_$build_date_time\.csv" w $dataarray($name)
+		}
+}
