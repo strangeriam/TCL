@@ -1,3 +1,7 @@
+proc f_LIFTTIME {} {
+	return [clock seconds]
+}
+
 proc _f_ReadBinaryFile { fname } {
 	if { [file exists $fname] } {
 		set fd [open $fname r]
