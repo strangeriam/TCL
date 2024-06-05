@@ -21,3 +21,24 @@ for {set ii 0} {$ii <= 3} {incr ii} {
 		puts "zz_2 : $zz_2"
 		puts "zz_3 : $zz_3"
 }
+
+
+#; OUTPUT:
+(12-Office-Sync-MTS) 108 %
+zz_0 : aaa
+zz_1 : 
+zz_2 : 
+zz_3 : 
+zz_0 : aaa
+zz_1 : bbb
+zz_2 : 
+zz_3 : 
+zz_0 : aaa
+zz_1 : bbb
+zz_2 : ccc
+zz_3 : 
+zz_0 : aaa
+zz_1 : bbb
+zz_2 : ccc
+zz_3 : ddd
+(12-Office-Sync-MTS) 109 % 
