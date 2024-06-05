@@ -1,0 +1,5 @@
+ % join {a b c} " and "
+ a and b and c
+ 
+% join {a b c} ""
+ abc
