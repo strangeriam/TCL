@@ -1,0 +1,10 @@
+set inLine {aaa bbb ccc ddd}
+
+set var ""
+
+set i 0
+foreach item {
+	set item [lindex $inLine $i]
+	# append var $item
+}
+
