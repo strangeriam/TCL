@@ -1,10 +1,8 @@
-set inLine {aaa bbb ccc ddd}
-
-set var ""
-
-set i 0
-foreach item {
-	set item [lindex $inLine $i]
-	# append var $item
-}
-
+% foreach a [list 1 2 3 4] b [list 5 6 7 8] c [list a b c d] d [list w x y z] {
+      puts "$a $b $c $d"
+  }
+1 5 a w
+2 6 b x
+3 7 c y
+4 8 d z
+%
