@@ -1,6 +1,5 @@
-TCL 的array 和 Perl 的 associative array 類似, 陣列是以字串作為索引.
-陣列在 TCL 語言中舉足輕重, 許多資料結構都是以陣列為基礎設計而成.
-陣列元素內容的設定一樣是使用 set 指令.
+陣列是以字串作為索引. 陣列元素內容的設定使用 set 指令.
+Lu-240605: 陣列內容不可使用 變數.
 
 % set price(apple) 10
 % set price(orange) 12
