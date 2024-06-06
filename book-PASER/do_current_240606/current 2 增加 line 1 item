@@ -1,3 +1,96 @@
+
+
+set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/01_RAW"
+set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/02_REPORT"
+
+proc _f_report_5_mem {} {
+		set d_time [_f_LTIME]
+
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_5_mem"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set workDir "$reportDir/tmp"
+		if { [file exist $workDir] } { file delete -force $workDir }
+		if { ![file exist $workDir] } { file mkdir $workDir }
+
+		set tmpDir $rawDir
+
+		## example 1: 240331
+		set dataDir1 ""
+		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir1
+
+				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+				puts "dataDir1 : $dataDir1"
+
+				## example 2: LEG_4_HTD_Volt_Umin_240329_143428
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+						set tmpDir $dataDir2
+
+						set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+						puts "dataDir2 : $dataDir2"
+
+								## example 4: log_5_memtest
+								## example 5: memtest_B46AD4398364_PASS_240331_150903.log
+								foreach fname [glob -no -directory $tmpDir/log_5_memtest -tails *.log] {
+										puts "fname : $fname"
+
+										set infname 	[string map {_ " "} [string map {.log ""} $fname]]
+
+										set MEmac 		[lindex $infname 1]
+										set MEresult 	[string tolower [lindex $infname 2]]
+										set MEdate 		[lindex $infname 3]
+										set MEtime 		[lindex $infname 4]
+										set MEwdo 		""
+
+										set MEsec [clock scan [lindex $infname 3]_[lindex $infname 4] -format "%Y%m%d_%H%M%S"]
+
+										append dataarray($MEmac) "$MEsec,$MEdate,$MEtime,$MEmac,$MEwdo,$MEresult\n"
+								}
+
+								foreach name [array names dataarray] {
+										_f_WriteFile "${workDir}/report_5_mem_$name\_tmp.csv" w $dataarray($name)
+								}
+				}
+		}
+
+		#; Stage D:
+		#; ========
+		#; report_4_iperf_B46AD43982A6_tmp.csv
+		#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+		#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+		#; ==============================================
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set csv_line_1 "Index,Date,Time,MAC,WDO,Result\n"
+
+		foreach fname [glob -no -directory $workDir -tails *.csv] {
+						# puts "fname : $fname"
+						set mac [lindex [string map {_ " "} $fname] 3]
+
+						set reportFile "$reportDir/report_5_mem_$mac\_$build_time.csv"
+						_f_WriteFile $reportFile w $csv_line_1
+
+						set inTMP [_f_ReadFile ${workDir}/$fname]
+						_f_WriteFile $reportFile a+ $inTMP
+		}
+
+		#; Stage F:
+		#; ========
+		#; 刪除操作暫用的 tmp 資寮夾和檔案.
+		#; ============================================
+		if { [file exist $workDir] } { file delete -force $workDir }
+
+		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+		return 1
+}
+
+
 set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/01_RAW"
 set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/02_REPORT"
 
