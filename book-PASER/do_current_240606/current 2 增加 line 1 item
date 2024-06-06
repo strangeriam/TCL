@@ -1,3 +1,101 @@
+set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/01_RAW"
+set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/02_REPORT"
+
+proc _f_report_2_current {} {
+		set d_time [_f_LTIME]
+
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_2_current"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set workDir "$reportDir/tmp"
+		if { [file exist $workDir] } { file delete -force $workDir }
+		if { ![file exist $workDir] } { file mkdir $workDir }
+
+		set tmpDir $rawDir
+
+		## example 1: 240513
+		set dataDir1 ""
+		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir1
+
+				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+				# puts "dataDir1 : $dataDir1"
+
+				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir2
+
+					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+					# puts "dataDir2 : $dataDir2"
+
+						foreach fname [_f_GetFilePaths $tmpDir/log_2_current -expectedFiles *.log] {
+									# puts "fname : $fname"
+									set infile [_f_ReadFile $fname]
+
+									foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+											set line1 [split $line ,]
+											if { [llength $line1] < 4 } { continue }
+
+											set dataDut [split [lindex $line1 2] _]
+
+											set CUmac [lindex $dataDut end]
+											set CUwdo [lindex $dataDut 2]
+											# set dataVcp [string map {" " _} [lrange $dataDut 0 2]]
+
+											set CUdate [lindex $line1 0]
+											set CUtime [lindex $line1 1]
+
+											set CUsec [clock scan [lindex $line1 0]_[lindex $line1 1] -format "%Y/%m/%d_%H:%M:%S"]
+
+											append dataarray($CUmac) "$CUsec,$CUdate,$CUtime,$CUmac,$CUwdo,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
+									}
+
+									foreach name [array names dataarray] {
+											_f_WriteFile "${workDir}/report_2_current_$name\_tmp.csv" w $dataarray($name)
+									}
+						}
+				}
+		}
+
+
+		#; Stage D:
+		#; ========
+		#; report_4_iperf_B46AD43982A6_tmp.csv
+		#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+		#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+		#; ==============================================
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set csv_line_1 "Index,Date,Time,MAC,WDO,Current\n"
+
+		foreach fname [glob -no -directory $workDir -tails *.csv] {
+						# puts "fname : $fname"
+						set mac [lindex [string map {_ " "} $fname] 3]
+
+						set reportFile "$reportDir/report_2_current_$mac\_$build_time.csv"
+						_f_WriteFile $reportFile w $csv_line_1
+
+						set inTMP [_f_ReadFile ${workDir}/$fname]
+						_f_WriteFile $reportFile a+ $inTMP
+		}
+
+		#; Stage F:
+		#; ========
+		#; 刪除操作暫用的 tmp 資寮夾和檔案.
+		#; ============================================
+		if { [file exist $workDir] } { file delete -force $workDir }
+
+		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+		return 1
+}
+
+
+
 
 set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/11_RAW_4LOOP"
 set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/12_REPORT_4LOOP"
