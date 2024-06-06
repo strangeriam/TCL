@@ -1,0 +1,146 @@
+;############################################################################
+## T1:2024/05/29:T2:16!24!00:
+## MAC:B46AD4398312:
+## CIA:86.62:CI0:88.32:CI1:95.28:CI2:87.40:CI3:75.50:
+## MT:908868:MS:185340:MF:723628:
+## PYID1:0x002b:PYID2:0x0800:
+## CT0:71:CT1:72:CT2:70:CT3:71:CT4:72:CT5:71:CT6:72:
+## PYT:60.65:
+## WILMAC:85.000:WILRADIO:52.397:
+## CHAN: 3:
+## RXBI::TXBI::RSSI::MCS::TXPI: --> 是空值, 無法取出.
+proc sysPattern {} {uplevel {
+		set itemTotal 61
+
+		set sys_0_time 	{T1:-{0,3}\d+\/{0,1}\d+\/{0,1}\d+:T2:-{0,1}\d+\!{0,1}\d+\!{0,1}\d+:} 									;# item 01 03
+		set sys_1_mac 	{MAC:\w+:IP:[^:]+:} 																					;# item 05 07
+		set sys_2_ci 	{CIA:-{0,1}\d+\.\d+:CI0:-{0,1}\d+\.\d+:CI1:-{0,1}\d+\.\d+:CI2:-{0,1}\d+\.\d+:CI3:-{0,1}\d+\.\d+:} 		;# item 09 11 13 15 17
+		set sys_3_mem 	{MT:-{0,1}\d+:MS:-{0,1}\d+:MF:-{0,1}\d+:} 																;# item 19 21 23
+		set sys_4_pyid 	{PYID1:\w+:PYID2:\w+:} 																					;# item 25 27
+		set sys_5_ct 	{CT0:-{0,1}\d+:CT1:-{0,1}\d+:CT2:-{0,1}\d+:CT3:-{0,1}\d+:CT4:-{0,1}\d+:CT5:-{0,1}\d+:CT6:-{0,1}\d+:} 	;# item 29 31 33 35 37 39 41
+		set sys_6_pyt 	{PYT:-{0,1}\d+\.\d+:} 																					;# item 43
+		set sys_7_wifi1 {WILMAC:-{0,1}\d+\.\d+:WILRADIO:[^:]+:CHAN:\s{0,1}\d{0,2}:}												;# item 45 47 49
+		set sys_8_wifi2 {RXBI:\s{0,1}\d{0,2}:TXBI:\s{0,1}\d{0,2}:RSSI:\s{0,1}-{0,1}\d{0,3}:} 									;# item 51 53 55 57
+		set sys_9_wifi3 {MCS:\s{0,1}\d{0,2}:TXPI:\s{0,1}\d{0,2}:} 																;# item 59 61
+
+		set pattern "$sys_0_time$sys_1_mac$sys_2_ci$sys_3_mem$sys_4_pyid$sys_5_ct$sys_6_pyt$sys_7_wifi1$sys_8_wifi2$sys_9_wifi3"
+}}
+
+proc _f_report_3_sys_loop {} {
+		set d_time [_f_LTIME]
+
+		#; Stage A:
+		#; ========
+		#; 定義和建立所需資料夾
+		#; ==================
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_3_sys"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set workDir "$reportDir/tmp"
+		if { [file exist $workDir] } { file delete -force $workDir }
+		if { ![file exist $workDir] } { file mkdir $workDir }
+
+		#; Stage B:
+		#; ========
+		#; 定義要取的 Pattern
+		#; ==============================================
+		sysPattern
+
+		#; Stage C:
+		#; ========
+		#; 1. 層層建立資料夾 的資料庫. 	--> dataDir1, dataDir2 & dataDir3
+		#; 2. 從來源 Log 取出需要的行. 	--> fname
+		#; 3. 讀出所需值, 組合為 1 行. 	--> inItem
+		#; 4, 一一將每行寫入 tmp. 		--> workTmp/tmp.log
+		set tmpDir $rawDir
+		set dataDir1 ""
+		## example 1: 240513
+		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir1
+
+				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+				puts "dataDir1 : $dataDir1"
+
+				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir2
+
+					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+					puts "dataDir2 : $dataDir2"
+
+					## example 3: RAW_LOOP_1_240513_134916
+					foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
+						set tmpDir $dataDir3
+
+						set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+						puts "dataDir3 : $dataDir3"
+
+						foreach fname [_f_GetFilePaths $tmpDir/log_3_sys -expectedFiles *.log] {
+								puts "fname : $fname"
+								set inSource [_f_ReadFile $fname]
+								_f_pause 1
+
+								if {[array exist dataarray]} { array unset dataarray }
+
+								foreach item [regexp -all -inline -- $pattern $inSource] {
+										set inItem [split $item :]
+										set data ""
+
+										set total $itemTotal
+										for {set i 0} {$i <= $total} {incr i} {
+												if {$i == 0} {
+														set mac [lindex $inItem 5]
+														set SYSsec [clock scan [lindex $inItem 1]_[lindex $inItem 3] -format "%Y/%m/%d_%H!%M!%S"]
+														append data "$SYSsec,"
+												}
+
+												set i [expr $i +1]
+												append data "[lindex $inItem $i],"
+										}
+
+										append dataarray($mac) "$data\n"
+										_f_mspause 1
+								}
+
+								foreach name [array names dataarray] {
+										_f_WriteFile "${workDir}/report_3_sys_$name\_tmp.csv" a+ $dataarray($name)
+								}
+
+								puts "\nDONE 1\n"
+						}
+					}
+				}
+		}
+
+
+		#; Stage D:
+		#; ========
+		#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+		#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+		#; ==============================================
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set csv_line_1 "INDEX,T1,T2,MAC,IP,CIA,CI0,CI1,CI2,CI3,MT,MS,MF,PYID1,PYID2,CT0,CT1,CT2,CT3,CT4,CT5,CT6,PYT,WILMAC,WILRADIO,CHAN,RXBI,TXBI,RSSI,MCS,TXPI\n"
+
+		foreach fname [glob -no -directory $workDir -tails *.csv] {
+						# puts "fname : $fname"
+						set mac [lindex [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]] 3]
+
+						set reportFile "$reportDir/report_3_sys_$mac\_$build_time.csv"
+						_f_WriteFile $reportFile w $csv_line_1
+
+						set inTMP [_f_ReadFile ${workDir}/$fname]
+						_f_WriteFile $reportFile a+ $inTMP
+		}
+
+		#; Stage F:
+		#; ========
+		#; 刪除操作暫用的 tmp 資寮夾和檔案.
+		#; ============================================
+		if { [file exist $workDir] } { file delete -force $workDir }
+
+		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+		return 1
+}
