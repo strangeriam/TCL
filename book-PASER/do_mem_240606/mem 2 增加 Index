@@ -1,0 +1,65 @@
+;############################################################################
+## MEMTEST Log file example: memtest_B46AD4398364_PASS_240331_150903.log
+proc _f_report_5_mem {} {
+		set d_time [_f_LTIME]
+
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_5_mem"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set tmpDir $rawDir
+
+		## example 1: 240331
+		set dataDir1 ""
+		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir1
+
+				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+				puts "dataDir1 : $dataDir1"
+
+				## example 2: LEG_4_HTD_Volt_Umin_240329_143428
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+						set tmpDir $dataDir2
+
+						set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+						puts "dataDir2 : $dataDir2"
+
+								## example 4: log_5_memtest
+								## example 5: memtest_B46AD4398364_PASS_240331_150903.log
+								foreach fname [glob -no -directory $tmpDir/log_5_memtest -tails *.log] {
+										set fname2 [string map {_ " "} [string map {.log ""} $fname]]
+										set dataMac [lindex $fname2 1]
+										set dataResult [string tolower [lindex $fname2 2]]
+										set dataDate [lindex $fname2 3]
+										set dataTime _[lindex $fname2 4]
+
+										set MEsec [clock scan [lindex $fname2 3]_[lindex $fname2 4] -format "%Y%m%d_%H%M%S"]
+
+										set csv_pattern "$MEsec,$dataDate,$dataTime,$dataMac,$dataResult\n"
+
+										set memReport "$reportDir/report_5_mem_$dataMac\_$build_time.csv"
+										_f_WriteFile $memReport a+ $csv_pattern
+								}
+				}
+		}
+
+		## Result Sorting for fail, pass & total.
+		# set infile [_f_ReadFile $memReport]
+
+		# set result_total [expr [llength $infile] - 1]
+		# set result_pass [regexp -all {pass} $infile]
+		# set result_fail [regexp -all {fail} $infile]
+
+		# _f_modify_listmode_testitem 12 "fail.pass.total: $result_fail . $result_pass . $result_total" gray
+
+		# if {$result_fail > 0} {
+		# 		_f_modify_listmode_testitem 2 "Report . Memory" red
+		# 		return 0
+		# }
+
+		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+		return 1
+}
