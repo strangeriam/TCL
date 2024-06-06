@@ -1,70 +1,6 @@
-;############################################################################
-## IPERF Log file example: WDO1-RX-B46AD4398300_PASS-20240331-150957.csv
-proc _f_report_4_iperf {} {
-		set d_time [_f_LTIME]
 
-		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
-		set build_time [lindex [string map {_ " "} $build_date_time] 1]
-
-		set rawDir 		"$::dirRaw"
-		set reportDir 	"$::dirReport/report_4_iperf"
-		if { ![file exist $reportDir] } { file mkdir $reportDir }
-
-		set tmpDir $rawDir
-
-		## example 1: 240331
-		set dataDir1 ""
-		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
-				set tmpDir $dataDir1
-
-				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
-				puts "dataDir1 : $dataDir1"
-
-				## example 2: LEG_4_HTD_Volt_Umin_240329_143428
-				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
-						set tmpDir $dataDir2
-
-						set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
-						puts "dataDir2 : $dataDir2"
-
-								## example 4: log_4_iperf
-								## example 5: WDO1-RX-B46AD4398300_PASS-20240331-150957.csv
-								foreach fname [glob -no -directory $tmpDir/log_4_iperf -tails *.csv] {
-										set fname2 [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]]
-										set dataTxrx [lindex $fname2 1]
-										set dataMac [lindex $fname2 2]
-										set dataResult [string tolower [lindex $fname2 3]]
-										set dataDate [lindex $fname2 4]
-										set dataTime _[lindex $fname2 5]
-
-										set IPsec [clock scan [lindex $fname2 4]_[lindex $fname2 5] -format "%Y%m%d_%H%M%S"]
-
-										set iperfReport "$reportDir/report_4_iperf_$dataMac\_$build_time.csv"
-										set csv_pattern "$IPsec,$dataDate,$dataTime,$dataMac,$dataResult,$dataTxrx\n"
-										_f_WriteFile $iperfReport a+ $csv_pattern
-										_f_mspause 1
-								}
-				}
-		}
-
-		## Result Sorting for fail, pass & total.
-		# set infile [_f_ReadFile $iperfReport]
-
-		# set result_total [expr [llength $infile] - 1]
-		# set result_pass [regexp -all {pass} $infile]
-		# set result_fail [regexp -all {fail} $infile]
-
-		# _f_modify_listmode_testitem 13 "fail.pass.total: $result_fail . $result_pass . $result_total" gray
-		# _f_pause 1
-
-		# if {$result_fail > 0} {
-		# 		_f_modify_listmode_testitem 3 "Report . IPerf" red
-		# 		return 0
-		# }
-
-		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
-		return 1
-}
+set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/11_RAW_4LOOP"
+set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/12_REPORT_4LOOP"
 
 proc _f_report_4_iperf_loop {} {
 		set d_time [_f_LTIME]
@@ -75,6 +11,10 @@ proc _f_report_4_iperf_loop {} {
 		set rawDir 		"$::dirRaw"
 		set reportDir 	"$::dirReport/report_4_iperf"
 		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set workDir "$reportDir/tmp"
+		if { [file exist $workDir] } { file delete -force $workDir }
+		if { ![file exist $workDir] } { file mkdir $workDir }
 
 		set tmpDir $rawDir
 
@@ -102,41 +42,62 @@ proc _f_report_4_iperf_loop {} {
 
 								## example 4: log_4_iperf
 								## example 5: WDO1-RX-B46AD4398300_PASS-20240331-150957.csv
-								foreach fname [glob -no -directory $tmpDir/log_4_iperf -tails *.csv] {
-										set fname2 [string map {_ " "} [string map {- " "} [string map {.csv ""} $fname]]]
-										set dataTxrx [lindex $fname2 1]
-										set dataMac [lindex $fname2 2]
-										set dataResult [string tolower [lindex $fname2 3]]
-										set dataDate [lindex $fname2 4]
-										set dataTime [lindex $fname2 5]
+								foreach fname [_f_GetFilePaths $tmpDir/log_4_iperf -expectedFiles *.csv] {
+											# puts "fname : $fname"
+											set infile [_f_ReadFile $fname]
 
-										set IPsec [clock scan [lindex $fname2 4]_[lindex $fname2 5] -format "%Y%m%d_%H%M%S"]
+											foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+													set line1 [split $line ,]
+													if { [llength $line1] < 7 } { continue }
 
-										set iperfReport "$reportDir/report_4_iperf_$dataMac\_$build_time.csv"
-										# set csv_pattern "$dataDate,$dataTime,$dataMac,$dataResult,$dataTxrx,$fname,$dataDir3,$dataDir2,$dataDir1\n"
-										set csv_pattern "$IPsec,$dataDate,$dataTime,$dataMac,$dataResult,$dataTxrx\n"
+													set IPwdo 	[lindex $line1 0]
+													set IPrxtx 	[lindex $line1 1]
+													set IPdate 	[lindex $line1 2]
+													set IPtime 	[lindex $line1 3]
+													set IPsec 	[clock scan [lindex $line1 2]_[lindex $line1 3] -format "%Y/%m/%d_%H:%M:%S"]
 
-										_f_WriteFile $iperfReport a+ $csv_pattern
-										_f_mspause 1
+													set IPmac  	[string map {MAC_ ""} [lindex $line1 4]]
+													set IPbps 	[lindex $line1 5]
+													set IPresult [lindex $line1 6]
+
+													append dataarray($IPmac) "$IPsec,$IPdate,$IPtime,$IPmac,$IPwdo,$IPresult,$IPrxtx,$IPbps\n"
+											}
+
+											foreach name [array names dataarray] {
+													_f_WriteFile "${workDir}/report_4_iperf_$name\_tmp.csv" w $dataarray($name)
+											}
 								}
 						}
 				}
 		}
 
-		## Result Sorting for fail, pass & total.
-		# set infile [_f_ReadFile $iperfReport]
+		#; Stage D:
+		#; ========
+		#; report_4_iperf_B46AD43982A6_tmp.csv
+		#; 1. 將項目說明寫入 Report.csv 檔的第一行.
+		#; 2. 從來源 log 取出的值, 寫入 Report.csv.
+		#; ==============================================
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
-		# set result_total [expr [llength $infile] - 1]
-		# set result_pass [regexp -all {pass} $infile]
-		# set result_fail [regexp -all {fail} $infile]
+		set csv_line_1 "Index,Date,Time,MAC,WDO,Result,TXRX,Throughput\n"
 
-		# _f_modify_listmode_testitem 13 "fail.pass.total: $result_fail . $result_pass . $result_total" gray
-		# _f_pause 1
+		foreach fname [glob -no -directory $workDir -tails *.csv] {
+						# puts "fname : $fname"
+						set mac [lindex [string map {_ " "} $fname] 3]
 
-		# if {$result_fail > 0} {
-		# 		_f_modify_listmode_testitem 3 "Report . IPerf" red
-		# 		return 0
-		# }
+						set reportFile "$reportDir/report_4_iperf_$mac\_$build_time.csv"
+						_f_WriteFile $reportFile w $csv_line_1
+
+						set inTMP [_f_ReadFile ${workDir}/$fname]
+						_f_WriteFile $reportFile a+ $inTMP
+		}
+
+		#; Stage F:
+		#; ========
+		#; 刪除操作暫用的 tmp 資寮夾和檔案.
+		#; ============================================
+		if { [file exist $workDir] } { file delete -force $workDir }
 
 		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
 		return 1
