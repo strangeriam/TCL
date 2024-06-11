@@ -1,0 +1,160 @@
+proc _f_collectorDetail {} {
+		set d_time [_f_LTIME]
+
+		set IPsec "" ; set IPdate "" ; set IPtime "" ; set IPmac "" ; set IPwdo "" ; set IPresult "" ; set IPtxrx "" ; set IPthroughput ""
+		set MEsec "" ; set MEdate "" ; set MEtime "" ; set MEmac "" ; set MEwdo "" ; set MEresult ""
+
+		set totalItem 30
+		for {set i 0} {$i <= $totalItem} {incr i} {
+				set sys_$i ""
+		}
+
+		set pattern_SY1 "" ; set pattern_SY2 "" ; set pattern_SY3 ""
+
+		#; example 1:
+		#; report_2_current/report_02_B46AD43982A6_144929.csv
+		foreach fnameCU [_f_GetFilePaths $::dirReport/report_2_current -expectedFiles *.csv] {
+				puts "\nfnameCU : $fnameCU"
+
+				set fnameMAC [lindex [split $fnameCU _] end-1]
+				set csvLine1 "$::csvLine1_CU,$::csvLine1_SY,$::csvLine1_IP,$::csvLine1_ME\n"
+				_f_WriteFile "$::dirCollector/co_$fnameMAC.csv" w $csvLine1
+
+				_f_pause 1
+
+				# set infileCU [_f_ReadFile $fnameCU]
+				set infileCU [regsub -all -line $::csvLine1_CU [_f_ReadFile $fnameCU] "" ]
+
+				if {[array exist dataarray]} { array unset dataarray }
+
+				set lineCUtmp ""
+				foreach lineCUtmp [regexp -all -inline -- {[^\n]+} $infileCU] {
+						# puts "lineCUtmp : $lineCUtmp"
+						# _f_pause 1
+
+						set inLine [split $lineCUtmp ,]
+						# puts "inLine : $inLine"
+
+						if { [llength $inLine] < 5 } { continue }
+
+						set CUsec [lindex $inLine 0]
+						set CUmac [lindex $inLine 3]
+
+						set CUdate [lindex $inLine 1]
+						set CUtime [lindex $inLine 2]
+						set CUwdo  [lindex $inLine 4]
+						set CUcurr [lindex $inLine 5]
+
+						## IPerf
+						## =====
+						set IPsec "" ; set IPdate "" ; set IPtime "" ; set IPmac "" ; set IPwdo "" ; set IPresult "" ; set IPtxrx "" ; set IPthroughput ""
+
+						set fname ""
+						foreach fname [glob -no -directory $::dirReport/report_4_iperf -tails *] {
+								# puts "iperf fname : $fname"
+								# _f_pause 1
+
+								if { [regexp -linestop "report_4_iperf_$CUmac\_.*" $fname fname] } {
+											set inFile [regsub -all -line $::csvLine1_IP [_f_ReadFile "$::dirReport/report_4_iperf/$fname"] ""]
+
+											set inLine ""
+											if { [regexp -linestop "$CUsec.*" $inFile inLine]} {
+													set inLine 		[split $inLine ,]
+
+													set IPsec 			[lindex $inLine 0]
+													set IPdate 			[lindex $inLine 1]
+													set IPtime 			[lindex $inLine 2]
+													set IPmac 			[lindex $inLine 3]
+													set IPwdo 			[lindex $inLine 4]
+													set IPresult 		[lindex $inLine 5]
+													set IPtxrx	 		[lindex $inLine 6]
+													set IPthroughput 	[lindex $inLine 7]
+											}
+								}
+						}
+
+						## Mem
+						## =====
+						set MEsec "" ; set MEdate "" ; set MEtime "" ; set MEmac "" ; set MEwdo "" ; set MEresult ""
+
+						set fname ""
+						foreach fname [glob -no -directory $::dirReport/report_5_mem -tails *] {
+								# puts "fname : $fname"
+								if { [regexp -linestop "report_5_mem_$CUmac\_.*" $fname fname] } {
+											set inFile [regsub -all -line $::csvLine1_ME [_f_ReadFile "$::dirReport/report_5_mem/$fname"] ""]
+
+											set inLine ""
+											if { [regexp -linestop "$CUsec.*" $inFile inLine]} {
+													set inLine 	[split $inLine ,]
+
+													set MEsec 		[lindex $inLine 0]
+													set MEdate 		[lindex $inLine 1]
+													set MEtime 		[lindex $inLine 2]
+													set MEmac 		[lindex $inLine 3]
+													set MEwdo 		[lindex $inLine 4]
+													set MEresult 	[lindex $inLine 5]
+											}
+								}
+						}
+
+						## SYS
+						## =====
+						set totalItem 30
+						for {set i 0} {$i <= $totalItem} {incr i} {
+								set sys_$i ""
+						}
+
+						foreach fname [glob -no -directory $::dirReport/report_3_sys -tails *] {
+								if { [regexp -linestop "report_3_sys_$CUmac\_.*" $fname fname] } {
+										_f_mspause 1
+
+										set inFile [regsub -all -line $::csvLine1_SY [_f_ReadFile "$::dirReport/report_3_sys/$fname"] ""]
+
+										set inLine ""
+										if { [regexp -linestop "$CUsec.*" $inFile inLine]} {
+
+												set inLine 	[split $inLine ,]
+
+												for {set ii 0} {$ii <= $totalItem} {incr ii} {
+														set sys_$ii [lindex $inLine $ii]
+												}
+										}
+								}
+						}
+
+						# set sys_00_sec
+						# set sys_01_date  $sys_1  ; set sys_02_time 	$sys_2 	; set sys_03_mac $sys_3 ; set sys_04_ip $sys_4
+						# set sys_05_cia 	 $sys_5  ; set sys_06_ci0 	$sys_6 	; set sys_07_ci1 $sys_7 ; set sys_08_ci2 $sys_8 ; set sys_09_ci3 $sys_9
+						# set sys_10_mt 	 $sys_10 ; set sys_11_ms 	$sys_11 ; set sys_12_mf  $sys_12
+						# set sys_13_pyid1 $sys_13 ; set sys_14_pyid2 $sys_14
+
+						# set sys_15_ct0 $sys_15 ; set sys_16_ct1 $sys_16 ; set sys_17_ct2 $sys_17 ; set sys_18_ct3 $sys_18
+						# set sys_19_ct4 $sys_19 ; set sys_20_ct5 $sys_20 ; set sys_21_ct6 $sys_21
+
+						# set sys_22_pyt 		$sys_22
+						# set sys_23_wimac 	$sys_23 ; set sys_24_wiradio $sys_24 ; set sys_25_wichan $sys_25 ; set sys_26_wirxbi $sys_26
+						# set sys_27_witxbi 	$sys_27 ; set sys_28_wirssi $sys_28  ; set sys_29_wimcs $sys_29  ; set sys_30_witxpi $sys_30
+
+						set pattern_CU "$CUsec,$CUdate,$CUtime,$CUmac,$CUwdo,$CUcurr"
+						set pattern_IP "$IPsec,$IPdate,$IPtime,$IPmac,$IPwdo,$IPresult,$IPtxrx,$IPthroughput"
+						set pattern_ME "$MEsec,$MEdate,$MEtime,$MEmac,$MEwdo,$MEresult"
+
+						set pattern_SY1 "$sys_0,$sys_1,$sys_2,$sys_3,$sys_4,$sys_5,$sys_6,$sys_7,$sys_8,$sys_9,$sys_10"
+						set pattern_SY2 "$sys_11,$sys_12,$sys_13,$sys_14,$sys_15,$sys_16,$sys_17,$sys_18,$sys_19,$sys_20"
+						set pattern_SY3 "$sys_21,$sys_22,$sys_23,$sys_24,$sys_25,$sys_26,$sys_27,$sys_28,$sys_29,$sys_30"
+
+						# append dataarray($CUmac) "$pattern_CU,$pattern_SY1,$pattern_SY2,$pattern_SY3,$pattern_IP,$pattern_ME\n"
+						append dataarray($CUmac) "$pattern_CU,$pattern_SY1,$pattern_SY2,$pattern_SY3,$pattern_IP,$pattern_ME\n"
+				}
+
+				foreach name [array names dataarray] {
+						_f_WriteFile "$::dirCollector/co_$CUmac.csv" a+ $dataarray($name)
+				}
+		}
+
+		set timeSpend [expr {[_f_LTIME] - $d_time}]
+		puts "Time Spend: $timeSpend"
+		_f_modify_listmode_testitem 12 "$timeSpend sec" gray
+
+		return 1
+}
