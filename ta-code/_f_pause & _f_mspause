@@ -1,2 +1,6 @@
 _f_pause 5
 _f_mspause 200
+
+
+報時 24 小時.
+_f_TIME24ms
