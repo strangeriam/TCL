@@ -1,3 +1,6 @@
+proc _f_LTIME {} {
+	return [clock seconds]
+}
 
 proc _f_ReadBinaryFile { fname } {
 			if { [file exists $fname] } {
