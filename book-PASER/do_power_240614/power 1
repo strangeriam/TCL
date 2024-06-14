@@ -19,49 +19,49 @@ proc _f_report_1_power {} {
 		## example 1: 240513
 		set dataDir1 ""
 		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
-				set tmpDir $dataDir1
+			set tmpDir $dataDir1
 
-				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
-				puts "dataDir1 : $dataDir1"
+			set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+			puts "dataDir1 : $dataDir1"
 
-				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
-				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
-					set tmpDir $dataDir2
+			## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+			foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir2
 
-					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
-					puts "dataDir2 : $dataDir2"
+				set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+				puts "dataDir2 : $dataDir2"
 
-					## example 3: RAW_LOOP_1_240513_134916
-					foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
-						set tmpDir $dataDir3
+				## example 3: RAW_LOOP_1_240513_134916
+				foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir3
 
-						set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
-						puts "dataDir3 : $dataDir3"
+					set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+					puts "dataDir3 : $dataDir3"
 
-						foreach fname [_f_GetFilePaths $tmpDir/log_1_pws -expectedFiles *.log] {
-									puts "fname : $fname"
-									set infile [_f_ReadFile $fname]
+					foreach fname [_f_GetFilePaths $tmpDir/log_1_pws -expectedFiles *.log] {
+						puts "fname : $fname"
+						set infile [_f_ReadFile $fname]
 
-									foreach line [regexp -all -inline -- {[^\n]+} $infile] {
-											set line1 [split $line ,]
-											if { [llength $line1] < 6 } { continue }
+						foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+								set line1 [split $line ,]
+								if { [llength $line1] < 6 } { continue }
 
-											set PWdate [lindex $line1 0]
-											set PWtime [lindex $line1 1]
-											set PWvolt [string trim [lindex $line1 3]]
-											set PWcurr [string trim [lindex $line1 5]]
+								set PWdate [lindex $line1 0]
+								set PWtime [lindex $line1 1]
+								set PWvolt [string trim [lindex $line1 3]]
+								set PWcurr [string trim [lindex $line1 5]]
 
-											set PWsec [clock scan "$PWdate\_$PWtime" -format "%y/%m/%d_%H:%M:%S"]
+								set PWsec [clock scan "$PWdate\_$PWtime" -format "%y/%m/%d_%H:%M:%S"]
 
-											append data "$PWsec,$PWdate,$PWtime,$PWvolt,$PWcurr\n"
+								append data "$PWsec,$PWdate,$PWtime,$PWvolt,$PWcurr\n"
 
-											if { $::noWaitTurbo == 0 } { _f_mspause 1 }
-									}
-
-									_f_WriteFile $reportFile a+ $data
+								if { $::noWaitTurbo == 0 } { _f_mspause 1 }
 						}
+
+						_f_WriteFile $reportFile a+ $data
 					}
 				}
+			}
 		}
 
 		set timeSpend [expr {[_f_LTIME] - $d_time}]
