@@ -7,3 +7,11 @@ for {set i 0} {$i < 10} {incr i} {
 		    after 500
 		    puts $i
 }
+
+
+proc sleep {time} {
+	update
+	after $time set end 1
+	vwait end
+	update
+}
