@@ -1,59 +1,72 @@
-proc _f_Main_1_Report {} {
-		_f_vini_profilewr STATUS LOCATION TEST
+## POWER Log Example
+## filename: psw.log
+## content:  24/05/31,15:30:19,V, +14.798,C, +4.500
+proc _f_report_1_power {} {
+		set d_time [_f_LTIME]
 
-		set ::G_GUI_listmode_testitems ""
-		lappend ::G_GUI_listmode_testitems "Init"
-		lappend ::G_GUI_listmode_testitems "Report MAY . Power"
-		lappend ::G_GUI_listmode_testitems "Report MAY . Current"
-		lappend ::G_GUI_listmode_testitems "Report MAY . IPerf"
-		lappend ::G_GUI_listmode_testitems "Report MAY . Memory"
-		lappend ::G_GUI_listmode_testitems "Report MAY . System"
-		_f_update_listmode_testitem
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+		set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
-		set ::Fail_Test_Process2 {_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: FAIL" * -nodisplaytime}
-		set ::fch($::COS1.RX.REG.FILTER) {
-				catch {
-					set rtdata [regsub -all -- {\n\r|\r\n|\r|\n} "$rtdata" "\n[_f_TIME24ms]| "]
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_1_power"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set reportFile "$reportDir/report_1_power_$build_date_time.csv"
+		_f_WriteFile $reportFile w "$::csvLine1_PW\n"
+
+		set tmpDir $rawDir
+
+		## example 1: 240513
+		set dataDir1 ""
+		foreach dataDir1 [glob -nocomplain -types d -directory $tmpDir *] {
+				set tmpDir $dataDir1
+
+				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+				puts "dataDir1 : $dataDir1"
+
+				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+				foreach dataDir2 [glob -nocomplain -types d -directory $tmpDir *] {
+					set tmpDir $dataDir2
+
+					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+					puts "dataDir2 : $dataDir2"
+
+					## example 3: RAW_LOOP_1_240513_134916
+					foreach dataDir3 [glob -nocomplain -types d -directory $tmpDir *] {
+						set tmpDir $dataDir3
+
+						set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+						puts "dataDir3 : $dataDir3"
+
+						foreach fname [_f_GetFilePaths $tmpDir/log_1_pws -expectedFiles *.log] {
+									puts "fname : $fname"
+									set infile [_f_ReadFile $fname]
+
+									foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+											set line1 [split $line ,]
+											if { [llength $line1] < 6 } { continue }
+
+											set PWdate [lindex $line1 0]
+											set PWtime [lindex $line1 1]
+											set PWvolt [string trim [lindex $line1 3]]
+											set PWcurr [string trim [lindex $line1 5]]
+
+											set PWsec [clock scan "$PWdate\_$PWtime" -format "%y/%m/%d_%H:%M:%S"]
+
+											append data "$PWsec,$PWdate,$PWtime,$PWvolt,$PWcurr\n"
+
+											if { $::noWaitTurbo == 0 } { _f_mspause 1 }
+									}
+
+									_f_WriteFile $reportFile a+ $data
+						}
+					}
 				}
 		}
 
-		set ::G_AnsiFilter 0
+		set timeSpend [expr {[_f_LTIME] - $d_time}]
+		puts "Time Spend \(CURRENT\): $timeSpend"
+		# _f_modify_listmode_testitem 11 "$timeSpend sec" gray
 
-		while 1 {
-			_f_clear
-
-			;# ##############################################################################
-			_f_ScanDutInfo
-			_f_StartCountTestTime
-			_f_termmsg_V2 "Header Information" "Product: [_f_vini_profilerd SFIS MODELNAME]\nWork Order: [_f_vini_profilerd SFIS lot_no]\nSTATION ID: [_f_vini_profilerd SFIS ws_id]\nSN: [_f_vini_profilerd SFIS SN]\nMAC: [_f_vini_profilerd SFIS MAC]\nTest Program Version: [_f_vini_profilerd SFIS program_ver]\nTest Date and Start Time: [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]" * -nodisplaytime
-			if { ! [_f_shopfloor] } { _f_capture off ; continue }
-			;# ##############################################################################
-
-			for {set i 12} {$i <= 16} {incr i} {
-					_f_modify_listmode_testitem $i "" gray
-			}
-
-			;# ###########
-			;# TEST START
-			;# ###########
-			if { ! [_f_TestFunc _f_init_report 		"Init" 					-TestItem "Init"] } { continue }
-			if { ! [_f_TestFunc _f_report_1_power 	"Report MAY . Power" 	-TestItem "Report MAY . Power"] } { continue }
-			if { ! [_f_TestFunc _f_report_2_current "Report MAY . Current" 	-TestItem "Report MAY . Current"] } { continue }
-			if { ! [_f_TestFunc _f_report_4_iperf 	"Report MAY . IPerf" 	-TestItem "Report MAY . IPerf"] } { continue }
-			if { ! [_f_TestFunc _f_report_5_mem 	"Report MAY . Memory" 	-TestItem "Report MAY . Memory"] } { continue }
-			if { ! [_f_TestFunc _f_report_3_sys 	"Report MAY . System" 	-TestItem "Report MAY . System"] } { continue }
-
-			# ##############################################################################
-			# PASS 處理
-			# ##############################################################################
-			set ::ErrorCode ""
-			set ::s0 ""
-			_f_sfis_Save_Test_Result P ""
-			_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: PASS" * -nodisplaytime
-			_f_capture off
-			_f_vini_profilewr STATUS TestFunc ""
-			_f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
-			upload_log_FTP $::capturefilename "" $::FTPLOG_SEND_GROUP
-			_f_sfis_Save_Test_Data
-		}
+		return 1
 }
