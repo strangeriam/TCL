@@ -20,3 +20,6 @@ string trimleft $str "Hello"
 string trimright $str "Hello"
 # output: HelloWorld papa World
 
+# trim, 如沒指定刪除的字串, 則刪除空白.
+string trim " Hello"
+# output:Hello
