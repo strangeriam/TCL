@@ -65,7 +65,7 @@ proc _f_report_1_power {} {
 		}
 
 		set timeSpend [expr {[_f_LTIME] - $d_time}]
-		puts "Time Spend \(CURRENT\): $timeSpend"
+		puts "Time Spend \(POWER\): $timeSpend"
 		# _f_modify_listmode_testitem 11 "$timeSpend sec" gray
 
 		return 1
