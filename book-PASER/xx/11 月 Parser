@@ -1,0 +1,240 @@
+proc _f_Parser {} {
+	set ::TestCycle 0
+	while 1 {
+		incr ::TestCycle
+		set ::FailMessage {}
+		_f_modify_listmode_testitem 1 "Test Cycle : $::TestCycle" 
+		_f_termmsg_V1 "Test Cycle : $::TestCycle"
+		set now [clock sec]
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]
+		
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/memtest
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup memtest_source_path] -expectedFiles *.log] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/memtest/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+			if { [string first FAIL $targetfile] >= 0 } {
+				append ::FailMessage "[file tail $targetfile] FAIL\n"
+			}			
+			# set memdata [_f_ReadFile $targetfile]
+			# if { [string first fail [string tolower $memdata]] >= 0 } {
+				# append ::FailMessage "[file tail $targetfile] FAIL\n"
+			# } elseif { [string first error [string tolower $memdata]] >= 0 } {
+				# append ::FailMessage "[file tail $targetfile] FAIL\n"
+			# }
+		}
+
+	
+		
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup iperf_source_path] -expectedFiles *.csv] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+			if { [string first FAIL $targetfile] >= 0 } {
+				append ::FailMessage "[file tail $targetfile] FAIL\n"
+			}
+		}	
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup iperf_source_path] -expectedFiles *.log] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+		}
+		
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/pws
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup pws_source_path] -expectedFiles *.log] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/pws/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+		}
+		
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup sys_source_path] -expectedFiles *.log] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/sys/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+			set sysdata [_f_ReadFile $targetfile]
+			foreach CIitem [regexp -all -inline -- {:CI0:-{0,1}\d+\.\d+:} $sysdata] {
+				set CI0 [lindex [split $CIitem :] 2]
+				if { $CI0 <= [_f_vini_profilerd Parser_Setup CI0_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CI0 FAIL\n"
+					break
+				}
+			}
+			foreach CIitem [regexp -all -inline -- {:CI1:-{0,1}\d+\.\d+:} $sysdata] {
+				set CI1 [lindex [split $CIitem :] 2]
+				if { $CI1 <= [_f_vini_profilerd Parser_Setup CI1_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CI1 FAIL\n"
+					break
+				}
+			}	
+			foreach CIitem [regexp -all -inline -- {:CI2:-{0,1}\d+\.\d+:} $sysdata] {
+				set CI2 [lindex [split $CIitem :] 2]
+				if { $CI2 <= [_f_vini_profilerd Parser_Setup CI2_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CI2 FAIL\n"
+					break
+				}
+			}	
+			foreach CIitem [regexp -all -inline -- {:CI3:-{0,1}\d+\.\d+:} $sysdata] {
+				set CI3 [lindex [split $CIitem :] 2]
+				if { $CI2 <= [_f_vini_profilerd Parser_Setup CI3_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CI3 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT0:-{0,1}\d+:} $sysdata] {
+				set CT0 [lindex [split $CTitem :] 2]
+				if { $CT0 <= [_f_vini_profilerd Parser_Setup CT0_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT0 FAIL\n"
+					break
+				}
+			}	
+			foreach CTitem [regexp -all -inline -- {:CT1:-{0,1}\d+:} $sysdata] {
+				set CT1 [lindex [split $CTitem :] 2]
+				if { $CT1 <= [_f_vini_profilerd Parser_Setup CT1_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT1 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT2:-{0,1}\d+:} $sysdata] {
+				set CT2 [lindex [split $CTitem :] 2]
+				if { $CT2 <= [_f_vini_profilerd Parser_Setup CT2_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT2 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT3:-{0,1}\d+:} $sysdata] {
+				set CT3 [lindex [split $CTitem :] 2]
+				if { $CT3 <= [_f_vini_profilerd Parser_Setup CT3_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT3 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT4:-{0,1}\d+:} $sysdata] {
+				set CT4 [lindex [split $CTitem :] 2]
+				if { $CT4 <= [_f_vini_profilerd Parser_Setup CT4_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT4 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT5:-{0,1}\d+:} $sysdata] {
+				set CT5 [lindex [split $CTitem :] 2]
+				if { $CT5 <= [_f_vini_profilerd Parser_Setup CT5_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT5 FAIL\n"
+					break
+				}
+			}
+			foreach CTitem [regexp -all -inline -- {:CT6:-{0,1}\d+:} $sysdata] {
+				set CT6 [lindex [split $CTitem :] 2]
+				if { $CT6 <= [_f_vini_profilerd Parser_Setup CT6_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] CT6 FAIL\n"
+					break
+				}
+			}	
+			foreach PYTitem [regexp -all -inline -- {:PYT:-{0,1}\d+\.\d+:} $sysdata] {
+				set PYT [lindex [split $PYTitem :] 2]
+				if { $PYT <= [_f_vini_profilerd Parser_Setup PYT_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] PYT FAIL\n"
+					break
+				}
+			}
+			foreach WILMACitem [regexp -all -inline -- {:WILMAC:-{0,1}\d+\.\d+:} $sysdata] {
+				set WILMAC [lindex [split $WILMACitem :] 2]
+				if { $WILMAC <= [_f_vini_profilerd Parser_Setup WILMAC_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] WILMAC FAIL\n"
+					break
+				}
+			}
+			foreach WILRADIOitem [regexp -all -inline -- {:WILRADIO:-{0,1}\d+\.\d+:} $sysdata] {
+				set WILRADIO [lindex [split $WILRADIOitem :] 2]
+				if { $WILRADIO <= [_f_vini_profilerd Parser_Setup WILRADIO_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] WILRADIO FAIL\n"
+					break
+				}
+			}
+			
+			
+			######################### Need Check result 
+			foreach RXBIitem [regexp -all -inline -- {:RXBI:-{0,1}\d+\.\d+:} $sysdata] {
+				set RXBI [lindex [split $RXBIitem :] 2]
+				if { $RXBI <= [_f_vini_profilerd Parser_Setup RXBI_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] RXBI FAIL\n"
+					break
+				}
+			}
+
+			foreach TXBIitem [regexp -all -inline -- {:TXBI:-{0,1}\d+\.\d+:} $sysdata] {
+				set TXBI [lindex [split $TXBIitem :] 2]
+				if { $TXBI <= [_f_vini_profilerd Parser_Setup RXBI_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] TXBI FAIL\n"
+					break
+				}
+			}
+
+			foreach RSSIitem [regexp -all -inline -- {:RSSI:-{0,1}\d+\.\d+:} $sysdata] {
+				set RSSI [lindex [split $RSSIitem :] 2]
+				if { $RSSI <= [_f_vini_profilerd Parser_Setup RXBI_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] RSSI FAIL\n"
+					break
+				}
+			}			
+
+			foreach MCSitem [regexp -all -inline -- {:MCS:-{0,1}\d+\.\d+:} $sysdata] {
+				set MCS [lindex [split $MCSitem :] 2]
+				if { $MCS <= [_f_vini_profilerd Parser_Setup MCS_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] MCS FAIL\n"
+					break
+				}
+			}
+			
+			foreach TXPIitem [regexp -all -inline -- {:TXPI:-{0,1}\d+\.\d+:} $sysdata] {
+				set TXPI [lindex [split $TXPIitem :] 2]
+				if { $TXPI <= [_f_vini_profilerd Parser_Setup TXPI_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] TXPI FAIL\n"
+					break
+				}
+			}			
+			
+		}		
+
+		file mkdir ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/current
+		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup current_source_path] -expectedFiles *.log] {
+			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/current/[file tail $file]
+			file copy -force $file $targetfile
+			if { [_f_vini_profilerd Parser_Setup del_source_file] == 1 } {
+				file delete -force $file
+			}
+			_f_termmsg_V1 $targetfile
+			set memdata [_f_ReadFile $targetfile]
+			foreach item [regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $memdata] {
+				set curr [string map [list A ""] [lindex [split $item =] end]]
+				if { $curr > [_f_vini_profilerd Parser_Setup Current_Criteria] } {
+					append ::FailMessage "[file tail $targetfile] FAIL\n"
+					break
+				}
+			}
+		}	
+
+		if { [string len $::FailMessage] > 0 } {
+			usermsg $::FailMessage
+		}
+		# _f_pause [_f_vini_profilerd Parser_Setup LoopTime]
+		_f_pause [expr [_f_vini_profilerd Parser_Setup LoopTime] * 60]
+	}
+	return 1
+}
