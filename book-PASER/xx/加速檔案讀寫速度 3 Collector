@@ -121,7 +121,7 @@ foreach {mac} $maclist {
 		if { [info exists IP($mac,$index)] } {
 			append res $IP($mac,$index)
 		} else {
-			append res ,,,,,,,,,,,,,,,,,,,,,,,,,,
+			append res ,,,,,,,,,,,,,,,,,,,,,,,,,,,
 		}
 
 		if { [info exists IPERF_RESULT($mac,$index)] } {
