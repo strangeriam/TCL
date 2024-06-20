@@ -1,0 +1,5 @@
+讀取當前 part_no
+_f_vini_profilerd SFIS part_no
+
+讀取當前測站 ws_id
+_f_vini_profilerd SFIS ws_id
