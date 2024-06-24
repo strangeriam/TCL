@@ -1,0 +1,30 @@
+lsearch {a b c d} c
+-->> 2
+
+lsearch -all {a b c a b c} c
+-->> 2 5
+
+## 過濾列表
+lsearch -inline {a20 b35 c47} b*
+-->> 
+
+lsearch -inline -not {a20 b35 c47} b*
+-->> a20
+
+lsearch -all -inline -not {a20 b35 c47} b*
+-->> a20 c47
+
+lsearch -all -not {a20 b35 c47} b*
+-->> 0 2
+
+## 移除特定字串.
+lsearch -all -inline -not -exact {a b c d e a f g a} a
+-->> b c d e f g
+
+## 搜索從半途開始.
+lsearch -start 3 {a b c a b c} c
+-->> 5
+
+## 搜索子列表中的元素
+lsearch -index 1 -all -inline {{a abc} {b bcd} {c cde}} *bc*
+-->> {a abc} {b bcd}
