@@ -1,0 +1,7 @@
+## 找出所要字串位置
+
+## Example String
+set aa {{Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}}
+
+lsearch -all $aa DEBUG*
+-->> 3
