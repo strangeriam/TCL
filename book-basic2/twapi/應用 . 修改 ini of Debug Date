@@ -1,5 +1,5 @@
 
-Original
+Before
 Startup_1={Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}
 ## =============================================
 
@@ -11,5 +11,5 @@ set iniCfgCange [lreplace $iniCFG $iniIndex $iniIndex $iniDebug]
 ::twapi::write_inifile_key "CFG_PARSER" "Startup_1" $iniCfgCange -inifile ${::ASPECTPATH}MainConfig.ini
 
 ## =============================================
-Modified
+After
 Startup_1=Active=DUT script=DUT_PARSER.tcl {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} DEBUG=2024/06/24
