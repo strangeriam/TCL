@@ -1,0 +1,7 @@
+反向找出特定字串以外的字串位置
+
+## Example String
+set aa {{Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}}
+
+lsearch -all -not $aa DEBUG*
+-->> 0 1 2
