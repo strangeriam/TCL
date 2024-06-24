@@ -1,7 +1,6 @@
-lappend auto_path D:/worktmp2/Try240624/lib/twapi
-package require twapi
+set debugData [::twapi::read_inifile_key "CFG_PARSER" "Startup_1" -inifile ${::ASPECTPATH}MainConfig.ini]
+set debugIndex [lsearch -all $dateDegug1 DEBUG*]
 
-set ini "D:/worktmp2/Try240624/MainConfig.ini"
-
-::twapi::read_inifile_key "CFG_PARSER" "Startup_1" -inifile $ini
-
+set debugDate "DEBUG=[clock format [clock seconds] -format %Y/%m/%d]"
+set debug [lreplace $debugData $debugIndex $debugDate]
+::twapi::write_inifile_key "CFG_PARSER" "Startup_1" "DEBUG=$data"-inifile ${::ASPECTPATH}MainConfig.ini] DEBUG*]
