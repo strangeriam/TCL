@@ -28,3 +28,4 @@ lsearch -start 3 {a b c a b c} c
 ## 搜索子列表中的元素
 lsearch -index 1 -all -inline {{a abc} {b bcd} {c cde}} *bc*
 -->> {a abc} {b bcd}
+
