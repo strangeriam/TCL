@@ -2,6 +2,6 @@ lsearch -inline
 
 ## 以下字串找出 DEBUG=2024/06/21
 set aa {{Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}}
+
 lsearch -inline $aa DEBUG*
 -->> DEBUG=2024/06/21
-
