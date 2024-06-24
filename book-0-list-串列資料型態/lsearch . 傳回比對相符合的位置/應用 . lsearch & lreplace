@@ -1,5 +1,9 @@
 應用 . 修改 ini of Debug Date
 
+使用情境:
+修改當日日期的 {DEBUG=2024/06/21} 才能開啟自動填入 SN & MAC 的功能.
+經由下方程式導入, 即可在產測程式開啟時, 自動修改系統時間為 {DEBUG=2024/06/24}.
+
 Before
 Startup_1={Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}
 ## =============================================
