@@ -1,3 +1,7 @@
+lsearch -all -inline -not
+
+## Example String
+set aa {{Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}}
 
 ## 反向找出非 DEBUG=2024/06/21 的字串.
 lsearch -all -inline -not $aa DEBUG*
