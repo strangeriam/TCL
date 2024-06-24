@@ -1,0 +1,7 @@
+lappend auto_path D:/worktmp2/Try240624/lib/twapi
+package require twapi
+
+set ini "D:/worktmp2/Try240624/MainConfig.ini"
+
+::twapi::read_inifile_key "CFG_PARSER" "Startup_1" -inifile $ini
+
