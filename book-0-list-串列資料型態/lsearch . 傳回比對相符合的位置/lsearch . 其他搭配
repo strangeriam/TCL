@@ -1,0 +1,14 @@
+搭配
+
+-exact
+pattern 是字符串, 並且必須嚴格匹配每一個 list 元素.
+
+-glob
+pattern 是通配匹配每一個列表元素.
+
+-regexp
+pattern 被當作一個正規表達式來匹配列表中的每一個元素.
+
+-sorted
+列表元素被排除, lsearch 將會使用更加有效的查詢算法去查列表.
+如果沒有指定其他選項, list 將被排列成升序並且包含 ASCII 碼.
