@@ -1,0 +1,22 @@
+
+內容描述選項
+描述如何去解釋在列表中尋找到的元素, 只有當 -exact 和 -sorted 指定時才有效.
+如果給出了多個選項, 那麼最後給出的選項有效.
+-ascii : 列表元素作為 Unicode 字符來檢查.
+-dictionary : 列表元素在比較時使用字典聯繫, 查看 lsort 以獲取詳細描述, 只有當 -sorted 選項指定時才有效.
+-integer : 列表中的元素被當作整數來處理.
+-nocase : 忽略大小寫. 與 -dictionary, integer 和 -real 搭配無效.
+-real : 列表中的元素被當作浮點數來處理.
+
+列表排序選項
+指定列表如何排序, 只有指定 -sorted 時才有效, 如果給出了多個選項, 那麼最後給出的選項有效.
+-decreasing : 列表元素為降序列表, 只有指定 -sorted 時才有效.
+-increasing : 列表元素為升序列表, 只有指定 -sorted 時才有效.
+
+內嵌列表選項
+這些選項被用來尋找子列表, 可與任何其他選項一起使用.
+-index indexList
+這個選項尋找內嵌的列表, indexList 變元必須給出一個索引列表 (與 lindex 和 lset 類似), indexList 給出的索引列表在 list 中必須存在對應的索引, 否則會出錯.
+
+-subindices
+這個選項只返回尋找到的子列表元素, 必須和 -index 配合食用.
