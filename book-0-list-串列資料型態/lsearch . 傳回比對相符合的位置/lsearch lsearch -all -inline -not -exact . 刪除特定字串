@@ -1,0 +1,4 @@
+移除特定字串.
+
+lsearch -all -inline -not -exact {a b c d e a f g a} a
+-->> b c d e f g
