@@ -1,3 +1,5 @@
+lappend auto_path D:/worktmp2/Try240624/lib/twapi
+package require twapi
 
 ::twapi::write_inifile_key "TEST" "LOOP_NUM" $::loopNumber -inifile "$::ENVPATH/necessary/temporary.ini"
 
