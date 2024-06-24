@@ -6,7 +6,7 @@ lsearch -all {a b c a b c} c
 
 ## 過濾列表
 lsearch -inline {a20 b35 c47} b*
--->> 
+-->> b35
 
 lsearch -inline -not {a20 b35 c47} b*
 -->> a20
