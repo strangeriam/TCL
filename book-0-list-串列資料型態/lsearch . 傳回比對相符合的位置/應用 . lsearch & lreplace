@@ -1,0 +1,16 @@
+應用 . 修改 ini of Debug Date
+
+Before
+Startup_1={Active=DUT} {script=DUT_PARSER.tcl} {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} {DEBUG=2024/06/21}
+## =============================================
+
+set iniCFG [::twapi::read_inifile_key "CFG_PARSER" "Startup_1" -inifile ${::ASPECTPATH}MainConfig.ini]
+set iniIndex [lsearch -all $dateDegug1 DEBUG*]
+set iniDebug "DEBUG=[clock format [clock seconds] -format %Y/%m/%d]"
+
+set iniCfgCange [lreplace $iniCFG $iniIndex $iniIndex $iniDebug]
+::twapi::write_inifile_key "CFG_PARSER" "Startup_1" $iniCfgCange -inifile ${::ASPECTPATH}MainConfig.ini
+
+## =============================================
+After
+Startup_1=Active=DUT script=DUT_PARSER.tcl {SyncIni=DutScanSpec SYSTEM REPORT COLLECTOR PARSER PARSER_CRITERIA} DEBUG=2024/06/24
