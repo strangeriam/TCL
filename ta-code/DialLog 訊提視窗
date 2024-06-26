@@ -1,0 +1,5 @@
+set msgTitle "ENV Check..."
+set pic "./bitmap/stations/PDL.png"
+set msgEnglish 	"Check DUT is ready. Press PASS."
+set msgChinese 	"確認待測物已放置完成. 點選 PASS."
+_f_Client_SelectUI "$msgTitle\n$msgEnglish\n$msgChinese" PassOnly $pic
