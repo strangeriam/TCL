@@ -39,8 +39,14 @@ CU_CURRENT
 . CURRENT_MAX_UNOM= 1.71
 . CURRENT_MAX_UMIN= 2.67
 
-PW_VOLT
-PW_CURRENT
+PW_VOLT_MIN=
+PW_VOLT_MAX=
+PW_CURRENT --> Record Only
+
+MEM_RESULT --> Check require (PASS)
+IPERF_RESULT --> Check require (PASS)
+IPERF_TXRX --> Record Only
+IPERF_THROUGHPUT --> Record Only
 
 
 Criteria B . System Log:
