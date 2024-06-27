@@ -39,6 +39,7 @@ CU_CURRENT
 . CURRENT_MAX_UNOM= 1.71
 . CURRENT_MAX_UMIN= 2.67
 
+說明: Power On WDO 後開始判斷, 直到 Power Off.
 PW_VOLT_MIN=
 PW_VOLT_MAX=
 PW_CURRENT --> Record Only
