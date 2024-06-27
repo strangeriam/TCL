@@ -7,47 +7,36 @@ T1:2024/06/21:T2:10!36!36:MAC:B46AD4398339:IP:192.168.10.7:CIA:75.72:CI0:77.20:C
 03 . SYS_MAC (MAC:B46AD4398339)
 04 . IP (IP:192.168.10.7)
 
-(Record)
-05 . CPU_IDLE_ALL (CIA:75.72)
-06 . CPU_IDLE_CORE_0 (CI0:77.20)
-07 . CPU_IDLE_CORE_1 (CI1:89.49)
-08 . CPU_IDLE_CORE_2 (CI2:63.83)
-09 . CPU_IDLE_CORE_3 (CI3:72.28)
+05 . CPU_IDLE_ALL (CIA:75.72) --> Record Only
+06 . CPU_IDLE_CORE_0 (CI0:77.20) --> Record Only
+07 . CPU_IDLE_CORE_1 (CI1:89.49) --> Record Only
+08 . CPU_IDLE_CORE_2 (CI2:63.83) --> Record Only
+09 . CPU_IDLE_CORE_3 (CI3:72.28) --> Record Only
 
-(Record)
-10 . MEM_TOTAL (MT:908868)
-11 . MEM_USED (MS:184276)
-12 . MEM_FREE (MF:724592)
+10 . MEM_TOTAL (MT:908868) --> Record Only
+11 . MEM_USED (MS:184276) --> Record Only
+12 . MEM_FREE (MF:724592) --> Record Only
 
-(Check, (0110 is wrong) )
-13 . PHYID1 (PYID1:0x002b)
-14 . PHYID2 (PYID2:0x0800)
+13 . PHYID1 (PYID1:0x002b) --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
+14 . PHYID2 (PYID2:0x0800) --> Check require
 
-(Check, -30C ~ 110C)
-15 . CPU_TEMPERATURE_0 (CT0:43)
-16 . CPU_TEMPERATURE_1 (CT1:44)
-17 . CPU_TEMPERATURE_2 (CT2:42)
-18 . CPU_TEMPERATURE_3 (CT3:42)
-19 . CPU_TEMPERATURE_4 (CT4:45)
-20 . CPU_TEMPERATURE_5 (CT5:43)
-21 . CPU_TEMPERATURE_6 (CT6:44)
+15 . CPU_TEMPERATURE_0 (CT0:43) --> Check require, -30C ~ 110C whole time.
+16 . CPU_TEMPERATURE_1 (CT1:44) --> Check require, -30C ~ 110C whole time.
+17 . CPU_TEMPERATURE_2 (CT2:42) --> Check require, -30C ~ 110C whole time.
+18 . CPU_TEMPERATURE_3 (CT3:42) --> Check require, -30C ~ 110C whole time.
+19 . CPU_TEMPERATURE_4 (CT4:45) --> Check require, -30C ~ 110C whole time.
+20 . CPU_TEMPERATURE_5 (CT5:43) --> Check require, -30C ~ 110C whole time.
+21 . CPU_TEMPERATURE_6 (CT6:44) --> Check require, -30C ~ 110C whole time.
 
-(Check . T1 phy . -40C ~ 140C)
-22 . Q3244_TEMPERATURE (PYT:32.17)
+22 . Q3244_TEMPERATURE (PYT:32.17) --> Check require, T1 PHY -40C ~ 140C whole time.
 
-(Check)
-(BB -30C ~ 105C . RF -20C ~ 100C)
-(for 5 point, RSSI -50dBm, MCS: 9)
-(for 1 point, RSSI -65dBm, MCS: 9)
-(for REL, 
-
-23 . BASEBAND_TEMPERATURE (WILMAC:49.000)
-24 . RADIO_TEMPERATURE (WILRADIO:42.695)
-25 . RF_CHANNEL ()
-26 . RX_BEAN_INDEX ()
-27 . TX_BEAN_INDEX ()
-28 . RSSI ()
-29 . MCS ()
-30 . TX_POWER ()
+23 . BASEBAND_TEMPERATURE (WILMAC:49.000) --> Check require, -30C ~ 105C
+24 . RADIO_TEMPERATURE (WILRADIO:42.695) --> Check require, -20C ~ 100C
+25 . RF_CHANNEL () --> Check require, (REL, No need)
+26 . RX_BEAN_INDEX () --> Check require, (REL, No need)
+27 . TX_BEAN_INDEX () --> Check require, (REL, No need)
+28 . RSSI () --> Check require (5 point RSSI -50dBm) (1 point RSSI -65dBm) (REL, No need)
+29 . MCS () --> Check require, MCS: 9 (REL, No need)
+30 . TX_POWER () --> Check require (REL, No need)
 
 END
