@@ -39,6 +39,7 @@ proc _f_Parser {} {
 				append ::FailMessage "[file tail $targetfile] FAIL\n"
 			}
 		}	
+
 		foreach file [_f_GetFilePaths [_f_vini_profilerd Parser_Setup iperf_source_path] -expectedFiles *.log] {
 			set targetfile ./Result/[_f_vini_profilerd SFIS SN]/[_f_vini_profilerd SFIS SN]_[format %05d $::TestCycle]/iperf/[file tail $file]
 			file copy -force $file $targetfile
