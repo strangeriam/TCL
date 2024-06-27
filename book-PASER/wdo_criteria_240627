@@ -32,7 +32,8 @@ CODE: IA,IB,IC,ID,IE,IF,IG,IH
 
 
 Criteria A:
-CU_CURRENT: 
+CU_CURRENT
+說明: Power On WDO 後開始判斷, 直到 Power Off.
 . CURRENT_MIN= 0.02
 . CURRENT_MAX_UMAX= 1.50
 . CURRENT_MAX_UNOM= 1.71
