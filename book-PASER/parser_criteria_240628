@@ -9,14 +9,14 @@ ITEM A
 05 : AE : IP
 
 ITEM B
-06 : BA : CU_CURRENT
-07 : BB : PW_VOLT
+06 : BA : CU_CURRENT --> Power On WDO 後開始判斷, 直到 Power Off. --> MIN=0.02 & MAX_UMAX=(1.50 1.71 2.67)
+07 : BB : PW_VOLT --> Power On WDO 後開始判斷, 直到 Power Off. --> 補償後 +- 0.1V
 08 : BC : PW_CURRENT
 09 : BD : JOURNEY
 
 ITEM C
-10 : CA : MEM_RESULT
-11 : CB : IPERF_RESULT
+10 : CA : MEM_RESULT --> PASS
+11 : CB : IPERF_RESULT --> PASS
 12 : CC : IPERF_TXRX
 13 : CD : IPERF_THROUGHPUT
 
@@ -33,27 +33,27 @@ ITEM E
 21 : EC : MEM_FREE
 
 ITEM F
-22 : FA : PHYID1
-23 : FB : PHYID2
+22 : FA : PHYID1 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
+23 : FB : PHYID2 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
 
 ITEM G
-24 : GA : CPU_TEMPERATURE_0
-25 : GB : CPU_TEMPERATURE_1
-26 : GC : CPU_TEMPERATURE_2
-27 : GD : CPU_TEMPERATURE_3
-28 : GE : CPU_TEMPERATURE_4
-29 : GF : CPU_TEMPERATURE_5
-30 : GG : CPU_TEMPERATURE_6
+24 : GA : CPU_TEMPERATURE_0 --> -30C ~ 110C whole time.
+25 : GB : CPU_TEMPERATURE_1 --> -30C ~ 110C whole time.
+26 : GC : CPU_TEMPERATURE_2 --> -30C ~ 110C whole time.
+27 : GD : CPU_TEMPERATURE_3 --> -30C ~ 110C whole time.
+28 : GE : CPU_TEMPERATURE_4 --> -30C ~ 110C whole time.
+29 : GF : CPU_TEMPERATURE_5 --> -30C ~ 110C whole time.
+30 : GG : CPU_TEMPERATURE_6 --> -30C ~ 110C whole time.
 
 ITEM H
-31 : HA : Q3244_TEMPERATURE
+31 : HA : Q3244_TEMPERATURE --> T1 PHY -40C ~ 140C whole time.
 
 ITEM I
-32 : IA : BASEBAND_TEMPERATURE
-33 : IB : RADIO_TEMPERATURE
-34 : IC : RF_CHANNEL
-35 : ID : RX_BEAN_INDEX
-36 : IE : TX_BEAN_INDEX
-37 : IF : RSSI
-38 : IG : MCS
-39 : IH : TX_POWER
+32 : IA : BASEBAND_TEMPERATURE -->  -30C ~ 105C
+33 : IB : RADIO_TEMPERATURE --> -20C ~ 100C
+34 : IC : RF_CHANNEL --> (REL, No need)
+35 : ID : RX_BEAN_INDEX --> (REL, No need)
+36 : IE : TX_BEAN_INDEX --> (REL, No need)
+37 : IF : RSSI --> (REL, No need) (5 point RSSI -50dBm) (1 point RSSI -65dBm)
+38 : IG : MCS --> (REL, No need)
+39 : IH : TX_POWER --> (REL, No need)
