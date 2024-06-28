@@ -2,130 +2,128 @@
 ## Step 1: Establish CSV item in first line.
 ## Step 2: Fill Current data in CSV.
 proc _f_report_2_current {} {
-		set d_time [_f_LTIME]
+	set d_time [_f_LTIME]
 
-		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
-		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+	set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+	set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
-		set rawDir 		"$::dirRaw"
-		set reportDir 	"$::dirReport/report_2_current"
-		if { ![file exist $reportDir] } { file mkdir $reportDir }
+	set rawDir 		"$::dirRaw"
+	set reportDir 	"$::dirReport/report_2_current"
+	if { ![file exist $reportDir] } { file mkdir $reportDir }
 
-		set dataDir1 ""
-		## example 1: 240513
-		foreach dataDir1 [glob -nocomplain -types d -directory $rawDir *] {
-				set rawDir $dataDir1
+	set dataDir1 ""
+	## example 1: 240513
+	foreach dataDir1 [glob -nocomplain -types d -directory $rawDir *] {
+		set rawDir $dataDir1
 
-				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
-				# puts "dataDir1 : $dataDir1"
+		set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+		# puts "dataDir1 : $dataDir1"
 
-				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
-				foreach dataDir2 [glob -nocomplain -types d -directory $rawDir *] {
-					set rawDir $dataDir2
+		## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+		foreach dataDir2 [glob -nocomplain -types d -directory $rawDir *] {
+			set rawDir $dataDir2
 
-					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
-					# puts "dataDir2 : $dataDir2"
+			set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+			# puts "dataDir2 : $dataDir2"
 
-						foreach fname [_f_GetFilePaths $rawDir/log_2_current -expectedFiles *.log] {
-									# puts "fname : $fname"
-									set infile [_f_ReadFile $fname]
+			foreach fname [_f_GetFilePaths $rawDir/log_2_current -expectedFiles *.log] {
+				# puts "fname : $fname"
+				set infile [_f_ReadFile $fname]
 
-									foreach line [regexp -all -inline -- {[^\n]+} $infile] {
-											set line1 [split $line ,]
-											if { [llength $line1] < 4 } { continue }
+				foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+					set line1 [split $line ,]
+					if { [llength $line1] < 4 } { continue }
 
-											set dataDut [split [lindex $line1 2] _]
+					set dataDut [split [lindex $line1 2] _]
 
-											set dataMac [lindex $dataDut end]
-											set dataVcp [string map {" " _} [lrange $dataDut 0 2]]
+					set dataMac [lindex $dataDut end]
+					set dataVcp [string map {" " _} [lrange $dataDut 0 2]]
 
-											set CUdate [lindex $line1 0]
-											set CUtime [lindex $line1 1]
+					set CUdate [lindex $line1 0]
+					set CUtime [lindex $line1 1]
 
-											set CUsec [clock scan [lindex $line1 0]_[lindex $line1 1] -format "%Y/%m/%d_%H:%M:%S"]
+					set CUsec [clock scan [lindex $line1 0]_[lindex $line1 1] -format "%Y/%m/%d_%H:%M:%S"]
 
-											append dataarray($dataMac) "$CUsec,$CUdate,$CUtime,$dataMac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
-									}
-
-									foreach name [array names dataarray] {
-											set report "$reportDir/report_2_current_$name\_$build_time.csv"
-											_f_WriteFile $report w $dataarray($name)
-									}
-						}
+					append dataarray($dataMac) "$CUsec,$CUdate,$CUtime,$dataMac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
 				}
-		}
 
-		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
-		return 1
+				foreach name [array names dataarray] {
+					set report "$reportDir/report_2_current_$name\_$build_time.csv"
+					_f_WriteFile $report w $dataarray($name)
+				}
+			}
+		}
+	}
+
+	puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+	return 1
 }
 
 proc _f_report_2_current_loop {} {
-		set d_time [_f_LTIME]
+	set d_time [_f_LTIME]
 
-		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
-		set build_time [lindex [string map {_ " "} $build_date_time] 1]
+	set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+	set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
-		set rawDir 		"$::dirRaw"
-		set reportDir 	"$::dirReport/report_2_current"
-		if { ![file exist $reportDir] } { file mkdir $reportDir }
+	set rawDir "$::dirRaw"
+	set reportDir 	"$::dirReport/report_2_current"
+	if { ![file exist $reportDir] } { file mkdir $reportDir }
 
-		puts \n
-		puts "rawDir : $rawDir"
-		puts "reportDir : $reportDir"
-		puts \n
+	puts \n
+	puts "rawDir : $rawDir"
+	puts "reportDir : $reportDir"
+	puts \n
 
-		set dataDir1 ""
-		## example 1: 240513
-		foreach dataDir1 [glob -nocomplain -types d -directory $rawDir *] {
-				set rawDir $dataDir1
+	set dataDir1 ""
+	## example 1: 240513
+	foreach dataDir1 [glob -nocomplain -types d -directory $rawDir *] {
+		set rawDir $dataDir1
+		set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
+		# puts "dataDir1 : $dataDir1"
 
-				set dataDir1 [lindex [string map {/ " "} $dataDir1] end-0]
-				# puts "dataDir1 : $dataDir1"
+		## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
+		foreach dataDir2 [glob -nocomplain -types d -directory $rawDir *] {
+			set rawDir $dataDir2
 
-				## example 2: DV_LEG_4_HTD_Unom_x6_240513_134916
-				foreach dataDir2 [glob -nocomplain -types d -directory $rawDir *] {
-					set rawDir $dataDir2
+			set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
+			# puts "dataDir2 : $dataDir2"
 
-					set dataDir2 [lindex [string map {/ " "} $dataDir2] end-0]
-					# puts "dataDir2 : $dataDir2"
+			## example 3: RAW_LOOP_1_240513_134916
+			foreach dataDir3 [glob -nocomplain -types d -directory $rawDir *] {
+				set rawDir $dataDir3
+				set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
+				# puts "dataDir3 : $dataDir3"
 
-					## example 3: RAW_LOOP_1_240513_134916
-					foreach dataDir3 [glob -nocomplain -types d -directory $rawDir *] {
-						set rawDir $dataDir3
+				foreach fname [_f_GetFilePaths $rawDir/log_2_current -expectedFiles *.log] {
+					# puts "fname : $fname"
+					set infile [_f_ReadFile $fname]
 
-						set dataDir3 [lindex [string map {/ " "} $dataDir3] end-0]
-						# puts "dataDir3 : $dataDir3"
+					foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+						set line1 [split $line ,]
+						if { [llength $line1] < 4 } { continue }
 
-						foreach fname [_f_GetFilePaths $rawDir/log_2_current -expectedFiles *.log] {
-									# puts "fname : $fname"
-									set infile [_f_ReadFile $fname]
+						set dataDut [split [lindex $line1 2] _]
 
-									foreach line [regexp -all -inline -- {[^\n]+} $infile] {
-											set line1 [split $line ,]
-											if { [llength $line1] < 4 } { continue }
+						set dataMac [lindex $dataDut end]
+						set dataVcp [string map {" " _} [lrange $dataDut 0 2]]
 
-											set dataDut [split [lindex $line1 2] _]
+						set CUdate [lindex $line1 0]
+						set CUtime [lindex $line1 1]
 
-											set dataMac [lindex $dataDut end]
-											set dataVcp [string map {" " _} [lrange $dataDut 0 2]]
+						set CUsec [clock scan [lindex $line1 0]_[lindex $line1 1] -format "%Y/%m/%d_%H:%M:%S"]
 
-											set CUdate [lindex $line1 0]
-											set CUtime [lindex $line1 1]
+						append dataarray($dataMac) "$CUsec,$CUdate,$CUtime,$dataMac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
+					}
 
-											set CUsec [clock scan [lindex $line1 0]_[lindex $line1 1] -format "%Y/%m/%d_%H:%M:%S"]
-
-											append dataarray($dataMac) "$CUsec,$CUdate,$CUtime,$dataMac,[string map [list A ""] [lindex [split [lindex $line1 5] =] end]],\n"
-									}
-
-									foreach name [array names dataarray] {
-											set report "$reportDir/report_2_current_$name\_$build_time.csv"
-											_f_WriteFile $report w $dataarray($name)
-									}
-						}
+					foreach name [array names dataarray] {
+						set report "$reportDir/report_2_current_$name\_$build_time.csv"
+						_f_WriteFile $report w $dataarray($name)
 					}
 				}
+			}
 		}
+	}
 
-		puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
-		return 1
+	puts "Total TIME : [expr {[_f_LTIME] - $d_time}]"
+	return 1
 }
