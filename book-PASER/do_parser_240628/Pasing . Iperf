@@ -1,0 +1,85 @@
+#; ###########################
+#; 從 Log 檔名取得
+#; 1: Log 檔名清單 (::file_list)
+#; 2: Log 檔案總數 (::file_num)
+#; ###########################
+set ::cpk_log_path "data/cpk_log"
+set ::file_list [glob -directory $::cpk_log_path -tails *]
+# puts "::file_list : \n$::file_list"
+
+set ::file_num [llength $::file_list]
+# puts "\n::file_num : $::file_num"
+
+if { $::file_num == ""} { set ::file_num 0 }
+
+#; ###########################
+#; 從 Log 檔名取得
+#; 1: SN 清單 (::sn_list)
+#; 2: SN 總數 (::sn_num)
+#; ###########################
+## 建立 SN 清單
+set ::sn_list ""
+for {set i 1} {$i <= $::file_num} {incr i} {
+	set j [expr $i -1]
+	append ::sn_list "[lindex [string map {_ " "} [lindex $::file_list $j]] 0] "
+}
+
+# puts "sn_list : \n$::sn_list"
+
+set ::sn_num [llength $::sn_list]
+# puts "::sn_num : $::sn_num"
+
+if { $::sn_num == ""} { set ::sn_num 0 }
+
+#; #############################################################
+#; 製作 Report.csv 檔
+#; Step 1: 產生 CSV 檔.
+#; Step 2: 從 Log 檔內取得各 SN 的 TX & RX Throughput and RSSI 值.
+#; #############################################################
+
+## CSV
+######
+set filename_csv "report\_$::buildDate\_[clock format [clock seconds] -format %H%M%S].csv"
+set ::cpk_report_path "data/cpk_report/$filename_csv"
+set csv_fd [open $::cpk_report_path a+]
+
+puts $csv_fd "sn,throughput_tx,throughput_rx,rssi"
+
+## DB
+#####
+set filename_db "report\_$::buildDate\_[clock format [clock seconds] -format %H%M%S].db"
+set ::cpk_report_db "data/cpk_report/$filename_db"
+
+sqlite3 db $::cpk_report_db
+db timeout 500
+
+db eval {CREATE TABLE CPK (SN TEXT PRIMARY KEY, throughput_tx TEXT, throughput_rx TEXT, rssi TEXT);}
+
+for {set i 1} {$i <= $::file_num} {incr i} {
+	set filename "$::cpk_log_path/[lindex $::file_list [expr $i -1]]"
+	# puts "filename : $filename"
+
+	set fd [open $filename r]
+	set value [read $fd]
+	close $fd
+
+	set throughput_tx ""
+	regexp -linestop {Throughput TX Data/Rate:.*} $value throughput_tx
+
+	set throughput_rx ""
+	regexp -linestop {Throughput RX Data/Rate:.*} $value throughput_rx
+
+	set value_rssi ""
+	regexp -linestop {RSSI \(dBm\):.*} $value value_rssi
+	# puts "value_rssi : $value_rssi"
+
+	set value_sn [lindex $::sn_list [expr $i - 1]]
+	set value_tx [lindex $throughput_tx 5]
+	set value_rx [lindex $throughput_rx 5]
+	set value_rssi [lindex $value_rssi 2]
+
+	puts $csv_fd "$value_sn,$value_tx,$value_rx,$value_rssi"
+	db eval "INSERT INTO CPK(SN,throughput_tx,throughput_rx,rssi) values('$value_sn','$value_tx','$value_rx','$value_rssi')"
+}
+
+close $csv_fd
