@@ -1,5 +1,3 @@
-
-
 set ::dirRaw "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/01_RAW"
 set ::dirReport "C:/testlog/WDO_PARSER_RAW/02_REPORT_MAY/02_REPORT"
 
