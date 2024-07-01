@@ -21,39 +21,39 @@ ITEM C
 13 : CE : IP
 
 ITEM D
-13 : DA : CPU_IDLE_ALL
-14 : DB : CPU_IDLE_CORE_0
-15 : DC : CPU_IDLE_CORE_1
-16 : DD : CPU_IDLE_CORE_2
-17 : DE : CPU_IDLE_CORE_3
+14 : DA : CPU_IDLE_ALL
+15 : DB : CPU_IDLE_CORE_0
+16 : DC : CPU_IDLE_CORE_1
+17 : DD : CPU_IDLE_CORE_2
+18 : DE : CPU_IDLE_CORE_3
 
 ITEM E
-18 : EA : MEM_TOTAL
-19 : EB : MEM_USED
-20 : EC : MEM_FREE
+19 : EA : MEM_TOTAL
+20 : EB : MEM_USED
+21 : EC : MEM_FREE
 
 ITEM F
-21 : FA : PHYID1 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
-22 : FB : PHYID2 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
+22 : FA : PHYID1 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
+23 : FB : PHYID2 --> Check require (0110 is wrong) (GMW3172 define in chapter 3)
 
 ITEM G
-23 : GA : CPU_TEMPERATURE_0 --> -30C ~ 110C whole time.
-24 : GB : CPU_TEMPERATURE_1 --> -30C ~ 110C whole time.
-25 : GC : CPU_TEMPERATURE_2 --> -30C ~ 110C whole time.
-26 : GD : CPU_TEMPERATURE_3 --> -30C ~ 110C whole time.
-27 : GE : CPU_TEMPERATURE_4 --> -30C ~ 110C whole time.
-28 : GF : CPU_TEMPERATURE_5 --> -30C ~ 110C whole time.
-29 : GG : CPU_TEMPERATURE_6 --> -30C ~ 110C whole time.
+24 : GA : CPU_TEMPERATURE_0 --> -30C ~ 110C whole time.
+25 : GB : CPU_TEMPERATURE_1 --> -30C ~ 110C whole time.
+26 : GC : CPU_TEMPERATURE_2 --> -30C ~ 110C whole time.
+27 : GD : CPU_TEMPERATURE_3 --> -30C ~ 110C whole time.
+28 : GE : CPU_TEMPERATURE_4 --> -30C ~ 110C whole time.
+29 : GF : CPU_TEMPERATURE_5 --> -30C ~ 110C whole time.
+30 : GG : CPU_TEMPERATURE_6 --> -30C ~ 110C whole time.
 
 ITEM H
-30 : HA : Q3244_TEMPERATURE --> T1 PHY -40C ~ 140C whole time.
+31 : HA : Q3244_TEMPERATURE --> T1 PHY -40C ~ 140C whole time.
 
 ITEM I
-31 : IA : BASEBAND_TEMPERATURE -->  -30C ~ 105C
-32 : IB : RADIO_TEMPERATURE --> -20C ~ 100C
-33 : IC : RF_CHANNEL --> (REL, No need)
-34 : ID : RX_BEAN_INDEX --> (REL, No need)
-35 : IE : TX_BEAN_INDEX --> (REL, No need)
-36 : IF : RSSI --> (REL, No need) (5 point RSSI -50dBm) (1 point RSSI -65dBm)
-37 : IG : MCS --> (REL, No need)
-38 : IH : TX_POWER --> (REL, No need)
+32 : IA : BASEBAND_TEMPERATURE -->  -30C ~ 105C
+33 : IB : RADIO_TEMPERATURE --> -20C ~ 100C
+34 : IC : RF_CHANNEL --> (REL, No need)
+35 : ID : RX_BEAN_INDEX --> (REL, No need)
+36 : IE : TX_BEAN_INDEX --> (REL, No need)
+37 : IF : RSSI --> (REL, No need) (5 point RSSI -50dBm) (1 point RSSI -65dBm)
+38 : IG : MCS --> (REL, No need)
+39 : IH : TX_POWER --> (REL, No need)
