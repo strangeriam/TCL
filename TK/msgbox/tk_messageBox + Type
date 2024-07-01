@@ -5,3 +5,5 @@ proc f_msg_popup {info {Type "message"} } {
 f_msg_popup "Fail SSH DUT !!!"
 
 ## 跳出訊息框, 顯示 Fail SSH DUT !!!
+
+-icon : error, info, question or warning
