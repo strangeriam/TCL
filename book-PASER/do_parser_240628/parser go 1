@@ -1,0 +1,111 @@
+proc _f_parser {} {
+		set d_time [_f_LTIME]
+
+		## ==================
+		set parserCountA [llength [_f_ReadFile $::existParser]]
+
+		foreach fname [_f_GetFilePaths $::dirCollector -expectedFiles *.csv] {
+				set parserNamef [file tail $fname]
+
+				if {[catch $parserNamef]} {
+						if { ![regexp $parserNamef [_f_ReadFile $::existParser]] } {
+								_f_WriteFile $::existParser a+ $parserNamef\n
+						}
+				}
+		}
+
+		set parserCountB [expr [llength [_f_ReadFile $::existParser]] - $parserCountA]
+		## ==================
+
+		if {$parserCountB != 0 } {
+				f_parserGO
+		} else {
+				# set msgTitle "Information"
+				# set pic ""
+				# set msgEnglish 	"No Need to update Parser. Press PASS."
+				# set msgChinese 	"無需更新 Parser. 點選 PASS."
+				# _f_Client_SelectUI "$msgTitle\n$msgEnglish\n$msgChinese" PassOnly $pic
+		}
+
+		set timeSpend [expr {[_f_LTIME] - $d_time}]
+		puts "Time Spend: $timeSpend"
+		_f_modify_listmode_testitem 18 "Spend $timeSpend sec" gray
+
+		return 1
+}
+
+proc f_parserGO {} { uplevel {
+		# set ::dirCollector "C:/testlog/WDO_PARSER_RAW/04_PARSER/03_COLLECTOR/03_COLLECTOR_240626_165201"
+
+		foreach {thisfile} [glob -no $::dirCollector/*.csv] {
+				set filename [file tail $thisfile]
+				puts "filename : $filename"
+				set data [_f_ReadFile $thisfile]
+
+				regexp -linestop {.*J11:PWON.*} $data tag1_pwon
+				regexp -linestop {.*J12:PWOFF.*} $data tag2_pwoff
+
+				set tag1_pwon [lindex [split $tag1_pwon ,] 0]
+				set tag2_pwoff [lindex [split $tag2_pwoff ,] 0]
+
+				# puts "tag1_pwon : $tag1_pwon"
+				# puts "tag2_pwoff : $tag2_pwoff"
+
+				set datalist [regexp -all -inline -- {[^\n]+} $data]
+
+				foreach dd $datalist {
+						if { [string first CU_INDEX $dd] >= 0 } { continue }
+						set dlist [split $dd ,]
+
+						set CU_INDEX [lindex $dlist 0]
+						set CU_MAC [lindex $dlist 3]
+						set CU_WDO [lindex $dlist 4]
+						set CU_CURRENT [lindex $dlist 5]
+						set PW_VOLT [lindex $dlist 6]
+						set MEM_RESULT [lindex $dlist 10]
+						set IPERF_RESULT [lindex $dlist 11]
+
+						set PHYID1 [lindex $dlist 21]
+						set PHYID2 [lindex $dlist 22]
+
+						set CPU_TEMPERATURE_0 [lindex $dlist 23]
+						set CPU_TEMPERATURE_1 [lindex $dlist 24]
+						set CPU_TEMPERATURE_2 [lindex $dlist 25]
+						set CPU_TEMPERATURE_3 [lindex $dlist 26]
+						set CPU_TEMPERATURE_4 [lindex $dlist 27]
+						set CPU_TEMPERATURE_5 [lindex $dlist 28]
+						set CPU_TEMPERATURE_6 [lindex $dlist 29]
+
+						set Q3244_TEMPERATURE [lindex $dlist 30]
+
+						set BASEBAND_TEMPERATURE [lindex $dlist 31]
+						set RADIO_TEMPERATURE [lindex $dlist 32]
+
+						# puts \n\n
+						# puts "CU_INDEX : $CU_INDEX \(ON: $tag1_pwon . OFF: $tag2_pwoff\)"
+						# puts "CU_MAC : $CU_MAC"
+						# puts "CU_CURRENT : $CU_CURRENT"
+						# puts "MEM_RESULT : $MEM_RESULT"
+						# puts "IPERF_RESULT : $IPERF_RESULT"
+
+						# puts "PHYID1 : $PHYID1"
+						# puts "PHYID2 : $PHYID2"
+
+						# puts "CPU_TEMPERATURE_0 : $CPU_TEMPERATURE_0"
+						# puts "CPU_TEMPERATURE_1 : $CPU_TEMPERATURE_1"
+						# puts "CPU_TEMPERATURE_2 : $CPU_TEMPERATURE_2"
+						# puts "CPU_TEMPERATURE_3 : $CPU_TEMPERATURE_3"
+						# puts "CPU_TEMPERATURE_4 : $CPU_TEMPERATURE_4"
+						# puts "CPU_TEMPERATURE_5 : $CPU_TEMPERATURE_5"
+						# puts "CPU_TEMPERATURE_6 : $CPU_TEMPERATURE_6"
+
+						# puts "Q3244_TEMPERATURE : $Q3244_TEMPERATURE"
+
+						# puts "BASEBAND_TEMPERATURE : $BASEBAND_TEMPERATURE"
+						# puts "RADIO_TEMPERATURE : $RADIO_TEMPERATURE"
+						# after 1000
+
+						if {$CU_INDEX == $tag2_pwoff} { break }
+				}
+		}
+}}
