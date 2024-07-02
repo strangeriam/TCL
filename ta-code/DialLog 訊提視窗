@@ -11,7 +11,7 @@ _f_Client_SelectUI "$msgTitle\n$msgEnglish\n$msgChinese" PassOnly $pic
 # =========
 set this_select_1 [_f_Client_SelectUI "$msgEnglish\n$msgChinese" PassFail $jpg]
 switch $this_select_1 {
-				0 		{ set tryResult FAIL ; break }
-				1 		{ set tryResult PASS }
-				default { usermsg "unexpectreturn $this_select_1 for clearbutton" ; exit }
+	0 	{ set tryResult FAIL ; break }
+	1 	{ set tryResult PASS }
+	default { usermsg "unexpectreturn $this_select_1 for clearbutton" ; exit }
 }
