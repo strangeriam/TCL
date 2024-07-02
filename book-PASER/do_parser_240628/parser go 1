@@ -1,111 +1,303 @@
 proc _f_parser {} {
 		set d_time [_f_LTIME]
 
-		## ==================
 		set parserCountA [llength [_f_ReadFile $::existParser]]
 
 		foreach fname [_f_GetFilePaths $::dirCollector -expectedFiles *.csv] {
-				set parserNamef [file tail $fname]
+			set parserNamef [file tail $fname]
 
-				if {[catch $parserNamef]} {
-						if { ![regexp $parserNamef [_f_ReadFile $::existParser]] } {
-								_f_WriteFile $::existParser a+ $parserNamef\n
-						}
+			if {[catch $parserNamef]} {
+				if { ![regexp $parserNamef [_f_ReadFile $::existParser]] } {
+					_f_WriteFile $::existParser a+ $parserNamef\n
 				}
+			}
 		}
 
 		set parserCountB [expr [llength [_f_ReadFile $::existParser]] - $parserCountA]
-		## ==================
+
+		f_parser_spec
 
 		if {$parserCountB != 0 } {
-				f_parserGO
-		} else {
-				# set msgTitle "Information"
-				# set pic ""
-				# set msgEnglish 	"No Need to update Parser. Press PASS."
-				# set msgChinese 	"無需更新 Parser. 點選 PASS."
-				# _f_Client_SelectUI "$msgTitle\n$msgEnglish\n$msgChinese" PassOnly $pic
-		}
+			foreach {thisfile} [glob -no $::dirCollector/*.csv] {
+					set filename [file tail $thisfile]
+					# puts "filename : $filename"
+					set data [_f_ReadFile $thisfile]
 
-		set timeSpend [expr {[_f_LTIME] - $d_time}]
-		puts "Time Spend: $timeSpend"
-		_f_modify_listmode_testitem 18 "Spend $timeSpend sec" gray
+					regsub -all -line "CU_INDEX.*" 	$data "" data
+					regsub -all -line "SPEC_MAX.*" 	$data "" data
+					regsub -all -line "SPEC_MIN.*" 	$data "" data
+					regsub -all -line "CODE.*" 		$data "" data
 
-		return 1
-}
+					regexp -linestop {.*J11:PWON.*} $data tag1_pwon
+					regexp -linestop {.*J12:PWOFF.*} $data tag2_pwoff
 
-proc f_parserGO {} { uplevel {
-		# set ::dirCollector "C:/testlog/WDO_PARSER_RAW/04_PARSER/03_COLLECTOR/03_COLLECTOR_240626_165201"
+					set tag1_pwon [lindex [split $tag1_pwon ,] 0]
+					set tag2_pwoff [lindex [split $tag2_pwoff ,] 0]
 
-		foreach {thisfile} [glob -no $::dirCollector/*.csv] {
-				set filename [file tail $thisfile]
-				puts "filename : $filename"
-				set data [_f_ReadFile $thisfile]
+					# puts "tag1_pwon : $tag1_pwon"
+					# puts "tag2_pwoff : $tag2_pwoff"
 
-				regexp -linestop {.*J11:PWON.*} $data tag1_pwon
-				regexp -linestop {.*J12:PWOFF.*} $data tag2_pwoff
+					set datalist [regexp -all -inline -- {[^\n]+} $data]
 
-				set tag1_pwon [lindex [split $tag1_pwon ,] 0]
-				set tag2_pwoff [lindex [split $tag2_pwoff ,] 0]
-
-				# puts "tag1_pwon : $tag1_pwon"
-				# puts "tag2_pwoff : $tag2_pwoff"
-
-				set datalist [regexp -all -inline -- {[^\n]+} $data]
-
-				foreach dd $datalist {
+					foreach dd $datalist {
 						if { [string first CU_INDEX $dd] >= 0 } { continue }
 						set dlist [split $dd ,]
 
 						set CU_INDEX [lindex $dlist 0]
-						set CU_MAC [lindex $dlist 3]
-						set CU_WDO [lindex $dlist 4]
-						set CU_CURRENT [lindex $dlist 5]
-						set PW_VOLT [lindex $dlist 6]
-						set MEM_RESULT [lindex $dlist 10]
-						set IPERF_RESULT [lindex $dlist 11]
 
-						set PHYID1 [lindex $dlist 21]
-						set PHYID2 [lindex $dlist 22]
+						if { $CU_INDEX > $tag1_pwon } {
+								set CU_DATE [lindex $dlist 1]
+								set CU_TIME [lindex $dlist 2]
 
-						set CPU_TEMPERATURE_0 [lindex $dlist 23]
-						set CPU_TEMPERATURE_1 [lindex $dlist 24]
-						set CPU_TEMPERATURE_2 [lindex $dlist 25]
-						set CPU_TEMPERATURE_3 [lindex $dlist 26]
-						set CPU_TEMPERATURE_4 [lindex $dlist 27]
-						set CPU_TEMPERATURE_5 [lindex $dlist 28]
-						set CPU_TEMPERATURE_6 [lindex $dlist 29]
+								set CU_MAC [lindex $dlist 3]
+								set CU_WDO [lindex $dlist 4]
 
-						set Q3244_TEMPERATURE [lindex $dlist 30]
+								set CU_CURRENT [lindex $dlist 5]
+								set PW_VOLT [lindex $dlist 6]
 
-						set BASEBAND_TEMPERATURE [lindex $dlist 31]
-						set RADIO_TEMPERATURE [lindex $dlist 32]
+								set MEM_RESULT [lindex $dlist 9]
+								set IPERF_RESULT [lindex $dlist 10]
 
-						# puts \n\n
-						# puts "CU_INDEX : $CU_INDEX \(ON: $tag1_pwon . OFF: $tag2_pwoff\)"
-						# puts "CU_MAC : $CU_MAC"
-						# puts "CU_CURRENT : $CU_CURRENT"
-						# puts "MEM_RESULT : $MEM_RESULT"
-						# puts "IPERF_RESULT : $IPERF_RESULT"
+								set PHYID1 [lindex $dlist 22]
+								set PHYID2 [lindex $dlist 23]
 
-						# puts "PHYID1 : $PHYID1"
-						# puts "PHYID2 : $PHYID2"
+								set CPU_TEMPERATURE_0 [lindex $dlist 24]
+								set CPU_TEMPERATURE_1 [lindex $dlist 25]
+								set CPU_TEMPERATURE_2 [lindex $dlist 26]
+								set CPU_TEMPERATURE_3 [lindex $dlist 27]
+								set CPU_TEMPERATURE_4 [lindex $dlist 28]
+								set CPU_TEMPERATURE_5 [lindex $dlist 29]
+								set CPU_TEMPERATURE_6 [lindex $dlist 30]
 
-						# puts "CPU_TEMPERATURE_0 : $CPU_TEMPERATURE_0"
-						# puts "CPU_TEMPERATURE_1 : $CPU_TEMPERATURE_1"
-						# puts "CPU_TEMPERATURE_2 : $CPU_TEMPERATURE_2"
-						# puts "CPU_TEMPERATURE_3 : $CPU_TEMPERATURE_3"
-						# puts "CPU_TEMPERATURE_4 : $CPU_TEMPERATURE_4"
-						# puts "CPU_TEMPERATURE_5 : $CPU_TEMPERATURE_5"
-						# puts "CPU_TEMPERATURE_6 : $CPU_TEMPERATURE_6"
+								set Q3244_TEMPERATURE [lindex $dlist 31]
 
-						# puts "Q3244_TEMPERATURE : $Q3244_TEMPERATURE"
+								set BASEBAND_TEMPERATURE [lindex $dlist 32]
+								set RADIO_TEMPERATURE [lindex $dlist 33]
 
-						# puts "BASEBAND_TEMPERATURE : $BASEBAND_TEMPERATURE"
-						# puts "RADIO_TEMPERATURE : $RADIO_TEMPERATURE"
-						# after 1000
-
-						if {$CU_INDEX == $tag2_pwoff} { break }
-				}
+								#; ============================================
+								#; Juge PASS/FAIL
+								#; ============================================
+								f_parser_judge
+								# f_puts_data
+								if {$CU_INDEX == $tag2_pwoff} { break }
+						}
+					}
+			}
 		}
+
+		#; ====
+		#; END
+		#; ====
+		set timeSpend [expr {[_f_LTIME] - $d_time}]
+		# puts "Time Spend: $timeSpend"
+		_f_modify_listmode_testitem 18 "Spend $timeSpend sec" gray
+		return 1
+}
+
+proc f_parser_spec {} { uplevel {
+		set sCUmin [_f_vini_profilerd PARSER BA_CURRENT_MIN]
+		set sCUmax [_f_vini_profilerd PARSER BA_CURRENT_MAX_UMAX]
+
+		set sVOLTmax [_f_vini_profilerd PARSER BB_VOLT_MAX]
+		set sVOLTmin [_f_vini_profilerd PARSER BB_VOLT_MIN]
+
+		set sMEM [_f_vini_profilerd PARSER CA_MEM]
+		set sIPERF [_f_vini_profilerd PARSER CB_IPERF]
+		set sIPERFtxrx "{TX or RX}"
+		set sIPERFthroug "{1800 Mbps}"
+
+		set sPHYID1 [_f_vini_profilerd PARSER FA_PHYID1]
+		set sPHYID2 [_f_vini_profilerd PARSER FB_PHYID2]
+
+		set sCPUTmax [_f_vini_profilerd PARSER GA_CPU_TEMPERATURE_MAX]
+		set sCPUTmin [_f_vini_profilerd PARSER GA_CPU_TEMPERATURE_MIN]
+
+		set sQ3244Tmax [_f_vini_profilerd PARSER HA_Q3244_TEMPERATURE_MAX]
+		set sQ3244Tmin [_f_vini_profilerd PARSER HA_Q3244_TEMPERATURE_MIN]
+
+		set sBBTmax [_f_vini_profilerd PARSER IA_BASEBAND_TEMPERATURE_MAX]
+		set sBBTmin [_f_vini_profilerd PARSER IA_BASEBAND_TEMPERATURE_MIN]
+
+		set sRFmax [_f_vini_profilerd PARSER IB_RF_TEMPERATURE_MAX]
+		set sRFmin [_f_vini_profilerd PARSER IB_RF_TEMPERATURE_MIN]
+
+		return 1
+}}
+
+proc f_parser_judge {} { uplevel {
+		set msgTime "Time: $CU_DATE $CU_TIME ($CU_INDEX)"
+
+		if {[catch $CU_CURRENT]} {
+			if { $CU_CURRENT < $sCUmin || $CU_CURRENT > $sCUmax} {
+				set msgTitle "WDO $CU_WDO\nBA . CU_CURRENT"
+				set msgSpec "Require: $sCUmin < Current < $sCUmax"
+				set msgResult "Result: $CU_CURRENT"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $PW_VOLT]} {
+			if { $PW_VOLT < $sVOLTmin || $PW_VOLT > $sVOLTmax} {
+				set msgTitle "WDO $CU_WDO\nBB . PW_VOLT"
+				set msgSpec "Require: $sVOLTmin < Volt < $sVOLTmax"
+				set msgResult "Result: $PW_VOLT"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $MEM_RESULT]} {
+			if { $MEM_RESULT != $sMEM } {
+				set msgTitle "WDO $CU_WDO\nCA . MEM"
+				set msgSpec "Require: $sMEM"
+				set msgResult "Result: $MEM_RESULT"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $IPERF_RESULT]} {
+			if { $IPERF_RESULT != $sIPERF } {
+				set msgTitle "WDO $CU_WDO\nCB . IPERF"
+				set msgSpec "Require: $sIPERF"
+				set msgResult "Result: $IPERF_RESULT"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $PHYID1]} {
+			if { $PHYID1 != $sPHYID1 } {
+				set msgTitle "WDO $CU_WDO\nFA . PHYID1"
+				set msgSpec "Require: $sPHYID1"
+				set msgResult "Result: $PHYID1"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $PHYID2]} {
+			if { $PHYID2 != $sPHYID2 } {
+				set msgTitle "WDO $CU_WDO\nFB . PHYID2"
+				set msgSpec "Require: $sPHYID2"
+				set msgResult "Result: $PHYID2"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_0]} {
+			if { $CPU_TEMPERATURE_0 < $sCPUTmin || $CPU_TEMPERATURE_0 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGA . CPU_TEMPERATURE_0"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_0 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_0"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_1]} {
+			if { $CPU_TEMPERATURE_1 < $sCPUTmin || $CPU_TEMPERATURE_1 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGB . CPU_TEMPERATURE_1"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_1 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_1"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_2]} {
+			if { $CPU_TEMPERATURE_2 < $sCPUTmin || $CPU_TEMPERATURE_2 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGC . CPU_TEMPERATURE_2"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_2 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_2"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_3]} {
+			if { $CPU_TEMPERATURE_3 < $sCPUTmin || $CPU_TEMPERATURE_3 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGD . CPU_TEMPERATURE_3"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_3 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_3"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_4]} {
+			if { $CPU_TEMPERATURE_4 < $sCPUTmin || $CPU_TEMPERATURE_4 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGE . CPU_TEMPERATURE_4"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_4 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_4"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_5]} {
+			if { $CPU_TEMPERATURE_5 < $sCPUTmin || $CPU_TEMPERATURE_5 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGF . CPU_TEMPERATURE_5"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_5 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_5"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $CPU_TEMPERATURE_6]} {
+			if { $CPU_TEMPERATURE_6 < $sCPUTmin || $CPU_TEMPERATURE_6 > $sCPUTmax} {
+				set msgTitle "WDO $CU_WDO\nGG . CPU_TEMPERATURE_6"
+				set msgSpec "Require: $sCPUTmin < CPU_TEMPERATURE_6 < $sCPUTmax"
+				set msgResult "Result: $CPU_TEMPERATURE_6"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $Q3244_TEMPERATURE]} {
+			if { $Q3244_TEMPERATURE < $sQ3244Tmin || $Q3244_TEMPERATURE > $sQ3244Tmax} {
+				set msgTitle "WDO $CU_WDO\nHA . Q3244_TEMPERATURE"
+				set msgSpec "Require: $sQ3244Tmin < Q3244_TEMPERATURE < $sQ3244Tmax"
+				set msgResult "Result: $Q3244_TEMPERATURE"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $BASEBAND_TEMPERATURE]} {
+			if { $BASEBAND_TEMPERATURE < $sBBTmin || $BASEBAND_TEMPERATURE > $sBBTmax} {
+				set msgTitle "WDO $CU_WDO\nIA . BASEBAND_TEMPERATURE"
+				set msgSpec "Require: $sBBTmin < BASEBAND_TEMPERATURE < $sBBTmax"
+				set msgResult "Result: $BASEBAND_TEMPERATURE"
+				_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+			}
+		}
+
+		if {[catch $RADIO_TEMPERATURE]} {
+			if { $RADIO_TEMPERATURE != "N/A"} {
+				if { $RADIO_TEMPERATURE < $sRFmin || $RADIO_TEMPERATURE > $sRFmax} {
+					set msgTitle "WDO $CU_WDO\nIA . RADIO_TEMPERATURE"
+					set msgSpec "Require: $sRFmin < RADIO_TEMPERATURE < $sRFmax"
+					set msgResult "Result: $RADIO_TEMPERATURE"
+					_f_Client_SelectUI "$msgTime\n$msgSpec\n\n$msgResult" PassOnly "TITLE:$msgTitle" "TXT:Continue"
+				}
+			}
+		}
+}}
+
+proc f_puts_data {} { uplevel {
+		puts \n\n
+		puts "CU_INDEX : $CU_INDEX \(ON: $tag1_pwon . OFF: $tag2_pwoff\)"
+		puts "WDO : $CU_WDO"
+		puts "CU_MAC : $CU_MAC"
+		puts "CU_CURRENT : $CU_CURRENT"
+		puts "PW_VOLT : $PW_VOLT"
+		puts "MEM_RESULT : $MEM_RESULT"
+		puts "IPERF_RESULT : $IPERF_RESULT"
+
+		puts "PHYID1 : $PHYID1"
+		puts "PHYID2 : $PHYID2"
+
+		puts "CPU_TEMPERATURE_0 : $CPU_TEMPERATURE_0"
+		puts "CPU_TEMPERATURE_1 : $CPU_TEMPERATURE_1"
+		puts "CPU_TEMPERATURE_2 : $CPU_TEMPERATURE_2"
+		puts "CPU_TEMPERATURE_3 : $CPU_TEMPERATURE_3"
+		puts "CPU_TEMPERATURE_4 : $CPU_TEMPERATURE_4"
+		puts "CPU_TEMPERATURE_5 : $CPU_TEMPERATURE_5"
+		puts "CPU_TEMPERATURE_6 : $CPU_TEMPERATURE_6"
+
+		puts "Q3244_TEMPERATURE : $Q3244_TEMPERATURE"
+
+		puts "BASEBAND_TEMPERATURE : $BASEBAND_TEMPERATURE"
+		puts "RADIO_TEMPERATURE : $RADIO_TEMPERATURE"
+		_f_mspause 200
 }}
