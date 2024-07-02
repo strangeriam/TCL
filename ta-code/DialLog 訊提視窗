@@ -15,3 +15,12 @@ switch $this_select_1 {
 	1 	{ set tryResult PASS }
 	default { usermsg "unexpectreturn $this_select_1 for clearbutton" ; exit }
 }
+
+# Example 3
+# =========
+1. TITLE: Tile 修改為 WRONGING...
+2. TXT: Button 修改為 Continue
+3. FUN: 為起頭者 . 表示即將有一個 簡短的動作要執行.
+
+_f_Client_SelectUI "這是上面內容\nAAA\nBBB\nCCC" PassOnly "TITLE:WRONGING..." "TXT:Continue"
+
