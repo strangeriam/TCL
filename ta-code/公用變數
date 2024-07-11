@@ -1,1 +1,4 @@
 絕對路徑: ${::ASPECTPATH}
+
+#; 開始測試時間.
+_f_vini_profilerd SFIS start_time
