@@ -2,3 +2,10 @@
 
 #; 開始測試時間.
 _f_vini_profilerd SFIS start_time
+
+#; 總使用時間.
+_f_date_time_diff [_f_vini_profilerd SFIS start_time]
+
+#; 寫入時間
+_f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
+_f_vini_profilerd STATUS SpentTime
