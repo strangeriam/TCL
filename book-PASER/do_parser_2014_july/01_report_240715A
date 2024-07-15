@@ -1,0 +1,84 @@
+#; ============================================
+#; POWER Log Example
+#; filename: pws_20240619_083202.log
+#; content:  20240619,083300,+14.795,+0.351
+#; ============================================
+proc _f_report_1_power {} {
+		set d_time [_f_LTIME]
+
+		set rawDir 		"$::dirRaw"
+		set reportDir 	"$::dirReport/report_1_power"
+		if { ![file exist $reportDir] } { file mkdir $reportDir }
+
+		set workDir "$reportDir/tmp"
+		if { [file exist $workDir] } { file delete -force $workDir }
+		if { ![file exist $workDir] } { file mkdir $workDir }
+
+		set parserCountA [llength [_f_ReadFile $::existReportPower]]
+
+		#; ============================================
+		#; Layer 1: RAW_LOOP_1_240513_134916
+		#; ============================================
+		set dataDir ""
+		set data ""
+		foreach dataDir [glob -nocomplain -types d -directory $rawDir *] {
+
+			#; ============================================
+			#; Layer 2: log_1_pws
+			#; filename: pws_20240619_083202.csv
+			#; ============================================
+			foreach fname [_f_GetFilePaths $dataDir/log_1_pws -expectedFiles *.csv] {
+				set parserNamef [file tail $fname]
+				# puts "parserNamef : $parserNamef"
+
+				if {[catch $parserNamef]} {
+					if { ![regexp $parserNamef [_f_ReadFile $::existReportPower]] } {
+						# puts "Lu-240625: Exist Check \(New\): $fname"
+						_f_WriteFile $::existReportPower a+ $parserNamef\n
+
+						set infile [_f_ReadFile $fname]
+						foreach line [regexp -all -inline -- {[^\n]+} $infile] {
+							set line1 [split $line ,]
+							if { [llength $line1] < 4 } { continue }
+
+							set PWdate [lindex $line1 0]
+							set PWtime [lindex $line1 1]
+							set PWvolt [string trim [lindex $line1 2]]
+							set PWcurr [string trim [lindex $line1 3]]
+
+							set PWsec [clock scan "$PWdate\_$PWtime" -format "%Y%m%d_%H%M%S"]
+							append data "$PWsec,$PWdate,$PWtime,$PWvolt,$PWcurr\n"
+
+							if { $::noWaitTurbo == 0 } { _f_mspause 1 }
+						}
+
+						_f_WriteFile "${workDir}/report_1_power\_tmp.csv" a+ $data
+					}
+				}
+			}
+		}
+
+		#; ============================================
+		set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+
+		foreach fname [glob -no -directory $workDir -tails *.csv] {
+				set reportFile "$reportDir/report_1_power\_$build_date_time.csv"
+				_f_WriteFile $reportFile w "PW_SEC,PW_DATE,PW_TIME,PW_VOLT,PW_CURRENT\n"
+
+				set inTMP [_f_ReadFile ${workDir}/$fname]
+				_f_WriteFile $reportFile a+ $inTMP
+		}
+
+		#; ============================================
+		#; 刪除操作暫用的 tmp 資寮夾和檔案.
+		#; ============================================
+		if { [file exist $workDir] } { file delete -force $workDir }
+
+		#; ====
+		#; END
+		#; ====
+		set parserCountB [expr [llength [_f_ReadFile $::existReportPower]] - $parserCountA]
+		set timeSpend [expr {[_f_LTIME] - $d_time}]
+		_f_modify_listmode_testitem 12 "New $parserCountB . Spend $timeSpend sec" gray
+		return 1
+}
