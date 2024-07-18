@@ -1,3 +1,7 @@
+
+tk_messageBox -message "FAIL" -icon error -type ok
+
+
 ## =======================================================
 set answer [tk_messageBox -message "Really quit?" \
             -icon question -type yesno \
