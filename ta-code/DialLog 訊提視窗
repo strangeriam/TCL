@@ -24,3 +24,6 @@ switch $this_select_1 {
 
 _f_Client_SelectUI "這是上面內容\nAAA\nBBB\nCCC" PassOnly "TITLE:WRONGING..." "TXT:Continue"
 
+# Example 4
+# =========
+usermsg "User Select Skip"
