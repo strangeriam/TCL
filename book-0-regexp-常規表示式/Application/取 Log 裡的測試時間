@@ -1,0 +1,17 @@
+步驟 1. 讀取 Log 檔.
+set ::sourceDir C:/testlog/trytryLu/sourceLog
+set ::targetDir C:/testlog/trytryLu/targetLog
+
+set ::build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set ::build_date [lindex [string map {_ " "} $::build_date_time] 0]
+set ::build_time [lindex [string map {_ " "} $::build_date_time] 1]
+
+set ::target_dir "$::targetDir\_$::build_date_time"
+set ::tmpDir "$::target_dir/tmp"
+
+if { ![file exist $::target_dir] } { file mkdir $::target_dir }
+if { ![file exist $::tmpDir] } { file mkdir $::tmpDir }
+
+set file [_f_GetFilePaths $::sourceDir -expectedFiles *.cap]
+set file [lindex $file 0]
+set infile [_f_ReadFile $file]
