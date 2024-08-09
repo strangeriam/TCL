@@ -12,27 +12,54 @@ o  00:09:02    135             _f_download_apcode_ec140                       o
 o  00:11:17    186             _f_kwikbit_code_download                       o
 o  00:14:23    1               _f_kwikbit_code_version                        o
 
+## ==============================================================================
+set sourceDir C:/testlog/trytryLu/sourceLog
+set targetDir C:/testlog/trytryLu/targetLog
 
-步驟 1, 讀取 Log 檔裡的文字內容.
-set ::sourceDir C:/testlog/trytryLu/sourceLog
-set ::targetDir C:/testlog/trytryLu/targetLog
+set build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+set targetDir $targetDir\_$build_date_time
+if { ![file exist $targetDir] } { file mkdir $targetDir }
 
-set ::build_date_time [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
-set ::build_date [lindex [string map {_ " "} $::build_date_time] 0]
-set ::build_time [lindex [string map {_ " "} $::build_date_time] 1]
+set report "$targetDir/report.csv"
+_f_WriteFile $report w "filename,testCase,spendTime\n"
 
-set ::target_dir "$::targetDir\_$::build_date_time"
-set ::tmpDir "$::target_dir/tmp"
+foreach fname [_f_GetFilePaths $sourceDir -expectedFiles *.cap] {
+		set filename [file tail $fname]
+		puts "filename : $filename"
 
-if { ![file exist $::target_dir] } { file mkdir $::target_dir }
-if { ![file exist $::tmpDir] } { file mkdir $::tmpDir }
+		set infile [_f_ReadFile $fname]
+		set infile [regexp -all -inline {Footer Information.*} $infile]
+		# puts "infile : $infile"
 
-步驟 2, 只取一個檔做測試.
-set file [lindex [_f_GetFilePaths $::sourceDir -expectedFiles *.cap] 0]
-set allfile [_f_ReadFile $file]
+		set lsfile [regexp -all -inline -- {_f_[0-9a-z_]+} $infile]
+		set numfile [llength $lsfile]
+		puts "numfile : $numfile"
 
-步驟 3, 取得所需內容範圍.
-set infile [regexp -all -inline {Footer Information.*} $allfile]
+		set total [expr [llength $lsfile] -1]
+		puts "total : $total"
+
+		for {set i 0} {$i <= $total} {incr i} {
+			regexp -linestop .*[lindex $lsfile $i].* $infile dataTest
+			puts "dataTest : $dataTest"
+
+			set spendTime 	[lindex $dataTest 2]
+			set testCase 	[lindex $dataTest 3]
+
+			puts \n\n\n
+			puts "filename : $filename"
+			puts "numfile : $numfile"
+			puts "spendTime : $spendTime"
+			puts "testCase : $testCase"
+			puts \n\n\n
+
+			_f_mspause 200
+			# append data "$filename,$testCase,$spendTime\n"
+
+			set data "$filename,$testCase,$spendTime\n"
+			_f_WriteFile $report a+ $data
+		}
+}
+## ==============================================================================
 
 輸出
 {Footer Information                                 *
