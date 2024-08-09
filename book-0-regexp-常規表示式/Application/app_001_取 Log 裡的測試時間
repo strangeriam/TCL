@@ -13,9 +13,7 @@ o  00:11:17    186             _f_kwikbit_code_download                       o
 o  00:14:23    1               _f_kwikbit_code_version                        o
 
 
-步驟 1. 
-
-讀取 Log 檔.
+步驟 1, 讀取 Log 檔裡的文字內容.
 set ::sourceDir C:/testlog/trytryLu/sourceLog
 set ::targetDir C:/testlog/trytryLu/targetLog
 
@@ -29,9 +27,43 @@ set ::tmpDir "$::target_dir/tmp"
 if { ![file exist $::target_dir] } { file mkdir $::target_dir }
 if { ![file exist $::tmpDir] } { file mkdir $::tmpDir }
 
-set file [_f_GetFilePaths $::sourceDir -expectedFiles *.cap]
-set file [lindex $file 0]
-set infile [_f_ReadFile $file]
+步驟 2, 只取一個檔做測試.
+set file [lindex [_f_GetFilePaths $::sourceDir -expectedFiles *.cap] 0]
+set allfile [_f_ReadFile $file]
+
+步驟 3, 取得所需內容範圍.
+set infile [regexp -all -inline {Footer Information.*} $allfile]
+
+輸出
+{Footer Information                                 *
+******************************************************
+* Finish Date and Time : 2024/08/07 00:14:24         *
+* Test Status: PASS                                  *
+******************************************************
+
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o  Test_Start  Spent_Seconds   Test_Item                                      o
+o --------------------------------------------------------------------------  o
+o  00:05:35    21              _f_power_on_uboot_only                         o
+o  00:05:56    77              _f_diagcode_download_single                    o
+o  00:07:13    29              _f_reset_uboot_parameter                       o
+o  00:07:42    7               _f_go_to_bootloader                            o
+o  00:07:49    2               _f_check_uboot_version                         o
+o  00:07:51    26              _f_go_to_kernel_bootipq                        o
+o  00:08:17    1               _f_check_fw_version                            o
+o  00:08:18    44              _f_power_on_kernel_ssh                         o
+o  00:09:02    135             _f_download_apcode_ec140                       o
+o  00:11:17    186             _f_kwikbit_code_download                       o
+o  00:14:23    1               _f_kwikbit_code_version                        o
+o --------------------------------------------------------------------------  o
+o  Total 11 test items spent 529 seconds                                      o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+===================== Total Spent Time : 00:08:52 =====================
+===================== Capture end 2024/08/07 00:14:25 =====================
+}
+
+步驟 4, 取得所需內容.
+
 
 
 ==============================
