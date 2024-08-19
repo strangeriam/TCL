@@ -1,0 +1,1 @@
+set ::OBT [_f_vini_profilerd Equipment PowerMeter_Interface_$::DUT_Num]
