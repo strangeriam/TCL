@@ -1,1 +1,33 @@
-set ::OBT [_f_vini_profilerd Equipment PowerMeter_Interface_$::DUT_Num]
+set ::OBT [_f_vini_profilerd POWER_METER PM_ADDR]
+_f_VISA_SCPI $::OBT ":FETCH?" float
+
+proc _f_VISA_SCPI {OBT {command {}} {tmp {}}} {
+
+		if { [regexp {ASRL} $OBT] || [regexp {TCPIP} $OBT] || [regexp {GPIB} $OBT] } {
+				set rm [visa::open-default-rm]
+				set vi [visa::open $rm "$OBT"]
+				fconfigure $vi -timeout 500
+
+				puts $vi $command
+				_f_termmsg_V1 "$OBT: $command"
+
+				if { [regexp {\?} $command] } {
+						set result [gets $vi]
+
+						if { $tmp eq "float" } {
+								close $vi
+								return [scan $result %20e]
+						} else {
+								close $vi
+								return $result
+						}		 
+				}
+		}
+
+		if { [regexp {show} $OBT] } {
+				set rm [visa::open-default-rm]
+				set result [visa::find $rm "?*INSTR"]
+				unset rm
+				return $result
+		}
+}
