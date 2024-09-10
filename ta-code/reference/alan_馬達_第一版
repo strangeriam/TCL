@@ -1,0 +1,507 @@
+encoding system utf-8
+# package require cawt
+# package require comm
+# package require math::statistics
+;############################################################################
+;# 能看到此行字,你的編輯才是正確的.
+;# 能看到此行字，你的编辑才是正确的。
+;# することができますこの行を参照してください、あなたは編集が正しいです。
+;# Có thể nhìn thấy dòng này, bạn chỉnh sửa là chính xác.
+;############################################################################
+
+;############################################################################
+;# PROCEDURE NAME - _f_Main
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################ 
+proc _f_Main {} {
+	switch -regexp -- [_f_vini_profilerd SFIS ws_id] {
+		brd_file_scan { _f_Main_brd_file_scan }
+		evt_test { _f_Main_evt }
+		default { usermsg "wsid not expect" ; exit ;}
+	}
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_Main_brd_file_scan
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################ 
+proc _f_Main_brd_file_scan {} {
+	set ::screenbufferline 50000 ;# 設定console screen buffer 行數
+	_f_vini_profilewr STATUS LOCATION TEST
+	set ::Fail_Test_Process2 {_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: FAIL" * -nodisplaytime}
+	file mkdir ./Result/[_f_vini_profilerd SFIS ws_id]
+	while { 1 } {
+		_f_clear
+		;# ##############################################################################
+		;# 輸入 DUT 的 Info . 由 INIFILE 定義, 亦可自行 Define in tcl script.
+		;# ##############################################################################		
+		_f_ScanDutInfo 
+		;# ##############################################################################
+		;# 初始化必要之變數環境.
+		;# ##############################################################################			
+		_f_StartCountTestTime	
+		_f_termmsg_V2 "Header Information" "Product: [_f_vini_profilerd SFIS MODELNAME]\nWork Order: [_f_vini_profilerd SFIS lot_no]\nSTATION ID: [_f_vini_profilerd SFIS ws_id]\nSN: [_f_vini_profilerd SFIS SN]\nMAC: [_f_vini_profilerd SFIS MAC]\nTest Program Version: [_f_vini_profilerd SFIS program_ver]\nTest Date and Start Time: [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]" * -nodisplaytime		
+		;# ##############################################################################
+		;# SFIS 處理 
+		;# ##############################################################################		
+		if { ! [_f_shopfloor] } {
+			_f_capture off
+			continue
+		}
+		if { ! [_f_TestFunc _f_PingDUT "Ping DUT"] } {
+			continue
+		}
+		if { ! [_f_TestFunc _f_LoginDUT "Login DUT"] } {
+			continue
+		}
+		if { ! [_f_TestFunc _f_BrdFileScanTest "Brd File Scan Test"] } {
+			continue
+		}
+		# ##############################################################################
+		# PASS 處理  
+		# ##############################################################################		
+		_f_SetError
+		_f_sfis_Save_Test_Result P ""
+		_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: PASS" * -nodisplaytime
+		_f_capture off
+		_f_vini_profilewr STATUS TestFunc ""
+		_f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]		
+		upload_log_FTP $::capturefilename "" $::FTPLOG_SEND_GROUP
+		_f_sfis_Save_Test_Data
+	}
+}
+
+
+;############################################################################
+;# PROCEDURE NAME - _f_Main_evt
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################ 
+proc _f_Main_evt {} {
+	set ::screenbufferline 50000 ;# 設定console screen buffer 行數
+	_f_vini_profilewr STATUS LOCATION TEST
+	set ::Fail_Test_Process2 {_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: FAIL" * -nodisplaytime}
+	file mkdir ./Result/[_f_vini_profilerd SFIS ws_id]
+	
+	set motoretry 0
+	while 1 {
+		if { ! [_f_waitor "Please input serial No." $::COS3] } {
+			incr motoretry
+			if { $motoretry < 3 } {
+				_f_pause 3
+				_f_CreateNewConsole $::COS3 "./extapp/Thorlabs/Thorlabs.exe"
+				_f_pause 3
+				continue
+			}	
+			errormsg "Init Thorlabs Fail"
+			vwait xxx
+		}
+		_f_transmit [_f_vini_profilerd Setup SN]\n $::COS3
+		if { ! [_f_waitfor "Please input Channel." $::COS3] } {
+			incr motoretry
+			if { $motoretry < 3 } {
+				_f_pause 3
+				_f_CreateNewConsole $::COS3 "./extapp/Thorlabs/Thorlabs.exe"
+				_f_pause 3
+				continue
+			}		
+			errormsg "Init Thorlabs Fail"
+			vwait xxx
+		}	
+		_f_transmit 1\n $::COS3
+		if { ! [_f_waitfor "#" $::COS3] } {
+			incr motoretry
+			if { $motoretry < 3 } {
+				_f_pause 3
+				_f_CreateNewConsole $::COS3 "./extapp/Thorlabs/Thorlabs.exe"
+				_f_pause 3
+				continue
+			}		
+			errormsg "Init Thorlabs Fail"
+			vwait xxx
+		}
+		break
+	}
+	
+	while { 1 } {
+		_f_transmit 0\n $::COS3
+		if { ! [_f_waitfor "#" $::COS3] } {
+			errormsg "Init Thorlabs Fail"
+			vwait xxx
+		}
+		_f_clear
+		;# ##############################################################################
+		;# 輸入 DUT 的 Info . 由 INIFILE 定義, 亦可自行 Define in tcl script.
+		;# ##############################################################################		
+		_f_ScanDutInfo 
+		;# ##############################################################################
+		;# 初始化必要之變數環境.
+		;# ##############################################################################			
+		_f_StartCountTestTime	
+		_f_termmsg_V2 "Header Information" "Product: [_f_vini_profilerd SFIS MODELNAME]\nWork Order: [_f_vini_profilerd SFIS lot_no]\nSTATION ID: [_f_vini_profilerd SFIS ws_id]\nSN: [_f_vini_profilerd SFIS SN]\nMAC: [_f_vini_profilerd SFIS MAC]\nTest Program Version: [_f_vini_profilerd SFIS program_ver]\nTest Date and Start Time: [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]" * -nodisplaytime		
+		;# ##############################################################################
+		;# SFIS 處理 
+		;# ##############################################################################		
+		if { ! [_f_shopfloor] } {
+			_f_capture off
+			continue
+		}
+		usermsg "請確認轉盤角度是否歸零"
+		if { ! [_f_TestFunc _f_PingDUT "Ping DUT"] } {
+			continue
+		}
+		if { ! [_f_TestFunc _f_LoginDUT "Login DUT"] } {
+			continue
+		}
+		if { ! [_f_TestFunc _f_EvtTest "EVT Test"] } {
+			continue
+		}					
+		# ##############################################################################
+		# PASS 處理  
+		# ##############################################################################		
+		_f_SetError
+		_f_sfis_Save_Test_Result P ""
+		_f_termmsg_V2 "Footer Information" "Finish Date and Time : [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]\nTest Status: PASS" * -nodisplaytime
+		_f_capture off
+		_f_vini_profilewr STATUS TestFunc ""
+		_f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]		
+		upload_log_FTP $::capturefilename "" $::FTPLOG_SEND_GROUP
+		_f_sfis_Save_Test_Data
+	}
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_ScanDutInfo
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################ 
+proc _f_ScanDutInfo {} {
+	if { $::MaxDutNum == 1 } {
+		set ScanUnlockMsg ""
+	} else {
+		set ScanUnlockMsg DUT$::DUT_Num
+	}
+	switch [_f_vini_profilerd SFIS result] {
+		"PASS" { 
+			_f_Client_Scan_DUT_Vini PASS $ScanUnlockMsg "SN:[_f_vini_profilerd SFIS SN]\\nMAC:[_f_vini_profilerd SFIS MAC]\\nSpent:[_f_date_time_diff [_f_vini_profilerd SFIS start_time]] Seconds" "DutScanSpec"
+		}
+		"FAIL" { 
+			_f_Client_Scan_DUT_Vini FAIL $ScanUnlockMsg "SN:[_f_vini_profilerd SFIS SN]\\nMAC:[_f_vini_profilerd SFIS MAC]\\nErrorCode:$::ErrorCode\\nErrorMsg:$::s0\\nSpent:[_f_date_time_diff [_f_vini_profilerd SFIS start_time]] Seconds" "DutScanSpec"
+		}
+		"default" { 
+			_f_Client_Scan_DUT_Vini NEW $ScanUnlockMsg "" "DutScanSpec"
+		}			
+	}
+	_f_vini_clear_status
+	_f_vini_profilewr STATUS LOCATION TEST
+	_f_vini_profilewr STATUS SN [_f_vini_profilerd SFIS SN]
+	_f_vini_profilewr STATUS MAC [_f_vini_profilerd SFIS MAC]
+	_f_vini_profilewr STATUS ErrorCode ""
+	_f_vini_profilewr STATUS ErrorMessage ""
+	_f_vini_profilewr STATUS SpentTime 0
+	_f_vini_profilewr STATUS TestFunc ""
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_PingDUT
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################
+proc _f_PingDUT {} {
+	_f_clear
+	_f_modify_listmode_testitem 1 "Ping DUT [_f_vini_profilerd Setup DUT_IP]" yellow
+	if { ! [_f_pingcbc [_f_vini_profilerd Setup DUT_IP] 100 1 0] } {
+		_f_SetError T33 "Ping DUT Fail" "Ping DUT Fail"
+		return 0
+	}
+	_f_termmsg_V1 "Ping DUT PASS"
+	return 1
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_LoginDUT
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################
+proc _f_LoginDUT {} {
+	_f_modify_listmode_testitem 1 "Login DUT [_f_vini_profilerd Setup DUT_IP]" yellow
+	set retry 0
+	while 1 {
+		_f_clear
+		_f_CreateNewConsole $::COS1 "./extapp/plink/plink -telnet [_f_vini_profilerd Setup DUT_IP] -P 23"
+		if { ! [_f_waitor :/# 6] } {
+			incr retry
+			if { $retry < 3 } { continue }
+			_f_SetError T33 "Login DUT Fail" "Login DUT Fail"
+			return 0
+		}			
+		break
+	}
+	_f_termmsg_V1 "Login DUT PASS"
+	return 1
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_BrdFileScanTest
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################
+proc _f_BrdFileScanTest {} {
+	_f_modify_listmode_testitem 1 "Brd File Scan Test" yellow		
+	_f_clear $::COS2
+	_f_CreateNewConsole $::COS2 "./extapp/ConsoleApplet/ConsoleApplet.exe 5150" $::COS2
+	_f_pause 2
+	_f_clear $::COS2
+	_f_transmit "c:\r" $::COS2
+	_f_waitfor > $::COS2
+	_f_clear $::COS2
+	_f_transmit "cd C:\\CN2\\60g\\DmClient\r" $::COS2
+	_f_waitfor > $::COS2	
+	foreach ftmcmd [_f_vini_profilerd Setup ftm_command] {
+		_f_modify_listmode_testitem 2 "ftmcmd : $ftmcmd" yellow
+		_f_clear
+		_f_transmit "./etc/Accton/wds 83 ftm $ftmcmd\r"
+		if { ! [_f_waitor :/# 15] } {
+			_f_SetError T33 "ftm $ftmcmd Fail" "ftm $ftmcmd Fail"
+			return 0
+		}
+		# _f_pause 10
+		for {set sectorindex 0} { $sectorindex <= 61} {incr sectorindex} {
+			foreach channel [_f_vini_profilerd Setup Channel] {
+				foreach pyidx [_f_vini_profilerd Setup pyscript] {
+					_f_modify_listmode_testitem 3 "rf : $pyidx" yellow
+					_f_modify_listmode_testitem 4 "sector : $sectorindex" yellow
+					_f_modify_listmode_testitem 5 "Channel : $channel" yellow
+					_f_clear
+					_f_clear $::COS2
+					_f_transmit "python.exe $pyidx \"[_f_vini_profilerd Setup DUT_IP]\" \"C:\\CN2\\60g\\DmClient\\BD_R01_CSU1_10.11.1.83\\TALYN_M_B0_WMI_ONLY\" \"CW\" \"$channel\" \"$sectorindex\"\r" $::COS2
+					if { ! [_f_waitfor > -termmsg $::COS2] } {
+						_f_SetError T33 "run python script Fail" "run python script Fail"
+						return 0				
+					}
+					if { ! [_f_waitor "Set BB to TX mode" -1 $::COS2] } {
+						_f_SetError T33 "run python script Fail" "run python script Fail"
+						return 0				
+					}
+					if { ! [_f_waitor "set RF sector gain" -1 $::COS2] } {
+						_f_SetError T33 "run python script Fail" "run python script Fail"
+						return 0				
+					}				
+					_f_pause 2
+					set pwr [_f_PM_Freq [_f_vini_profilerd Setup PM_ADDR] 58320]
+					if { ! [_f_Get_Temperature] } { return 0 }
+					_f_termmsg_V1 "ftmcmd = $ftmcmd ,rf = $pyidx , sectorindex = $sectorindex , pwr = $pwr"
+					_f_modify_listmode_testitem 6 "ftmcmd = $ftmcmd ,rf = $pyidx , sectorindex = $sectorindex , ch= $channel ,pwr = $pwr , Tmac = $::Tmac , Tradio = $::Tradio" yellow
+					file mkdir ./Result/[_f_vini_profilerd SFIS ws_id]
+					if { ! [file exists ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv] } {
+						_f_WriteFile ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv w "ftmcmd,rf,ch,sector,pwr,Tmac,Tradio\n"
+					}
+					_f_WriteFile ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv a "$ftmcmd,$pyidx,$channel,$sectorindex,$pwr,$::Tmac,$::Tradio\n"
+				}
+			}
+		}
+	}
+
+	return 1
+}
+
+
+;############################################################################
+;# PROCEDURE NAME - _f_EvtTest
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################
+proc _f_EvtTest {} {
+	set targetangle [lindex [_f_vini_profilerd Setup Thorlabs_Step] 0]
+	set step [lindex [_f_vini_profilerd Setup Thorlabs_Step] 1]
+	_f_modify_listmode_testitem 1 "EVT Test" yellow		
+	_f_clear $::COS2
+	_f_CreateNewConsole $::COS2 "./extapp/ConsoleApplet/ConsoleApplet.exe 5150" $::COS2
+	_f_pause 2
+	_f_clear $::COS2
+	_f_transmit "c:\r" $::COS2
+	_f_waitfor > $::COS2
+	_f_clear $::COS2
+	_f_transmit "cd C:\\CN2\\60g\\DmClient\r" $::COS2
+	_f_waitfor > $::COS2	
+	
+	set anglelist {}
+	if { [_f_vini_profilerd Setup ThorlabsSel] == 0 } {
+		for {set angle [expr $targetangle * -1]} {$angle <= $targetangle} {set angle [expr $angle + $step]} {
+			lappend anglelist $angle
+		}
+	} else {
+		set anglelist [_f_vini_profilerd Setup Thorlabs_Angle]
+	}
+	foreach angle $anglelist {
+		set newangle [_f_GetAngle $angle]
+		if { ! [_f_RunAngle $newangle] } { return 0 }	
+		foreach ftmcmd [_f_vini_profilerd Setup ftm_command] {
+			_f_modify_listmode_testitem 2 "ftmcmd : $ftmcmd" yellow
+			_f_clear
+			_f_transmit "./etc/Accton/wds 83 ftm $ftmcmd\r"
+			if { ! [_f_waitor :/# 15] } {
+				_f_SetError T33 "ftm $ftmcmd Fail" "ftm $ftmcmd Fail"
+				return 0
+			}
+			# _f_pause 10
+			_f_modify_listmode_testitem 6 "Set Angle : $angle" yellow
+			foreach BeamNumber [_f_vini_profilerd Setup beam_number] {
+				foreach channel [_f_vini_profilerd Setup Channel] {
+					foreach pyidx [_f_vini_profilerd Setup pyscript] {
+						_f_modify_listmode_testitem 3 "rf : $pyidx" yellow
+						_f_modify_listmode_testitem 4 "BeamNumber : $BeamNumber" yellow
+						_f_modify_listmode_testitem 5 "Channel : $channel" yellow
+						set pyretry 0
+						while 1 {
+							_f_clear
+							_f_clear $::COS2
+							_f_transmit "python.exe $pyidx \"[_f_vini_profilerd Setup DUT_IP]\" \"C:\\CN2\\60g\\DmClient\\BD_R01_CSU1_10.11.1.83\\TALYN_M_B0_WMI_ONLY\" \"CW\" \"$channel\" \"$BeamNumber\"\r" $::COS2
+							if { ! [_f_waitfor > -termmsg $::COS2] } {
+								_f_SetError T33 "run python script Fail" "run python script Fail"
+								return 0				
+							}
+							if { ! [_f_waitor "Set BB to TX mode" -1 $::COS2] } {
+								_f_SetError T33 "run python script Fail" "run python script Fail"
+								return 0				
+							}
+							if { ! [_f_waitor "set RF sector gain" -1 $::COS2] } {
+								_f_SetError T33 "run python script Fail" "run python script Fail"
+								return 0				
+							}				
+							_f_pause 2
+							set pwr [_f_PM_Freq [_f_vini_profilerd Setup PM_ADDR] 58320]
+							if { [string length $pwr] > 0 } { 
+								break 
+							} else {
+								incr pyretry
+								if { $pyretry == 5 } { break }
+							}
+						}
+						if { ! [_f_Get_Temperature] } { return 0 }
+						_f_termmsg_V1 "angle = $angle , ftmcmd = $ftmcmd ,rf = $pyidx , BeamNumber = $BeamNumber , pwr = $pwr , Tmac = $::Tmac , Tradio = $::Tradio"
+						_f_modify_listmode_testitem 7 "angle = $angle , ftmcmd = $ftmcmd ,rf = $pyidx , BeamNumber = $BeamNumber , ch= $channel ,pwr = $pwr" yellow
+						file mkdir ./Result/[_f_vini_profilerd SFIS ws_id]
+						if { ! [file exists ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv] } {
+							_f_WriteFile ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv w "time,angle,ftmcmd,rf,ch,BeamNumber,pwr,Tmac,Tradio\n"
+						}
+						_f_WriteFile ./Result/[_f_vini_profilerd SFIS ws_id]/[_f_vini_profilerd SFIS SN].csv a "[_f_TIME24],$angle,$ftmcmd,$pyidx,$channel,$BeamNumber,$pwr,$::Tmac,$::Tradio\n"
+					}
+				}
+			}
+		}
+	}
+
+	return 1
+}
+
+proc _f_GetAngle {angle} {
+	if { $angle < 0 } {
+		set angle [expr 360 + $angle]
+	}
+	return $angle
+}
+
+proc _f_RunAngle {angle} {
+	_f_clear $::COS3
+	_f_transmit "$angle\n" $::COS3
+	if { ! [_f_waitfor "#" $::COS3] } {
+		_f_SetError T33 "Set Stepper Motor Fail"
+		return 0
+	}
+	return 1
+}
+
+;############################################################################
+;# PROCEDURE NAME - _f_StartCountTestTime
+;#-------------------------------------------------------------------------
+;# DESCRIPTION: 抓取初始時間回存到虛擬ini
+;# EXAMPLE :  
+;# RETURN: None
+;############################################################################ 	
+proc _f_StartCountTestTime {} {
+	_f_vini_profilewr SFIS start_time [clock format [clock seconds] -format "%Y/%m/%d %H:%M:%S"]
+	_f_capture on
+}
+
+proc _f_Get_Temperature {} {
+	set ::Tmac {}
+	set ::Tradio {}
+	_f_clear
+	_f_transmit "cat /sys/kernel/debug/ieee80211/phy0/wil6210/temp\r"
+	if { ! [_f_waitfor :/#] } {
+		_f_SetError ""
+		return 0
+	}
+	regexp -- {T_mac\s+=\s+(-{0,1}\d+\.\d+)} [_f_getconsole] -> ::Tmac
+	regexp -- {T_radio\s+=\s+(-{0,1}\d+\.\d+)} [_f_getconsole] -> ::Tradio
+	return 1
+
+# cat /sys/kernel/debug/ieee80211/phy0/wil6210/temp
+# T_mac   = 43.000
+# T_radio = 62.234	
+}
+
+proc _f_PM_Freq { resourceName freq} {
+	set pwr {}
+	set retry 0
+	while 1 {	
+		if { [catch { set rm [visa::open-default-rm] } rc] } {
+			errormsg "Error opening default resource manager\n$rc"
+			exit
+		}
+		if { [catch { set vi [visa::open $rm $resourceName] } rc] } {
+			errormsg "Error opening\ninstrument $resourceName\n$rc"
+			exit
+		}
+		catch { visa::clear $vi }
+		fconfigure $vi -timeout 15000
+		if { [ catch { puts $vi "[format "SENS:FREQ %sMHZ" $freq]" } ] } {
+			incr retry
+			if { $retry < 5 } {
+				_f_pause 10
+				continue
+			}
+			return ""
+			# errormsg "Error puts [format "SENS:FREQ %sMHZ" $freq]\ninstrument $resourceName\n$rc"
+			# exit
+		}
+		if { [ catch { puts $vi "MEAS1:POW:AC?" } ] } {
+			incr retry
+			if { $retry < 5 } {
+				_f_pause 10
+				continue
+			}
+			return ""
+			# errormsg "Error puts MEAS1:POW:AC?\ninstrument $resourceName\n$rc"
+			# exit
+		}
+		break
+	}
+	set pwr [gets $vi]
+	close $vi
+	close $rm
+	if { [string length $pwr] > 0 } {
+		return [format %f $pwr]
+	} else {
+		return ""
+	}
+}	
