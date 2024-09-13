@@ -1,6 +1,6 @@
 
-set inf "AAA lu_lin@accton.com BBB CCC"
-regexp -all -inline -- {[0-9a-zA-Z_]+@{1,1}[0-9a-z]*\.+[a-z]*} $inf
+set infile "AAA lu_lin@accton.com BBB CCC"
+regexp -all -inline -- {[0-9a-zA-Z_]+@{1,1}[0-9a-z]*\.+[a-z]*} $infile
 
 輸出:
 lu_lin@accton.com
