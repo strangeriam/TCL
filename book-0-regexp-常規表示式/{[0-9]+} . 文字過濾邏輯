@@ -8,16 +8,6 @@ puts $getNumber
 ## OUTPUT: 123456
 
 
-## "MLTG-CN         " 只取英文和 "-".
-## =================================
-
-set input "MLTG-CN         "
-set getModel ""
-regexp -all -inline {[A-Z-]+} $getModel
-puts $getModel
-## OUTPUT: MLTG-CN
-
-
 正規表達式（Regular Expression, Regex or RegExp）簡單來說就是用一堆符號來表達對文字的一種過濾邏輯，但這堆符號又代表著什麼呢？
 這篇文章想和大家分享一些自己在工作上，使用 python re模組 處理相對複雜情況時所使用的技巧。
 
