@@ -3,7 +3,18 @@ regexp -all -inline -- {WIFI ,2412 MHz[^\n]+,} $infile
 {WIFI ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_2 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_2 23 dBm NON_HT NA ,}
 
 結果:
-1, 字母 a ~ f 的小寫.
+1, WIFI ,2412 MHz  --> 先比對行裡含字串 "WIFI ,2412 MHz"
+2, [^\n]  -->  取字串到含 "換行符號"
+3, +,  -->  含字串 ,
+
+regexp -all -inline -- {WIFI ,2412 MHz[^\n]+} $infile
+## OUTPUT:
+{WIFI ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_2 23 dBm NON_HT NA ,2412 MHz DSSS-1 BW-20 ANT_2 23 dBm NON_HT NA ,WIFI }
+
+結果:
+1, WIFI ,2412 MHz  --> 先比對行裡含字串 "WIFI ,2412 MHz"
+2, [^\n]  -->  取字串到含 "換行符號"
+3, +  -->
 
 
 ## Smaple Texy
