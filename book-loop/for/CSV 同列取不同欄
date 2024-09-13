@@ -1,0 +1,16 @@
+unset listA
+
+set a 1
+set total 157
+
+for {set i 1} {$i <= $total} {incr i} {
+	puts "i : $i"
+
+	if {$i == $a} {
+		set a [expr $a +6]
+		puts "a : $a"
+		if {$a >= $total} {break}
+
+		append listA "$a "
+	}
+}
