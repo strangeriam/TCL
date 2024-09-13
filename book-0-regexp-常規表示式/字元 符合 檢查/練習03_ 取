@@ -1,8 +1,1 @@
-## 只取 0~9.
-## =========
-
-set input "123 456 ab cd"
-set getNumber ""
-regexp {[0-9]+} [string map {" " ""} $input] getNumber
-puts $getNumber
-## OUTPUT: 123456
+##
