@@ -12,7 +12,7 @@
 ^   -->  一列之首
 $   -->  一列之尾
 
-regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $file_content
+regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $infile
 
 ## Sample Text
 Satrt Time, 2024/09/05 13:52:28,,,,,,,,
