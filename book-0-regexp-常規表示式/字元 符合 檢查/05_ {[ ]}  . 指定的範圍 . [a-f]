@@ -1,10 +1,19 @@
 regexp -all -inline -- {[a-f]} $infile
-
 ## OUTPUT:
 a e e d d a e e a b e a e e e e e e e e e e e a e a e e a e e d d d d d d a e e a b e e d d e d d a e e e e e e e e e e e e e a e a e e
 
 結果:
 1, 字母 a ~ f 的小寫.
+
+
+regexp -all -inline -- {[a-zA-Z]} $infile
+## OUTPUT:
+S a t r t T i m e T i t l e A T C C O N N E C T T E S T E R A T C I N S E R T D U T A T C I N I T I A L I Z E D U T A T C I N I T I A L I Z E D U T C o n d i t i o n R F B R F B W I F I M T A P d l l W I F I W I F I N a m e S e r i a l N u m b e r D U T V E R S I O N D U T N A M E D U T D R I V E R I N F O V a l u e I Q F A M T K M T V M T K M T A P T R U p p e r L i m i t n o n e n o n e n o n e n o n e L o w e r L i m i t n o n e n o n e n o n e n o n e F i n a l R e s u l t F a i l T e s t T i m e S a t r t T i m e T i t l e A T C C O N N E C T T E S T E R A T C I N S E R T D U T A T C I N I T I A L I Z E D U T A T C I N I T I A L I Z E D U T W I F I T X V E R I F Y A L L W I F I T X V E R I F Y A L L A T C R E M O V E D U T C o n d i t i o n R F B R F B W I F I M T A P d l l W I F I W I F I M H z D S S S B W A N T d B m N O N H T N A M H z D S S S B W A N T d B m N O N H T N A M H z D S S S B W A N T d B m N O N H T N A M H z D S S S B W A N T d B m N O N H T N A W I F I N a m e S e r i a l N u m b e r D U T V E R S I O N D U T N A M E D U T D R I V E R I N F O P o w e r d B m E V M d B P o w e r d B m E V M d B S T A T U S V a l u e I Q F A M T K M T V M T K M T A P T R O K U p p e r L i m i t n o n e n o n e n o n e n o n e n o n e L o w e r L i m i t n o n e n o n e n o n e n o n e n o n e F i n a l R e s u l t F a i l T e s t T i m e
+
+結果:
+1, 字母小寫 a ~ z .
+2, 字母大寫 A ~ Z .
+
 
 
 ## Smaple Texy
