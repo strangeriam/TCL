@@ -1,0 +1,2 @@
+set infile "AAA MLTG-CN BBB"
+regexp -all -inline {[A-Z-]+} $infile
