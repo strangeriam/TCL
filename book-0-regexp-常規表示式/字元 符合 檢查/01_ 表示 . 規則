@@ -4,8 +4,8 @@
 \d  -->  所有數字（0-9)，也就是[0-9] 的簡寫
 \D  -->  除了數字以外的字元
 [ ]  -->  指定的範圍，例如[a-f]
-\A  -->  字串開始
-\z  -->  字串結束
+\A  -->  字串開始 . Lu: 輸出結果都是 大括號 (). 例如: {} {} {} {} {} {} {} {} {} {} {} {} {} {} 
+\z  -->  字串結束 . Lu: 輸出錯誤訊息 couldn't compile regular expression pattern: invalid escape \ sequence
 \b  -->  邊界 (boundary); 旁邊不可有其他文數字
 \s  -->  空白(white space)，等同 [ \t\r\n\f]
 \S  -->  非空白，等同 [^\t\r\n\f]
