@@ -1,4 +1,5 @@
 絕對路徑: ${::ASPECTPATH}
+如同程式碼: set ::ASPECTPATH [pwd]/
 
 #; 開始測試時間.
 _f_vini_profilerd SFIS start_time
