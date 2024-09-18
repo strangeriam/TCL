@@ -28,22 +28,22 @@ set pattern0 $data_00
 
 ## =========
 ## ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA 
-set pattern1 $data_01$data_01$data_01$data_01  ;# 2412 DSSS-1
-set pattern2 $data_01$data_01$data_01$data_01  ;# 2442 DSSS-1
-set pattern3 $data_01$data_01$data_01$data_01  ;# 2472 DSSS-1
+set pattern1 $data_01$data_01$data_01$data_01    ;# 2412 DSSS-1
+set pattern2 $data_01$data_01$data_01$data_01    ;# 2442 DSSS-1
+set pattern3 $data_01$data_01$data_01$data_01    ;# 2472 DSSS-1
 
 ## ,2412 MHz CCK-11 BW-20 ANT_1 23 dBm NON_HT NA 
-set pattern4 $data_02$data_02$data_02$data_02  ;# 2412 CCK-11
+set pattern4 $data_02$data_02$data_02$data_02    ;# 2412 CCK-11
 
 ## ,2412 MHz OFDM-6 BW-20 ANT_1 23 dBm NON_HT NA 
-set pattern5 $data_01$data_01$data_01$data_01 			;# 2412 OFDM-6
-set pattern6 $data_01$data_01$data_01$data_01 			;# 2442 OFDM-6
-set pattern7 $data_01$data_01$data_01$data_01 			;# 2472 OFDM-6
+set pattern5 $data_01$data_01$data_01$data_01    ;# 2412 OFDM-6
+set pattern6 $data_01$data_01$data_01$data_01    ;# 2442 OFDM-6
+set pattern7 $data_01$data_01$data_01$data_01    ;# 2472 OFDM-6
 
 ## ,2442 MHz OFDM-54 BW-20 ANT_1 20 dBm NON_HT NA 
-set pattern8 $data_01$data_01$data_01$data_01 			;# 2412 OFDM-54
-set pattern9 $data_01$data_01$data_01$data_01 			;# 2442 OFDM-54
-set pattern10 $data_01$data_01$data_01$data_01 			;# 2472 OFDM-54
+set pattern8 $data_01$data_01$data_01$data_01    ;# 2412 OFDM-54
+set pattern9 $data_01$data_01$data_01$data_01    ;# 2442 OFDM-54
+set pattern10 $data_01$data_01$data_01$data_01    ;# 2472 OFDM-54
 
 ## ===========================================
 ## ,2412 MHz MCS0 BW-20 ANT_1 22 dBm HT_MF NA 
