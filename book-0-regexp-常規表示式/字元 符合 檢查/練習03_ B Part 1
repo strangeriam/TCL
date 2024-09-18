@@ -27,8 +27,8 @@ set data_03 $p03$p03$p03$p03$p03$p03
 ## =========
 ## ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA 
 set pattern1 $data_00$data_01$data_01$data_01$data_01 	;# 2412 DSSS-1
-set pattern2 $data_01$data_01$data_01$data_01 			;# 2442 DSSS-1
-set pattern3 $data_01$data_01$data_01$data_01 			;# 2472 DSSS-1
+set pattern2 $data_01$data_01$data_01$data_01 			    ;# 2442 DSSS-1
+set pattern3 $data_01$data_01$data_01$data_01 			    ;# 2472 DSSS-1
 
 ## ,2412 MHz CCK-11 BW-20 ANT_1 23 dBm NON_HT NA 
 set pattern4 $data_02$data_02$data_02$data_02 			;# 2412 CCK-11
