@@ -1,0 +1,13 @@
+## 此例為取 6 的倍數 ii
+
+set i 1
+set ii 0
+
+for {set i 0} {$i <= 20} {incr i} {
+	puts "i: $i"
+
+	if {$i == $ii} {
+		puts "ii: $ii"
+		set ii [expr $ii +9]
+	}
+}
