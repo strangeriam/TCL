@@ -1,0 +1,8 @@
+
+set x {}
+foreach i {a b c} j {d e f g} {
+	lappend x $i $j
+}
+
+set x
+## OUTPUT: a d b e c f {} g
