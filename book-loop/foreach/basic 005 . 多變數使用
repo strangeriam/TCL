@@ -1,0 +1,19 @@
+set list1 "AAA BBB CCC DDD EEE"
+set list2 "aaa bbb ccc ddd eee"
+
+foreach line1 $list1 line2 $list2 {
+	puts "line1: $line1"
+	puts "line2: $line2"
+}
+
+## OUTPUT:
+line1: AAA
+line2: aaa
+line1: BBB
+line2: bbb
+line1: CCC
+line2: ccc
+line1: DDD
+line2: ddd
+line1: EEE
+line2: eee
