@@ -1,3 +1,5 @@
+## Parse a simple color specification of the form #RRGGBB using hexadecimal conversions with field sizes
+
 set var "#08D03F"
 scan $var "#%2x%2x%2x" r g b
 
