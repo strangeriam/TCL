@@ -1,0 +1,14 @@
+## scan 指令依據指定的格式化條件剖析字串並將結果放入變數中.
+## scan 指令與 format 指令非常相像, %c 會將某個字元的 ASCII 數值讀入變數中.
+
+## Sybtax: scan $var format ?varName? ?varName?  …
+
+set var "a 123 Rick"
+scan $var {a %d %s} var1 var2
+
+puts "num = $var1"
+puts "str = $var2"
+
+## OUTPUT
+num = 123
+str = rick
