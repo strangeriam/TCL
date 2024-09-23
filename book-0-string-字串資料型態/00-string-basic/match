@@ -1,0 +1,17 @@
+string match提供了比較強大的比對功能，它可以讓你使用Unix glob-style的方式來比對字串是否符合某個 pattern.
+
+Syntax: string match ?-nocase? pattern string1
+
+string match使用Unix glob-style的方式比對pattern及string1，若string1符合pattern就回傳1，否則回傳0。如果指定-nocase，表示比對字串時不分大小寫。pattern簡單的說是一些關鍵字及特殊比對字元組成的字串，以下是pattern字可用的特殊比對字元：
+
+*	符合任意長度的字元
+?	符合任意一個字元
+[chars]	符合chars集合內的任一字元
+\x	用來跳脫特殊字元 *?[]\
+control	任何Unicode的控制字元
+digit	包含Unicode數字[0-9]
+double	Tcl認可的double數值 (跟作業系統平台有關)
+false	0、false (不分大小寫)
+graph	任何Unicode可視字元，不包含空白字元
+integer	Tcl認可的integer數值 (跟作業系統平台有關)
+lower	任何Unicode小寫的英文字母
