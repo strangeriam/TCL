@@ -1,8 +1,10 @@
 
 ## 測試項目/字串分拆
 ## ===============
-## 1. 每組主要差異在 Frequency 2412, 2442 & 2472.
-## 2. 每 Frequency 分拆 4 個 Antenna.
+# 1. 每組主要差異在 Frequency 2412, 2442 & 2472.
+# 2. 每 Frequency 分拆 4 個 Antenna.
+# 3. ANT_1 *9 . ANT_Other *54
+# 4. Total 63
 
 ,WIFI ,WIFI 
 
