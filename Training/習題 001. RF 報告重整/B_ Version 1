@@ -24,7 +24,8 @@ set infile [_f_ReadFile ${::ASPECTPATH}sourceFile/sample_lu4.csv]
 
 
 ## PART A, Get RF Item.
-set p00 {WIFI }
+set line_start {WIFI }
+set line_end { ,WIFI}
 
 ## ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA 
 set p01 {,-{0,1}\d+ MHz [A-Z][A-Z][A-Z][A-Z]-\d+ [A-Z][A-Z]-\d+ [A-Z][A-Z][A-Z]_\d+ {0,1}\d+ dBm [A-Z][A-Z][A-Z]_[A-Z][A-Z]+ NA }
@@ -51,7 +52,7 @@ set ofdm6_x3 [string repeat $p01 72]
 set ofdm54_x3 [string repeat $p01 72]
 set mcsHtmf_x12 [string repeat $p03 288]
 
-set data1 [string map {WIFI: ""} [string map { \} ""} [string map { \{ ""} [string map {, " "} [string map { " " :} [regexp -all -inline -- $p00$dsss1_x3$cck11_x1$ofdm6_x3$ofdm54_x3$mcsHtmf_x12 $infile]]]]]]
+set data1 [string map {WIFI: ""} [string map { \} ""} [string map { \{ ""} [string map {, " "} [string map { " " :} [regexp -all -inline -- $line_start$dsss1_x3$cck11_x1$ofdm6_x3$ofdm54_x3$mcsHtmf_x12 $infile]]]]]]
 
 if {[info exists csvData1]} {
 	unset csvData1
@@ -145,7 +146,7 @@ foreach line $data1 {
 set line [string map {" " _} [regexp -all -inline -- {4T4R,[^\n]+,} $infile]]
 set data2 [string map { "4T4R " ""} [string trim [string trim [split $line ,] \\\{] \\\}]]
 
-if {[info exists data2]} {
+if {[info exists csvData2]} {
 	unset csvData2
 }
 
