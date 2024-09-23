@@ -1,0 +1,4 @@
+set list1 "AAA BBB CCC DDD EEE"
+string reverse $list1
+
+## OUTPUT: EEE DDD CCC BBB AAA
