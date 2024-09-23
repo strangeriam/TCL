@@ -16,3 +16,6 @@ set reportFile "$::resultDir/EAP111_Report_line2\_$BUILD_DATE_TIME.csv"
 if { ! [file exists $reportFile] } {
 	_f_WriteFile $reportFile w "Error Message 1,Error Message 2,Error Message 3,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)\n"
 }
+## ====================================================
+
+set infile [_f_ReadFile ${::ASPECTPATH}sourceFile/log_line2.csv]
