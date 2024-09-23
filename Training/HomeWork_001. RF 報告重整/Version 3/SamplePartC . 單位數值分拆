@@ -1,4 +1,6 @@
-## A 測試項目:
+# A 測試項目:
+# ==========
+
 ,DUT_DRIVER_INFO ()
 
 ,Error Message (),Error Message (),Error Message ()
@@ -19,7 +21,9 @@
 ,STATUS ()
 
 
-## B 測試數值:
+# B 測試數值:
+# ==========
+
 ,4T4R
 
 ,Capture failed!,Capture failed!,Capture failed!
