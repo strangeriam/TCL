@@ -10,3 +10,14 @@ regexp -all -inline $v01 $infile
 
 ## OUTPUT
 {,4T4R,Capture failed!,Capture failed!,Capture failed!}
+
+
+## 說明
+## 取三個 "Capture failed!"
+,[A-Za-z]* [a-z]*!+
+1. [A-Za-z]  -->  字母 A ~ Z 大寫和小寫.
+2. * -->  未出現或出現多次
+3. * [  -->  中間有一個空格
+4. [a-z]  --> 字母 a ~ z 小寫.
+5. * -->  未出現或出現多次
+6. ! -->  取驚嘆號
