@@ -1,0 +1,6 @@
+set var "#08D03F"
+scan $var "#%2x%2x%2x" r g b
+
+puts "$r $g $b"
+
+## OUTPUT: 8 208 63
