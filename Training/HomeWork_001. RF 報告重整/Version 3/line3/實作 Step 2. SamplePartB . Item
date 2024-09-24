@@ -45,7 +45,7 @@ set tmp_item
 2472:MHz:DSSS-1:BW-20:ANT_4:23:dBm:NON_HT:NA: 
 
 
-## PART B, 取出不重覆 item
+## PART B, 移除 : 取出 $data_freq,$data_rate,$data_bw,$data_ant,$data_tx,$data_non
 ## ====================================================
 if {[info exists csvItem]} {
 	unset csvItem
@@ -53,7 +53,7 @@ if {[info exists csvItem]} {
 
 foreach line $tmp_item {
 	set tmp_line [string map {: " "} $line]
-	puts "tmp_line: $tmp_line"
+	# puts "tmp_line: $tmp_line"
 
 	set data_freq 	[lindex $tmp_line 0]
 	set data_rate 	[lindex $tmp_line 2]
@@ -65,4 +65,22 @@ foreach line $tmp_item {
 	append csvItem "$data_freq,$data_rate,$data_bw,$data_ant,$data_tx,$data_non,\n"
 }
 
+## 輸出
+## ===
 
+llength $csvItem
+12
+
+set csvItem
+2412,DSSS-1,BW-20,ANT_1,23,NON_HT,
+2412,DSSS-1,BW-20,ANT_2,23,NON_HT,
+2412,DSSS-1,BW-20,ANT_3,23,NON_HT,
+2412,DSSS-1,BW-20,ANT_4,23,NON_HT,
+2442,DSSS-1,BW-20,ANT_1,23,NON_HT,
+2442,DSSS-1,BW-20,ANT_2,23,NON_HT,
+2442,DSSS-1,BW-20,ANT_3,23,NON_HT,
+2442,DSSS-1,BW-20,ANT_4,23,NON_HT,
+2472,DSSS-1,BW-20,ANT_1,23,NON_HT,
+2472,DSSS-1,BW-20,ANT_2,23,NON_HT,
+2472,DSSS-1,BW-20,ANT_3,23,NON_HT,
+2472,DSSS-1,BW-20,ANT_4,23,NON_HT,
