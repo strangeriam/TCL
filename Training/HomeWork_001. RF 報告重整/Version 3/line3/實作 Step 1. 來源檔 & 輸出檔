@@ -14,7 +14,6 @@ set BUILD_DATE_TIME [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
 set reportFile "$::resultDir/EAP111_Report_line2\_$BUILD_DATE_TIME.csv"
 
 if { ! [file exists $reportFile] } {
-	# _f_WriteFile $reportFile w "Frequency,Data Rate,Bandwidth,Antenna,Tx Power,None A,Error Message 1,Error Message 2,Error Message 3,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)\n"
 	_f_WriteFile $reportFile w "Frequency,Data Rate,Bandwidth,Antenna,Tx Power,None A,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)\n"
 
 }
