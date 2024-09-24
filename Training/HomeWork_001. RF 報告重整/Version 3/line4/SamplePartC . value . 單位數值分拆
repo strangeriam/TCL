@@ -2,12 +2,27 @@
 # ==========
 ,DUT_DRIVER_INFO ()
 
-,STATUS ()
+,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)
+,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)
+,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)
+,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)
+,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)
 
+,PER (%),PER (%),PER (%),PER (%),PER (%),PER (%),PER (%),PER (%) --> 有 8 個
+
+,STATUS ()
 
 
 # B 測試數值:
 # ==========
 ,4T4R
+
+,24.8767,-19.9956,-9.19235,-9.13522,-69.8856,0.585556
+,24.4671,-20.9304,-9.18686,-9.10881,-55.7655,0.910865
+,24.4089,-20.886,-9.17587,-9.14331,-62.3923,0.650618
+,24.9856,-23.5552,-9.17163,-9.29072,-57.42,6.57124
+,24.6461,-19.0712,-9.18141,-9.21946,-61.3392,0
+
+,0,0,4.2,2,8.2,9,9,8.6   --> 有 8 個 Value
 
 ,OK
