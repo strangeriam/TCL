@@ -1,0 +1,115 @@
+encoding system utf-8
+# source c:/tcl/bin/tkcon.tcl
+# tkcon show
+
+set ::ASPECTPATH [pwd]/
+source ${::ASPECTPATH}necessary/fileProcess.tcl
+
+## ====================================================
+set ::resultDir "./report"
+if { ![file exist $::resultDir] } { file mkdir $::resultDir }
+
+set BUILD_DATE_TIME [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+
+set reportFile "$::resultDir/EAP111_Report_line3\_$BUILD_DATE_TIME.csv"
+
+if { ! [file exists $reportFile] } {
+	_f_WriteFile $reportFile w "Frequency,Data Rate,Bandwidth,Antenna,Tx Power,None A,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)\n"
+
+}
+
+set infile [_f_ReadFile ${::ASPECTPATH}sourceFile/log_line3.csv]
+
+## PART A, Get RF Item.
+## ====================================================
+set line_start {WIFI }
+set line_end {,WIFI}
+
+## ,2412 MHz DSSS-1 BW-20 ANT_1 23 dBm NON_HT NA 
+set p01 {,-{0,1}\d+ MHz [A-Z][A-Z][A-Z][A-Z]-\d+ [A-Z][A-Z]-\d+ [A-Z][A-Z][A-Z]_\d+ {0,1}\d+ dBm [A-Z][A-Z][A-Z]_[A-Z][A-Z]+ NA }
+
+set item_list [string map { \} ""} [string map { \{: ""} [string map {, " "} [string map { " " :} [string map {WIFI ""} [regexp -all -inline -- $line_start[string repeat $p01 72]$line_end $infile]]]]]]
+
+if {[info exists tmp_item]} {
+	unset tmp_item
+}
+
+## 捨去重覆 Item
+foreach item $item_list {
+	if {[regexp $item $item_list]} {
+		append tmp_item "$item "
+		set item_list [string map "$item \"\"" $item_list]
+	}
+}
+
+if {[info exists csvItem]} {
+	unset csvItem
+}
+
+foreach line $tmp_item {
+	set tmp_line [string map {: " "} $line]
+	# puts "tmp_line: $tmp_line"
+
+	set data_freq 	[lindex $tmp_line 0]
+	set data_rate 	[lindex $tmp_line 2]
+	set data_bw 	[lindex $tmp_line 3]
+	set data_ant 	[lindex $tmp_line 4]
+	set data_tx 	[lindex $tmp_line 5]
+	set data_non 	[lindex $tmp_line 7]
+
+	append csvItem "$data_freq,$data_rate,$data_bw,$data_ant,$data_tx,$data_non,\n"
+}
+
+
+## PART B, Get Power dBm.
+## ====================================================
+set line_start {,4T4R}
+set line_end {,OK}
+
+## ,25.0259,-20.0967,-9.22368,-8.96866,-62.3048,0.520494 --> 需乘以 12 組
+set v02 [string repeat {,{0,1}\d+\.\d+,-{0,1}\d+\.\d+,-{0,1}\d+\.\d+,-{0,1}\d+\.\d+,-{0,1}\d+\.\d+,[\d.]+} 12]
+
+# regexp -all -inline $line_start$v02$line_end $infile
+
+set value_list [string map {, " "} [string map { \} ""} [string map { \{ ""} [string map {,OK ""} [string map {,4T4R, ""} [string map {" " :} [regexp -all -inline $line_start$v02$line_end $infile]]]]]]]
+
+## Item 對應 --> 正確 Value
+# 2412:MHz:DSSS-1:BW-20:ANT_1:23:dBm:NON_HT:NA: --> 25.0259 -20.0967 -9.22368 -8.96866 -62.3048 0.520494 
+# 2412:MHz:DSSS-1:BW-20:ANT_2:23:dBm:NON_HT:NA: --> 24.8806 -19.8531 -9.21333 -9.14891 -61.3812 0.130124 
+# 2412:MHz:DSSS-1:BW-20:ANT_3:23:dBm:NON_HT:NA: --> 25.4675 -21.9288 -9.19579 -9.32156 -57.5419 0 
+# 2412:MHz:DSSS-1:BW-20:ANT_4:23:dBm:NON_HT:NA: --> 24.6292 -19.548 -9.19127 -9.1599 -63.1347 0 
+
+if {[info exists csvValue]} {
+	unset csvValue
+}
+
+set i 0
+set ii 5
+
+foreach value $value_list {
+	# puts "value: $value"
+
+	if {$i == $ii} {
+		append csvValue "$value "
+		set ii [expr $ii +6]
+	} {
+		append csvValue $value\,
+	}
+
+	incr i
+}
+
+
+## Make CSV
+## ================================================
+if {[info exists csvData]} {
+	unset csvData
+}
+
+foreach item $csvItem value $csvValue {
+	if {$item == ""} {break}
+	append csvData $item$value\n
+}
+
+
+_f_WriteFile $reportFile a $csvData
