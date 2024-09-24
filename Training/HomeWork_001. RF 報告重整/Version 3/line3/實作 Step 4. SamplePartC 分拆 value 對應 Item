@@ -16,3 +16,34 @@
 2472:MHz:DSSS-1:BW-20:ANT_4:23:dBm:NON_HT:NA: --> 24.6058 -18.9845 -9.19699 -9.22283 -63.8581 0
 
 
+if {[info exists csvValue]} {
+	unset csvValue
+}
+
+set i 0
+set ii 5
+
+foreach value $value_list {
+	# puts "value: $value"
+
+	if {$i == $ii} {
+		append csvValue "$value "
+		set ii [expr $ii +6]
+	} {
+		append csvValue $value\,
+	}
+
+	incr i
+}
+
+## Make CSV
+## ================================================
+if {[info exists csvData]} {
+	unset csvData
+}
+
+foreach item $csvItem value $csvValue {
+	if {$item == ""} {break}
+	append csvData $item$value\n
+}
+
