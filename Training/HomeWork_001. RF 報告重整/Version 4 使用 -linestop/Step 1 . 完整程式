@@ -1,0 +1,103 @@
+encoding system utf-8
+# source c:/tcl/bin/tkcon.tcl
+# tkcon show
+
+set ::ASPECTPATH [pwd]/
+source ${::ASPECTPATH}necessary/fileProcess.tcl
+
+## ====================================================
+set ::resultDir "./report"
+if { ![file exist $::resultDir] } { file mkdir $::resultDir }
+
+set BUILD_DATE_TIME [clock format [clock seconds] -format "%y%m%d_%H%M%S"]
+
+set reportFile "$::resultDir/EAP111_EC2436004472\_$BUILD_DATE_TIME.csv"
+
+if { ! [file exists $reportFile] } {
+	_f_WriteFile $reportFile w "Frequency,Data Rate,Bandwidth,Antenna,Tx Power,None A,Power (dBm),EVM (dB),Freq Error (ppm),Sym Clk Error (ppm),LO Leakage (dBc),Spectrum Mask (%)\n"
+
+}
+
+set infile [_f_ReadFile ${::ASPECTPATH}sourceFile/log_2_240924/Log_4_EC2436004472.csv]
+
+
+## PART A, Get RF Item.
+## 2442:MHz:MCS9:BW-40:ANT_4:18:dBm:VHT:NA: 2442:MHz:MCS9:BW-40:ANT_4:18:dBm:VHT:NA:
+## ====================================================
+regexp -linestop {WIFI ,WIFI ,.*} $infile tmp1
+set tmp2 [string map { :, " "} [string map {" " :} [string trimright [string trimright [string map {"WIFI ,WIFI ," ""} $tmp1] ,] ",WIFI "]]]
+
+if {[info exists tmp_item]} {
+	unset tmp_item
+}
+
+## 捨去重覆 Item
+foreach item $tmp2 {
+	if {[regexp $item $tmp2]} {
+		append tmp_item "$item "
+		set tmp2 [string map "$item \"\"" $tmp2]
+	}
+}
+
+if {[info exists csvItem]} {
+	unset csvItem
+}
+
+foreach line $tmp_item {
+	set tmp_line [string map {: " "} $line]
+	# puts "tmp_line: $tmp_line"
+
+	set data_freq 	[lindex $tmp_line 0]
+	set data_rate 	[lindex $tmp_line 2]
+	set data_bw 	[lindex $tmp_line 3]
+	set data_ant 	[lindex $tmp_line 4]
+	set data_tx 	[lindex $tmp_line 5]
+	set data_non 	[lindex $tmp_line 7]
+
+	append csvItem "$data_freq,$data_rate,$data_bw,$data_ant,$data_tx,$data_non,\n"
+}
+
+
+## PART B, Get Power dBm.
+## ====================================================
+regexp -linestop {,4T4R.*} $infile tmp1
+set tmp2 [string map {, " "} [string trimleft [string trimright [string trimright $tmp1 ,] ,OK] ,4T4R,]]
+
+if {[info exists csvValue]} {
+	unset csvValue
+}
+
+set i 0
+set ii 5
+
+foreach value $tmp2 {
+	# puts "value: $value"
+
+	if {$i == $ii} {
+		append csvValue "$value "
+		set ii [expr $ii +6]
+	} {
+		append csvValue $value\,
+	}
+
+	incr i
+}
+
+
+## Make CSV
+## ================================================
+if {[info exists csvData]} {
+	unset csvData
+}
+
+foreach item $csvItem value $csvValue {
+	if {$item == ""} {break}
+	append csvData $item$value\n
+}
+
+_f_WriteFile $reportFile a $csvData
+
+puts "llength csvItem: [llength $csvItem]"
+puts "llength csvValue: [llength $csvValue]"
+puts "llength csvData: [llength $csvData]"
+
