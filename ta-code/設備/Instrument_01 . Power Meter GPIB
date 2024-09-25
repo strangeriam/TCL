@@ -7,7 +7,10 @@ proc instrument_get_info { resourceName } {
 	set rm [visa::open-default-rm]
 	set vi [visa::open $rm $resourceName]
 
-	puts $vi "*IDN?"
+	if { [catch {puts $vi "*IDN?"} err] } {
+		errormsg "無法與儀器溝通\n$err"
+	}
+
 	set get_info [gets $vi]
 
 	close $vi
