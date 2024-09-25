@@ -16,6 +16,8 @@ proc instrument_get_info { resourceName } {
     return $get_info
 }
 
+instrument_get_info $gpib_address
+
 輸出:
 Agilent Technologies,E4418A,,A1.09.00
 
