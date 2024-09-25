@@ -1,9 +1,11 @@
 # 空值判斷
 # 語法: catch script ?resultVarName? ?optionsVarName?
 
-## 不存在的變數, 所產生的 Error message.
+## A. 不存在的變數, 所產生的 Error message.
 ## ==========================================================
 set tmp AAA
+
+## 如果有錯誤訊息, 則將訊息導到 變數 err.
 catch {puts $tmp} err
 ## 輸出
 AAA
@@ -17,6 +19,18 @@ catch {puts $tmp} err
 set err
 ## 輸出
 can't read "tmp": no such variable
+
+
+## B. 不存在的變數, 跳出錯誤訊息告知.
+## ==========================================================
+unset tmp
+
+## 輸出
+can't unset "tmp": no such variable
+
+## 如果有錯誤訊息, 則將訊息導到 變數 err.
+if { [catch {unset tmp} err] } { errormsg "沒有此變數\n$err" }
+
 
 ## ==========================================================
 # Example: Check any tftpd32.exe process ID on Win7.
