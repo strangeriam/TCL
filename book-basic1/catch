@@ -1,6 +1,24 @@
 # 空值判斷
 # 語法: catch script ?resultVarName? ?optionsVarName?
 
+## 不存在的變數, 所產生的 Error message.
+## ==========================================================
+set tmp AAA
+catch {puts $tmp} err
+## 輸出
+AAA
+0
+
+unset tmp
+catch {puts $tmp} err
+## 輸出
+1
+
+set err
+## 輸出
+can't read "tmp": no such variable
+
+## ==========================================================
 # Example: Check any tftpd32.exe process ID on Win7.
 # If yes, return "1"
 # If no, return "0"
