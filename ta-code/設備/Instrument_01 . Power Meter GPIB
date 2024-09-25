@@ -1,4 +1,4 @@
-設定 GPIB & 儀器
+## 設定 GPIB & 儀器
 
 ## 讀取 Power Meter 的資訊
 set gpib_address "GPIB1::13::INSTR"
