@@ -1,8 +1,6 @@
 ## 設定 GPIB & 儀器
 
 ## 讀取 Power Meter 的資訊
-set gpib_address "GPIB1::13::INSTR"
-
 proc instrument_get_info { resourceName } {
 	set rm [visa::open-default-rm]
 	set vi [visa::open $rm $resourceName]
@@ -19,6 +17,7 @@ proc instrument_get_info { resourceName } {
 	return $get_info
 }
 
+set gpib_address "GPIB1::13::INSTR"
 instrument_get_info $gpib_address
 
 輸出:
