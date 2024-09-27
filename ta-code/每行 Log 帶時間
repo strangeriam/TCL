@@ -1,0 +1,5 @@
+		set ::fch($::COS1.RX.REG.FILTER) {
+				catch {
+					set rtdata [regsub -all -- {\n\r|\r\n|\r|\n} "$rtdata" "\n[_f_TIME24ms]| "]
+				}
+		}
