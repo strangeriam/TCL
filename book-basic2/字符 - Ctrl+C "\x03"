@@ -1,7 +1,7 @@
-Ctrl + C ... (^C) ==> \x03 .. 字元名 End of Text（正文結束）
-Ctrl + X ... (^X) ==> \x18 .. 字元名 Cancel（取消）
+Ctrl + C ... (^x) ==> \x03 .. 字元名 End of Text（正文結束）
+Ctrl + X ... (^x) ==> \x18 .. 字元名 Cancel（取消）
 Ctrl + [ ... (^[) ==> \x1B .. 字元名 Escape（跳脫）
-Ctrl + U ... (^U) ==> \x15 .. 
+Ctrl + U ... (^u) ==> \x15 .. 
 
 轉義序列	意思
 \\	\ 字符
@@ -19,3 +19,16 @@ Ctrl + U ... (^U) ==> \x15 ..
 不換行
 -nonewline
 puts -nonewline "AAA"
+
+其他
+Ctrl + a ... (^a) ==> \x01 ..
+Ctrl + b ... (^b) ==> \x02 ..
+Ctrl + c ... (^c) ==> \x03 ..
+Ctrl + d ... (^d) ==> \x04 ..
+Ctrl + e ... (^e) ==> \x05 ..
+Ctrl + f ... (^f) ==> \x06 ..
+Ctrl + g ... (^g) ==> \x07 ..
+Ctrl + h ... (^h) ==> \x08 ..
+Ctrl + i ... (^i) ==> \t ..
+Ctrl + j ... (^j) ==> \n ..
+
