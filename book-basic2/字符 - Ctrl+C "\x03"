@@ -32,6 +32,8 @@ Ctrl + h ... (^h) ==> \x08 ..
 Ctrl + i ... (^i) ==> \t ..
 Ctrl + j ... (^j) ==> \n ..
 
+SPACE 健 ... \x20
+
 Control Characters
                     CTRL   (^D means to hold the CTRL key and hit d)
 Oct  Dec Char  Hex  Key     Comments
