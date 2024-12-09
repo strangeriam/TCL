@@ -53,3 +53,8 @@ if { [catch {file mkdir $TimeDIR} err] } {
           save_msg "\[$err\]: Can't create time log fail folder." ERROR
           return
 }
+
+## ==========================================================
+if { [catch {glob -directory "${::ASPECTPATH}60g/BrdCSV/testplan" -tail *.csv} err]} {
+	errormsg "沒有 testplan *.csv 檔"
+}
