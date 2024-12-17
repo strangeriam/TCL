@@ -10,3 +10,6 @@ _f_date_time_diff [_f_vini_profilerd SFIS start_time]
 #; 寫入時間
 _f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
 _f_vini_profilerd STATUS SpentTime
+
+#; 共有幾台 DUT 同時測試.
+::MaxDutNum
