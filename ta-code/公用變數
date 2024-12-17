@@ -13,3 +13,7 @@ _f_vini_profilerd STATUS SpentTime
 
 #; 共有幾台 DUT 同時測試.
 ::MaxDutNum
+
+#; SFIS 開關狀態
+_f_vini_profilerd SFIS SFIS_FLAG
+輸出: Y 或 N
