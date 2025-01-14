@@ -20,3 +20,6 @@ _f_vini_profilerd SFIS SFIS_FLAG
 
 #; Model Name
 _f_vini_profilewr SFIS MODELNAME [_f_vini_profilerd SFIS MODELNAME]-[_f_vini_profilerd SFIS part_no]
+
+#; 正在執行的 DUT 總數
+$::MaxDutNum
