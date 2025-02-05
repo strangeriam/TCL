@@ -29,6 +29,7 @@ ONIE:/ #
 }
 
 regexp -line ${val} $get_data
+1
 
-
-
+set val "05/02/2025 08:34:30"
+0
