@@ -1,7 +1,7 @@
 比對 Manufacture Date 的時間是否正確.
 
 ;# Code
-set val " 05/02/2025 08:34:25"
+set val "05/02/2025 08:34:25"
 
 set get_data {
 ONIE:/ # onie-syseeprom
