@@ -1,0 +1,34 @@
+比對 Manufacture Date 的時間是否正確.
+
+;# Code
+set val " 05/02/2025 08:34:25"
+
+set get_data {
+ONIE:/ # onie-syseeprom
+TlvInfo Header:
+    Id String:    TlvInfo
+    Version:      1
+    Total Length: 155
+TLV Name             Code Len Value
+-------------------- ---- --- -----
+Vendor Name          0x2D   7 Meituan
+Country Code         0x2C   2 CN
+Manufacturer         0x2B   4 MUXI
+MAC Addresses        0x2A   2 3
+ONIE Version         0x29  13 2019.09.00.01
+Platform Name        0x28  27 arm64-accton_ecs4650_54p-r0
+Label Revision       0x27   4 H010
+Manufacture Date     0x25  19 05/02/2025 08:34:25
+Base MAC Address     0x24   6 7C:8D:9C:4D:9E:20
+Serial Number        0x23  12 EC2430001796
+Part Number          0x22  13 C0TCH5720003S
+Product Name         0x21  16 MS1MZB-48T6Y-PWR
+CRC-32               0xFE   4 0x42A90379
+Checksum is valid.
+ONIE:/ # 
+}
+
+regexp -line ${val} $get_data
+
+
+
