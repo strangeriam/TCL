@@ -1,3 +1,5 @@
+250224: 尚有問題, 不可使用.
+
 set _f_getconsole {
 <OL>#show port cfg
 Port[1]: Power:26.0W Class:[4] Status:On
@@ -5,4 +7,15 @@ Port[2]: Power:26.0W Class:[4] Status:On
 Port[3]: Power:26.0W Class:[4] Status:On
 Port[4]: Power:26.0W Class:[4] Status:On
 <OL>#
+}
+
+set ::pd_watt 26
+set ::pd_class 4
+
+proc _f_PD_Check {} {
+  foreach port {1 2 3 4} {
+    if { ![regexp -linestop "Port\[$port\]: Power:${::pd_watt}.0W Class:\[${::pd_class}\] Status:On" $_f_getconsole] } {
+      return 0
+    }
+  }
 }
