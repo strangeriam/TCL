@@ -19,3 +19,13 @@ proc _f_PD_Check {} {
     }
   }
 }
+
+
+set tmp ""
+regexp -line "Port\[1\]:" $_f_getconsole
+
+set val "Port\[1\]:"
+
+regexp -line ${val} $_f_getconsole
+
+regexp -all -inline -- {Current=-{0,1}\d+\.\d+} $file_content
