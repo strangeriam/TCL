@@ -1,1 +1,8 @@
-250224
+set _f_getconsole {
+<OL>#show port cfg
+Port[1]: Power:26.0W Class:[4] Status:On
+Port[2]: Power:26.0W Class:[4] Status:On
+Port[3]: Power:26.0W Class:[4] Status:On
+Port[4]: Power:26.0W Class:[4] Status:On
+<OL>#
+}
