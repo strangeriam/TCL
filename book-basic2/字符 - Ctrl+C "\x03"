@@ -4,6 +4,8 @@ Ctrl + [ ... (^[) ==> \x1B .. 字元名 Escape（跳脫）
 Ctrl + U ... (^u) ==> \x15 .. 
 Ctrl + L ... (^l) ==> \f   .. from feed
 
+reference link: https://condor.depaul.edu/sjost/lsp121/documents/ascii-npr.htm
+
 轉義序列	意思
 \\	\ 字符
 \'	' 字符
