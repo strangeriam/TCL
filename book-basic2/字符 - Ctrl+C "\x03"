@@ -2,6 +2,7 @@ Ctrl + C ... (^x) ==> \x03 .. 字元名 End of Text（正文結束）
 Ctrl + X ... (^x) ==> \x18 .. 字元名 Cancel（取消）
 Ctrl + [ ... (^[) ==> \x1B .. 字元名 Escape（跳脫）
 Ctrl + U ... (^u) ==> \x15 .. 
+Ctrl + L ... (^l) ==> \f   .. from feed
 
 轉義序列	意思
 \\	\ 字符
