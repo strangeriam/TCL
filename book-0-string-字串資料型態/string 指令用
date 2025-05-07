@@ -4,7 +4,7 @@ string bytelength str	傳回字串的位元組數(以UTF-8 encoding計算)，傳
 string compare ? -nocase? ?-length len?str1 str2	比較兩字串的內容，若相同傳回『0』、其他的傳回『1』。
 -nocase：表示不分大小寫
 例：
-% string compare –nocase Rick rick
+% string compare -nocase Rick rick
 =>0
 -length：可以指定要比較的字串長度
 例：
