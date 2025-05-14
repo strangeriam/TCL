@@ -20,7 +20,7 @@ proc _f_ReadFile { fname } {
 	}
 }
 
-
+set pattern
 
 
 
