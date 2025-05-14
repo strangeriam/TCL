@@ -9,6 +9,7 @@ B . 從最下方的完整 Log 取得有哪些 Port 沒連線.
 
 C . Code here (實作)
 ## ===============
+
 proc _f_ReadFile { fname } {
 	if { [file exists $fname] } {
 		set fd [open $fname r]
@@ -20,11 +21,14 @@ proc _f_ReadFile { fname } {
 	}
 }
 
-set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
+cd D:/Dropbox/12-Office-Sync-MTS/36_ECS4650/Others/ethspf_fail_check
+set infile [_f_ReadFile Fail.txt]
 
 if {[info exists ngList]} {
 	unset ngList
 }
+
+set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
 
 foreach line [regexp -all -inline $pattern $infile] {
 	set ngPort [lindex $line 0]
@@ -39,6 +43,8 @@ foreach line [regexp -all -inline $pattern $infile] {
 }
 
 puts "ngPort: $ngList"
+
+
 
 # 輸出:
 ngPort: ETH_15 ETH_16 SPF_49 SPF_50 
