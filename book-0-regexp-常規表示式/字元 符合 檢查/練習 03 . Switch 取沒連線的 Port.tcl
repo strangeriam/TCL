@@ -7,7 +7,7 @@ A . 沒有連線的 Port 有 Eth 15 & 16, SPF 有 49 & 50.
 
 B . 從最下方的完整 Log 取得有哪些 Port 沒連線.
 
-C . Code here
+C . Code here (實作)
 ## ===============
 proc _f_ReadFile { fname } {
 	if { [file exists $fname] } {
@@ -20,14 +20,31 @@ proc _f_ReadFile { fname } {
 	}
 }
 
-set pattern
+set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
+
+if {[info exists ngList]} {
+	unset ngList
+}
+
+foreach line [regexp -all -inline $pattern $infile] {
+	set ngPort [lindex $line 0]
+
+	if { $ngPort >= 49 && $ngPort <= 54 } {
+		set typeName SPF
+	} else {
+		set typeName ETH
+	}
+
+	append ngList "${typeName}_${ngPort} "
+}
+
+puts "ngPort: $ngList"
+
+# 輸出:
+ngPort: ETH_15 ETH_16 SPF_49 SPF_50 
 
 
-
-
-
-
-Example Code:
+D . Example Code:
 ## LOG =====================
 Console(Diagnostics)# 
 Console(Diagnostics)# test 1 1 90000010
