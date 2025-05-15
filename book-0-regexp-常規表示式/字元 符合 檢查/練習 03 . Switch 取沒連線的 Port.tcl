@@ -21,7 +21,7 @@ proc _f_ReadFile { fname } {
 	}
 }
 
-cd D:/Dropbox/12-Office-Sync-MTS/36_ECS4650/Others/ethspf_fail_check
+cd D:/Dropbox/12-Office-Sync-MTS/36_ECS4650/Others/250514_failCheck_EthSFP
 set infile [_f_ReadFile Fail.txt]
 
 if {[info exists ngList]} {
