@@ -13,10 +13,23 @@ proc _f_ReadFile { fname } {
 cd D:/Dropbox/12-Office-Sync-MTS/36_ECS4650/Others/250515_failCheck_PoE
 set infile [_f_ReadFile Fail.txt]
 
-if {[info exists faillist]} {
-	unset faillist
+if {[info exists ngList]} {
+	unset ngList
 }
 
+set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
+
+foreach line [regexp -all -inline $pattern $infile] {
+	set ngPort [lindex [split $line |] 1]
+
+	append ngList "$ngPort "
+}
+
+puts "ngList: $ngList"
+
+
+# 輸出
+ngList:   2    6    8    4  
 
 
 # Example Log
