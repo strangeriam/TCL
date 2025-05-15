@@ -29,10 +29,10 @@ if {[info exists ngList]} {
 }
 
 ## pattern 和 pattern2 都可取得內容.
-set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
+#set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
 set pattern2 {\d+\s+0/\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
 
-foreach line [regexp -all -inline $pattern $infile] {
+foreach line [regexp -all -inline $pattern2 $infile] {
 	set ngPort [lindex $line 0]
 
 	if { $ngPort >= 49 && $ngPort <= 54 } {
