@@ -29,7 +29,7 @@ puts "ngList: $ngList"
 
 
 # 輸出
-ngList:   2    6    8    4  
+ngList: 2 6 8 4  
 
 
 # Example Log
