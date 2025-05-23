@@ -1,4 +1,4 @@
-proc com_read { com_fd { wait_time 30 }} {
+proc com_read { com_fd { wait_time 5 }} {
 	global w
 
 	set start [clock seconds]
