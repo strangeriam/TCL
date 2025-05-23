@@ -1,7 +1,5 @@
 package require Tk
-
 UI_ShowLog
-
 set ::console_port 12
 set ::com_fd [com_open $::console_port]
 
