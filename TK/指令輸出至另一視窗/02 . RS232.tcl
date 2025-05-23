@@ -68,7 +68,6 @@ set ::console_port 12
 set ::com_fd [com_open $::console_port]
 
 _f_transmit $::com_fd "uname -a"
-_f_transmit $::com_fd "wifi"
 
 com_close $::com_fd
 
