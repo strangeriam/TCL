@@ -48,13 +48,14 @@ proc com_close { consoleid } {
 	set consoleid 0
 }
 
+;# ===========================================================
+
 package require Tk
 
-set counter 0
 UI_ShowLog
 
-set ::fd [open "|cmd.exe" r+]
-fconfigure $::fd -blocking 0 -buffering line
+set ::console_port 12
+com_open $::console_port
 
 puts $::fd dir
 termread $::fd
