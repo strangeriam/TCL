@@ -1,4 +1,4 @@
-proc com_read { com_fd { wait_time 5 }} {
+proc com_read_250523 { com_fd { wait_time 5 }} {
 	global w
 
 	set start [clock seconds]
@@ -16,5 +16,10 @@ proc com_read { com_fd { wait_time 5 }} {
 	}
 }
 
+package require Tk
+UI_ShowLog
+set ::console_port 12
+set ::com_fd [com_open $::console_port]
+
 puts $::com_fd "ls -la"
-com_read $::com_fd
+com_read_250523 $::com_fd
