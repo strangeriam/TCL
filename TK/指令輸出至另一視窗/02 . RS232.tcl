@@ -1,4 +1,3 @@
-
 proc UI_ShowLog {} {
 	global w
 
