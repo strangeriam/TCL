@@ -27,6 +27,7 @@ proc termread { comportid } {
 proc termout {key keycode} {
 }
 
+;# ===========================================================
 proc com_open { port } {
 	set msgTitle "Check RS232 Console !!!"
 	set msgEnglish "\b\b\bStep 1: Disconnect TeraTerm or SecureCRT.\n\b\b\bStep 2: Click OK."
@@ -48,8 +49,19 @@ proc com_close { consoleid } {
 	set consoleid 0
 }
 
-;# ===========================================================
+proc _f_transmit { consoleid str { newline 1 }} {
+	if { $newline == 0 } {
+		catch {puts -nonewline $consoleid $str}
+	} else {
+		catch {
+			puts $consoleid $str
+			vwait_mseconds 200 ; update
+			termread $consoleid
+		}
+	}
+}
 
+;# ===========================================================
 package require Tk
 
 UI_ShowLog
