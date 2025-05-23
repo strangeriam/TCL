@@ -67,10 +67,12 @@ package require Tk
 UI_ShowLog
 
 set ::console_port 12
-com_open $::console_port
+set ::com_fd [com_open $::console_port]
 
-puts $::fd dir
-termread $::fd
+_f_transmit $::com_fd "uname -a"
+_f_transmit $::com_fd "wifi"
+
+com_close $::com_fd
 
 
 ;# 移除 此 uI
