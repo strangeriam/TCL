@@ -54,7 +54,6 @@ proc _f_transmit { consoleid str { newline 1 }} {
 	} else {
 		catch {
 			puts $consoleid $str
-			vwait_mseconds 200 ; update
 			termread $consoleid
 		}
 	}
