@@ -58,3 +58,15 @@ proc _f_transmit { consoleid str { newline 1 }} {
 		}
 	}
 }
+
+proc vwait_seconds {sec} {
+	 set vwait_flag 0
+	 after [expr $sec*1000] { set vwait_flag 1 }
+	 vwait vwait_flag
+}
+
+proc vwait_mseconds {msec} {
+	 set vwait_flag 0
+	 after [expr $msec] { set vwait_flag 1 }
+	 vwait vwait_flag
+}
