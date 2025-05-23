@@ -27,6 +27,11 @@ proc termread { comportid } {
 proc termout {key keycode} {
 }
 
+proc com_close { consoleid } {
+	catch {close $consoleid}
+	set consoleid 0
+}
+
 package require Tk
 
 set counter 0
