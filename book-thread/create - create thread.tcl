@@ -1,4 +1,5 @@
 ;# 此 package require 後, 就會新增一 thread id.
+;# 列出套件 thread id
 package require Thread
 puts [thread::id]
 ;# 輸出: tid00001A9C
