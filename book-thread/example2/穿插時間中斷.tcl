@@ -12,7 +12,7 @@ proc f_say1 {} {
 }
 
 proc f_say2 {} {
-    for {set i 1} {$i <= 5} {incr i} {
+    for {set i 1} {$i <= 8} {incr i} {
         puts "say2 . $i"
 	vwait_mseconds 500
     }
