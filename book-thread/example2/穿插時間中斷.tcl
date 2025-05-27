@@ -7,7 +7,7 @@ proc vwait_mseconds {msec} {
 proc f_say1 {} {
     for {set i 1} {$i <= 5} {incr i} {
         puts "say1 . $i"
-	vwait_mseconds 500
+	vwait_mseconds 1000
     }
 }
 
@@ -31,11 +31,12 @@ set tid2 [thread::create -joinable {
             thread::send -async $mainTid [list f_say2]
 }]
 
-vwait_mseconds 10000
+puts "wait 5 seconds .. start"
+vwait_mseconds 5000
+puts "wait 5 seconds .. end"
 
 thread::join $tid1
 thread::join $tid2
-
 
 ;# 輸出
 say1 . 1
