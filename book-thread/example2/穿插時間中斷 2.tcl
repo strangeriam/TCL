@@ -35,3 +35,18 @@ puts "wait 5 seconds .. end"
 
 thread::join $tid1
 thread::join $tid2
+
+;# 輸出
+say2 . 1
+say1 . 1
+say1 . 2
+say1 . 3
+say1 . 4
+say1 . 5
+say2 . 2
+say2 . 3
+say2 . 4
+say2 . 5
+say2 . 6
+say2 . 7
+say2 . 8
