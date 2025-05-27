@@ -10,4 +10,5 @@ proc printTime {} {
 printTime
 puts "started test..."
 
-vwait forever ;# Keep the interpreter alive and keep the event loop running.
+;# Keep the interpreter alive and keep the event loop running.
+vwait forever
