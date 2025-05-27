@@ -19,4 +19,4 @@ puts [set t2 [thread::create]]
 # ====================
 # Output: tid00001CD4 tid000019C8 tid00002080
 
-thread::name
+thread::names
