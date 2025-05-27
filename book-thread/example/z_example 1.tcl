@@ -17,7 +17,7 @@ for {set num 1} {$num <= 3} {incr num} {
 
 puts "Exist threads: [thread::names]\n"
 
-while { [llength [thread::name]] > 1 } {
+while { [llength [thread::names]] > 1 } {
         after 500
         puts "You are under [thread::names]\n"
 }
