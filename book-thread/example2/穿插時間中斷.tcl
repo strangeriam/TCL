@@ -7,14 +7,14 @@ proc vwait_mseconds {msec} {
 proc f_say1 {} {
     for {set i 1} {$i <= 5} {incr i} {
         puts "say1 . $i"
-		    vwait_mseconds 500
+	vwait_mseconds 500
     }
 }
 
 proc f_say2 {} {
     for {set i 1} {$i <= 5} {incr i} {
         puts "say2 . $i"
-		    vwait_mseconds 500
+	vwait_mseconds 500
     }
 }
 
