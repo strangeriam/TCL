@@ -8,10 +8,10 @@ puts [thread::id]
 ;# 輸出: tid00001A9C
 
 ;# B, Create 2 threads.
-puts [set t1 [thread::create]]
+set t1 [thread::create]
 ;# 輸出: tid000019C8
 
-puts [set t2 [thread::create]]
+set t2 [thread::create]
 ;# 輸出: tid00001CD4
 
 ;# C, List exist thread IDs.
