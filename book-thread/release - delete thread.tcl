@@ -2,7 +2,5 @@
 ;# Output: tid00001CD4 tid00002080
 
 thread::release $t1
-
-## OR
-
+;# OR
 thread::release tid00001CD4
