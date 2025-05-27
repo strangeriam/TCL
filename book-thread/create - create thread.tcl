@@ -1,22 +1,13 @@
-# Package require
-# ===============
-# 此 package require 後, 就會新增一 thread id.
-# Example ID: tid00002080
-
+;# 此 package require 後, 就會新增一 thread id.
 package require Thread
 
-
-# Create 2 threads.
-# =================
-# Output: tid000019C8
-# Output: tid00001CD4
-
+;# B, Create 2 threads.
 puts [set t1 [thread::create]]
+;# 輸出: tid000019C8
+
 puts [set t2 [thread::create]]
+;# 輸出: tid00001CD4
 
-
-# List exist thread IDs.
-# ====================
-# Output: tid00001CD4 tid000019C8 tid00002080
-
+;# C, List exist thread IDs.
 thread::names
+;# 輸出: tid00001CD4 tid000019C8 tid00002080
