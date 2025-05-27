@@ -1,5 +1,0 @@
-# List exist thread IDs.
-# ====================
-# Output: tid00001CD4 tid000019C8 tid00002080
-
-thread::name
