@@ -1,5 +1,8 @@
-;# 此 package require 後, 就會新增一 thread id.
-;# 列出套件 thread id
+;# thread::wait . 讓新建立的 Thread 進入事件循環 (Event loop), 否則此 Thread 在執行後就會結束.
+;# thread::release . 退出特定 Thread. 或不指定 $ID, 則為當前的 Thread.
+;# thread::exit . 結束當前的 Thread, 但不可用於結束其他 Thread.
+
+;# A, 此 package require 後, 就會新增一 thread id.
 package require Thread
 puts [thread::id]
 ;# 輸出: tid00001A9C
