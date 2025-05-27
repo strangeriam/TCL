@@ -20,6 +20,8 @@ proc f_say2 {} {
     }
 }
 
+unset ::sstop
+
 tsv::set share mainTid [thread::id]
 
 set tid1 [thread::create -joinable {
@@ -29,12 +31,11 @@ set tid1 [thread::create -joinable {
 
 f_say2
 
-puts "wait 5 seconds .. start"
-vwait_mseconds 5000
-puts "wait 5 seconds .. end"
+puts "wait 20 seconds .. start"
+vwait_mseconds 20000
+puts "wait 20 seconds .. end"
 
 thread::join $tid1
-thread::join $tid2
 
 ;# 輸出
 say2 . 1
