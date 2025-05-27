@@ -1,5 +1,7 @@
 ;# 此 package require 後, 就會新增一 thread id.
 package require Thread
+puts [thread::id]
+;# 輸出: 
 
 ;# B, Create 2 threads.
 puts [set t1 [thread::create]]
