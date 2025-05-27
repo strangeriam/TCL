@@ -1,3 +1,5 @@
+package require Thread
+
 proc vwait_mseconds {msec} {
 	 set vwait_flag 0
 	 after [expr $msec] { set vwait_flag 1 }
@@ -18,7 +20,6 @@ proc f_say2 {} {
     }
 }
 
-package require Thread
 tsv::set share mainTid [thread::id]
 
 set tid1 [thread::create -joinable {
@@ -26,10 +27,7 @@ set tid1 [thread::create -joinable {
             thread::send -async $mainTid [list f_say1]
 }]
 
-set tid2 [thread::create -joinable {
-            set mainTid [tsv::get share mainTid]
-            thread::send -async $mainTid [list f_say2]
-}]
+f_say2
 
 puts "wait 5 seconds .. start"
 vwait_mseconds 5000
