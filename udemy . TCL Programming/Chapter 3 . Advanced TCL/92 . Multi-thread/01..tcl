@@ -1,4 +1,4 @@
-package required Thread
+package require Thread
 
 thread::create {
   for {set i 0} {$i < 5} {incr i} {
