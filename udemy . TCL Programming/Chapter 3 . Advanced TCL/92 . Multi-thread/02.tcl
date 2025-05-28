@@ -12,4 +12,15 @@ thread::join $thread
 
 ;# 輸出:
 
-;# Issue
+;# Issue: 輸出有問題.
+tid00004490
+%
+% thread::send $thread "Hello, thread!"
+invalid command name "Hello,"
+%
+% thread::join $thread
+cannot join thread tid00004490
+%
+%
+
+
