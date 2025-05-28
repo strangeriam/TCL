@@ -1,3 +1,5 @@
+;# 需使用 tclsh 才能實際操作 thread 的實作.
+
 package require Thread
 
 thread::create {
