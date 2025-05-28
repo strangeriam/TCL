@@ -3,7 +3,8 @@ package require Thread
 set mutex [thread::mutex]
 ;# 出現錯誤: wrong # args: should be "thread::mutex option ?args?"
 
-set condition [thread::contition]
+set condition [thread::condition]
+;# 出現錯誤: invalid command name "thread::condition"
 
 set thread1 [thread::create {
     thread::mutex lock $mutex
