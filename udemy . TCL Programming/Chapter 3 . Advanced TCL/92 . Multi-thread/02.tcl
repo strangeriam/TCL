@@ -11,3 +11,5 @@ thread::join $thread
 
 
 ;# 輸出:
+
+;# Issue
