@@ -1,4 +1,4 @@
-;# 需使用 tclsh 才能顯示部分 log.
+;# 需使用 tclsh 才能實際操作 thread 的實作.
 ;# only needed for tclsh, to keep the interpreter alive and keep the event loop running.
 
 ;# thread::wait . 讓新建立的 Thread 進入事件循環 (Event loop), 否則此 Thread 在執行後就會結束.
