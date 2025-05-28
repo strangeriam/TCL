@@ -5,7 +5,7 @@ set thread [thread::create {
     puts "Received message: [thread::receive]"
 }]
 
-thread::send $thread "thread!"
+thread::send $thread "Hello, thread!"
 
 thread::join $thread
 
