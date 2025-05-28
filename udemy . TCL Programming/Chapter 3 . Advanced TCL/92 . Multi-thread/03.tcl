@@ -1,6 +1,8 @@
 package require Thread
 
 set mutex [thread::mutex]
+;# 出現錯誤: wrong # args: should be "thread::mutex option ?args?"
+
 set condition [thread::contition]
 
 set thread1 [thread::create {
