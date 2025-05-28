@@ -12,4 +12,13 @@ for {set i 0} {$i < 5} {incr i} {
     after 2000
 }
 
-#
+;# 輸出
+Main thread interation 0
+Main thread interation 1
+Main thread interation 2
+Side thread interation 1
+Main thread interation 3
+Main thread interation 4
+Side thread interation 2
+Side thread interation 3
+Side thread interation 4
