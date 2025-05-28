@@ -1,3 +1,6 @@
+;# 需使用 tclsh 才能顯示部分 log.
+;# only needed for tclsh, to keep the interpreter alive and keep the event loop running.
+
 ;# thread::wait . 讓新建立的 Thread 進入事件循環 (Event loop), 否則此 Thread 在執行後就會結束.
 ;# thread::release . 退出特定 Thread. 或不指定 $ID, 則為當前的 Thread.
 ;# thread::exit . 結束當前的 Thread, 但不可用於結束其他 Thread.
