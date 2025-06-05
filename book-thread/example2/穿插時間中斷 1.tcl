@@ -1,21 +1,21 @@
 proc vwait_mseconds {msec} {
-	 set vwait_flag 0
-	 after [expr $msec] { set vwait_flag 1 }
-	 vwait vwait_flag
+	set vwait_flag 0
+	after [expr $msec] { set vwait_flag 1 }
+	vwait vwait_flag
 }
 
 proc f_say1 {} {
-    for {set i 1} {$i <= 5} {incr i} {
-        puts "say1 . $i"
-	vwait_mseconds 1000
-    }
+	for {set i 1} {$i <= 5} {incr i} {
+		puts "say1 . $i"
+		vwait_mseconds 1000
+	}
 }
 
 proc f_say2 {} {
-    for {set i 1} {$i <= 8} {incr i} {
-        puts "say2 . $i"
-	vwait_mseconds 500
-    }
+	for {set i 1} {$i <= 8} {incr i} {
+		puts "say2 . $i"
+		vwait_mseconds 500
+	}
 }
 
 package require Thread
