@@ -3,6 +3,7 @@ Ctrl + X ... (^x) ==> \x18 .. 字元名 Cancel（取消）
 Ctrl + [ ... (^[) ==> \x1B .. 字元名 Escape（跳脫）
 Ctrl + U ... (^u) ==> \x15 .. 
 Ctrl + L ... (^l) ==> \f   .. from feed
+空格 (Space)      ==> \x20 .. Space key
 
 reference link: https://condor.depaul.edu/sjost/lsp121/documents/ascii-npr.htm
 
