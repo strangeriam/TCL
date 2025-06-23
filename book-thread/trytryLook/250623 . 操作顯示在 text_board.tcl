@@ -24,17 +24,17 @@ proc _f_transmit { consoleid str { newline 1 }} {
 }
 
 proc vwait_mseconds {msec} {
-	 set vwait_flag 0
-	 after [expr $msec] { set vwait_flag 1 }
-	 vwait vwait_flag
+	set vwait_flag 0
+	after [expr $msec] { set vwait_flag 1 }
+	vwait vwait_flag
 }
 
 proc ui_text_board {} {
 	global w
 
-    set w .gui[incr counter]
-    toplevel $w
-    wm title $w "Lu's new project."
+	set w .gui[incr counter]
+	toplevel $w
+	wm title $w "Lu's new project."
 
 	text $w.t -yscrollcommand [list .scrolly set] -setgrid 0 -height 40 -maxundo 3 -autoseparators 0 -undo false -bg blue4 -fg white -autosep 1
 	::ttk::scrollbar .scrolly -orient vertical -command [list $w.t yview]
