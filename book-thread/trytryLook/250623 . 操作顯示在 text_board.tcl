@@ -1,8 +1,6 @@
-console show
-
-source common.tcl
-
 package require Thread
+
+console show
 
 proc com_open { port } {
 	set fd [open \\\\.\\COM$port r+]
