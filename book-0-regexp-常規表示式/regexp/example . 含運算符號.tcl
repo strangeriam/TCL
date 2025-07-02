@@ -11,3 +11,26 @@ regexp {L2+, cloud-m} $content
 
 regexp {L2\+, cloud\-m} $content
 ;# 輸出: 1
+
+;# =================================
+set var "L2+, cloud-m"
+regexp $var $content
+;# 輸出: 0
+
+set var "L2+, cloud-m"
+regexp ${var} $content
+;# 輸出: 0
+
+set var {L2+, cloud-m}
+regexp ${var} $content
+;# 輸出: 0
+
+set var "L2\+, cloud\-m"
+regexp $var $content
+;# 輸出: 0
+
+set var {L2\+, cloud\-m}
+regexp $var $content
+;# 輸出: 1
+
+
