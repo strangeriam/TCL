@@ -22,4 +22,3 @@ regexp $var $content
 ;# Example 4
 set var Pass
 ;# 輸出: 0
-
