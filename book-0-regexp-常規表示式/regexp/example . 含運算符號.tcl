@@ -1,5 +1,4 @@
 
-;# Example 5 含運算符號
 set aa {
 Console#show license
 Currently Used Profile:
