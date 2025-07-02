@@ -7,4 +7,8 @@ Currently Used Profile:
 Console#
 }
 
+regexp {L2+, cloud-m} $aa
+;# 輸出: 0
+
 regexp {L2\+, cloud\-m} $aa
+;# 輸出: 1
