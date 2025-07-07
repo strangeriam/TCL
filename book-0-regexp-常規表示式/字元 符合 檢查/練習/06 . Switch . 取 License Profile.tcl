@@ -1,5 +1,9 @@
+;# 驗證以下這 2 行是否在 get_info 裡.
+License-Profile: L2+, cloud-m
+License-Profile-Digest: d706d2cb898282347a8ce9589505c2f9
 
 
+;# ==============================================
 set get_info {
 Console#show license file
 ID Expired Date Feature
