@@ -15,40 +15,40 @@ set infile [_f_ReadFile Fail2.txt]
 
 set HWInfo [list pid bid hwver serialno macadr mdate modelno]
 set HWval [list $::HW_pid \
-					$::HW_bid \
-					$::HW_hwver \
-					[_f_vini_profilerd SFIS SN] \
-					[Output_Mac_convstr_JmpNo [_f_vini_profilerd SFIS MAC] : 0] \
-					[clock format [expr [clock second] + 2 ] -format "%Y-%m-%d"] \
-					$::HW_ID]
+		$::HW_bid \
+		$::HW_hwver \
+		[_f_vini_profilerd SFIS SN] \
+		[Output_Mac_convstr_JmpNo [_f_vini_profilerd SFIS MAC] : 0] \
+		[clock format [expr [clock second] + 2 ] -format "%Y-%m-%d"] \
+		$::HW_ID]
 
 if { [info exists faillist] } {unset faillist}
 
 set HWitem [list "Project ID" \
-					"Board ID" \
-					"Hardware Version" \
-					"Serial Number" \
-					"Mac Address" \
-					"Manufacture Date" \
-					"Model Number" ]
+		"Board ID" \
+		"Hardware Version" \
+		"Serial Number" \
+		"Mac Address" \
+		"Manufacture Date" \
+		"Model Number" ]
 
 foreach item $HWitem val $HWval {
-		if { [ regexp ID $item ] } {
+	if { [ regexp ID $item ] } {
 			set regline "${item}\\s+=0x[format "%08x" $val]"
+	} else {
+		if { [ regexp Date $item ] } {
+			set regline "${item}\\s+=\\d+-\\d+-\\d+"
 		} else {
-			if { [ regexp Date $item ] } {
-				set regline "${item}\\s+=\\d+-\\d+-\\d+"
-			} else {
-				set regline "${item}\\s+=$val"
-			}
-    }
-
-		if { ![regexp -line $regline $infile] } {
-			lappend faillist "${item}:${val}"
+			set regline "${item}\\s+=$val"
 		}
-	}
+    	}
 
-	if { [info exists faillist] } { puts "$faillist Fail" }
+	if { ![regexp -line $regline $infile] } {
+		lappend faillist "${item}:${val}"
+	}
+}
+
+if { [info exists faillist] } { puts "$faillist Fail" }
 
 
 
