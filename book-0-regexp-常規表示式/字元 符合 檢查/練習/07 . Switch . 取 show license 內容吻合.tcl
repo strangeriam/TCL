@@ -6,9 +6,9 @@ Currently Used Profile:
 Console#
 }
 
-set lic 		"L2\\+, cloud-m"
-set lic_digest 	"d706d2cb898282347a8ce9589505c2f9"
+set lic "L2\\+, cloud-m"
+set lic_digest "d706d2cb898282347a8ce9589505c2f9"
 
-if { [regexp -line $lic $get_info] } {
+if { ! [regexp -line $lic $get_info] } {
 	return 0
 }
