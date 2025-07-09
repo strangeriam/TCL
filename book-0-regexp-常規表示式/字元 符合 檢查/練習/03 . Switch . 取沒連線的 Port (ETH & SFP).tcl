@@ -1,9 +1,15 @@
 A . 沒有連線的 Port 有 Eth 15 & 16, SPF 有 49 & 50.
   
-  15      0/14                  0                  0                  0                  0         0 Mbps (Low rate!)
-  16      0/15                  0                  0                  0                  0         0 Mbps (Low rate!)
-  49      0/48                  0                  0                  0                  0         0 Mbps (Low rate!)
-  50      0/49                  0                  0                  0                  0         0 Mbps (Low rate!)
+   6      0/ 5             838005             838848         1260359520         1261627392       987 Mbps 
+   7      0/ 6                  0                  0                  0                  0         0 Mbps (Low rate!)
+   8      0/ 7                  0                  0                  0                  0         0 Mbps (Low rate!)
+   9      0/ 8             837162             836317         1259091648         1257820768       987 Mbps 
+  10      0/ 9             836317             837162         1257820768         1259091648       987 Mbps 
+  11      0/10             835473             834630         1256551392         1255283520       987 Mbps 
+  12      0/11             834630             835473         1255283520         1256551392       987 Mbps 
+  13      0/12             833787             832944         1254015648         1252747776       987 Mbps 
+  14      0/13                  0                  0                  0                  0         0 Mbps (Low rate!)
+  15      0/14             832100             831257         1251478400         1250210528       987 Mbps 
 
 B . 從最下方的完整 Log 取得有哪些 Port 沒連線.
 
@@ -30,9 +36,17 @@ if {[info exists ngList]} {
 
 ## pattern 和 pattern2 都可取得內容.
 #set pattern {\d+      0/\d+                  \d+                  \d+                  \d+                  \d+         \d+ Mbps \(Low rate!\)}
-set pattern2 {\d+\s+0/\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
 
-foreach line [regexp -all -inline $pattern2 $infile] {
+set pattern2 {\d+\s+0/\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
+;# pattern2 的 +0/\d+ 對以下可以解析出來 --> 0/13
+  14      0/13                  0                  0                  0                  0         0 Mbps (Low rate!)
+;# 但無法解析 --> 0/ 6 --> 因為中間有空白.
+   7      0/ 6                  0                  0                  0                  0         0 Mbps (Low rate!)
+;# 需改成 +0/.\d+ --> 成為 pattern3
+set pattern3 {\d+\s+0/.\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
+
+
+foreach line [regexp -all -inline $pattern3 $infile] {
 	set ngPort [lindex $line 0]
 
 	if { $ngPort >= 49 && $ngPort <= 54 } {
@@ -47,9 +61,8 @@ foreach line [regexp -all -inline $pattern2 $infile] {
 puts "ngPort: $ngList"
 
 
-
 # 輸出:
-ngPort: ETH_15 ETH_16 SPF_49 SPF_50 
+ngPort: ETH_7 ETH_8 ETH_14 
 
 
 D . Example Code:
@@ -72,10 +85,9 @@ port_info_get,6
         - Number of Packets: 10 packets.
 -------------------------------------------------------------------------------------
 Please wait.......
-Port 15: Link DOWN.
-Port 16: Link DOWN.
-Port 49: Link DOWN.
-Port 50: Link DOWN.
+Port 7: Link DOWN.
+Port 8: Link DOWN.
+Port 14: Link DOWN.
 
 Start to send packets and run traffic test.....
 
@@ -87,17 +99,17 @@ Start to send packets and run traffic test.....
    3      0/ 2             863234             862351         1298303936         1296975904       987 Mbps 
    4      0/ 3             862351             863234         1296975904         1298303936       987 Mbps 
    5      0/ 4             861476             860604         1295659904         1294348416       987 Mbps 
-   6      0/ 5             860604             861476         1294348416         1295659904       987 Mbps 
-   7      0/ 6             859732             858857         1293036928         1291720928       987 Mbps 
-   8      0/ 7             858857             859732         1291720928         1293036928       987 Mbps 
-   9      0/ 8             857985             857110         1290409440         1289093440       987 Mbps 
-  10      0/ 9             857110             857985         1289093440         1290409440       987 Mbps 
-  11      0/10             856235             855362         1287777440         1286464448       987 Mbps 
-  12      0/11             855362             856235         1286464448         1287777440       987 Mbps 
-  13      0/12             854489             853608         1285151456         1283826432       987 Mbps 
-  14      0/13             853608             854489         1283826432         1285151456       987 Mbps 
-  15      0/14                  0                  0                  0                  0         0 Mbps (Low rate!)
-  16      0/15                  0                  0                  0                  0         0 Mbps (Low rate!)
+   6      0/ 5             838005             838848         1260359520         1261627392       987 Mbps 
+   7      0/ 6                  0                  0                  0                  0         0 Mbps (Low rate!)
+   8      0/ 7                  0                  0                  0                  0         0 Mbps (Low rate!)
+   9      0/ 8             837162             836317         1259091648         1257820768       987 Mbps 
+  10      0/ 9             836317             837162         1257820768         1259091648       987 Mbps 
+  11      0/10             835473             834630         1256551392         1255283520       987 Mbps 
+  12      0/11             834630             835473         1255283520         1256551392       987 Mbps 
+  13      0/12             833787             832944         1254015648         1252747776       987 Mbps 
+  14      0/13                  0                  0                  0                  0         0 Mbps (Low rate!)
+  15      0/14             832100             831257         1251478400         1250210528       987 Mbps 
+  16      0/15             852729             851845         1282504416         1281174880       987 Mbps 
   17      0/16             852729             851845         1282504416         1281174880       987 Mbps 
   18      0/17             851845             852729         1281174880         1282504416       987 Mbps 
   19      0/18             850961             850078         1279845344         1278517312       987 Mbps 
