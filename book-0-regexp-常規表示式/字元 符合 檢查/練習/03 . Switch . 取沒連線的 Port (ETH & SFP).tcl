@@ -43,8 +43,8 @@ set pattern2 {\d+\s+0/\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
 ;# 但無法解析 --> 0/ 6 --> 因為中間有空白.
    7      0/ 6                  0                  0                  0                  0         0 Mbps (Low rate!)
 ;# 需改成 +0/.\d+ --> 成為 pattern3
+;# .  -->  所有字元 (可以用來表達任何字元)
 set pattern3 {\d+\s+0/.\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+ Mbps \(Low rate!\)}
-
 
 foreach line [regexp -all -inline $pattern3 $infile] {
 	set ngPort [lindex $line 0]
