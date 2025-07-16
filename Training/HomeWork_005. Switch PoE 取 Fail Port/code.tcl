@@ -12,19 +12,23 @@ proc PoE_Test_analyze_250715 {} {
 	return [lsort -integer $faillist]
 }
 
-set totalS 3
-for {set i 1} {$i <= $totalS} {incr i} {
-	set faillist [PoE_Test_analyze_250715]
-	if { [llength $faillist] == 0 } { break }
-
-	set totalFail [llength $faillist]
-
-	if {$i == $totalS} {
-		puts "\nCALL PE/TE for NG ports \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
-		return 0
+proc _f_POE_Power_28P_26W_C4 {} {
+	set totalS 3
+	for {set i 1} {$i <= $totalS} {incr i} {
+		set faillist [PoE_Test_analyze_250715]
+		if { [llength $faillist] == 0 } { break }
+	
+		set totalFail [llength $faillist]
+	
+		if {$i == $totalS} {
+			puts "\nCALL PE/TE for NG ports \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
+			return 0
+		}
+	
+		puts "\nNG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
 	}
-
-	puts "\nNG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
+ 
+ 	return 1
 }
 
 ;#
