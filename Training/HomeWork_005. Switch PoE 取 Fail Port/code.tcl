@@ -27,4 +27,4 @@ for {set i 1} {$i <= $totalS} {incr i} {
 	}
 
 	_f_Client_SelectUI "NG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist" PassOnly "./bitmap/parts/ECS4150-28P_ETH.png" "TXT:RETRY"
-  }
+}
