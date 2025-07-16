@@ -18,12 +18,11 @@ for {set i 1} {$i <= $totalS} {incr i} {
 	if { [llength $faillist] == 0 } { break }
 
 	set totalFail [llength $faillist]
-	puts "faillist \($totalFail\) . Try ${i}/$totalS\n$faillist"
 
 	if {$i == $totalS} {
-		puts "CALL PE/TE for NG ports \($totalFail\) . ${i}/$totalS\n\b\b$faillist"
+		puts "\nCALL PE/TE for NG ports \($totalFail\) . ${i}/$totalS\n\b\b$faillist"
 		return 0
 	}
 
-	puts "NG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
+	puts "\nNG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
 }
