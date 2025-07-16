@@ -1,3 +1,6 @@
+;# 全 PASS 的輸出是 return 1
+;# 有 FAIL 的輸出是 return 0
+
 proc PoE_Test_analyze_250715 {} {
 	set get_info $::log
 	set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
