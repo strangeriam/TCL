@@ -1,4 +1,4 @@
-;# 此 Log 由 Fail 修改而來.
+;# 此 Log 由 Fail 修改而來, 只有將原 FAIL 改成 OK.
 
 set faillist {
 ti_poe_get_round_consumed_pwr_diag ok
