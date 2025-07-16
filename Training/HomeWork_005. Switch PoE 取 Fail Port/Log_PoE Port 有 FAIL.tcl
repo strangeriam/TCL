@@ -1,4 +1,4 @@
-set log {
+set ::log {
 ti_poe_get_round_consumed_pwr_diag ok
 ti_poe_set_port_enable poe_mode[0] round[2] enable[0]
 
