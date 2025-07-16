@@ -26,3 +26,5 @@ for {set i 1} {$i <= $totalS} {incr i} {
 
 	puts "\nNG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
 }
+
+
