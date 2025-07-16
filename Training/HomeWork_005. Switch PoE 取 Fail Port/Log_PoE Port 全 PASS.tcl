@@ -1,6 +1,6 @@
 ;# 此 Log 由 Fail 修改而來, 只有將原 FAIL 改成 OK.
 
-set log {
+set ::log {
 ti_poe_get_round_consumed_pwr_diag ok
 ti_poe_set_port_enable poe_mode[0] round[2] enable[0]
 
