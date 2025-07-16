@@ -1,5 +1,5 @@
 proc PoE_Test_analyze_250715 {} {
-	set get_info [_f_getconsole]
+	set get_info $::log
 	set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
 	if {[info exists faillist]} { unset faillist }
 
