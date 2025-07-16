@@ -20,7 +20,7 @@ for {set i 1} {$i <= $totalS} {incr i} {
 	set totalFail [llength $faillist]
 
 	if {$i == $totalS} {
-		puts "\nCALL PE/TE for NG ports \($totalFail\) . ${i}/$totalS\n\b\b$faillist"
+		puts "\nCALL PE/TE for NG ports \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
 		return 0
 	}
 
