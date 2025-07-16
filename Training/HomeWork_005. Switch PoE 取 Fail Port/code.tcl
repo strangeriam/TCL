@@ -18,13 +18,12 @@ for {set i 1} {$i <= $totalS} {incr i} {
 	if { [llength $faillist] == 0 } { break }
 
 	set totalFail [llength $faillist]
-	_f_termmsg_V1 "faillist \($totalFail\) . Try ${i}/$totalS\n$faillist"
+	puts "faillist \($totalFail\) . Try ${i}/$totalS\n$faillist"
 
 	if {$i == $totalS} {
-		_f_Client_SelectUI "CALL PE/TE for NG ports \($totalFail\) . ${i}/$totalS\n\b\b$faillist" FailOnly "./bitmap/parts/ECS4150-28P_ETH.png"
-		set ::s0 "PoE Fail" ; set ::ErrorCode "PoE"
+		puts "CALL PE/TE for NG ports \($totalFail\) . ${i}/$totalS\n\b\b$faillist"
 		return 0
 	}
 
-	_f_Client_SelectUI "NG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist" PassOnly "./bitmap/parts/ECS4150-28P_ETH.png" "TXT:RETRY"
+	puts "NG ports list \($totalFail\) . Try ${i}/$totalS\n\b\b$faillist"
 }
