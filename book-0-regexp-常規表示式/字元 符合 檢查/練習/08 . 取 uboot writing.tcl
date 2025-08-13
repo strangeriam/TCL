@@ -14,7 +14,7 @@ set reglist [list 	"Flashing sbl1:\\s+\[ done \]" \
 
 foreach line $reglist {
 	if { ! [regexp -line -nocase ${line} $::content] } {
-			puts "$line fail!"
+			puts "FAIL: $line"
 	}
 }
 
