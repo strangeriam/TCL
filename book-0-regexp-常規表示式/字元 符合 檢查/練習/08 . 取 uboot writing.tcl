@@ -11,13 +11,15 @@ set reglist [list 	"Flashing sbl1:\\s+\[ done \]" \
 					"Flashing priv_data1:\\s+\[ done \]" \
 					"Flashing ubi:\\s+\[ done \]" \
 					"Flashing wifi_fw_ipq5018_qcn6122cs:\\s+\[ done \]"]
+set num 1
 
 foreach line $reglist {
 	if { ! [regexp -line -nocase ${line} $::content] } {
 			puts "FAIL: $line"
 	}
 
-	puts "PASS: $line"
+	puts "PASS $num: $line"
+ 	incr num
 }
 
 
