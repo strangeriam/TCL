@@ -1,4 +1,4 @@
-set get_info {Flashing tz:                            [ do ]}
+set get_info {Flashing tz:                            [ done ]}
 set item "Flashing tz:"
 
 regexp -line "${item}.*\[+\s+done+\s+\]" $get_info
