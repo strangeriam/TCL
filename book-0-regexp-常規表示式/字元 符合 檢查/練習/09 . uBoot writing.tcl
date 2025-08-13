@@ -1,29 +1,31 @@
+set get_info {Flashing tz:                            [ done ]}
+set item "Flashing tz:"
 
-set reglist [list 	"Flashing sbl1:\\s+\[ done \]" \
-					"Flashing mibib:\\s+\[ done \]" \
-					"Flashing bootconfig:\\s+\[ done \]" \
-					"Flashing bootconfig1:\\s+\[ done \]" \
-					"Flashing tz:\\s+\[ done1 \]" \
-					"Flashing devcfg:\\s+\[ fail \]" \
-					"Flashing ddr-AP-MP03.5-C1_512M16_DDR3:\\s+\[ done \]" \
-					"Flashing appsblenv:\\s+\[ done \]" \
-					"Flashing u-boot:\\s+\[ done \]" \
-					"Flashing priv_data1:\\s+\[ done \]" \
-					"Flashing ubi:\\s+\[ done \]" \
-					"Flashing wifi_fw_ipq5018_qcn6122cs:\\s+\[ done \]"]
-set num 1
+regexp -line "${item}.*\[+\s+done+\s+\]" $get_info
 
-foreach line $reglist {
-	if { ! [regexp -line -nocase ${line} $::content] } {
-			puts "FAIL: $line"
-	}
 
-	puts "PASS $num: $line"
- 	incr num
+set reglist [list 	"Flashing sbl1:" \
+					"Flashing mibib:" \
+					"Flashing bootconfig:" \
+					"Flashing bootconfig1" \
+					"Flashing tz:" \
+					"Flashing devcfg:" \
+					"Flashing ddr-AP-MP03.5-C1_512M16_DDR3:" \
+					"Flashing appsblenv:" \
+					"Flashing u-boot:" \
+					"Flashing priv_data1:" \
+					"Flashing ubi:" \
+					"Flashing wifi_fw_ipq5018_qcn6122cs:"]
+
+foreach item $reglist {
+	if { ![regexp -line "${item}.*\[ done \]" $get_info] } {
+ 		 	puts "FAIL: $item"
+ 	}
+ 	puts "PASS: $item"
 }
 
 
-set ::content {
+set get_info {
 IPQ5018# 
 IPQ5018# imgaddr=$fileaddr && source $imgaddr:script
 ## Executing script at 44000000
@@ -35,7 +37,7 @@ Flashing sbl1:                          [ done ]
 Flashing mibib:                         [ done ]
 Flashing bootconfig:                    [ done ]
 Flashing bootconfig1:                   [ done ]
-Flashing tz:                            [ done ]
+Flashing tz:                            [ do1 ]
 Flashing devcfg:                        [ done ]
 Flashing ddr-AP-MP03.5-C1_512M16_DDR3:  [ done ]
 Flashing appsblenv:                     [ done ]
