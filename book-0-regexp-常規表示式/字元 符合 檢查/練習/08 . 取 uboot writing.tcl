@@ -16,6 +16,8 @@ foreach line $reglist {
 	if { ! [regexp -line -nocase ${line} $::content] } {
 			puts "FAIL: $line"
 	}
+
+	puts "PASS: $line"
 }
 
 
