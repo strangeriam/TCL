@@ -1,16 +1,16 @@
 
 set reglist [list 	"Flashing sbl1:\\s+\[ done \]" \
-							"Flashing mibib:\\s+\[ done \]" \
-							"Flashing bootconfig:\\s+\[ done \]" \
-							"Flashing bootconfig1:\\s+\[ done \]" \
-							"Flashing tz:\\s+\[ done1 \]" \
-							"Flashing devcfg:\\s+\[ fail \]" \
-							"Flashing ddr-AP-MP03.5-C1_512M16_DDR3:\\s+\[ done \]" \
-							"Flashing appsblenv:\\s+\[ done \]" \
-							"Flashing u-boot:\\s+\[ done \]" \
-							"Flashing priv_data1:\\s+\[ done \]" \
-							"Flashing ubi:\\s+\[ done \]" \
-							"Flashing wifi_fw_ipq5018_qcn6122cs:\\s+\[ done \]"]
+					"Flashing mibib:\\s+\[ done \]" \
+					"Flashing bootconfig:\\s+\[ done \]" \
+					"Flashing bootconfig1:\\s+\[ done \]" \
+					"Flashing tz:\\s+\[ done1 \]" \
+					"Flashing devcfg:\\s+\[ fail \]" \
+					"Flashing ddr-AP-MP03.5-C1_512M16_DDR3:\\s+\[ done \]" \
+					"Flashing appsblenv:\\s+\[ done \]" \
+					"Flashing u-boot:\\s+\[ done \]" \
+					"Flashing priv_data1:\\s+\[ done \]" \
+					"Flashing ubi:\\s+\[ done \]" \
+					"Flashing wifi_fw_ipq5018_qcn6122cs:\\s+\[ done \]"]
 
 foreach line $reglist {
 		if { ! [regexp -line -nocase ${line} $::content] } {
