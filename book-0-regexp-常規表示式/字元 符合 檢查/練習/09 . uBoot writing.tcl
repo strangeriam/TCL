@@ -3,6 +3,11 @@ set item "Flashing tz:"
 
 regexp -line "${item}.*\[+\s+done+\s+\]" $get_info
 
+if { [regexp -linestop ${item}.* $get_info tmp] } {
+	if { ! [regexp {done} $tmp] } {
+ 		return 0
+ 	}
+}
 
 set reglist [list 	"Flashing sbl1:" \
 					"Flashing mibib:" \
