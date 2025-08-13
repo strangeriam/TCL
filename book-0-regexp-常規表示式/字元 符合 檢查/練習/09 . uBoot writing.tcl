@@ -1,13 +1,3 @@
-set get_info {Flashing tz:                            [ done ]}
-set item "Flashing tz:"
-
-regexp -line "${item}.*\[+\s+done+\s+\]" $get_info
-
-if { [regexp -linestop ${item}.* $get_info tmp] } {
-	if { ! [regexp {done} $tmp] } {
- 		return 0
- 	}
-}
 
 set reglist [list 	"Flashing sbl1:" \
 					"Flashing mibib:" \
@@ -23,10 +13,12 @@ set reglist [list 	"Flashing sbl1:" \
 					"Flashing wifi_fw_ipq5018_qcn6122cs:"]
 
 foreach item $reglist {
-	if { ![regexp -line "${item}.*\[ done \]" $get_info] } {
- 		 	puts "FAIL: $item"
- 	}
- 	puts "PASS: $item"
+	if { [regexp -linestop ${item}.* $get_info tmp] } {
+		if { ! [regexp {done} $tmp] } {
+	 		puts "FAIL: $item"
+			return 0
+	 	}
+	}
 }
 
 
@@ -42,7 +34,7 @@ Flashing sbl1:                          [ done ]
 Flashing mibib:                         [ done ]
 Flashing bootconfig:                    [ done ]
 Flashing bootconfig1:                   [ done ]
-Flashing tz:                            [ do1 ]
+Flashing tz:                            [ done ]
 Flashing devcfg:                        [ done ]
 Flashing ddr-AP-MP03.5-C1_512M16_DDR3:  [ done ]
 Flashing appsblenv:                     [ done ]
