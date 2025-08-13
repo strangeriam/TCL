@@ -13,10 +13,9 @@ set reglist [list 	"Flashing sbl1:\\s+\[ done \]" \
 					"Flashing wifi_fw_ipq5018_qcn6122cs:\\s+\[ done \]"]
 
 foreach line $reglist {
-		if { ! [regexp -line -nocase ${line} $::content] } {
-				_f_termmsg_V1 "$line fail!"
-				continue
-		}
+	if { ! [regexp -line -nocase ${line} $::content] } {
+			puts "$line fail!"
+	}
 }
 
 
