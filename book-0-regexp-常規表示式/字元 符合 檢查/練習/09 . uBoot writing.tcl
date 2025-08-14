@@ -1,16 +1,29 @@
 
-set reglist [list 	"Flashing sbl1:" \
-					"Flashing mibib:" \
-					"Flashing bootconfig:" \
-					"Flashing bootconfig1" \
-					"Flashing tz:" \
-					"Flashing devcfg:" \
-					"Flashing ddr-AP-MP03.5-C1_512M16_DDR3:" \
-					"Flashing appsblenv:" \
-					"Flashing u-boot:" \
-					"Flashing priv_data1:" \
-					"Flashing ubi:" \
-					"Flashing wifi_fw_ipq5018_qcn6122cs:"]
+set itemlist [list 	01_sbl1 \
+					02_mibib \
+					03_bootconfig \
+					04_bootconfig1 \
+					05_tz \
+					06_devcfg \
+					07_ddr \
+					08_appsblenv \
+					09_uboot \
+					10_priv \
+					11_ubi \
+					12_wififw]
+
+set reglist [list 	sbl1 \
+					mibib \
+					bootconfig \
+					bootconfig1 \
+					tz \
+					devcfg \
+					ddr-AP-MP03.5-C1_512M16_DDR3 \
+					appsblenv \
+					u-boot \
+					priv_data1 \
+					ubi \
+					wifi_fw_ipq5018_qcn6122cs ]
 
 foreach item $reglist {
 	if { [regexp -linestop ${item}.* $get_info tmp] } {
