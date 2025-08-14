@@ -36,7 +36,7 @@ foreach item $itemlist val $reglist {
 }
 
 if { [info exists faillist] } {
-	_f_termmsg_V1 "faillist: $faillist"
+	puts "faillist: $faillist"
 }
 
 set get_info {
