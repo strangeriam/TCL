@@ -62,10 +62,8 @@ foreach item $itemlist val $reglist {
 
 if { [info exists faillist] } {
 	puts "faillist: $faillist"
- 	return 0
 }
 
-return 1
-
-
+# 輸出:
+faillist: 05_tz 07_ddr 09_uboot 10_priv 
 
