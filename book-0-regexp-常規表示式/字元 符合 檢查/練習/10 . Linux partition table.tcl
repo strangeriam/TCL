@@ -3,9 +3,29 @@
 /dev/mmcblk0p3    1023,3,16   1023,3,16       346112   62160895   61814784 29.4G 83 Linux
 
 
+;# Code
+if {[info exists faillist]} {
+	unset faillist
+}
+
+set partitionlist [list /dev/mmcblk0p1 /dev/mmcblk0p3]
+
+foreach item $partitionlist {
+	if { [regexp -linestop "$item.*" $get_info tmp] } {
+		if { ![regexp {83 Linux} $tmp]} {
+			append faillist "$item "
+		}
+	} else {
+			append faillist "$item "
+	}
+}
+
+if {[info exists faillist]} {
+	puts "faillist: $faillist"
+}
 
 
-
+;# =================================================================
 set get_info {
 / # fdisk -l
 Disk /dev/mmcblk[  137.790763] Buffer I/O error on dev mmcblk0rpmb, logical block 0, async page read
