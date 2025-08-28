@@ -14,6 +14,9 @@ foreach partlist [regexp -all -inline -- {/dev/mmcblk0p[^\n]+} $get_info] {
 
 puts "plist: $plist"
 
+
+;# 輸出:
+plist: 1 3 
 ;# ================================================
 
 
