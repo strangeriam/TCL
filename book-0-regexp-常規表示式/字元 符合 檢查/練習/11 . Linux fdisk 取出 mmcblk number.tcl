@@ -9,12 +9,10 @@
 if { [info exists plist] } { unset plist }
 
 foreach partlist [regexp -all -inline -- {/dev/mmcblk0p[^\n]+} $get_info] {
-	append plist "[lindex $partlist 0] "
+	append plist "[string index [lindex $partlist 0] end-0] "
 }
 
 puts "plist: $plist"
-
-
 
 ;# ================================================
 
