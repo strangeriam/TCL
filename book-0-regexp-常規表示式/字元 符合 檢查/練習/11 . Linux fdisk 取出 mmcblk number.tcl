@@ -6,22 +6,14 @@
 
 
 ;# Code
-if {[info exists faillist]} { unset faillist }
-set partitionlist [list /dev/mmcblk0p1 /dev/mmcblk0p3]
+if { [info exists plist] } { unset plist }
 
-foreach item $partitionlist {
-	if { [regexp -linestop "$item.*" $get_info tmp] } {
-		if { ![regexp {83 Linux} $tmp]} {
-			append faillist "$item "
-		}
-	} else {
-			append faillist "$item "
-	}
+foreach partlist [regexp -all -inline -- {/dev/mmcblk0p[^\n]+} $get_info] {
+	append plist "[lindex $partlist 0] "
 }
 
-if {[info exists faillist]} {
-	puts "faillist: $faillist"
-}
+puts "plist: $plist"
+
 
 
 ;# ================================================
