@@ -1,4 +1,8 @@
+取出這 2 行 Log 的 /dev/mmcblk0p1 和 /dev/mmcblk0p3, 並取得它的 mmcblk number.
+例如: /dev/mmcblk0p1 的 number 是 1 . /dev/mmcblk0p3 的 number 是 3
 
+/dev/mmcblk0p1    32,0,1      1023,3,16         2048     346111     344064  168M 83 Linux
+/dev/mmcblk0p3    1023,3,16   1023,3,16       346112   62160895   61814784 29.4G 83 Linux
 
 
 
