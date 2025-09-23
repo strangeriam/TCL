@@ -41,7 +41,7 @@ foreach item $HWitem val $HWval {
 		} else {
 			set regline "${item}\\s+=$val"
 		}
-    	}
+    }
 
 	if { ![regexp -line $regline $infile] } {
 		lappend faillist "${item}:${val}"
