@@ -24,7 +24,9 @@ iperf3 -c 192.168.1.11 -t 10
 
 set pattern_sender {\d+.\d+-+\d+.\d+\s+sec+\s+\d+.\d+\s+\D+\s+\d+.\d+\s+\D+\s+\d+\s+sender}
 regexp -all -inline $pattern_sender $get_info
+輸出: {0.00-10.00  sec  27.8 MBytes  23.3 Mbits/sec    0             sender}
+
 
 set pattern_receiver {\d+.\d+-+\d+.\d+\s+sec+\s+\d+.\d+\s+\D+\s+\d+.\d+\s+\D+\s\s+receiver}
 regexp -all -inline $pattern_receiver $get_info
-
+輸出: {0.00-10.04  sec  27.2 MBytes  22.7 Mbits/sec                  receiver}
