@@ -16,3 +16,7 @@ D:\Dropbox\12-Office-SyncMTS-Switch\01_ECS4150_01_SHA\04_ECS4150-28_54PT_V4.1.11
 
 D:\Dropbox\12-Office-SyncMTS-Switch\01_ECS4150_01_SHA\04_ECS4150-28_54PT_V4.1.11r.254.1H.01E_SHA\extapp\FTP_TFTP_AUTO\apcode_certs\902D77217C60>
 =====================================
+
+glob -no -directory ${::ASPECTPATH}extapp/FTP_TFTP_AUTO/apcode_certs/$mac/ -tail *
+
+輸出: key.pem operational.ca operational.pem
