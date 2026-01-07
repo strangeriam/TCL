@@ -11,18 +11,18 @@ proc clear {} {
 
 proc do_re {} {
     clear
-    
+
     # get matches by index
     set cmd [list regexp -inline -indices]
     if {$::LINE} {lappend cmd -line}
     if {$::ALL} {lappend cmd -all}
     lappend cmd -- $::EXP [.txt get 1.0 end]
     set l [eval $cmd]
-    
+
     if {[llength $l] > 0} {
         # mark range of entire match
         set i1 "1.0 + [lindex [lindex $l 0] 0] chars"
-        set i2 "1.0 + [expr [lindex [lindex $l 0] 1] + 1] chars"           
+        set i2 "1.0 + [expr [lindex [lindex $l 0] 1] + 1] chars"
         .txt tag add FullMatch $i1 $i2
         # mark any submatches
         set modval [llength $::SubMatchColors]
