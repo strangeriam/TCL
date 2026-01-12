@@ -6,4 +6,12 @@
 SN --> EC2430001796
 MAC --> A01AE3F90050
 
+;# CODE get SN
+;# ============
+set scanner "2D=2D;SN1;EC2430001796;MAC1;A01AE3F90050"
 
+set patternSN {EC([0-9A-Z]{10})}
+regexp -line $patternSN $scanner SN
+set SN
+
+輸出: FSLS715X202511N00123
