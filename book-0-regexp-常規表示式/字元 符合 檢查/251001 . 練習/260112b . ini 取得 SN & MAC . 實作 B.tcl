@@ -15,3 +15,14 @@ regexp -line $patternSN $scanner SN
 set SN
 
 輸出: EC2430001796
+
+
+;# CODE get MAC
+;# ============
+set scanner "2D=2D;SN1;EC2430001796;MAC1;A01AE3F90050"
+
+set patternMAC {(A01AE3|649D99)([0-9A-F]{6})}
+regexp -line $patternMAC $scanner MAC
+set MAC
+
+輸出: A01AE3F90050
