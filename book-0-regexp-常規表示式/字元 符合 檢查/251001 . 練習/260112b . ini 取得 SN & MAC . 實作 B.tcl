@@ -14,4 +14,4 @@ set patternSN {EC([0-9A-Z]{10})}
 regexp -line $patternSN $scanner SN
 set SN
 
-輸出: FSLS715X202511N00123
+輸出: EC2430001796
