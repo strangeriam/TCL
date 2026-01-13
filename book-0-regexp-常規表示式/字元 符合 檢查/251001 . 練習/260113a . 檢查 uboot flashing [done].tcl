@@ -1,3 +1,13 @@
+此例 正規表示式 使用說明;
+--> regexp "Flashing ${item}:\\s+. done ." $get_info
+\\s+ 	<-- [1] "\" 	(跳脫 \s 的斜線 "\")
+		<-- [2] "\s" 	(任何空白字元)
+		<-- [3] "+" 	(往後的所有空白字元)
+. 		<-- 所有字元, 用來表示 "[ done ]" done 兩端的中括號 "[" "]"
+
+
+
+;# CODE
 set listitem [list 	sbl1 \
 					mibib \
 					bootconfig \
@@ -14,14 +24,29 @@ set listitem [list 	sbl1 \
 if { [info exists faillist] } {unset faillist}
 
 foreach item $listitem {
-	if { ![regexp -line "Flashing ${item}:\\s+. done ." $get_info]} {
+	if { ![regexp "Flashing ${item}:\\s+. done ." $get_info]} {
 		append faillist "${item} "
 	} else {
 		puts "Check \"${item}\" ,PASS"
 	}
 }
 
-if { [info exists faillist] } { puts "$faillist ,FAIL" }
+if { [info exists faillist] } { puts "FAIL ITEM LIST: $faillist" }
+
+
+輸出:
+Check "sbl1" ,PASS
+Check "bootconfig" ,PASS
+Check "bootconfig1" ,PASS
+Check "devcfg" ,PASS
+Check "ddr-AP-MP03.5-C1_512M16_DDR3" ,PASS
+Check "appsblenv" ,PASS
+Check "u-boot" ,PASS
+Check "priv_data1" ,PASS
+Check "ubi" ,PASS
+Check "wifi_fw_ipq5018_qcn6122cs" ,PASS
+
+FAIL ITEM LIST: mibib tz 
 
 
 
