@@ -15,7 +15,7 @@ if { [info exists faillist] } {unset faillist}
 
 foreach item $listitem {
 			set regline "Flashing ${item}"
-			if { ![regexp "${regline}:\\s+\[ done \]" $get_info]} {
+			if { ![regexp -line "${regline}:\\s+\[ done \]" $get_info]} {
 				append faillist "$regline "
 			} else {
 				puts "Check \"${regline}\" ,PASS"
