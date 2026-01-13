@@ -26,15 +26,6 @@ if { [info exists faillist] } { puts "$faillist ,FAIL" }
 
 
 
-
-
-
-
-
-
-
-
-
 set get_info {
 09:21:32:938| ## Executing script at 44000000
 09:21:32:938| 
@@ -48,13 +39,13 @@ set get_info {
 09:21:32:965| 
 09:21:32:965| Flashing sbl1:                          [ done ]
 09:21:34:013| 
-09:21:34:028| Flashing mibib:                         [ done ]
+09:21:34:028| Flashing mibib:                         [ fail ]
 09:21:34:280| 
 09:21:34:280| Flashing bootconfig:                    [ done ]
 09:21:34:578| 
 09:21:34:578| Flashing bootconfig1:                   [ done ]
 09:21:34:830| 
-09:21:34:830| Flashing tz:                            [ done ]
+09:21:34:830| Flashing tz:                            [  ]
 09:21:38:763| 
 09:21:38:763| Flashing devcfg:                        [ done ]
 09:21:39:048| 
