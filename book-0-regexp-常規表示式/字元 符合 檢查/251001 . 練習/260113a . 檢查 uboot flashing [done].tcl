@@ -1,4 +1,28 @@
+set listitem [list 	sbl1 \
+							mibib \
+							bootconfig \
+							bootconfig1 \
+							tz \
+							devcfg \
+							ddr-AP-MP03.5-C1_512M16_DDR3 \
+							appsblenv \
+							u-boot \
+							priv_data1 \
+							ubi \
+							wifi_fw_ipq5018_qcn6122cs ]
 
+if { [info exists faillist] } {unset faillist}
+
+foreach item $listitem {
+			set regline "Flashing ${item}"
+			if { ![regexp "${regline}:\\s+\[ done \]" $get_info]} {
+				append faillist "$regline "
+			} else {
+				puts "Check \"${regline}\" ,PASS"
+			}
+}
+
+if { [info exists faillist] } { puts "$faillist ,FAIL" }
 
 
 
