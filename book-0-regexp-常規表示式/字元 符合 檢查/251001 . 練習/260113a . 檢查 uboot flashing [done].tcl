@@ -1,15 +1,15 @@
 set listitem [list 	sbl1 \
-							mibib \
-							bootconfig \
-							bootconfig1 \
-							tz \
-							devcfg \
-							ddr-AP-MP03.5-C1_512M16_DDR3 \
-							appsblenv \
-							u-boot \
-							priv_data1 \
-							ubi \
-							wifi_fw_ipq5018_qcn6122cs ]
+					mibib \
+					bootconfig \
+					bootconfig1 \
+					tz \
+					devcfg \
+					ddr-AP-MP03.5-C1_512M16_DDR3 \
+					appsblenv \
+					u-boot \
+					priv_data1 \
+					ubi \
+					wifi_fw_ipq5018_qcn6122cs ]
 
 if { [info exists faillist] } {unset faillist}
 
