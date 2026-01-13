@@ -14,7 +14,7 @@ set listitem [list 	sbl1 \
 if { [info exists faillist] } {unset faillist}
 
 foreach item $listitem {
-	if { ![regexp -line "Flashing ${item}":\\s+. done ." $get_info]} {
+	if { ![regexp -line "Flashing ${item}:\\s+. done ." $get_info]} {
 		append faillist "${item} "
 	} else {
 		puts "Check \"${item}\" ,PASS"
