@@ -1,7 +1,8 @@
 
+set mac ""
 
-
-regexp -line {eth0\s+encap:Ethernet.*} $get_info
+set mac 64:9D:99:94:01:23
+regexp "eth0\\s+Link encap:Ethernet\\s+HWaddr $mac" $get_info
 
 
 
