@@ -1,11 +1,6 @@
 
-set mac ""
-
 set mac 64:9D:99:94:01:23
 regexp "eth0\\s+Link encap:Ethernet\\s+HWaddr $mac" $get_info
-
-
-
 
 set get_info {
 AP-N506H-0123:~# ifconfig
