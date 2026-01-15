@@ -1,7 +1,7 @@
 
 
 
-
+regexp {eth0\s+encap:Ethernet}
 
 
 
