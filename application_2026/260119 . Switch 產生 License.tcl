@@ -11,7 +11,7 @@ close $lic_fd
 
 set lictmp_fd [open ./extapp/FTP_TFTP_AUTO/ec_license/$::LIC_tmp r+]
 
-set ::LIC [_f_vini_profilerd SFIS SN]_[_f_vini_profilerd SFIS MAC].lic
+set ::LIC ${SN}_${MAC}.lic
 set licformal_fd [open ./extapp/FTP_TFTP_AUTO/ec_license/$::LIC w+]
 
 while { ! [eof $lictmp_fd]} {
