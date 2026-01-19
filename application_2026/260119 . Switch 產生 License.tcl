@@ -4,6 +4,8 @@ set SN EC2603000906
 set MAC 94EF97DCE154
 
 set ::LIC_tmp ${SN}_${MAC}_temp.lic
+
+set lic_fd [open ./extapp/FTP_TFTP_AUTO/ec_license/$::LIC_tmp w+]
 puts $lic_fd [encoding convertfrom utf-8 [base64::decode $lic_data]]
 close $lic_fd
 
