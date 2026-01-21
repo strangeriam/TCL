@@ -1,3 +1,9 @@
+concepts 概念
+Literal 文字
+alternation 交替 輪流 隔一個
+caret 插入符號
+vowel 母音
+hyphen 連字符
 
 
 ===================================
@@ -9,7 +15,7 @@ For example,
 the regular expression hello will match the string "hello" in the text.
 
 Metacharacters:
-Metacharacters are special characters the have a specific meaning in refular expression.
+Metacharacters are special characters that have a specific meaning in refular expression.
 Some commonly used metacharacters include
 . (dot),
 * (asterisk),
@@ -23,7 +29,7 @@ These metacharacters allow you to specfy more complex patterns.
 
 Character Classes:
 Character classes define a set of characters that can match a single character at that position in the text.
-FOr example,
+For example,
 [aeiou] matches any vowel character.
 Ranges of characters can also be specified using a hyphen, such as [a-z] for any lowercase letter.
 
