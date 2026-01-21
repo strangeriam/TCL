@@ -3,3 +3,8 @@ practice 實踐 熟練
 
 
 ===========================================
+Write a TCL expression to find if a string matches a phone number.
+Phone number patterns to identify
+. red = 1 to 3 digits, 
+. green = 3 or 4 digits, 
+. purple = exactly 4 digits.
