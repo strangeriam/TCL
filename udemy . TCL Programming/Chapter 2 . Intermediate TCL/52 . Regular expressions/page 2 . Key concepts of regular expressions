@@ -29,7 +29,9 @@ These metacharacters allow you to specfy more complex patterns.
 
 Character Classes:
 Character classes define a set of characters that can match a single character at that position in the text.
+
 For example,
-[aeiou] matches any vowel character.
-Ranges of characters can also be specified using a hyphen, such as [a-z] for any lowercase letter.
+[aeiou] --> matches any vowel character.
+Ranges of characters can also be specified using a hyphen, such as 
+[a-z] --> for any lowercase letter.
 
