@@ -1,4 +1,11 @@
 case insensitive 不區分大小寫
+Treats the input as multiple lines 將輸入視為多行
+treats newline characters as stop characters 將換行符視為停止字符
+excluding 不包括
+whitespace 空格
+Returns the start and end indices of each submatch in the specified variable
+傳回指定變數中每個子符合的起始索引和結束索引
+occurrences 發生
 
 
 ===============================================
