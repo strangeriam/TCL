@@ -3,3 +3,5 @@
 ===================================
 Key concepts of regular expressions
 
+Literal Characters:
+Literal characters in a regular expression match themselves exactly.
