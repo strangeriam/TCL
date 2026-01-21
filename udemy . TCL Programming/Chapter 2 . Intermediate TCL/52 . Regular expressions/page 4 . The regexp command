@@ -4,7 +4,7 @@ Quantifier 量詞
 ocuurences 事件
 
 ============================
-In Tcl, 
+In Tcl,
 regular expressions can be used with the regexp command and related functions to preform pattern matching and manipulation.
 
 regexp <pattern> <string>
