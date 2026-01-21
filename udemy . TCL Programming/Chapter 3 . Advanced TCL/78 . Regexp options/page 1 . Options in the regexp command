@@ -1,0 +1,13 @@
+
+
+
+===============================================
+regexp ?options? pattern ?match sub1 sub2.....?
+
+Option - Description
+-nocase --> Perform a case insensitive matching
+-line --> Treats the input as multiple lines, allowing ^ and $ to match the beginning and end of each line.
+-linestop --> When used with -line, treats newline characters as stop characters, excluding them from the match
+-expanded --> Allows whitespace and comments within the rebular expression for improved readability
+-indices varName --> Returns the start and end indices of each submatch in the specified variable
+-all --> Matches all occurrences of the regular expression
