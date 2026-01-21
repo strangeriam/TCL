@@ -3,9 +3,11 @@ Treats the input as multiple lines 將輸入視為多行
 treats newline characters as stop characters 將換行符視為停止字符
 excluding 不包括
 whitespace 空格
-Returns the start and end indices of each submatch in the specified variable
-傳回指定變數中每個子符合的起始索引和結束索引
+Returns the start and end indices of each submatch in the specified variable 傳回指定變數中每個子符合的起始索引和結束索引
 occurrences 發生
+
+approximate 近似
+literally 字面上地
 
 
 ===============================================
@@ -18,3 +20,9 @@ Option - Description
 -expanded --> Allows whitespace and comments within the rebular expression for improved readability
 -indices varName --> Returns the start and end indices of each submatch in the specified variable
 -all --> Matches all occurrences of the regular expression
+
+-inline --> Returns a list of data that otherwise would be placed in match variables
+-start index --> Start the matching process at the specified index
+-about --> Enables approximate matching
+-exact --> Disables approximage matching. Useful if pattern contains characters with special meaning we want to be matched literally.
+-- --> Signals the end of the options. Useful if the string starts with '-'
