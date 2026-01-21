@@ -1,0 +1,10 @@
+TCL 8.15 似乎不支援 lsplit 功能.
+Goolge AI 回答如下.
+
+我的問題:
+which tcl version supports lsplit?
+
+AI 回答:
+The lsplit command is not a standard, built-in Tcl command in the main distribution but rather a custom procedure often found in user-contributed libraries or scripts on the Tcler's Wiki. It was first documented on the Wiki around February 2004 as a user-defined function. 
+As it is a custom function (a "proc" in Tcl terms) and not part of the Tcl core, its availability depends on the specific codebase in which you encounter it, rather than a particular core Tcl version. It can be implemented in essentially any modern Tcl version, as it uses fundamental Tcl commands like foreach, lappend, list, upvar, and uplevel expr, which have existed for many Tcl versions. 
+Therefore, to use lsplit, you need to ensure the supporting Tcl procedure definition (as provided in the Tcler's Wiki link) is included in your script. The command is not something that requires a minimum version of the Tcl interpreter itself. 
