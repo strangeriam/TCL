@@ -1,3 +1,8 @@
+literal 文字
+
+
+
+====================================================
 set string "There are 10 types of people in this world, those who understand binary and those who dont"
 
 Pattern - Description - regexp <pattern> $string
@@ -11,3 +16,11 @@ Pattern - Description - regexp <pattern> $string
 {\d{1}} --> 1 digits --> 1
 {\d{1,3}} -->  One to three digit --> 1
 {\d+} --> One or more digit --> 1
+
+{\.$} --> A literal dot at the end
+{\d+ types} --> One or more digits followed by a space and the string "types"
+{dont$} --> String "dont" at the end
+{[\w\w]+,[\w\s]+} --> 
+--> One or more Word character or space character,
+--> followed by a comma,
+--> followed by one or more Word character or space character
