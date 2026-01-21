@@ -8,3 +8,10 @@ Phone number patterns to
 . identify red = 1 to 3 digits, 
 . green = 3 or 4 digits, 
 . purple = exactly 4 digits.
+
+Write a TCL expression to find if a string mathches a URL
+URL examples:
+http://www.example.com
+https://www.example.com/page
+https://example.com/about
+http://example.com/contact.html
