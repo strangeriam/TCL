@@ -22,6 +22,18 @@ lsearch -inline {hello my friend} f* => friend
 
 lsearch options
 Option - Descriptions
--all
--ascii
--decreasing
+-all --> Return all matches.
+-ascii --> 
+-decreasing --> 
+-increasing --> 
+-dictionary --> 
+-exact --> 
+-glob --> 
+-inline --> 
+-integer --> 
+-not --> 
+-oncase --> 
+-real --> 
+-regexp --> 
+-sorted --> 
+-start <index> --> 
