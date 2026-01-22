@@ -22,18 +22,20 @@ lsearch -inline {hello my friend} f* => friend
 
 lsearch options
 Option - Descriptions
--all --> Return all matches.
--ascii --> 
--decreasing --> 
--increasing --> 
--dictionary --> 
--exact --> 
--glob --> 
--inline --> 
--integer --> 
--not --> 
--oncase --> 
--real --> 
--regexp --> 
--sorted --> 
--start <index> --> 
+-all --> Return all matches. Otherwise it will return the first match only. Same as using -indices.
+-ascii --> Compare ascii values. Only meaninful when used with -exact or -sorted.
+-decreasing --> Assume the list elements are sorted. Only useful when used with -sorted.
+-increasing --> same decreasing below.
+-dictionary --> Use dictionary comparison. Only meaninful when used with -exact or -sorted.
+-exact --> perform exact string match.
+-glob --> Perform glob-style wildcard for pattern match.
+-inline --> Return the matched element, instead of the index.
+-integer --> Compare elements as interger numbers. Only meaninful when used with -exact or sorted.
+-not --> Invert the match result (Return non-matching items)
+-oncase --> Perform a case-insensitive match.
+-real --> Compare elements as real numbers. Only meaninful when used with -exact or -sorted.
+-regexp --> Perform a regular expression match.
+-sorted --> Assume the list is presorted. This allows for a faster search algorithm.
+-start <index> --> Use <index> as the start position for the search.
+
+
