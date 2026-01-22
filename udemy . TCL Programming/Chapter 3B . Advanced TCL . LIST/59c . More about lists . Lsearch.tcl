@@ -2,6 +2,12 @@ efficiently 高效率
 optimize 最佳化
 sort 排序 分類
 approach 方法
+meaninful 有意義的
+wildcard 通配卡
+instead 代替
+insensitive 冷漠無情
+algorithm 演算法
+
 
 
 =======================================================
@@ -26,10 +32,12 @@ Option - Descriptions
 -ascii --> Compare ascii values. Only meaninful when used with -exact or -sorted.
 -decreasing --> Assume the list elements are sorted. Only useful when used with -sorted.
 -increasing --> same decreasing below.
+
 -dictionary --> Use dictionary comparison. Only meaninful when used with -exact or -sorted.
 -exact --> perform exact string match.
 -glob --> Perform glob-style wildcard for pattern match.
 -inline --> Return the matched element, instead of the index.
+
 -integer --> Compare elements as interger numbers. Only meaninful when used with -exact or sorted.
 -not --> Invert the match result (Return non-matching items)
 -oncase --> Perform a case-insensitive match.
