@@ -18,3 +18,10 @@ learch ?option? <list> <expr>
 Example:
 lsearch {hello my friend} f* => 2
 lsearch -inline {hello my friend} f* => friend
+
+
+lsearch options
+Option - Descriptions
+-all
+-ascii
+-decreasing
