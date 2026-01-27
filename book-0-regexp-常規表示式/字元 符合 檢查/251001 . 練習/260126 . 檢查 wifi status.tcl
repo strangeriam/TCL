@@ -20,7 +20,17 @@ if {[regexp {.*wlan1} $get_info]} {
 
 輸出: wlan0 OK
 
+if {[regexp {wlan1.*} $get_info]} {
+	if {[regexp {wlan1.*} $get_info tmp]} {
+			if {[regexp {UP BROADCAST RUNNING MULTICAST} $tmp]} {
+				return "wlan1 OK"
+			} else {
+				return "wlan1 NG"
+			}
+	}
+}
 
+輸出: wlan1 OK
 
 ====================================================
 set get_info {
