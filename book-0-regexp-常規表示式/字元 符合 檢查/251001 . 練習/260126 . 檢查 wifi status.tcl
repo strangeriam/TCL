@@ -1,8 +1,25 @@
 檢查項目
 wlan0: 是否為 "UP BROADCAST MULTICAST"
 wlan1: 是否為 "UP BROADCAST RUNNING MULTICAST"
+為 1 OK, 為 0 NG
 
 ====================================================
+if {[regexp {.*wlan1} $get_info]} {
+          if {[regexp {.*wlan1} $get_info tmp]} {
+		if {[regexp {wlan0.*} $tmp]} {
+			if {[regexp {wlan0.*} $tmp tmp]} {
+				if {[regexp {UP BROADCAST MULTICAST} $tmp]} {
+					return "wlan0 OK"
+				} else {
+					return "wlan0 NG"
+				}
+			}
+		}
+	}
+}
+
+輸出: wlan0 OK
+
 
 
 ====================================================
