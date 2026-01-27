@@ -1,6 +1,8 @@
+檢查項目
+wlan0: 是否為 "UP BROADCAST MULTICAST"
+wlan1: 是否為 "UP BROADCAST RUNNING MULTICAST"
 
-
-
+====================================================
 set get_info {
 AP-N506H-0123:~# ifconfig wlan0 && ifconfig wlan1
 wlan0     Link encap:Ethernet  HWaddr 64:9D:99:94:01:25  
