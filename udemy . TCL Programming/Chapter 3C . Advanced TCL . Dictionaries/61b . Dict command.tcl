@@ -1,5 +1,9 @@
 
-=============
+
+
+
+======================================
+Command - Descriptions
 dict incr dictName key ?incr? - Increment the key (default incr is 1)
 dict lappend dictName key value - 
 - Appends the list of values to the list in the given key.
