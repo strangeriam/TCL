@@ -33,3 +33,12 @@ dict update d key1 varKey1 {
 
 set d
 key2 value2
+
+dict for { id info } $employeeInfo {
+    puts "Employee #[incr i]: $id"
+    dict with info {
+        puts "   Name: $forenames $surname"
+        puts "   Address: $street, $city"
+        puts "   Telephone: $phone"
+    }
+}
