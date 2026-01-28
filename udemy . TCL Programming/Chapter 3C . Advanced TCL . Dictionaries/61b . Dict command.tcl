@@ -9,7 +9,7 @@ dict lappend dictName key value -
 - Appends the list of values to the list in the given key.
 - Returns the updated dictionary
 
-dict map {keyVar} valueVar} dictName body - 
+dict map {keyVar valueVar} dictName body - 
 - Similar to lmap, this command transforms all key-value pairs in a dict.
 - Returns a new dict.
 
