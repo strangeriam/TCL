@@ -1,3 +1,6 @@
+lambda 匿名函數
+
+================================================
 This is a command that allows programmer to apply a given script or lambda expression to all the elements in a list,
 return a list containing the result.
 
