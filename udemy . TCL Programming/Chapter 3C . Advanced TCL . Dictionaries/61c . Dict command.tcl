@@ -1,7 +1,8 @@
 
 
 
-=============================
+======================================
+Command - Descriptions
 dict update dictName ?key? varname script - 
 - Update values within a dictionary based on a key.
 - It allows you to modify values of existing keys without creating a new dictionary.
