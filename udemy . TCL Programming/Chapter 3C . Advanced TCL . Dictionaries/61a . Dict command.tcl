@@ -14,7 +14,7 @@ dict append dictname key value - Appends {key value} to the dictionary
 dict exists $dictname key - Tests if key is present in the dictionary
 dict for {key value} $dictname - Iterates over all the key-value pairs from dictname
 
-# CODE
+# CODE A
 dict for { id info } $employeeInfo {
  puts "Employee #[incr i]: $id"
 }
@@ -22,11 +22,11 @@ dict for { id info } $employeeInfo {
 dict filter $dictanme script {k v} { FILTER EXPR }
  - Creates a new dictionary that contains a subset of key-value pairs based on the filter condition
 
-# CODE
+# CODE B
 set d [dict filter {k1 v1 k2 v2} script {k v} {expr {$keq "k1"}}]
 
 dict filter $dictname key <KEYS>
 
-# CODE
+# CODE C
 dict filter {k1 v1 k2 v2 k3 v3} key k1 k3
 
