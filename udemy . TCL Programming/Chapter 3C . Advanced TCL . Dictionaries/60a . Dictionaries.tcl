@@ -1,7 +1,9 @@
-
-
-
-
+dictionaries 字典
+alias 別名
+structures 結構
+nested 嵌套
+particular 獨特的
+complex 複雜的
 
 ================================================
 TCL arrays are collection of variables, so we cannot pass them directly to procedures as a value.
