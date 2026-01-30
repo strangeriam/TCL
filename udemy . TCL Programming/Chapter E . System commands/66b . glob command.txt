@@ -1,0 +1,5 @@
+The glob command returns a list of files matching a specified pattern.
+
+For example:
+
+set fileList [glob "dir/*.txt"]
