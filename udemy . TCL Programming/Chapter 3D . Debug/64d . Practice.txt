@@ -1,0 +1,20 @@
+
+
+
+
+
+==================================================
+Modify the procedure "fileIO.tcl" from section II to incorporate error handling while processing the files:
+
+Use catch to handle potential errors that may occur during file operations or data processing.
+If an error occurs , display an oppropriate error message.
+
+Use try-on-finally blocks to ensure proper resource cleanup, even if an error occurs.
+The try block should contain the main ioerations of reading, processing, and writing.
+The on error block should handle any errors that occur, 
+and the finally block should handle resource cleanup, such as closing open files.
+
+Test your script by intentionally introducing errors, 
+such as providing an incorrent file name or performing invalid operations on the data.
+
+Verify that error messages are displayed, and the script gracefully handles cleanup.
