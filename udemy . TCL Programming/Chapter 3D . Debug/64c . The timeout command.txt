@@ -1,0 +1,14 @@
+
+
+==========================================================
+In TCL, the timeout command is used to execute a script or command within a specified time limit.
+It allow you to control the maximum execution time of a particular operation 
+and handle situations where the operation takes longer than expected.
+
+When the timeout command is executed, it starts a timer and evaluates the specified script or command.
+I the execution of the script or command completes within the given time limit,
+the result of the script is returned as the result of the timeout command.
+However, if the execution exceeds the specified time limot, the timeout command throws an error with an error message indicating that the ioeration timed out.
+
+Syntax: timeout <miliseconds> <script>
+
