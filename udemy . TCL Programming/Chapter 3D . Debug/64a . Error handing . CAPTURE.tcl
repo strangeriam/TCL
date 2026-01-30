@@ -1,3 +1,8 @@
+
+
+
+
+================================================
 In TCL, you can handle errors using the catch command.
 The catch command allow you to execute a block of code and capture any error that occur during its execution.
 Here's the basic syntax of the command:
