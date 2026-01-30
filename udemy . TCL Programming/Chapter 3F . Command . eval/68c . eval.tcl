@@ -12,3 +12,6 @@ In TCL, a list is a sequence of TCL words enclosed in curly braces or separacted
 By using lists, you can construct commands without the need for string manioulation, 
 which helps prevent unintended evaluation of special characters or unexpected code injection.
 
+The list command takes any number of arguments and returns a properly formatted list.
+Each argument is treated as a separate as a separate word in the resulting list,
+ensuring that special characters or spaces are properly escaped or quoted.
