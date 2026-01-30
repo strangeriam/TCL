@@ -1,0 +1,9 @@
+
+
+
+================================================
+In TCL, the exec command allow program to execute external commands from the TCL script.
+The standard output provided by the external program is returned as the value of exec command.
+
+Example:
+set myip [exec ipconfig /all]
