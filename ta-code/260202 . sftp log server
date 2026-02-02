@@ -1,0 +1,6 @@
+
+ftp -> 
+curl.exe --ftp-pasv ftp://PROD-TESTLOG -u "shopfloor1:Au^(7Ap5"
+
+sftp ->
+curl.exe -k sftp://PROD-TESTLOG -u "shopfloor1:Au^(7Ap5"
