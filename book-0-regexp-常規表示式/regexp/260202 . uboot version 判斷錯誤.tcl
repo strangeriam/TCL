@@ -12,11 +12,9 @@ version
 08:51:12:437| Marvell>> 
 }
 
-set ::Uboot_ver "1.0.2"
-
 輸出錯誤
 ==================================================
-regexp $::Uboot_ver $get_info
+regexp "1.0.2" $get_info
 
 輸出: 1
 
