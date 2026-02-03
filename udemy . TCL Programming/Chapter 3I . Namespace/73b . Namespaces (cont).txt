@@ -1,0 +1,12 @@
+
+
+
+
+=============================================
+Namespace names:
+Namespace are identified by their  names, which are strings.
+The name of a namespace can be any valid TCL string, 
+but it typically follows a hierarchial naming convention, using "::" as the separator.
+For example, "myapp::module1" and "myapp::module2" are two namespaces within the "myapp" namespace.
+
+
