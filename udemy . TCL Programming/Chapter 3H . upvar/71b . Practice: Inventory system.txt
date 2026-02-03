@@ -1,0 +1,22 @@
+
+
+
+
+=============================================
+Create a TCL program to manage a simple inventory system for a store.
+The program will allow users to add items to the imventory, update item quantities, and retrieve item detail.
+Additionally, the program should keep track ti the local inventory value.
+
+Initialize a global variable inventory as an eempty dictionary to serve as the inventory database.
+Each item in the inventory will have a unique item ID and will contain the item name, quantity, and price.
+
+Implement the following procedures:
+
+additem:
+
+updateQuantity:
+
+getItemDetails:
+
+getInventoryValue:
+
