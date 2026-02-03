@@ -4,13 +4,18 @@
 
 ======================================
 Namespace command resolution:
-
-
+When a command is incoked, 
+TCL looks for the command first in the current namespace and then in its parent namespaces,
+following the namespace hierachy.
+This allows for command name resolution and prevents naming conflicts between commands defined in different namespaces.
 
 Namespace avriables:
-
-
+Namespaces can have their own set of variables, which are disinct from variable in other namespaces.
+Variables in a namespace can accessed and modified using the variable command, which creates or accesses a namespace variable.
 
 Namespace inport and export:
-
+Namespaces can import commands from other namespaces using the namespace import command,
+making those commands accessible within the current namespace without fully qualifying their names.
+Conversely, namespaces can export commands using the namespace export command,
+making them availiable to other namespaces.
 
