@@ -13,10 +13,30 @@ Each item in the inventory will have a unique item ID and will contain the item 
 Implement the following procedures:
 
 additem:
+Prompt the user to enter the item ID, name, quanity, and price.
+Create a new dictionary entry for the item with these details and add it to the inventory dictionary.
+Make sure to handle cases where the item ID already exists in the incentory.
 
 updateQuantity:
+Prompt the user to enter the item ID add the new quantiry.
+Update the quantiry of the item in the inventory dictionary with the new value.
+Make sure to handle cases where the item ID already exists in the inventory.
 
 getItemDetails:
+Prompt the user to enter the item ID.
+Retrieve and display the details of the item from the inventory dictionary, including its name, quantiry, and price.
+If the item ID is not found in the inventory, display an appropriate error message.
 
 getInventoryValue:
+Calculate and display the total value of the inventory by summing up the values of all items (quantity * price).
+
+Use the global command to access and modify the inventory variable within the procedures.
+
+Test your program by adding multiple items to the inventory, updating quantities, retriening item details,
+and calulating the inventory value.
+
+Use the upvar command to command to create a local reference to the inventory variable within the procedures.
+Modify the procedures to use the local reference instead of the global variable.
+
+Test the program again with the modified procedures to ensure that it still works correctly.
 
