@@ -1,0 +1,19 @@
+
+
+
+
+=================================================
+The upvar command in TCL used to create a local variable that is linked to a variable in a different scope.
+It allows you to create aliases or references to variables in an outer scope, 
+making it easier ti access and manipulate cariables in different contexts.
+
+Syntax: upvar ?level? otherVar localVar ?otherVar localVar ...?
+
+The level argument is optional and specifies the level of the calling context.
+If not provided, it defaults to 1, which refers to the immediate calling context.
+The otherVar specifies the variable in the outer scope that you want to link to,
+and the localVar specifies the name of the local variable that will serve as the alias or reference.
+
+The upvar command creates a link or alias between the local variable and the variable in the outer scope.
+Any modifications made to the local variable will affect the linked variable, and vice versa.
+
