@@ -8,4 +8,4 @@ A namespace provides a container for grouping related code and data,
 preventing naming conflicts and providing better modularity and organiztion in large TCL programs.
 
 Namespaces are useful in situations where you have multiple packages or modules that define similar commands or variables.
-
+By creating separate namespaces for each package or module, you can avoid nameing collisions and provide a clear separation between the code and data associated with differnet components of your program.
