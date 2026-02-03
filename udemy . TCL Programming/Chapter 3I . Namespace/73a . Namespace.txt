@@ -1,0 +1,11 @@
+
+
+
+
+============================================
+Namespaces are a way to organize commands, variables, and other TCL resource into separate contents or scopes.
+A namespace provides a container for grouping related code and data, 
+preventing naming conflicts and providing better modularity and organiztion in large TCL programs.
+
+Namespaces are useful in situations where you have multiple packages or modules that define similar commands or variables.
+
