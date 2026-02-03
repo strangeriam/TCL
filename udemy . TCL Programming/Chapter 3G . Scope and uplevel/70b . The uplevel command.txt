@@ -1,0 +1,13 @@
+
+
+
+
+=================================================
+The uplevel command in TCL is used to execute a script in a different level of the calling context.
+It allows you to evaluate a script in a specific context, such as a different stack, namespace, or level of procedure call.
+
+Syntax: uplevel ?level? <script>
+
+The level argument is optional and spectifies the level of the calling context.
+If not provided, it defaults to 1, which refers to immediate calling context.
+The script argument contains the TCL script that you want to evaluate in the specified context.
