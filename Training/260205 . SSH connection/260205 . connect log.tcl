@@ -27,4 +27,5 @@ guarantee 保證
 = If you want to carry on connecting just once, without adding                                                                                                                                                                                        =
 = the key to the cache, enter "n".                                                                                                                                                                                                                    =
 = If you do not trust this host, press Return to abandon the                                                                                                                                                                                          =
-= connection.     
+= connection.
+= Store key in cache? (y/n, Return cancels connection, i for more info)   
