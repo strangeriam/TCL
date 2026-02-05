@@ -1,5 +1,5 @@
 abandon 放棄
-
+guarantee 保證
 
 ==========================================
 = We are waiting a connection on port 5852.                                                                                                                                                                                                           =
