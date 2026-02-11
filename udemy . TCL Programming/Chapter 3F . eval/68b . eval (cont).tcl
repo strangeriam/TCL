@@ -1,4 +1,12 @@
+cautious 謹慎
+arbitrary 隨意的
+potentially 可能
+introduce 介紹
 
+vulnerabilities 漏洞
+improperly 不恰當
+sanitize 消毒
+validate 證實
 
 
 =================================================
