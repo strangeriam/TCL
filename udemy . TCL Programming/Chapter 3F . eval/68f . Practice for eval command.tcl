@@ -1,4 +1,7 @@
 
+Attempt 試圖
+Observe 觀察
+occur 發生
 
 ===============================================
 Write a TCL script to calculate the sum of a list of numbers.
@@ -7,7 +10,7 @@ The script should perform the following steps:
 
 Prompt the user to enter a list of numbers, separated by spaces.
 
-Attenpt to calculate the sum of the numbers without using the eval command.
+Attempt to calculate the sum of the numbers without using the eval command.
 
 Observe the errors or unexpected behavior that occur when trying to perform the sum without eval.
 
