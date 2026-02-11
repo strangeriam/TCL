@@ -12,10 +12,14 @@ which can lead to unexpected behavior or security valnerabilities.
 
 mitigate 緩解
 construct 構造
+generally considered safer 通常認為更安全
+robust 強壯的
+manipulation 操縱
 
 To mitigate these risks, you can use lists to construct and execute commands.
 This technique is commonly referred to as "list-based command construction" or "list-based evaluation" 
 and is generally considered safer and more robust than using the eval command directly with string manipulation.
+=====================================================
 
 In TCL, a list is a sequence of TCL words enclosed in curly braces or separacted by whitespace.
 By using lists, you can construct commands without the need for string manioulation, 
