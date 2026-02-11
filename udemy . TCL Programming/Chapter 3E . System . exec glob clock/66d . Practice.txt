@@ -22,6 +22,9 @@ Display the retrieved information in a user.
 
 PART B:
 =======
+accordingly 因此
+prompt 迅速的
+appropriate 合適的
 
 ==========================================
 Create a procedure called renameFiles that takes a directory path and a file extension as arguments.
