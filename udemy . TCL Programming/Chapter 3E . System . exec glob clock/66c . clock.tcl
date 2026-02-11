@@ -1,3 +1,5 @@
+manipulating 操縱
+timestamps 時間戳
 
 
 
