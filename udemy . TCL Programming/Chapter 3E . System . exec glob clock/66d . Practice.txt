@@ -1,20 +1,24 @@
+PART A:
+=======
 exercise 練習
 involves 涉及
 retrieving 檢索
 
 manipulation 操縱
-argument 爭論
-
+argument 道理
+retrieve 取回
 
 
 
 ==========================================
+PART A:
 Write a TCL script performs file-related operations using the exec, glob, and clock commands.
 The exercise involves retrieving information about files in a directory and performing file manipulation takes.
 
 Write a TCL procedure called listFiles that takes a directory path as an argument.
 Inside the procedure, use the glob command to retrieve a list of all files in the specified directory.
 
+PART B:
 Implement a procedure called fileInfo that takes a file path as an argument.
 Inside the procedure, use the file command to execute systems to retrieve the following information about the file: size,
 permissions and last modified timestamp.
