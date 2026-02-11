@@ -1,0 +1,14 @@
+
+
+
+
+========================================================
+To use package in TCL, you typically load the pockage using the package require command,
+which loads the initialization script and makes the package's functionality avaiable in your TCL script.
+Once the package is loaded, you can use the commands and resources provided by the package as needed.
+
+The package command provides other subcommands such as package provide,
+package if needed, and package forget for managing packages and their dependencies.
+
+Overall, packages in TCL procide a powerful mechanism for organizing, distributing, and reusing code,
+helping to improve the maintainability and modularity of TCL applications.
