@@ -21,9 +21,19 @@ This technique is commonly referred to as "list-based command construction" or "
 and is generally considered safer and more robust than using the eval command directly with string manipulation.
 =====================================================
 
+curly braces 花括號
+separacted 分離
+prevent 防止
+unintended 無意的
+injection 注射
+
 In TCL, a list is a sequence of TCL words enclosed in curly braces or separacted by whitespace.
-By using lists, you can construct commands without the need for string manioulation, 
+By using lists, you can construct commands without the need for string manipulation, 
 which helps prevent unintended evaluation of special characters or unexpected code injection.
+=====================================================
+
+treated 治療
+escaped 逃脫
 
 The list command takes any number of arguments and returns a properly formatted list.
 Each argument is treated as a separate as a separate word in the resulting list,
