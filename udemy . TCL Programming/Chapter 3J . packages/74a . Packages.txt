@@ -18,4 +18,7 @@ Versioning:
 Packages can have version numbers associated with them, allowing multiple versions of a package to coexist and be used by different applications or scripts.
 
 Distribution and installation:
+Packages can be fistributed as self-contained units, making it easy to share and install them in different environments.
 
+Code reuse:
+Packages provide a mechanism for code reuse across different projects or applications.
