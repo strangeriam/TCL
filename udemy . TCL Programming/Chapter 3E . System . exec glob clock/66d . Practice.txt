@@ -2,6 +2,8 @@ exercise 練習
 involves 涉及
 retrieving 檢索
 
+manipulation 操縱
+
 
 ==========================================
 Write a TCL script performs file-related operations using the exec, glob, and clock commands.
