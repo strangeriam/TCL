@@ -8,6 +8,7 @@ set build_date_time [clock format [clock seconds] -format "%y/%m/%d_%H:%M:%S"]
 set build_date [lindex [string map {_ " "} $build_date_time] 0]
 set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
+;# Step 1: 將 Item 寫入 csv 的第一行.
 ;# ================================================
 ;# total item: 13
 set itemlist [list SN DATE TIME BRD_VER CHANNEL SECTOR PHASE ANTENNA "" TEMP_RF PW_TX PW_BG_START PW_BG_END]
@@ -20,8 +21,8 @@ if { ! [file exists $::resultFile] } {
 	_f_WriteFile $::resultFile w $csvItem\n
 }
 
+;# Step 2: 將 值 寫入 Item 對應 TEMP_RF 下的欄位.
 ;# ================================================
-
 set csvItem_split [split $csvItem ,]
 lsearch $csvItem_split TEMP_RF
 ;# 輸出: 9
@@ -31,6 +32,10 @@ set datalist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 
 
 ;# replace data10 to 99.9
 lset datalist 9 99.9
+
+
+
+
 
 ;# ================================================
 proc _f_WriteFile { fname access data } {
