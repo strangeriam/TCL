@@ -21,21 +21,28 @@ if { ! [file exists $::resultFile] } {
 	_f_WriteFile $::resultFile w $csvItem\n
 }
 
-;# Step 2: 將 值 寫入 Item 對應 TEMP_RF 下的欄位.
+;# Step 2: 取得 Item "TEMP_RF" 所在欄位數.
 ;# ================================================
-;# 取得 Item "TEMP_RF" 所在欄位數.
 set csvItem_split [split $csvItem ,]
-lsearch $csvItem_split TEMP_RF
+set num [lsearch $csvItem_split TEMP_RF]
 ;# 輸出: 9
 
-;# add 12 values.
-set datalist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 data11 data12]
+;# Step 3: 新增加一 list 變數, 存入 12 個值.
+;# ================================================
+set csvlist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 data11 data12]
 
-;# replace data10 to 99.9
-lset datalist 9 99.9
+;# Step 4: 將  data10 to 99.9, 變數 datalist 會被改變.
+;# ================================================
+lset csvlist [expr $num - 1] AAA
+;# 輸出: data1 data2 data3 data4 data5 data6 data7 data8 AAA data10 data11 data12
 
+;# Step 5: 將 逗號 , 擺回去.
+;# ================================================
+set csvData [string map {" " ,} $csvlist]
 
-
+;# Step 6: 寫入 csv 檔.
+;# ================================================
+_f_WriteFile $::resultFile a "$::csvData\n"
 
 
 ;# ================================================
