@@ -11,7 +11,7 @@ set build_time [lindex [string map {_ " "} $build_date_time] 1]
 ;# Step 1: 將 Item 寫入 csv 的第一行.
 ;# ================================================
 ;# total item: 13
-set itemlist [list SN DATE TIME BRD_VER CHANNEL SECTOR PHASE ANTENNA "" TEMP_RF PW_TX PW_BG_START PW_BG_END]
+set itemlist [list SN DATE TIME BRD_VER CHANNEL SECTOR PHASE ANTENNA SPACE1 TEMP_RF PW_TX PW_BG_START PW_BG_END]
 
 foreach item $itemlist {
 	append csvItem $item,
@@ -23,6 +23,7 @@ if { ! [file exists $::resultFile] } {
 
 ;# Step 2: 將 值 寫入 Item 對應 TEMP_RF 下的欄位.
 ;# ================================================
+;# 取得 Item "TEMP_RF" 所在欄位數.
 set csvItem_split [split $csvItem ,]
 lsearch $csvItem_split TEMP_RF
 ;# 輸出: 9
