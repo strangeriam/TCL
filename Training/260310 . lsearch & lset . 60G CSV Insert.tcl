@@ -29,16 +29,16 @@ set num [lsearch $csvItem_split TEMP_RF]
 
 ;# Step 3: 新增加一 list 變數, 存入 12 個值.
 ;# ================================================
-set csvlist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 data11 data12]
+set datalist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 data11 data12]
 
 ;# Step 4: 將  data10 to 99.9, 變數 datalist 會被改變.
 ;# ================================================
-lset csvlist [expr $num - 1] AAA
+lset datalist [expr $num - 1] AAA
 ;# 輸出: data1 data2 data3 data4 data5 data6 data7 data8 AAA data10 data11 data12
 
 ;# Step 5: 將 逗號 , 擺回去.
 ;# ================================================
-set csvData [string map {" " ,} $csvlist]
+set csvData [string map {" " ,} $datalist]
 
 ;# Step 6: 寫入 csv 檔.
 ;# ================================================
