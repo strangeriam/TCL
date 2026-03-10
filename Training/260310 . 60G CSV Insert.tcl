@@ -18,8 +18,12 @@ if { ! [file exists $::resultFile] } {
 	_f_WriteFile $::resultFile w $csvItem\n
 }
 
+set csvItem_split [split $csvItem ,]
+lsearch $csvItem_split TEMP_RF ;# this is 9
 
 
+
+;# ================================================
 proc _f_WriteFile { fname access data } {
 	if { 	[catch {
 			set fd [open $fname $access]
