@@ -18,6 +18,8 @@ if { ! [file exists $::resultFile] } {
 	_f_WriteFile $::resultFile w $csvItem\n
 }
 
+;# ================================================
+
 set csvItem_split [split $csvItem ,]
 lsearch $csvItem_split TEMP_RF
 ;# 輸出: 9
