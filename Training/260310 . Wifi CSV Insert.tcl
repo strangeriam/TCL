@@ -23,7 +23,13 @@ set itemlist [list 	SN \
 							PW_BG_START \
 							PW_BG_END]
 
+foreach item $itemlist {
+	append csvItem $item,
+}
 
+if { ! [file exists $::resultFile] } {
+	_f_WriteFile $::resultFile w $csvItem\n
+}
 
 
 
