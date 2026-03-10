@@ -9,6 +9,7 @@ set build_date [lindex [string map {_ " "} $build_date_time] 0]
 set build_time [lindex [string map {_ " "} $build_date_time] 1]
 
 ;# ================================================
+;# total item: 13
 set itemlist [list SN DATE TIME BRD_VER CHANNEL SECTOR PHASE ANTENNA "" TEMP_RF PW_TX PW_BG_START PW_BG_END]
 
 foreach item $itemlist {
@@ -24,6 +25,10 @@ if { ! [file exists $::resultFile] } {
 set csvItem_split [split $csvItem ,]
 lsearch $csvItem_split TEMP_RF
 ;# 輸出: 9
+
+;# add 12 values.
+set datalist [list data1 data2 data3 data4 data5 data6 data7 data8 data9 data10 data11 data12]
+
 
 
 ;# ================================================
