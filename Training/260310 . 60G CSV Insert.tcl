@@ -19,8 +19,8 @@ if { ! [file exists $::resultFile] } {
 }
 
 set csvItem_split [split $csvItem ,]
-lsearch $csvItem_split TEMP_RF ;# this is 9
-
+lsearch $csvItem_split TEMP_RF
+;# 輸出: 9
 
 
 ;# ================================================
