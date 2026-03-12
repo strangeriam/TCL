@@ -10,3 +10,7 @@ ID Expired Date Feature
 
 Input ID to show detail: 
 }
+
+;# 取得 profile 所在的 ID.
+;# =======================
+
