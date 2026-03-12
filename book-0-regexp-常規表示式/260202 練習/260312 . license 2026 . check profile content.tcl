@@ -24,7 +24,7 @@ set aaa [regexp -all -inline -- $pattern $get_info]
 set bbb [lindex $aaa 0]
 ;# 輸出: {1 2026-05-24   Essential, cloud-m}
 
-;# 程式解說:
+;# REGEXP 解說:
 ;# ===================================
 [0-9]+ --> 取得 ID --> 1
 \s+ --> 空一格
