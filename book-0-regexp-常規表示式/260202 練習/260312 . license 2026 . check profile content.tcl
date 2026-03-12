@@ -22,7 +22,10 @@ set aaa [regexp -all -inline -- $pattern $get_info]
 ;# 輸出: {1 2026-05-24   Essential, cloud-m}
 
 set bbb [lindex $aaa 0]
-;# 輸出: {1 2026-05-24   Essential, cloud-m}
+;# 輸出: 1 2026-05-24   Essential, cloud-m
+
+set id [lindex $bbb 0]
+;# 輸出: 1
 
 ;# REGEXP 解說:
 ;# ===================================
