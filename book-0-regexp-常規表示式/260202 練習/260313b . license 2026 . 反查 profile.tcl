@@ -25,7 +25,22 @@ set get_info {
 ;# 刪除每行時間 "10:35:52:822" 和 "|"
 ;# regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info ""
 set pattern_eraseTime {[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{3}\|}
-regsub -all -line $pattern_eraseTime $get_info ""
+set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
 
 
-regexp -linestop {.*Essential, cloud-m} $get_info
+set pattern {Current Image Profile:\n\s+[a-zA-Z\+,]+\s[a-z-]+}
+
+;# Step 1: 取出
+Current Image Profile:
+  Essential, cloud-m
+
+set bbb [regexp -all -inline -- $pattern $aaa]
+;# 輸出: 
+Current Image Profile:
+  Essential, cloud-m
+
+if {[regexp $::lic_profile $bbb]} {
+    return 1
+} else {
+    return 0
+}
