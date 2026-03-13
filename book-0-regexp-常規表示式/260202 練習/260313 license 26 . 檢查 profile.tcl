@@ -1,3 +1,4 @@
+set ::lic_profile 				"Essential, cloud-m"
 
 set get_info {
 Console#show license
