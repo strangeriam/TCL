@@ -11,7 +11,7 @@ Input ID to show detail: Console#
 }
 
 ;# ===================================
-;# Step 1: 取得 profile 所在的 ID.
+;# Step 1: 取得 function 所在的 ID.
 set pattern {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
 
 set aaa [regexp -all -inline -- $pattern $get_info]
