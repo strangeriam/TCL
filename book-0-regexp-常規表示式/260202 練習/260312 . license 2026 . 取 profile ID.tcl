@@ -14,12 +14,12 @@ Input ID to show detail:
 ;# ===================================
 
 ;# 取得 profile 所在的 ID.
+;# pattern 1
+set pattern1 {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z]+-\D}
+;# or pattern 2
+set pattern2 {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
 
-set pattern {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z]+-\D}
-;# or
-set pattern {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
-
-set aaa [regexp -all -inline -- $pattern $get_info]
+set aaa [regexp -all -inline -- $pattern2 $get_info]
 ;# 輸出: {1 2026-05-24   Essential, cloud-m}
 
 set bbb [lindex $aaa 0]
