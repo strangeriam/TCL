@@ -23,7 +23,9 @@ set get_info {
 ;# ===================================
 
 ;# 刪除每行時間
- regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info ""
+;# regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info ""
+set pattern_eraseTime {}
+
 
 
 regexp -linestop {.*Essential, cloud-m} $get_info
