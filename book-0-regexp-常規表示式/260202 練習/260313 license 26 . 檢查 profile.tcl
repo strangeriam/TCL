@@ -14,4 +14,7 @@ Console#
 }
 
 ;# ===================================
+set pattern {}
+
+set aaa [regexp -all -inline -- $pattern $get_info]
 
