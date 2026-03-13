@@ -23,7 +23,7 @@ if {[regexp $::lic_profile $aaa]} {
 } else {
    return 0
 }
-    
+
 
 ;# REGEXP 解說:
 ;# ===================================
