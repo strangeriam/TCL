@@ -10,30 +10,10 @@ Input ID to show detail:
 }
 
 ;# ===================================
+;# Step 1: 取得 profile 所在的 ID.
+set pattern {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
 
-;# 取得 profile 所在的 ID.
-;# pattern 1
-set pattern1 {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z]+-\D}
-;# or pattern 2
-set pattern2 {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
-
-set aaa [regexp -all -inline -- $pattern2 $get_info]
-;# 輸出: {1 2026-05-24   Essential, cloud-m}
-
-set bbb [lindex $aaa 0]
-;# 輸出: 1 2026-05-24   Essential, cloud-m
-
-if {[regexp -linestop .*$::lic_profile $bbb]} {
-   regexp -linestop .*$::lic_profile $bbb tmp
-   set id [lindex $tmp 0]
-   ;# 輸出: 1
-} else {
-   return 0
-}
-
-;# OR
-
-set aaa [regexp -all -inline -- $pattern2 $get_info]
+set aaa [regexp -all -inline -- $pattern $get_info]
 if {[regexp $::lic_profile $aaa]} {
     if {[regexp -linestop .*$::lic_profile $aaa]} {
        set id_tmp [lindex $aaa 0] ;# 輸出: 1 2026-05-24   Essential, cloud-m
@@ -44,10 +24,6 @@ if {[regexp $::lic_profile $aaa]} {
    return 0
 }
     
-
-
-
-
 
 ;# REGEXP 解說:
 ;# ===================================
