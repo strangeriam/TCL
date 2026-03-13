@@ -35,7 +35,7 @@ if {[regexp -linestop .*$::lic_profile $bbb]} {
 
 ;# OR
 
-set aaa [regexp -all -inline -- $pattern $get_info]
+set aaa [regexp -all -inline -- $pattern2 $get_info]
 if {[regexp $::lic_profile $aaa]} {
     if {[regexp -linestop .*$::lic_profile $aaa]} {
        set id_tmp [lindex $aaa 0] ;# 輸出: 1 2026-05-24   Essential, cloud-m
