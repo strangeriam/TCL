@@ -1,3 +1,5 @@
+目的: 取出 Current Image Profile: 是否是 "Essential, cloud-m"
+
 set ::lic_profile 				"Essential, cloud-m"
 
 set get_info {
@@ -10,3 +12,6 @@ Inactive functions:
   L3 Premium
 Console#
 }
+
+;# ===================================
+
