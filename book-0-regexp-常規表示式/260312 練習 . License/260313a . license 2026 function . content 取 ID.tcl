@@ -4,9 +4,10 @@ set get_info {
 Console#show license file
 ID Expired Date Feature
 -- ------------ ------------------------------------------------
- 1 2026-05-24   Essential, cloud-m
+ 1 2026-05-25   L3 Premium
+ 2 2026-05-24   Essential, cloud-m
 
-Input ID to show detail: 
+Input ID to show detail: Console#
 }
 
 ;# ===================================
