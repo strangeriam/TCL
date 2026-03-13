@@ -1,4 +1,4 @@
-set ::lic_profile 				"Essential, cloud-m"
+set ::lic_function 				"L3 Premium"
 
 set get_info {
 Console#show license file
