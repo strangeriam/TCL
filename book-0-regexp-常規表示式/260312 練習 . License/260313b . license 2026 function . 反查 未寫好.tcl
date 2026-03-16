@@ -21,9 +21,7 @@ set get_info {
 }
 
 ;# ===================================
-
 ;# 刪除每行時間 "10:35:52:822" 和 "|"
-;# regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info ""
 set pattern_eraseTime {[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{3}\|}
 set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
 
