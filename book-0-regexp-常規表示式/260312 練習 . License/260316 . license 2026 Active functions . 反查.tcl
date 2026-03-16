@@ -25,6 +25,7 @@ set get_info {
 set pattern_eraseTime {[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{3}\|}
 set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
 ;# 輸出:
+;# ===============================================
  Console#show license
  
  Current Image Profile:
