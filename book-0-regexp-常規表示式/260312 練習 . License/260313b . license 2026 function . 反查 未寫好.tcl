@@ -1,6 +1,6 @@
 目的: 查出字串 "L3 Premium" 前的 Item 是否為 "Active functions:"
 
-set ::lic_profile 				"Essential, cloud-m"
+set ::lic_function 				"L3 Premium"
 
 set get_info {
 10:35:52:748| Console#show license
