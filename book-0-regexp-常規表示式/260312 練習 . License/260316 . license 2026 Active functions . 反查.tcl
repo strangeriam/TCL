@@ -42,8 +42,7 @@ set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
  
  Console#
 ;# ===============================================
-
-set pattern {Inactive functions:\n\s+[A-Z3]+\s[a-zA-Z]+}
+set pattern {Active functions:\n\s+[A-Z3]+\s[a-zA-Z]+}
 
 ;# Step 1: 取出
  Inactive functions:
@@ -52,7 +51,7 @@ set pattern {Inactive functions:\n\s+[A-Z3]+\s[a-zA-Z]+}
 
 set bbb [lindex [regexp -all -inline -- $pattern $aaa] 0]
 ;# 輸出: 
-Inactive functions:
+Active functions:
    L3 Premium
 
 if {[regexp $::lic_function $bbb]} {
