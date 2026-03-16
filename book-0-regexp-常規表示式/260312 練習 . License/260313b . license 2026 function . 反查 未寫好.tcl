@@ -1,4 +1,4 @@
-目的: 查出字串 "L3 Premium" 前的 Item 是否為 "Active functions:"
+目的: 查出字串 "L3 Premium" 前的 Item 是否為 "Inactive functions:"
 
 set ::lic_function 				"L3 Premium"
 
@@ -25,19 +25,19 @@ set get_info {
 set pattern_eraseTime {[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{3}\|}
 set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
 
-
-set pattern {Current Image Profile:\n\s+[a-zA-Z\+,]+\s[a-z-]+}
+set pattern {Inactive functions:\n\s+[A-Z3]+\s[a-zA-Z]+}
 
 ;# Step 1: 取出
-Current Image Profile:
-  Essential, cloud-m
+ Inactive functions:
+ 
+   L3 Premium
 
-set bbb [regexp -all -inline -- $pattern $aaa]
+set bbb [lindex [regexp -all -inline -- $pattern $aaa] 0]
 ;# 輸出: 
-Current Image Profile:
-  Essential, cloud-m
+Inactive functions:
+   L3 Premium
 
-if {[regexp $::lic_profile $bbb]} {
+if {[regexp $::lic_function $bbb]} {
     return 1
 } else {
     return 0
