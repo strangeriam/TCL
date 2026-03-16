@@ -24,6 +24,23 @@ set get_info {
 ;# 刪除每行時間 "10:35:52:822" 和 "|"
 set pattern_eraseTime {[0-9]{2}:[0-9]{2}:[0-9]{2}:[0-9]{3}\|}
 set aaa [regsub -all -line $pattern_eraseTime $get_info ""]
+;# 輸出:
+ Console#show license
+ 
+ Current Image Profile:
+ 
+   Essential, cloud-m
+ 
+ Active functions:
+ 
+   L3 Premium
+ 
+ Inactive functions:
+ 
+   
+ 
+ Console#
+;# ===============================================
 
 set pattern {Inactive functions:\n\s+[A-Z3]+\s[a-zA-Z]+}
 
