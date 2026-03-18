@@ -18,6 +18,9 @@ _f_vini_profilerd STATUS SpentTime
 _f_vini_profilerd SFIS SFIS_FLAG
 輸出: Y 或 N
 
+_f_vini_profilerd SFIS shop_floor
+輸出: 0 或 1
+
 #; Model Name
 _f_vini_profilewr SFIS MODELNAME [_f_vini_profilerd SFIS MODELNAME]-[_f_vini_profilerd SFIS part_no]
 
