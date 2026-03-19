@@ -1,28 +1,28 @@
 絕對路徑: ${::ASPECTPATH}
 如同程式碼: set ::ASPECTPATH [pwd]/
 
-#; 開始測試時間.
+;# 開始測試時間.
 _f_vini_profilerd SFIS start_time
 
-#; 總使用時間.
+;# 總使用時間.
 _f_date_time_diff [_f_vini_profilerd SFIS start_time]
 
-#; 寫入時間
+;# 寫入時間
 _f_vini_profilewr STATUS SpentTime [_f_date_time_diff [_f_vini_profilerd SFIS start_time]]
 _f_vini_profilerd STATUS SpentTime
 
-#; 共有幾台 DUT 同時測試.
+;# 共有幾台 DUT 同時測試.
 ::MaxDutNum
 
-#; SFIS 開關狀態
+;# SFIS 開關狀態
 _f_vini_profilerd SFIS SFIS_FLAG
 輸出: Y 或 N
 
 _f_vini_profilerd SFIS shop_floor
 輸出: 0 或 1
 
-#; Model Name
+;# Model Name
 _f_vini_profilewr SFIS MODELNAME [_f_vini_profilerd SFIS MODELNAME]-[_f_vini_profilerd SFIS part_no]
 
-#; 正在執行的 DUT 總數
+;# 正在執行的 DUT 總數
 $::MaxDutNum
