@@ -30,3 +30,6 @@ $::MaxDutNum
 ;# 讀取 MAC
 _f_vini_profilerd SFIS MAC
 _f_vini_profilerd STATUS MAC
+
+;# 讀取 LICENSE project name --> 不確定能用.
+_f_vini_profilerd EC_LICENSE PROJECTNAME
