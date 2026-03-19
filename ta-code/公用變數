@@ -26,3 +26,7 @@ _f_vini_profilewr SFIS MODELNAME [_f_vini_profilerd SFIS MODELNAME]-[_f_vini_pro
 
 ;# 正在執行的 DUT 總數
 $::MaxDutNum
+
+;# 讀取 MAC
+_f_vini_profilerd SFIS MAC
+_f_vini_profilerd STATUS MAC
