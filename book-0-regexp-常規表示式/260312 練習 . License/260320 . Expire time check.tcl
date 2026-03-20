@@ -21,7 +21,10 @@ Signature2: Ka4CKl0dOYhWfOcQHkb+iiSNGkR/cDKQ9nRu4LUXSTVJEmBcTywBfsVkzmlRmXUUb2DS
 ;# ======================================
 set pattern {License-Valid-End-Date:\s\D+\s\D+\s+\d+\s\d+:\d+:\d+\s\d+}
 set time_expir_tmp [regexp -all -inline $pattern $get_info]
-if { ![llength $time_expir_tmp] } { return 0 }
+if { ![llength $time_expir_tmp] } {
+    usermsg "WRONG !!!\nNo Expire data."
+    return 0
+}
 
 set time_expir [lindex $time_expir_tmp 0]
 ;#輸出: License-Valid-End-Date: Sun May 24 00:00:00 2026
@@ -43,6 +46,9 @@ set sec_now [clock seconds]
 
 ;# Step 5: 確認現在時間 沒有過期.
 ;# ======================================
-if { [expr $sec_expir - $sec_now] < 0 } { return 0 }
+if { [expr $sec_expir - $sec_now] < 0 } {
+    usermsg "WRONG !!!\nLicense PROFILE is Expired."
+    return 0
+}
 
 return 1
