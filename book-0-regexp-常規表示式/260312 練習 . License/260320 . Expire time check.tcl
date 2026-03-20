@@ -18,5 +18,16 @@ Signature2: Ka4CKl0dOYhWfOcQHkb+iiSNGkR/cDKQ9nRu4LUXSTVJEmBcTywBfsVkzmlRmXUUb2DS
 }
 
 ;# ======================================
+set pattern {License-Valid-End-Date:\s\D+\s\D+\s+\d+\s\d+:\d+:\d+\s\d+}
+set time_expir_tmp [regexp -all -inline $pattern $get_info]
+if { ![llength $time_expir_tmp] } { return 0 }
 
+set time_expir [lindex $time_expir_tmp 0]
+;#輸出: License-Valid-End-Date: Sun May 24 00:00:00 2026
+
+set time_expir [lrange $time_expir end-1 end-0]
+;# 輸出: 00:00:00 2026
+
+;# ======================================
+;# 反算出時間 "秒"
 
