@@ -17,6 +17,7 @@ Signature1: E99o/U7faFCQ9K0BGOh3Kt0e6jTzSaqdl2LQVWWzmtI/AE27FjpACfFShbuVgUc83Vdj
 Signature2: Ka4CKl0dOYhWfOcQHkb+iiSNGkR/cDKQ9nRu4LUXSTVJEmBcTywBfsVkzmlRmXUUb2DSA3YNfIGJ5aaJTtCkmHodQ+UTtmu4kCfBuxpE0Ujs98iIFWObxEwlWx5gWRhhhTAVTVhm8zRxAIMDY9P0J2hDwVcnW1wbnyk3/gSRdvDgmSotvavFoTDbl5Fbm4f1btZq6YR6iz7CMatBI7NsPMzCETAxjzHIYB5IWSWFR7ZDH2mNzeIs3mJe58QrXiF1jxRYU2cvsSwFmOMmfofrGWOpdncv6sDqT9euZSoFbZ0HMpaQfPc/MNDedwWtnQVWDvNh2adHlTttKXvkudpS7Q==
 }
 
+;# Step 1: 取得過期時間那行 --> License-Valid-End-Date: Sun May 24 00:00:00 2026
 ;# ======================================
 set pattern {License-Valid-End-Date:\s\D+\s\D+\s+\d+\s\d+:\d+:\d+\s\d+}
 set time_expir_tmp [regexp -all -inline $pattern $get_info]
@@ -25,9 +26,17 @@ if { ![llength $time_expir_tmp] } { return 0 }
 set time_expir [lindex $time_expir_tmp 0]
 ;#輸出: License-Valid-End-Date: Sun May 24 00:00:00 2026
 
+;# Step 2: 取得過期時間 --> 00:00:00 2026
+;# ======================================
 set time_expir [lrange $time_expir end-1 end-0]
 ;# 輸出: 00:00:00 2026
 
+;# Step 3: 反算出過期時間的 "秒" --> 1764432000
 ;# ======================================
-;# 反算出時間 "秒"
+set sec_expir [clock scan $time_expir -format "%H:%m:%d %Y"]
+;# 輸出: 1764432000
+
+;# Step 4: 取得現在時間 "秒".
+;# ======================================
+
 
