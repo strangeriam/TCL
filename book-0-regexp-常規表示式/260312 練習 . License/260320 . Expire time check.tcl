@@ -44,7 +44,12 @@ set sec_expir [clock scan $time_expir -format "%b %d %H:%M:%S %Y"]
 set sec_now [clock seconds]
 ;# 輸出: 1773970173
 
-;# Step 5: 確認現在時間 沒有過期.
+;# Step 5: 時間, 轉換成可讀格式.
+;# ======================================
+set time_readable [clock format $sec_now -format "%b %d %H:%M:%S %Y"]
+;# 輸出: Mar 20 09:29:33 2026
+
+;# Step 6: 確認現在時間 沒有過期.
 ;# ======================================
 if { [expr $sec_expir - $sec_now] < 0 } {
     usermsg "WRONG !!!\nLicense PROFILE is Expired."
