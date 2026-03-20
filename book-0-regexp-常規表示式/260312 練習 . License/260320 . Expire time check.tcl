@@ -26,17 +26,17 @@ if { ![llength $time_expir_tmp] } { return 0 }
 set time_expir [lindex $time_expir_tmp 0]
 ;#輸出: License-Valid-End-Date: Sun May 24 00:00:00 2026
 
-;# Step 2: 取得過期時間 --> 00:00:00 2026
+;# Step 2: 取得過期時間 --> May 24 00:00:00 2026
 ;# ======================================
-set time_expir [lrange $time_expir end-1 end-0]
-;# 輸出: 00:00:00 2026
+set time_expir [lrange $time_expir end-3 end-0]
+;# 輸出: May 24 00:00:00 2026
 
 ;# Step 3: 反算出過期時間的 "秒" --> 1764432000
 ;# ======================================
 set sec_expir [clock scan $time_expir -format "%H:%m:%d %Y"]
 ;# 輸出: 1764432000
 
-;# Step 4: 取得現在時間 "秒".
+;# Step 4: 取得現在時間 "秒". 現在時間 2026.03.20 09:29:00
 ;# ======================================
-
-
+set sec_now [clock seconds]
+;# 輸出: 1773970173
