@@ -33,8 +33,8 @@ set time_expir [lrange $time_expir end-3 end-0]
 
 ;# Step 3: 反算出過期時間的 "秒" --> 1764432000
 ;# ======================================
-set sec_expir [clock scan $time_expir -format "%H:%m:%d %Y"]
-;# 輸出: 1764432000
+set sec_expir [clock scan $time_expir -format "%b %d %H:%M:%S %Y"]
+;# 輸出: 1779552000
 
 ;# Step 4: 取得現在時間 "秒". 現在時間 2026.03.20 09:29:00
 ;# ======================================
