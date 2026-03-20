@@ -1,12 +1,4 @@
-
-set mac A01AE32DEDB8
-set LIC_test "./extapp/FTP_TFTP_AUTO/ec_license/test_lic/PROFILE_$::lic_projectname\_$mac.lic"
-
-if { ![file exists $LIC_test]} { usermsg "WRONG !!!\nNo $LIC_test" }
-set get_info [_f_ReadFile $LIC_test]
-
-
-
+目的: 比對 License 是否過期.
 
 set get_info {
 sw-license/1.1
@@ -24,3 +16,7 @@ License-Access-List: 0eLt7Lj3Uzp/+zjbVTXM3OMiWbjka3qhCVmdZN8KaNSb0ohuJXP0Q1lLhXN
 Signature1: E99o/U7faFCQ9K0BGOh3Kt0e6jTzSaqdl2LQVWWzmtI/AE27FjpACfFShbuVgUc83Vdj2nIeCU7vfLhmYyWXTvTtACeHVbnEvcatR7WR3V7xcra8WaG84e1y09M5l7fwHRJt10UV8JgbFLdjzVpB4gDY3vCiFJVweY7N19ecRrxm9J4FeIgM/ZnO+jJtIBI2126k5tr+KhhR1oJ/yJLAZrLMb4YOBNn9KQ1HXHrH9BLBtUT02OnI19oETBtmcmv/DOeve0jWQLQvIbz0EhZVPo7SwCVZ85HPrgKMxGnfILMdq12T2G8EYflRJ9aqsdJpYXpf6WVah7rY2EuoQmHleg==
 Signature2: Ka4CKl0dOYhWfOcQHkb+iiSNGkR/cDKQ9nRu4LUXSTVJEmBcTywBfsVkzmlRmXUUb2DSA3YNfIGJ5aaJTtCkmHodQ+UTtmu4kCfBuxpE0Ujs98iIFWObxEwlWx5gWRhhhTAVTVhm8zRxAIMDY9P0J2hDwVcnW1wbnyk3/gSRdvDgmSotvavFoTDbl5Fbm4f1btZq6YR6iz7CMatBI7NsPMzCETAxjzHIYB5IWSWFR7ZDH2mNzeIs3mJe58QrXiF1jxRYU2cvsSwFmOMmfofrGWOpdncv6sDqT9euZSoFbZ0HMpaQfPc/MNDedwWtnQVWDvNh2adHlTttKXvkudpS7Q==
 }
+
+;# ======================================
+
+
