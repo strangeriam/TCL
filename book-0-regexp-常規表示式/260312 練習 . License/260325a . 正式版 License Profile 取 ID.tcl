@@ -28,7 +28,8 @@ Console#
 
 ;# ===================================
 ;# Step 1: 取得 profile 所在的 ID.
-set pattern {[0-9]+\s+[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
+set pattern {[0-9]\s[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
+set pattern {[0-9]\s     \s+[a-zA-Z\+,]+\s[a-z-]+}
 
 set aaa [regexp -all -inline -- $pattern $get_info]
 if {[regexp $::lic_profile $aaa]} {
