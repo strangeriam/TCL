@@ -1,3 +1,7 @@
+目的: 從 2 種 Log, 取得 ID.
+Log 1: 測試用 (有 Expired time,有效期)
+Log 2: 正式用 (是 Permanent, 無時間限制).
+;# ===================================
 
 set ::lic_profile 				"Essential, cloud-m"
 
