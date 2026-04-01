@@ -33,3 +33,7 @@ _f_vini_profilerd STATUS MAC
 
 ;# 讀取 LICENSE project name --> 不確定能用.
 _f_vini_profilerd EC_LICENSE PROJECTNAME
+
+;# 可讀取 測試結果
+_f_vini_profilerd STATUS LOCATION
+;# 輸出 PASS or FAIL
