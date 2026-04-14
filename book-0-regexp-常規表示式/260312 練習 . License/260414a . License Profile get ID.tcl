@@ -1,9 +1,7 @@
 目的: 從 2 種 Log, 取得 ID.
-Log 1: 測試用 (有 Expired time,有效期)
-Log 2: 正式用 (是 Permanent, 無時間限制).
+測試用 (有 Expired time,有效期) --> 2 2026-07-13   Essential, cloud-u
+正式用 (是 Permanent, 無時間限制) --> 2 Permanent    Essential, cloud-u
 ;# ===================================
-
-set lic	"Essential, cloud-u"
 
 ;# 測試用
 set content {
@@ -39,33 +37,22 @@ Console#show license file
 13:43:19:815| Input ID to show detail: 
 }
 
-
 ;# ===================================
 ;# Step 1: 取得 profile 所在的 ID
-;# --> Essential, cloud-u
-set pattern {[0-9]+\s.+\s+[a-zA-Z\+,]+\s[a-z-]+}
-;# --> L3 Premium
-set pattern {[0-9]\s.+\s+[a-zA-Z\+,]+\s[a-z-]+}
-set pattern {[0-9]+\s.+\s+[a-zA-Z3]+\s[a-zA-Z]+}
+set lic	"Essential, cloud-m"
+set lic	"Essential, cloud-u" ;# $id 輸出 2
+set lic	"L3 Premium" ;# $id 輸出 1
 
-set aaa [regexp -all -inline -- $pattern $content]
-if {[regexp $lic $aaa]} {
-    if {[regexp -linestop .*$lic $aaa]} {
-       set id_tmp [lindex $aaa 0] ;# 輸出: 1 2026-05-24   Essential, cloud-m
-       regexp -linestop .*$lic $id_tmp tmp
-       set id [lindex $tmp 0]  ;# 輸出: 1
-    }
+if {$lic == "Essential, cloud-u" || $lic == "Essential, cloud-m"} {
+    set pattern {[1-9] .* *Essential, cloud-[mu]}
 } else {
-   return 0
+    set pattern {[1-9] .* *[a-zA-Z3] [a-zA-Z]+}
 }
 
-
-;# REGEXP 解說:
-;# ===================================
-[0-9]+ --> 取得 ID --> 1
-\s+ --> 空一格
-.+ --> 所有字元, 包含 Permanent & 2026-05-24
-\s+ --> 空白
-[a-zA-Z\+,]+ --> 取得 包含大小寫的英文字母, 和 (加號 +) 和 (逗號 ,) --> Essential,
-\s+ --> 空白
-[a-z-]+ --> 取得 包含小寫的英文字母, 和 (減號 -) --> cloud-m
+if { [regexp -line $pattern $content] } {
+    regexp -line $pattern $content tmp
+    set id [lindex $tmp 0] ;# 輸出: 1
+    return $id
+} else {
+    return 0
+}
