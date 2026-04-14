@@ -3,7 +3,7 @@ Log 1: 測試用 (有 Expired time,有效期)
 Log 2: 正式用 (是 Permanent, 無時間限制).
 ;# ===================================
 
-set ::lic_profile	"Essential, cloud-u"
+set ::lic	"Essential, cloud-u"
 
 ;# 測試用 Log 1
 set get_info {
@@ -39,10 +39,10 @@ set pattern {[0-9]\s[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
 set pattern {[0-9]\s.+\s+[a-zA-Z\+,]+\s[a-z-]+}
 
 set aaa [regexp -all -inline -- $pattern $get_info]
-if {[regexp $::lic_profile $aaa]} {
-    if {[regexp -linestop .*$::lic_profile $aaa]} {
+if {[regexp $lic $aaa]} {
+    if {[regexp -linestop .*$lic $aaa]} {
        set id_tmp [lindex $aaa 0] ;# 輸出: 1 2026-05-24   Essential, cloud-m
-       regexp -linestop .*$::lic_profile $id_tmp tmp
+       regexp -linestop .*$lic $id_tmp tmp
        set id [lindex $tmp 0]  ;# 輸出: 1
     }
 } else {
