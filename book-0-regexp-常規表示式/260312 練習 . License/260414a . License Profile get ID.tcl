@@ -5,7 +5,7 @@ Log 2: 正式用 (是 Permanent, 無時間限制).
 
 set lic	"Essential, cloud-u"
 
-;# 測試用 Log 1
+;# 測試用
 set content {
 Console#show license file
 13:43:19:815| 
@@ -22,23 +22,31 @@ Console#show license file
 13:43:19:815| Input ID to show detail: 
 }
 
-;# 正式出貨用 Log 2.
+;# 正式出貨用
 set content {
 Console#show license file
-ID Expired Date Feature
--- ------------ ------------------------------------------------
- 1 Permanent    Essential, cloud-u
- 2 Permanent    L3 Premium
-Input ID to show detail:
-Console#
+13:43:19:815| 
+13:43:19:815| ID Expired Date Feature
+13:43:19:815| 
+13:43:19:815| -- ------------ ------------------------------------------------
+13:43:19:815| 
+13:43:19:815|  1 Permanent    L3 Premium
+13:43:19:815| 
+13:43:19:815|  2 Permanent    Essential, cloud-u
+13:43:19:815| 
+13:43:19:815| 
+13:43:19:815| 
+13:43:19:815| Input ID to show detail: 
 }
+
 
 ;# ===================================
 ;# Step 1: 取得 profile 所在的 ID
 ;# --> Essential, cloud-u
-set pattern {[0-9]\s[0-9]{4}-[0-9]{2}-[0-9]{2}\s+[a-zA-Z\+,]+\s[a-z-]+}
+set pattern {[0-9]+\s.+\s+[a-zA-Z\+,]+\s[a-z-]+}
 ;# --> L3 Premium
 set pattern {[0-9]\s.+\s+[a-zA-Z\+,]+\s[a-z-]+}
+set pattern {[0-9]+\s.+\s+[a-zA-Z3]+\s[a-zA-Z]+}
 
 set aaa [regexp -all -inline -- $pattern $content]
 if {[regexp $lic $aaa]} {
