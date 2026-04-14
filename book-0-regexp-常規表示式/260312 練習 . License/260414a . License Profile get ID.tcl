@@ -6,6 +6,7 @@ Log 2: 正式用 (是 Permanent, 無時間限制).
 set ::lic_profile 				"Essential, cloud-m"
 
 ;# 測試用 Log 1
+set get_info {
 Console#show license file
 13:43:19:815| 
 13:43:19:815| ID Expired Date Feature
