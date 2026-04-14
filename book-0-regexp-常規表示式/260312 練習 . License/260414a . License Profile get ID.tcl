@@ -27,7 +27,7 @@ set get_info {
 Console#show license file
 ID Expired Date Feature
 -- ------------ ------------------------------------------------
- 1 Permanent    Essential, cloud-m
+ 1 Permanent    Essential, cloud-u
  2 Permanent    L3 Premium
 Input ID to show detail:
 Console#
