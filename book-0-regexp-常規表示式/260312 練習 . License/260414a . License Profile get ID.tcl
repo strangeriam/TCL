@@ -3,7 +3,7 @@ Log 1: 測試用 (有 Expired time,有效期)
 Log 2: 正式用 (是 Permanent, 無時間限制).
 ;# ===================================
 
-set ::lic	"Essential, cloud-u"
+set lic	"Essential, cloud-u"
 
 ;# 測試用 Log 1
 set get_info {
