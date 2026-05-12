@@ -22,4 +22,5 @@ acc_fs_usb rw
 16:23:43:280| root@(none):/diagnostic# 
 }
 
+set cmd "acc_fs_usb rw"
 regexp -line "Ending Diagnostic Test Case:.$cmd ............ FAIL" $get_info
