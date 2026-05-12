@@ -23,4 +23,4 @@ acc_fs_usb rw
 }
 
 set cmd "acc_fs_usb rw"
-regexp -line "Ending Diagnostic Test Case:.+acc_fs_usb rw ............ PASS" $get_info
+regexp -line "Ending Diagnostic Test Case:.+$cmd ............ PASS" $get_info
