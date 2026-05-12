@@ -21,3 +21,5 @@ acc_fs_usb rw
 16:23:43:280| LogFile: /mnt/log_rw/log/accdcp/unilog/acc_fs_usb+rw_19700101020824_PASS
 16:23:43:280| root@(none):/diagnostic# 
 }
+
+regexp -line "Ending Diagnostic Test Case:.$cmd ............ FAIL" $get_info
