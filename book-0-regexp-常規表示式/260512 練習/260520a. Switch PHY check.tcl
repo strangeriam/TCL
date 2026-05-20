@@ -7,7 +7,7 @@ set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+P
 set get_info {
 |  4 | PHY_88E1780_5 |     0x0 |     N |        N |   0 | 125 |        34 |   PASS |
 }
-regexp -all -inline {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|} $get_info
+regexp -all -inline {\|\s+\d \|\s+[A-Z_0-9]+ \|} $get_info
 
 
 foreach line [regexp -all -inline $pattern $get_info] {
