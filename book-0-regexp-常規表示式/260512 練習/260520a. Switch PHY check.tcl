@@ -3,7 +3,7 @@
 set get_info {
 |  4 | PHY_88E1780_5 |     0x0 |     N |        N |   0 | 125 |        34 |   PASS |
 }
-regexp -all -inline {\|\s+\d \|\s+[A-Z_0-9]+ \|} $get_info
+regexp -all -inline {\|\s+\d \|\s+[A-Z_0-9]+ \|\s+0x\d+ \|\s+N \|\s+N \|\s+\d+ \|\s+\d+ \|\s+\d+ \|\s+PASS} $get_info
 
 
 
