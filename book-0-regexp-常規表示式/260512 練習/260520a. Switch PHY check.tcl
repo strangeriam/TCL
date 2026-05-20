@@ -13,9 +13,7 @@ set get_info {
 # 輸出: {|  6 |       TMP75_1 |    0x48 |     N |        N | -40 | 125 |        32 |   PASS}
 
 
-set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
-set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+FAIL}
-set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+PASS}
+set pattern {\|\s+\d \|\s+[A-Z_0-9]+ \|\s+0x\d+ \|\s+N \|\s+N \|\s+[0-9-]+ \|\s+\d+ \|\s+\d+ \|\s+PASS}
 foreach line [regexp -all -inline $pattern $get_info] {
 	puts "line: $line"
 }
