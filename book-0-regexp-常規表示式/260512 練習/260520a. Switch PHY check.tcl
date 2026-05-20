@@ -4,7 +4,7 @@ if {[info exists ngList]} {
 
 set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
 
-foreach line [regexp -all -inline $pattern $infile] {
+foreach line [regexp -all -inline $pattern $get_info] {
 	set ngPort [string trim [lindex [split $line |] 1]]
 
 	append ngList "$ngPort "
