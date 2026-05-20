@@ -4,6 +4,17 @@ set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAI
 set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+FAIL}
 set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+PASS}
 
+set get_info {
+|  4 | PHY_88E1780_5 |     0x0 |     N |        N |   0 | 125 |        34 |   PASS |
+}
+regexp -all -inline {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|} $get_info
+
+
+foreach line [regexp -all -inline $pattern $get_info] {
+	puts "line: $line"
+}
+
+
 if {[info exists ngList]} { unset ngList }
 
 foreach line [regexp -all -inline $pattern $get_info] {
