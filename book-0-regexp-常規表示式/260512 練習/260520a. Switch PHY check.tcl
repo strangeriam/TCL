@@ -1,8 +1,11 @@
+
+
+set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
+set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
+
 if {[info exists ngList]} {
 	unset ngList
 }
-
-set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
 
 foreach line [regexp -all -inline $pattern $get_info] {
 	set ngPort [string trim [lindex [split $line |] 1]]
