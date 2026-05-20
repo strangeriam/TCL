@@ -2,6 +2,7 @@
 
 set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
 set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+FAIL}
+set pattern {\d \| \s+ \|\s+ 0x\d+ \|\s+N \|\s+N \|\s+\d+ \| 125 \|\s+\d+ \|\s+PASS}
 
 if {[info exists ngList]} { unset ngList }
 
