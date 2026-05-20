@@ -1,12 +1,15 @@
 
+regexp -all -inline {\|\s+\d \|\s+[A-Z_0-9]+ \|\s+0x\d+ \|\s+N \|\s+N \|\s+[0-9-]+ \|\s+\d+ \|\s+\d+ \|\s+PASS} $get_info
 
 set get_info {
 |  4 | PHY_88E1780_5 |     0x0 |     N |        N |   0 | 125 |        34 |   PASS |
 }
-regexp -all -inline {\|\s+\d \|\s+[A-Z_0-9]+ \|\s+0x\d+ \|\s+N \|\s+N \|\s+\d+ \|\s+\d+ \|\s+\d+ \|\s+PASS} $get_info
+# 輸出: {|  4 | PHY_88E1780_5 |     0x0 |     N |        N |   0 | 125 |        34 |   PASS}
 
-
-
+set get_info {
+|  6 |       TMP75_1 |    0x48 |     N |        N | -40 | 125 |        32 |   PASS |
+}
+# 輸出: {|  6 |       TMP75_1 |    0x48 |     N |        N | -40 | 125 |        32 |   PASS}
 
 
 set pattern {\d+\s+\|\s+\d+ \|\s+\-\d+ \|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+FAIL}
