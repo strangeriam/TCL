@@ -14,7 +14,9 @@ set var [llength $list1]
 lappend list1 all, I don't like
 
 
-通常我們會把 list 與 foreach 結合運用。例如底下的 foreach迴圈列出環境變數的名稱及內容(array names 可取出指定陣列的所有 index)：
+通常我們會把 list 與 foreach 結合運用.
+例如底下的 foreach 迴圈列出環境變數的名稱及內容
+(array names 可取出指定陣列的所有 index)
 % foreach index [array names env] { 
     %     puts “$index = $env(index)”
     % }
