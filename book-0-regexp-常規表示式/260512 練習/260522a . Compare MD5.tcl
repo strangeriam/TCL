@@ -1,10 +1,10 @@
 
-set ::md5_cas_pem dbdd18608c3cfe4d7f54e2a65f1b2d29
-set ::md5_cert_pem e00b5b67335f567f91fcc4cc3f7f81fe
-set ::md5_dev_id 4e28bba2ea2deefb58f524ce2bd77e4a
-set ::md5_key_pem 8162c46bc37c064f23ef05fa1a9d02df
-set ::md5_operational_pem dbdd18608c3cfe4d7f54e2a65f1b2d29
-set ::md5_operational_ca e00b5b67335f567f91fcc4cc3f7f81fe
+set ::md5_cas_pem "dbdd18608c3cfe4d7f54e2a65f1b2d29"
+set ::md5_cert_pem "e00b5b67335f567f91fcc4cc3f7f81fe"
+set ::md5_dev_id "4e28bba2ea2deefb58f524ce2bd77e4a"
+set ::md5_key_pem "8162c46bc37c064f23ef05fa1a9d02df"
+set ::md5_operational_pem "e00b5b67335f567f91fcc4cc3f7f81fe"
+set ::md5_operational_ca "dbdd18608c3cfe4d7f54e2a65f1b2d29"
 
 set listitem [list cas.pem \
 						cert.pem \
