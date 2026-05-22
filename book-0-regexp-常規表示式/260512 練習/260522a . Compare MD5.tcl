@@ -1,7 +1,43 @@
 
+=   dbdd18608c3cfe4d7f54e2a65f1b2d29 (32)--> cas.pem                       =
+=   e00b5b67335f567f91fcc4cc3f7f81fe (32)--> cert.pem                      =
+=   4e28bba2ea2deefb58f524ce2bd77e4a (32)--> dev-id                        =
+=   8162c46bc37c064f23ef05fa1a9d02df (32)--> key.pem                       =
+=   dbdd18608c3cfe4d7f54e2a65f1b2d29 (32)--> operational.ca                =
+=   e00b5b67335f567f91fcc4cc3f7f81fe (32)--> operational.pem               =
 
 
+set ::md5_cas_pem dbdd18608c3cfe4d7f54e2a65f1b2d29
+set ::md5_cert_pem e00b5b67335f567f91fcc4cc3f7f81fe
+set ::md5_dev_id 4e28bba2ea2deefb58f524ce2bd77e4a
+set ::md5_key_pem 8162c46bc37c064f23ef05fa1a9d02df
+set ::md5_operational_pem dbdd18608c3cfe4d7f54e2a65f1b2d29
+set ::md5_operational_ca e00b5b67335f567f91fcc4cc3f7f81fe
 
+set listitem [list cas.pem \
+						cert.pem \
+						dev.id \
+						key.pem \
+						operational.pem \
+						operational.ca ]
+
+set listmd5 [list $::md5_cas_pem \
+						$::md5_cert_pem \
+						$::md5_dev_id \
+						$::md5_key_pem \
+						$::md5_operational_pem \
+						$::md5_operational_ca ]
+
+foreach md5 $listmd5 item $listitem {
+		if { ![regexp -line "${item}\\s+: $md5" $get_info] } {
+			  puts "MD5 $md5 --> $item ,FAIL"
+			  return 0
+		} else {
+			  puts "MD5 $md5 --> $item ,PASS"
+		}
+}
+
+;# ==================================================
 set get_info {
 show ucentral certificate status
 13:39:51:239| 
