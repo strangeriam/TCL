@@ -8,7 +8,7 @@ set ::md5_operational_pem "e00b5b67335f567f91fcc4cc3f7f81fe"
 
 set listitem [list cas.pem \
 						cert.pem \
-						dev-id \
+						dev\-id \
 						key.pem \
 						operational.ca \
 						operational.pem ]
