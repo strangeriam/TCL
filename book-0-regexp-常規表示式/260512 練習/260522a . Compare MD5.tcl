@@ -21,13 +21,21 @@ set listmd5 [list $::md5_cas_pem \
 						$::md5_operational_ca ]
 
 foreach md5 $listmd5 item $listitem {
-		if { ![regexp -line "${item}\\s+: $md5" $get_info] } {
+		if {[lindex [split $item .] 0] == "operational"} {
+			set pattern "${item}: $md5"
+		} else {
+			set pattern "${item}\\s+: $md5"
+		}
+		
+		if { ![regexp -line $pattern $get_info] } {
 			  puts "MD5 $md5 --> $item ,FAIL"
 			  return 0
 		} else {
 			  puts "MD5 $md5 --> $item ,PASS"
+			  return 1
 		}
 }
+
 
 ;# ==================================================
 set get_info {
