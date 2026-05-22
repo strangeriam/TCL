@@ -29,12 +29,18 @@ foreach md5 $listmd5 item $listitem {
 		
 		if { ![regexp -line $pattern $get_info] } {
 			  puts "MD5 $md5 --> $item ,FAIL"
-			  return 0
 		} else {
 			  puts "MD5 $md5 --> $item ,PASS"
-			  return 1
 		}
 }
+
+;# 輸出:
+MD5 dbdd18608c3cfe4d7f54e2a65f1b2d29 --> cas.pem ,PASS
+MD5 e00b5b67335f567f91fcc4cc3f7f81fe --> cert.pem ,PASS
+MD5 4e28bba2ea2deefb58f524ce2bd77e4a --> dev.id ,PASS
+MD5 8162c46bc37c064f23ef05fa1a9d02df --> key.pem ,PASS
+MD5 e00b5b67335f567f91fcc4cc3f7f81fe --> operational.pem ,PASS
+MD5 dbdd18608c3cfe4d7f54e2a65f1b2d29 --> operational.ca ,PASS
 
 
 ;# ==================================================
