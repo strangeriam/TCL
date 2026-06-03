@@ -1,6 +1,8 @@
 
+set pattern {}
+regexp -all -inline {\d+\s+0/[ 0-9]+\s+} $get_info
 
-
+regexp -all -inline {\d+\s+0/[ 0-9]+\s+} $get_info
 
 
 
