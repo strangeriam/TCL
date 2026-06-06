@@ -1,7 +1,20 @@
 
+if { [info exists faillist] } {unset faillist}
 
+set pattern {\d\s+\|\s+\d+\s+\| FAIL}
+foreach line [regexp -all -inline $pattern $get_info] {
+    set fan_id [lindex $line 0]
+    set fan_rpm [lindex $line 2]
+    if { $fan_rpm < 7500 } {
+        lappend faillist "FAN${fan_id}:${fan_rpm} "
+    } else {
+        puts "HIGH Speed of FAN${fan_id}:${fan_rpm} ,PASS"
+    }
+}
 
-
+if { [info exists faillist] } {
+		puts "HIGH Speed $faillist ,FAIL"
+}
 
 
 set get_info {
