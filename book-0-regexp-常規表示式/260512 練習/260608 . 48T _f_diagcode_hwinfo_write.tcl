@@ -1,8 +1,8 @@
 
-set ::HW_pid 			0x00000537
-set ::HW_bid 			0x00000000
-set ::HW_hwver 		R0A
-set ::HW_ID 			ECS4150-48T
+set ::HW_pid 0x00000537
+set ::HW_bid 0x00000000
+set ::HW_hwver R0A
+set ::HW_ID ECS4150-48T
 
 set itemlist [list  sn \
                     mac \
@@ -14,11 +14,11 @@ set itemlist [list  sn \
 
 set valuelist [list EC2332000362 \
                     90:2D:77:21:7C:60 \
+                    [clock format [clock second] -format "%Y-%m-%d"] \
                     $::HW_hwver \
-                    2026-06-06 \
-                    0x00000537 \
-                    0x00000000 \
-                    ECS4150-48T ]
+                    $::HW_pid \
+                    $::HW_bid \
+                    $::HW_ID ]
 
 foreach item $itemlist value $valuelist {
     
