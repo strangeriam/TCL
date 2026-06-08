@@ -20,14 +20,14 @@ set valuelist [list EC2332000362 \
                     $::HW_bid \
                     $::HW_ID ]
 
-	foreach item $itemlist value $valuelist {
+foreach item $itemlist value $valuelist {
 		set regline "$item\] $value"
 		if { ![regexp -line $regline $get_info] } {
-			_f_termmsg_V1 "$regline ,FAIL"
+			puts "$regline ,FAIL"
 		} else {
-			_f_termmsg_V2 "$regline ,PASS" "" = -nodisplaytime
+			puts "$regline ,PASS" "" = -nodisplaytime
 		}
-	}
+}
 
 
 set get_info {
