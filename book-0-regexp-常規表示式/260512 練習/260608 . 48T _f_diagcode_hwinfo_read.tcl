@@ -6,8 +6,8 @@ set ::HW_ID ECS4150-48T
 
 set itemlist [list  sn \
                     mac \
-                    hw_version \
                     manuf_date \
+					hw_version \
                     proj_id \
                     board_id \
                     mod_id ]
