@@ -13,7 +13,7 @@ set itemlist [list  sn \
                     mod_id ]
 
 set valuelist [list EC2332000362 \
-                    string tolower [90:2D:77:21:7C:60] \
+                    [string tolower 90:2D:77:21:7C:60] \
                     [clock format [clock second] -format "%Y-%m-%d"] \
                     $::HW_hwver \
                     $::HW_pid \
@@ -21,21 +21,20 @@ set valuelist [list EC2332000362 \
                     $::HW_ID ]
 
 foreach item $itemlist value $valuelist {
-		set regline "$item\] $value"
-		if { ![regexp -line $regline $get_info] } {
-			puts "$regline ,FAIL"
+		if { ![regexp -line "$item\] $value" $get_info] } {
+			puts "$item . $value ,FAIL"
 		} else {
-			puts "$regline ,PASS"
+			puts "$item . $value ,PASS"
 		}
 }
 
-
+;# ======================================
 set get_info {
 root@(none):/diagnostic# ideeprom_get_all.sh
 [       mac] 90:2d:77:21:7c:60 
 [        sn] EC2332000362 
 [hw_version] R0A 
-[manuf_date] 2026-06-06 
+[manuf_date] 2026-06-08 
 [    mod_id] ECS4150-48T 
 [   proj_id] 0x00000537 
 [  board_id] 0x00000000 
