@@ -25,7 +25,7 @@ foreach item $itemlist value $valuelist {
 		if { ![regexp -line $regline $get_info] } {
 			puts "$regline ,FAIL"
 		} else {
-			puts "$regline ,PASS" "" = -nodisplaytime
+			puts "$regline ,PASS"
 		}
 }
 
