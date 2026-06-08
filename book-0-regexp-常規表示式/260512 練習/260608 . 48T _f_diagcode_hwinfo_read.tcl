@@ -13,7 +13,7 @@ set itemlist [list  sn \
                     mod_id ]
 
 set valuelist [list EC2332000362 \
-                    90:2D:77:21:7C:60 \
+                    string tolower [90:2D:77:21:7C:60] \
                     [clock format [clock second] -format "%Y-%m-%d"] \
                     $::HW_hwver \
                     $::HW_pid \
