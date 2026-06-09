@@ -49,6 +49,19 @@ foreach line [regsub -all "\n" $get_info2 " "] {
 88E1780 #4: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
 88E1780 #5: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
 
+;# Jude PASS & FAIL
+foreach line [regsub -all "\n" $get_info2 " "] {
+  set chip_id [lrange $line 0 1]
+  set phy1 [lindex $line 5]
+  set phy2 [lindex $line end-0]
+  puts "chip_id: $chip_id . phy1: $phy1 . phy2: $phy2"
+
+  if { $phy1 != "0x002B" || $phy2 != "0x0AD8"} {
+     puts "$line ,FAIL"
+  } else {
+     puts "$line ,PASS"
+  }
+}
 
 ;# ==================================================
 set get_info {
