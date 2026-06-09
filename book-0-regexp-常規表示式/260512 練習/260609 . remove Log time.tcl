@@ -1,6 +1,35 @@
 Remove format "14:30:42:429| "
 
-regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""
+set get_info2 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
+puts $get_info2
+
+;# OUTPUT:
+m_access_phy_id.sh
+Start Switching Application..................................................................................................................OK.
+Access PHY ID through XM0 MDC/MDIO...
+
+88E1780 #0:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+88E1780 #1:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+88E1780 #2:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+88E1780 #3:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+Switching application is already running, doing nothing.
+Access PHY ID through XM1 MDC/MDIO...
+
+88E1780 #4:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+88E1780 #5:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+root@(none):/diagnostic#
 
 
 
