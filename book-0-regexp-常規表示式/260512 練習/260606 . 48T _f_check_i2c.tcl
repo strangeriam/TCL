@@ -1,6 +1,6 @@
 set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen]
 
-foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} [_f_getconsole]] {
+foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} $get_info] {
 		if { [lindex $line 1] == "$item" } {
 			if { [lindex $line end-0] == "FAIL" } {
 				puts "Check Result of \"$item\" ,FAIL"
