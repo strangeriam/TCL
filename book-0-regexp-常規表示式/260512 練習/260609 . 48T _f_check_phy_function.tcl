@@ -24,10 +24,30 @@ PHY ID 1: 0x002B
 PHY ID 2: 0x0AD8
 ;# ==================================================
 
-;# Remove Log time
-set get_info2 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
 
-;# 
+ ;# Step 1 ---> Remove Log time
+set get_info1 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
+
+ ;# Step 2 ---> Get like this.
+88E1780 #0:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+=================
+set pattern {88E1780 #\d:\nPHY ID 1:\s0x[A-F0-9]{4}\nPHY ID 2:\s0x[A-F0-9]{4}}
+set get_info2 [regexp -all -inline $pattern $get_info1]
+
+ ;# Step 3 ---> get each line of {88E1780 #0:PHY ID 1: 0x002B PHY ID 2: 0x0AD8}
+foreach line [regsub -all "\n" $get_info2 " "] {
+  puts $line
+}
+
+;# OUTPUT:
+88E1780 #0: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
+88E1780 #1: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
+88E1780 #2: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
+88E1780 #3: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
+88E1780 #4: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
+88E1780 #5: PHY ID 1: 0x002B PHY ID 2: 0x0AD8
 
 
 ;# ==================================================
