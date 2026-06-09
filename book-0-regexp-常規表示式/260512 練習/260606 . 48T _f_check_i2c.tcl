@@ -1,20 +1,16 @@
-	set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen]
+set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen]
 
-	foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} [_f_getconsole]] {
+foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} [_f_getconsole]] {
 		if { [lindex $line 1] == "$item" } {
 			if { [lindex $line end-0] == "FAIL" } {
-				_f_termmsg_V1 "Check Result of \"$item\" ,FAIL"
-				set ::s0 "Check Result of $item ,FAIL" ; set ::ErrorCode "I2C"
-				return 0
+				puts "Check Result of \"$item\" ,FAIL"
 			} else {
-				_f_termmsg_V2 "Check Result of \"$item\" ,PASS" "" = -nodisplaytime
+				puts "Check Result of \"$item\" ,PASS"
 			}
 		} else {
-			_f_termmsg_V1 "Check Name of \"$item\" ,FAIL"
-			set ::s0 "Check Name of $item ,FAIL" ; set ::ErrorCode "I2C"
-			return 0
+			puts "Check Name of \"$item\" ,FAIL"
 		}
-	}
+}
 
 ;# ============================================
 set get_info {
