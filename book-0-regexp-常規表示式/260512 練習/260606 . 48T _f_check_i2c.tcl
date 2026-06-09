@@ -1,22 +1,22 @@
+	set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen]
 
-if { [info exists faillist] } {unset faillist}
+	foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} [_f_getconsole]] {
+		if { [lindex $line 1] == "$item" } {
+			if { [lindex $line end-0] == "FAIL" } {
+				_f_termmsg_V1 "Check Result of \"$item\" ,FAIL"
+				set ::s0 "Check Result of $item ,FAIL" ; set ::ErrorCode "I2C"
+				return 0
+			} else {
+				_f_termmsg_V2 "Check Result of \"$item\" ,PASS" "" = -nodisplaytime
+			}
+		} else {
+			_f_termmsg_V1 "Check Name of \"$item\" ,FAIL"
+			set ::s0 "Check Name of $item ,FAIL" ; set ::ErrorCode "I2C"
+			return 0
+		}
+	}
 
-set pattern {\d\s+\|\s+\d+\s+\| FAIL}
-foreach line [regexp -all -inline $pattern $get_info] {
-    set fan_id [lindex $line 0]
-    set fan_rpm [lindex $line 2]
-    if { $fan_rpm < 7500 } {
-        lappend faillist "FAN${fan_id}:${fan_rpm} "
-    } else {
-        puts "HIGH Speed of FAN${fan_id}:${fan_rpm} ,PASS"
-    }
-}
-
-if { [info exists faillist] } {
-		puts "HIGH Speed $faillist ,FAIL"
-}
-
-
+;# ============================================
 set get_info {
 acc_iai_i2c device
 14:42:43:916| 5m
