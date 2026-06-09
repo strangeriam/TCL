@@ -64,7 +64,12 @@ foreach line [regsub -all "\n" $get_info2 " "] {
 }
 
 ;# OUTPUT
-
+88E1780 #0: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
+88E1780 #1: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
+88E1780 #2: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
+88E1780 #3: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
+88E1780 #4: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
+88E1780 #5: PHY ID 1: 0x002B PHY ID 2: 0x0AD8 ,PASS
 
 
 ;# ==================================================
