@@ -1,7 +1,33 @@
+Poupose: Get these id are correct.
+88E1780 #0:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+
+88E1780 #1:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+
+88E1780 #2:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+
+88E1780 #3:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+
+88E1780 #4:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
+
+88E1780 #5:
+PHY ID 1: 0x002B
+PHY ID 2: 0x0AD8
 
 
 
 
+
+;# ==================================================
 set get_info {
 m_access_phy_id.sh
 14:30:42:429| Start Switching Application..................................................................................................................OK.
