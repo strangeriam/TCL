@@ -56,12 +56,16 @@ foreach line [regsub -all "\n" $get_info2 " "] {
   set phy2 [lindex $line end-0]
   puts "chip_id: $chip_id . phy1: $phy1 . phy2: $phy2"
 
-  if { $phy1 != "0x002B" || $phy2 != "0x0AD8"} {
-     puts "$line ,FAIL"
-  } else {
+  if { $phy1 == "0x002B" && $phy2 == "0x0AD8"} {
      puts "$line ,PASS"
+  } else {
+     puts "$line ,FAIL"
   }
 }
+
+;# OUTPUT
+
+
 
 ;# ==================================================
 set get_info {
