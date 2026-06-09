@@ -25,8 +25,9 @@ PHY ID 2: 0x0AD8
 ;# ==================================================
 
 ;# Remove Log time
-regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info ""
-regsub -all -line {\d+:\d+:\d+:\d+\|} $get_info ""
+set get_info2 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
+
+;# 
 
 
 ;# ==================================================
