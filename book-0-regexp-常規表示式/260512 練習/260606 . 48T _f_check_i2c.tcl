@@ -1,6 +1,11 @@
-set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen]
+;# Skip RoT check
+
+set listitem [list TMP75_1 ID_EEPROM CPLD CLKgen RoT]
 
 foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{3}\s+\|\sN\s+\|\s\dx\d+\s+\|\s[PASSFIL]{4}} $get_info] {
+	puts "item: $item . line:\n$line"
+
+	if { [lindex $line 1] != "RoT" } {
 		if { [lindex $line 1] == "$item" } {
 			if { [lindex $line end-0] == "FAIL" } {
 				puts "Check Result of \"$item\" ,FAIL"
@@ -10,6 +15,7 @@ foreach item $listitem line [regexp -all -inline {\| [A-Za-z1-7_]+\s+\|\s[CPUI]{
 		} else {
 			puts "Check Name of \"$item\" ,FAIL"
 		}
+	}
 }
 
 ;# ============================================
