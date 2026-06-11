@@ -1,6 +1,13 @@
 
+if {[info exists faillist]} { unset faillist }
+foreach line [regexp -all -inline {port \d+} $get_info] {
+		puts "line: $line"
+    append faillist "[lindex $line 1], "
+}
 
-
+if { [info exists faillist]} {
+  puts "faillist: $faillist"
+}
 
 
 set get_info {
