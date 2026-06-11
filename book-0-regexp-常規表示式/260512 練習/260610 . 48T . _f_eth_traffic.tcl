@@ -21,14 +21,14 @@ foreach port $faillist {
 	}
 }
 set FAILList
-
-;# 輸出
-01 02 13 14 25 26 37 38 
+;# 輸出 --> 01 02 13 14 25 26 37 38 
 
 ## 移除 appendL 最後的空白.
 set FAILList [string trim $FAILList]
-;# 輸出
-01 02 13 14 25 26 37 38
+;# 輸出 --> 01 02 13 14 25 26 37 38
+
+set totalFail [llength $FAILList]
+;# 輸出 --> 8
 
 
 set get_info {
