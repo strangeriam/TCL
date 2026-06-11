@@ -1,8 +1,8 @@
 
 if {[info exists faillist]} { unset faillist }
 foreach line [regexp -all -inline {port \d+} $get_info] {
-		puts "line: $line"
-    append faillist "[lindex $line 1], "
+	puts "line: $line"
+    append faillist "[lindex $line 1] "
 }
 
 if { [info exists faillist]} {
@@ -12,16 +12,16 @@ if { [info exists faillist]} {
 ;# 移除相同項目
 set list1 "AAA AAA BBB CCC CCC CCC"
 
-if {[info exists appendL]} { unset appendL }
-foreach item $list1 {
-	if {[regexp $item $list1]} {
-		append appendL "$item "
-		set list1 [string map "$item \"\"" $list1]
+if {[info exists FAILList]} { unset FAILList }
+foreach port $faillist {
+	if {[regexp $port $faillist]} {
+		append FAILList "$port "
+		set faillist [string map "$port \"\"" $faillist]
 	}
 }
 
 ## 移除 appendL 最後的空白.
-set appendL [string trim $appendL]
+set failList [string trim $failList]
 
 
 
