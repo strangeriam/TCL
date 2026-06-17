@@ -1,0 +1,1097 @@
+set get_info {
+12:39:24:702| / # ls /mnt/flash/log/log
+
+12:39:24:749| m/mnt/flash/log/log[m
+
+12:39:24:749| / # cat /mnt/flash/log/log
+
+12:39:24:764| 
+
+12:39:24:780| Test Summation:
+
+12:39:24:780| 
+
+12:39:24:780| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:24:780| -----------------------------------------------------------------------------------------
+
+12:39:24:796|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:24:796| -----------------------------------------------------------------------------------------
+
+12:39:24:796|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:24:811|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:24:827|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:24:827|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:24:842|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:24:842|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:24:874|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:24:874|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:24:889|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:24:905|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:24:905|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:24:921|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:24:921|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:24:936|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:24:936|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:24:952| 
+
+12:39:24:952| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:24:952| -----------------------------------------------------------------------------------------
+
+12:39:24:967|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:24:967| -----------------------------------------------------------------------------------------
+
+12:39:24:983|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:24:983|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:24:999|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:25:014|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:25:027|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:25:027|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:25:046|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:25:061|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:25:061|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:25:077|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:25:092|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:25:092| 
+
+12:39:25:092| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:25:124| -----------------------------------------------------------------------------------------
+
+12:39:25:124|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:139| -----------------------------------------------------------------------------------------
+
+12:39:25:139|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:25:155|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:25:155|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:25:170|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:25:181|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:25:181|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:25:193|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:25:193| 
+
+12:39:25:193| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:25:217| -----------------------------------------------------------------------------------------
+
+12:39:25:217|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:229| -----------------------------------------------------------------------------------------
+
+12:39:25:229|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:25:248|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:25:248|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:25:260|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:25:260|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:25:280|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:25:293|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:25:293|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:25:311|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:25:311|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:25:327|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:25:327|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:25:342|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:25:342|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:25:374|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:25:389|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:25:389|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:25:405|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:25:405|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:25:420|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:25:420|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:25:436|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:25:436|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:25:452|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:25:467|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:25:467|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:25:483|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:25:483|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:25:499|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:25:499|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:25:514| 
+
+12:39:25:514| 
+
+12:39:25:514| ------------------------------------
+
+12:39:25:514| test loop end
+
+12:39:25:514| ------------------------------------
+
+12:39:25:514| 
+
+12:39:25:514| Test Summation:
+
+12:39:25:514| 
+
+12:39:25:514| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:25:530| -----------------------------------------------------------------------------------------
+
+12:39:25:530|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:546| -----------------------------------------------------------------------------------------
+
+12:39:25:546|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:25:561|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:25:561|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:25:577|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:25:592|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:25:592|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:25:624|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:25:624|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:25:639|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:25:639|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:25:655|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:25:671|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:25:671|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:25:686|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:25:686|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:25:702| 
+
+12:39:25:702| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:25:702| -----------------------------------------------------------------------------------------
+
+12:39:25:717|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:717| -----------------------------------------------------------------------------------------
+
+12:39:25:733|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:25:733|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:25:749|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:25:764|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:25:764| 
+
+12:39:25:775|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:25:775|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:25:796|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:25:811|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:25:811|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:25:827|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:25:827|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:25:842| 
+
+12:39:25:842| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:25:874| -----------------------------------------------------------------------------------------
+
+12:39:25:874|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:889| -----------------------------------------------------------------------------------------
+
+12:39:25:889|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:25:905|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:25:905|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:25:920|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:25:920|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:25:932|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:25:943|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:25:943| 
+
+12:39:25:943| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:25:968| -----------------------------------------------------------------------------------------
+
+12:39:25:968|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:25:979| -----------------------------------------------------------------------------------------
+
+12:39:25:979|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:25:999|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:25:999|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:26:010|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:26:010|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:26:030|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:26:030|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:26:046|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:26:046|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:26:061|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:26:077|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:26:077|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:26:093|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:26:093|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:26:124|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:26:124|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:26:139|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:26:155|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:26:155|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:26:171|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:26:171|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:26:186|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:26:186|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:26:202|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:26:202|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:26:218|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:26:233|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:26:233|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:26:249|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:26:249|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:26:265| 
+
+12:39:26:265| 
+
+12:39:26:265| ------------------------------------
+
+12:39:26:265| test loop end
+
+12:39:26:265| ------------------------------------
+
+12:39:26:265| 
+
+12:39:26:265| Test Summation:
+
+12:39:26:265| 
+
+12:39:26:265| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:26:280| -----------------------------------------------------------------------------------------
+
+12:39:26:280|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:26:296| -----------------------------------------------------------------------------------------
+
+12:39:26:296|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:26:311|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:26:311|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:26:327|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:26:327|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:26:343|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:26:374|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:26:374|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:26:390|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:26:390|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:26:405|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:26:405|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:26:421|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:26:436|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:26:436|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:26:452| 
+
+12:39:26:452| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:26:452| -----------------------------------------------------------------------------------------
+
+12:39:26:452|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:26:468| -----------------------------------------------------------------------------------------
+
+12:39:26:468|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:26:483|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:26:499|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:26:509|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:26:509|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:26:530|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:26:546|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:26:546|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:26:561|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:26:577|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:26:577|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:26:593| 
+
+12:39:26:593| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:26:593| -----------------------------------------------------------------------------------------
+
+12:39:26:624|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:26:624| -----------------------------------------------------------------------------------------
+
+12:39:26:640|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:26:640|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:26:655|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:26:670|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:26:670|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:26:682|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:26:682|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:26:692| 
+
+12:39:26:692| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:26:718| -----------------------------------------------------------------------------------------
+
+12:39:26:718|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:26:718| -----------------------------------------------------------------------------------------
+
+12:39:26:729|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:26:749|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:26:749|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:26:761|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:26:761|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:26:780|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:26:780|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:26:796|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:26:796|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:26:812|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:26:812|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:26:827|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:26:843|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:26:843|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:26:874|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:26:874|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:26:890|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:26:905|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:26:905|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:26:921|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:26:921|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:26:937|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:26:937|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:26:952|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:26:952|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:26:968|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:26:968|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:26:983|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:26:983|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:26:999|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:27:015| 
+
+12:39:27:015| 
+
+12:39:27:015| ------------------------------------
+
+12:39:27:015| test loop end
+
+12:39:27:015| ------------------------------------
+
+12:39:27:015| 
+
+12:39:27:015| Test Summation:
+
+12:39:27:015| 
+
+12:39:27:015| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:27:030| -----------------------------------------------------------------------------------------
+
+12:39:27:030|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:046| -----------------------------------------------------------------------------------------
+
+12:39:27:046|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:27:062|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:27:062|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:27:077|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:27:077|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:27:093|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:27:093|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:27:124|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:27:140|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:27:140|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:27:155|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:27:155|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:27:171|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:27:171|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:27:187|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:27:187| 
+
+12:39:27:187| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:27:202| -----------------------------------------------------------------------------------------
+
+12:39:27:202|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:218| -----------------------------------------------------------------------------------------
+
+12:39:27:218|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:27:234|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:27:249|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:27:249|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:27:259|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:27:280|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:27:296|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:27:296|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:27:312|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:27:327|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:27:327|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:27:343| 
+
+12:39:27:343| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:27:343| -----------------------------------------------------------------------------------------
+
+12:39:27:374|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:374| -----------------------------------------------------------------------------------------
+
+12:39:27:390|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:27:390|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:27:405|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:27:420|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:27:420|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:27:431|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:27:431|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:27:443| 
+
+12:39:27:443| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:27:443| -----------------------------------------------------------------------------------------
+
+12:39:27:468|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:468| -----------------------------------------------------------------------------------------
+
+12:39:27:483|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:27:483|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:27:495|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:27:495|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:27:515|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:27:526|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:27:526|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:27:546|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:27:546|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:27:562|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:27:562|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:27:577|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:27:577|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:27:593|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:27:624|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:27:624|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:27:640|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:27:640|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:27:655|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:27:655|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:27:671|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:27:671|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:27:687|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:27:702|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:27:702|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:27:718|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:27:718|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:27:733|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:27:733|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:27:749|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:27:749| 
+
+12:39:27:749| 
+
+12:39:27:749| ------------------------------------
+
+12:39:27:765| test loop end
+
+12:39:27:765| ------------------------------------
+
+12:39:27:765| 
+
+12:39:27:765| Test Summation:
+
+12:39:27:765| 
+
+12:39:27:765| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:27:765| -----------------------------------------------------------------------------------------
+
+12:39:27:780|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:780| ------------------------------------------------------------------------
+
+12:39:27:796| -----------------
+
+12:39:27:796|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:27:796|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:27:812|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:27:827|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:27:827|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:27:843|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:27:843|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:27:874|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:27:874|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:27:890|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:27:905|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:27:905|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:27:921|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:27:921|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:27:937|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:27:937| 
+
+12:39:27:937| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:27:952| -----------------------------------------------------------------------------------------
+
+12:39:27:952|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:27:968| -----------------------------------------------------------------------------------------
+
+12:39:27:968|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:27:984|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:27:999|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:27:999|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:28:015|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:28:030|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:28:030|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:28:046|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:28:059|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:28:059|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:28:077|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:28:093| 
+
+12:39:28:093| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:28:093| -----------------------------------------------------------------------------------------
+
+12:39:28:124|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:124| -----------------------------------------------------------------------------------------
+
+12:39:28:140|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:28:140|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:28:155|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:28:155|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:28:171|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:28:187|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:28:187|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:28:202| 
+
+12:39:28:202| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:28:202| -----------------------------------------------------------------------------------------
+
+12:39:28:218|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:218| -----------------------------------------------------------------------------------------
+
+12:39:28:233|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:28:233|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:28:249|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:28:249|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:28:265|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:28:265|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:28:280|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:28:296|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:28:296|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:28:312|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:28:312|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:28:327|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:28:327|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:28:343|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:28:343|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:28:374|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:28:390|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:28:390|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:28:405|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:28:405|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:28:421|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:28:421|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:28:437|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:28:437|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:28:452|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:28:468|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:28:468|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:28:483|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:28:483|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:28:499|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:28:499| 
+
+12:39:28:499| 
+
+12:39:28:499| ------------------------------------
+
+12:39:28:515| test loop end
+
+12:39:28:515| ------------------------------------
+
+12:39:28:515| 
+
+12:39:28:515| Test Summation:
+
+12:39:28:515| 
+
+12:39:28:515| --------------------------------  [      CPLD] TEST  -------------------------------
+
+12:39:28:515| -----------------------------------------------------------------------------------------
+
+12:39:28:530|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:530| -----------------------------------------------------------------------------------------
+
+12:39:28:546|   20000001 |          sys,cpld  |  ON  |       1 |       0 |          Board Rev | CPLD REG - Board Rev
+
+12:39:28:546|   20000002 |          sys,cpld  |  ON  |       1 |       0 |      CPLD Revision | CPLD REG - CPLD Revision
+
+12:39:28:562|   20000003 |          sys,cpld  |  ON  |       1 |       0 |      Product Model | CPLD REG - Product Model
+
+12:39:28:562|   20000004 |          sys,cpld  |  ON  |       1 |       0 |       System Reset | CPLD REG - System Reset#1
+
+12:39:28:577|   20000005 |          sys,cpld  |  ON  |       1 |       0 |     System Reset#2 | CPLD REG - System Reset#2
+
+12:39:28:593|   20000007 |          sys,cpld  |  ON  |       1 |       0 |          PHY Reset | CPLD REG - PHY Reset
+
+12:39:28:593|   20000008 |    interrupt,cpld  |  ON  |       1 |       0 |    PHY INT Pending | CPLD REG - PHY Interrupt Pending
+
+12:39:28:624|   20000009 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 1 | CPLD REG - SFP Status 1
+
+12:39:28:624|   20000010 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 2 | CPLD REG - SFP Status 2
+
+12:39:28:640|   20000011 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 3 | CPLD REG - SFP Status 3
+
+12:39:28:640|   20000012 |          sfp,cpld  |  ON  |       1 |       0 |       SFP Status 4 | CPLD REG - SFP Status 4
+
+12:39:28:655|   20000020 |          sys,cpld  |  ON  |       1 |       0 |   Device Interrupt | CPLD REG - Device Interrupt
+
+12:39:28:671|   20000021 |          sys,cpld  |  ON  |       1 |       0 |        FAN 1 Speed | CPLD REG - FAN 1 Speed
+
+12:39:28:671|   20000022 |          sys,cpld  |  ON  |       1 |       0 |        FAN 2 Speed | CPLD REG - FAN 2 Speed
+
+12:39:28:687|   40000010 |          sys,cpld  |  ON  |       1 |       0 |               CPLD | Probe CPLD
+
+12:39:28:687| 
+
+12:39:28:687| --------------------------------  [    MEMORY] TEST  -------------------------------
+
+12:39:28:702| -----------------------------------------------------------------------------------------
+
+12:39:28:702|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:718| -----------------------------------------------------------------------------------------
+
+12:39:28:718|   10000000 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555' (Upper 16MB)
+
+12:39:28:734|   10000010 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA' (Upper 16MB)
+
+12:39:28:734| 
+
+12:39:28:743|   10000020 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF' (Upper 16MB)
+
+12:39:28:743|   10000030 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000' (Upper 16MB)
+
+12:39:28:765|   10000100 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address' (Upper 16MB)
+
+12:39:28:781|   10000200 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `#address'
+
+12:39:28:781|   10000300 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x55555555'
+
+12:39:28:796|   10000310 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xAAAAAAAA'
+
+12:39:28:809|   10000320 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0xFFFFFFFF'
+
+12:39:28:809|   10000330 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with data pattern `0x00000000'
+
+12:39:28:827|   10000340 |            memory  |  ON  |       1 |       0 |        Memory Test | Memory Test with 250MB memory test
+
+12:39:28:843| 
+
+12:39:28:843| --------------------------------  [       LED] TEST  -------------------------------
+
+12:39:28:843| -----------------------------------------------------------------------------------------
+
+12:39:28:843|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:874| -----------------------------------------------------------------------------------------
+
+12:39:28:874|   60000010 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green
+
+12:39:28:890|   60000030 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Green Blink
+
+12:39:28:905|   60000050 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Off
+
+12:39:28:905|   60000060 |               led  | OFF  |       0 |       0 |        LED control | RJ45 and SFP Port LED - Default
+
+12:39:28:921|   60000110 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (green)
+
+12:39:28:921|   60000120 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (def)
+
+12:39:28:936|   60000140 |               led  | OFF  |       0 |       0 |        LED control | Global Status LED control (off)
+
+12:39:28:952| 
+
+12:39:28:952| --------------------------------  [    SYSTEM] TEST  -------------------------------
+
+12:39:28:952| -----------------------------------------------------------------------------------------
+
+12:39:28:968|  Test NO.  |         Group      |ON/OFF|  PASS   |  FAIL   |     Test Name      | Description
+
+12:39:28:968| -----------------------------------------------------------------------------------------
+
+12:39:28:983|   00000001 |               sys  |  ON  |       1 |       0 |       DIAG Version | Show Diagnostics Version
+
+12:39:28:983|   40000020 |               sys  |  ON  |       1 |       0 |            PCA9548 | Probe PCA9548
+
+12:39:28:999|   40000030 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | Probe SFP 1 GBIC 0x50
+
+12:39:28:999|   40000040 |           sfp,sys  | OFF  |       0 |       0 |         SFP 1 GBIC | SFP 1 EEPROM ACCESS 0x50
+
+12:39:29:015|   40000050 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | Probe SFP 2 GBIC 0x50
+
+12:39:29:015|   40000060 |           sfp,sys  | OFF  |       0 |       0 |         SFP 2 GBIC | SFP 2 EEPROM ACCESS 0x50
+
+12:39:29:030|   40000070 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | Probe SFP 3 GBIC 0x50
+
+12:39:29:030|   40000080 |           sfp,sys  | OFF  |       0 |       0 |         SFP 3 GBIC | SFP 3 EEPROM ACCESS 0x50
+
+12:39:29:046|   40000090 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | Probe SFP 4 GBIC 0x50
+
+12:39:29:046|   40000100 |           sfp,sys  | OFF  |       0 |       0 |         SFP 4 GBIC | SFP 4 EEPROM ACCESS 0x50
+
+12:39:29:062|   40000160 |               sys  |  ON  |       1 |       0 |        Sensor LM75 | Probe Thermal Sensor LM75
+
+12:39:29:077|   40000170 |               sys  |  ON  |       1 |       0 |           CDCI6214 | Probe CDCI6214
+
+12:39:29:077|   50000000 |         interrupt  |  ON  |       1 |       0 |      WDT Interrupt | WDT Interrupt
+
+12:39:29:093|   50000020 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 25) Rx Loss Interrupt
+
+12:39:29:093|   50000030 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 26) Rx Loss Interrupt
+
+12:39:29:124|   50000040 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 27) Rx Loss Interrupt
+
+12:39:29:140|   50000050 | interrupt,sfp,sys  | OFF  |       0 |       0 |      SFP Interrupt | SFP (Panel Port 28) Rx Loss Interrupt
+
+12:39:29:140|   50000100 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 0 Interrupt | PHY 0 Interrupt
+
+12:39:29:155|   50000110 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 1 Interrupt | PHY 1 Interrupt
+
+12:39:29:155|   50000120 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 2 Interrupt | PHY 2 Interrupt
+
+12:39:29:171|   50000130 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 3 Interrupt | PHY 3 Interrupt
+
+12:39:29:171|   50000140 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 4 Interrupt | PHY 4 Interrupt
+
+12:39:29:186|   50000150 |     interrupt,sys  | OFF  |       0 |       0 |    PHY 5 Interrupt | PHY 5 Interrupt
+
+12:39:29:186|   70100000 |               sys  | OFF  |       0 |       0 |           USB test | USB Read & Write Test with pattern 0xAAAA5555
+
+12:39:29:202|   70200000 |               sys  |  ON  |       1 |       0 |          cpld jtag | cpld jtag device ID code
+
+12:39:29:202|   70300000 |               sys  |  ON  |       1 |       0 |    i2c stress test | i2c stress test 
+
+12:39:29:218|   70400000 |               sys  |  ON  |       1 |       0 |    smi stress test | smi stress test
+
+12:39:29:233|   70540000 |               sys  |  ON  |       1 |       0 |           PHY test | PHY Access Test (88E1548)
+
+12:39:29:233|   90000010 |               sys  | OFF  |       0 |       0 |       Traffic Test | Port Pairing Traffic Test
+
+12:39:29:249|   90000020 |               sys  |  ON  |       1 |       0 |    BL Traffic Test | Bl Traffic Test
+
+12:39:29:249| 
+
+12:39:29:249| 
+
+12:39:29:249| ------------------------------------
+
+12:39:29:249| test loop end
+
+12:39:29:249| ------------------------------------
+
+12:39:29:249| / # 
+
+12:39:29:249| / # 
+}
