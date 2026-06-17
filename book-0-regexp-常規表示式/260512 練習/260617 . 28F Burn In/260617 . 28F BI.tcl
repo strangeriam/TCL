@@ -13,7 +13,7 @@ set itemlist [list 	20000001 20000002 20000003 20000004 20000005 \
 foreach item $itemlist {
 	set line "${item}.*ON\\s+\\|\\s+0.*\\s+1"
 	if { [regexp -line $line $get_info] } {
-		lappend faillist $itm
+		lappend faillist $item
 	}
 }
 
