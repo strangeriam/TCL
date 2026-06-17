@@ -18,5 +18,5 @@ foreach item $itemlist {
 }
 
 if { [info exists faillist] } {
-	puts "faillist:\n$faillist"
+	puts "faillist--> $faillist"
 }
