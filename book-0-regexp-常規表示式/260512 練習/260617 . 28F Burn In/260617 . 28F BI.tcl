@@ -1,6 +1,6 @@
 if { [info exists faillist] } { unset faillist }
 
-set regllist [list 	20000001 20000002 20000003 20000004 20000005 \
+set itemlist [list 	20000001 20000002 20000003 20000004 20000005 \
 					20000007 20000008 20000009 20000010 20000011 \
 					20000012 20000020 20000021 20000022 40000010 \
 					\
@@ -10,13 +10,13 @@ set regllist [list 	20000001 20000002 20000003 20000004 20000005 \
 					10000340 00000001 40000020 40000160 40000170 \
 					70200000 70300000 70400000 70540000 90000020 ]
 
-foreach val $regllist {
-	set line "${val}.*ON\\s+\\|\\s+0.*\\s+1"
+foreach item $itemlist {
+	set line "${item}.*ON\\s+\\|\\s+0.*\\s+1"
 	if { [regexp -line $line $get_info] } {
 		lappend faillist $val
 	}
 }
 
 if { [info exists faillist] } {
-	puts "$faillist ,FAIL"
+	puts "faillist:\n$faillist"
 }
