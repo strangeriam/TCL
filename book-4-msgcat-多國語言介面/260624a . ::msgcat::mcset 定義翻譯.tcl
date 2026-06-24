@@ -1,15 +1,10 @@
 package require msgcat
+
+Syntax --> ::msgcat::mcset locale src-string ?translate-string?
+
 定義翻譯 --> ::msgcat::mcset zh_tw "Hello" "你好"
 目前系統語系 --> ::msgcat::mclocale zh_tw
 呼叫翻譯 --> puts [::msgcat::mc "Hello"] --> 輸出: 你好
-
-語系檔
-a1. 副檔名為 .msg
-a2. 全部小寫
-a3. 檔名: en.msg , zh_tw.msg , vi_vn.msg , zh_cn
-
-
-Syntax --> ::msgcat::mcset locale src-string ?translate-string?
 
 Parameter
 locale -->
