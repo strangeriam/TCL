@@ -3,14 +3,6 @@ package require msgcat
 目前系統語系 --> ::msgcat::mclocale zh_tw
 呼叫翻譯 --> puts [::msgcat::mc "Hello"] --> 輸出: 你好
 
-::msgcat::mcmset <-- 批次設定
-::msgcat::mcmset zh_tw {
-    "Hello"   "你好"
-    "Goodbye" "再見"
-    "Exit"    "離開"
-}
-
-
 語系檔
 a1. 副檔名為 .msg
 a2. 全部小寫
