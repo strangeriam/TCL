@@ -11,7 +11,12 @@ proc _f_language_detect_260624 {} {
 	}
 }
 
-語言檔內容
+;# 語言檔內容
 encoding system utf-8
 ::msgcat::mcset zh_tw {SHORT PRESS} {短按}
 ::msgcat::mcset zh_tw {NOT FOUND} {找不到}
+
+==================================================
+set msg "[::msgcat::mc "NOT FOUND"] APC"
+;# 輸出:
+找不到 APC
