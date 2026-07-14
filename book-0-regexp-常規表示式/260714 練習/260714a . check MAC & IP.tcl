@@ -1,8 +1,8 @@
 
 set listitem [list "Address is" \
-						      "IP Address:" ]
+			      "IP Address:" ]
 set listvalue [list "00-E0-0C-00-00-FD" \
-							      "192.168.1.11" ]
+					 "192.168.1.11" ]
 
 foreach item $listitem value $listvalue {
 		if { ![regexp -line "$item $value" $get_info] } {
