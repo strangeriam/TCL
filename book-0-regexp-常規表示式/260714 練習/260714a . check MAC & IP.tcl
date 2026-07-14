@@ -5,7 +5,7 @@ set listvalue [list "00-E0-0C-00-00-FD" \
 							      "192.168.1.11" ]
 
 foreach item $listitem value $listvalue {
-		if { ![regexp -line "$item $value" [_f_getconsole]] } {
+		if { ![regexp -line "$item $value" $get_info] } {
 			puts "$item . $value ,FAIL"
 		}
 		puts "$item . $value ,PASS"
