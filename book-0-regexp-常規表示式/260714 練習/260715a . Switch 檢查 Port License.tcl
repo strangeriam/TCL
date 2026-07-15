@@ -1,4 +1,19 @@
 
+for {set num 1} {$num <= $total_port} {incr num} {
+		if { ! [regexp "Eth 1/[format %2s $num]+\\\s+Up" [_f_getconsole]] } {
+			if { ! [regexp "Eth 1/[format %2s $num]+\\\s+Down" [_f_getconsole]] } {
+				_f_termmsg_V1 "Check Eth1/[format %2s $num] lic Status ,FAIL"
+				set ::s0 "Check Eth1/[format %2s $num] lic Status ,FAIL"
+				set ::ErrorCode "ETH"
+				return 0
+			} else {
+				_f_termmsg_V2 "Check Eth1/[format %2s $num] lic Status ,PASS" "" = -nodisplaytime
+			}
+		} else {
+			_f_termmsg_V2 "Check Eth1/[format %2s $num] lic Status ,PASS" "" = -nodisplaytime
+		}
+}
+
 
 
 set get_info {
