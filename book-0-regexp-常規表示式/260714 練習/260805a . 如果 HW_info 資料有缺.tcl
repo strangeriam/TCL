@@ -6,21 +6,8 @@ set ::SN EC2332000362
 set ::MAC 5C:17:83:4A:A4:A0
 set ::HW_ID ECS4150-28F
 
-set HWitem [list "Project ID" \
-					 "Board ID" \
-					 "Bootloader Version" \
-					 "Hardware Version" \
-					 "Serial Number" \
-					 "Mac Address" \
-					 "Model Number" ]
-
-set HWval [list $::HW_pid \
-					$::HW_bid \
-					$::Uboot_ver \
-					$::HW_hwver \
-					$::SN \
-					$::MAC \
-					$::HW_ID]
+set HWitem [list "Project ID" "Board ID" "Bootloader Version" "Hardware Version" "Serial Number" "Mac Address" "Model Number" ]
+set HWval [list $::HW_pid $::HW_bid $::Uboot_ver $::HW_hwver $::SN $::MAC $::HW_ID]
 
 foreach item $HWitem val $HWval {
 		if { [ regexp ID $item ] } {
