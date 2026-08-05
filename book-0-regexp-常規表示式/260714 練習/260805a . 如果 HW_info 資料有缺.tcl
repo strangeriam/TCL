@@ -41,6 +41,16 @@ printsysinfo
 14:46:41:531| Marvell>>
 }
 
+# 輸出:
+Project ID . 0x20b ,PASS
+Board ID . 4 ,PASS
+Bootloader Version . 0.0.1.9 ,PASS
+Hardware Version . R01 ,PASS
+Serial Number . EC2332000362 ,PASS
+Mac Address . 5C:17:83:4A:A4:A0 ,PASS
+Model Number . ECS4150-28F ,PASS
+
+
 # 實驗組 ==================================================
 set get_info {
 printsysinfo
@@ -58,4 +68,13 @@ printsysinfo
 14:46:41:531| ----------------------------------------
 14:46:41:531| Marvell>>
 }
+
+# 輸出:
+Project ID . 0x20b ,PASS
+Board ID . 4 ,PASS
+Bootloader Version . 0.0.1.9 ,FAIL
+Hardware Version . R01 ,PASS
+Serial Number . EC2332000362 ,PASS
+Mac Address . 5C:17:83:4A:A4:A0 ,PASS
+Model Number . ECS4150-28F ,PASS
 
