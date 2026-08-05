@@ -70,11 +70,11 @@ printsysinfo
 }
 
 # 輸出:
-Project ID . 0x20b ,PASS
-Board ID . 4 ,PASS
+Project ID . 0x20b ,FAIL
+Board ID . 4 ,FAIL
 Bootloader Version . 0.0.1.9 ,FAIL
-Hardware Version . R01 ,PASS
-Serial Number . EC2332000362 ,PASS
-Mac Address . 5C:17:83:4A:A4:A0 ,PASS
-Model Number . ECS4150-28F ,PASS
+Hardware Version . R01 ,FAIL
+Serial Number . EC2332000362 ,FAIL
+Mac Address . 5C:17:83:4A:A4:A0 ,FAIL
+Model Number . ECS4150-28F ,FAIL
 
