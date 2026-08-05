@@ -1,5 +1,5 @@
 set ::HW_pid 0x20b
-set ::HW_bid 0
+set ::HW_bid 4
 set ::Uboot_ver 0.0.1.9
 set ::HW_hwver R01
 set ::SN EC2332000362
