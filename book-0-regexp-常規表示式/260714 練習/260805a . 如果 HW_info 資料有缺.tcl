@@ -23,7 +23,7 @@ foreach item $HWitem val $HWval {
 		}
 }
 
-# ==================================================
+# 對照組 ==================================================
 set get_info {
 printsysinfo
 14:46:41:481| UC_MGR_GetSysInfo 000000023fe00000 ok
@@ -31,6 +31,24 @@ printsysinfo
 14:46:41:531| Project ID           =0x0000020b
 14:46:41:531| Board ID             =0x00000004
 14:46:41:531| Bootloader Version   =0.0.1.9
+14:46:41:531| Hardware Version     =R01
+14:46:41:531| Serial Number        =EC2332000362
+14:46:41:531| Mac Address          =5C:17:83:4A:A4:A0
+14:46:41:531| Manufacture Date     =2026-08-05
+14:46:41:531| Model Number         =ECS4150-28F
+14:46:41:531| Service Tag          =CONFIG_SERVICE_TAG
+14:46:41:531| ----------------------------------------
+14:46:41:531| Marvell>>
+}
+
+# 實驗組 ==================================================
+set get_info {
+printsysinfo
+14:46:41:481| UC_MGR_GetSysInfo 000000023fe00000 ok
+14:46:41:531| ----------------------------------------
+14:46:41:531| Project ID           =0x0000020b
+14:46:41:531| Board ID             =0x00000004
+14:46:41:531| Bootloader Version   =
 14:46:41:531| Hardware Version     =R01
 14:46:41:531| Serial Number        =EC2332000362
 14:46:41:531| Mac Address          =5C:17:83:4A:A4:A0
