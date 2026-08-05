@@ -29,12 +29,10 @@ foreach item $HWitem val $HWval {
 				set regline "${item}\\s+=$val"
 		}
 
-		if { ![regexp -line $regline [_f_getconsole]] } {
-			_f_termmsg_V1 "$item . $val ,FAIL"
-			set ::s0 "$item . $val ,FAIL" ; set ::ErrorCode "SYS"
-			return 0
+		if { ![regexp -line $regline $get_info] } {
+			puts "$item . $val ,FAIL"
 		} else {
-			_f_termmsg_V2 "$item . $val ,PASS" "" = -nodisplaytime
+			puts "$item . $val ,PASS"
 		}
 }
 
