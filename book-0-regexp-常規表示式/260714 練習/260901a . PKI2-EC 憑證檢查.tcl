@@ -15,13 +15,24 @@ set listmd5 [list 	$::md5_cert_pem \
 						$::md5_operational_pem]
 
 foreach md5 $listmd5 item $listitem {
-		if { ![regexp -line "${item}\\s+: $md5" $get_info] } {
+		if {[lindex [split $item .] 0] == "operational"} {
+			set pattern "${item}: $md5"
+		} else {
+			set pattern "${item}\\s+: $md5"
+		}
+
+		if { ![regexp -line $pattern $get_info] } {
 			puts "MD5 $md5 --> $item ,FAIL"
 		} else {
 			puts "MD5 $md5 --> $item ,PASS"
 		}
 }
 
+;# 輸出:
+MD5 e07a20ced13f61bd2ef744eab1bdccfb --> cert.pem ,PASS
+MD5 28f6bf3a3444a7923588f08224a0fc61 --> key.pem ,PASS
+MD5 e32e46fc190abe06f1046552d25c2418 --> operational.ca ,PASS
+MD5 e07a20ced13f61bd2ef744eab1bdccfb --> operational.pem ,PASS
 
 ;# =======================================================
 set get_info {
