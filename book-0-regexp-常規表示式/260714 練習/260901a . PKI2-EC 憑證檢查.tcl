@@ -9,11 +9,10 @@
 						$::md5_operational_pem]
 
 	foreach md5 $listmd5 item $listitem {
-		if { ![regexp -line "${item}\\s+: $md5" [_f_getconsole]] } {
-			_f_termmsg_V1 "MD5 $md5 --> $item ,FAIL"
-			return 0
+		if { ![regexp -line "${item}\\s+: $md5" $get_info] } {
+			puts "MD5 $md5 --> $item ,FAIL"
 		} else {
-			_f_termmsg_V2 "MD5 $md5 --> $item ,PASS" "" = -nodisplaytime
+			puts "MD5 $md5 --> $item ,PASS"
 		}
 	}
 
