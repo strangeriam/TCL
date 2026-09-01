@@ -1,7 +1,24 @@
+	set listitem [list 	cert.pem \
+						key.pem \
+						operational.ca \
+						operational.pem]
+
+	set listmd5 [list 	$::md5_cert_pem \
+						$::md5_key_pem \
+						$::md5_operational_ca \
+						$::md5_operational_pem]
+
+	foreach md5 $listmd5 item $listitem {
+		if { ![regexp -line "${item}\\s+: $md5" [_f_getconsole]] } {
+			_f_termmsg_V1 "MD5 $md5 --> $item ,FAIL"
+			return 0
+		} else {
+			_f_termmsg_V2 "MD5 $md5 --> $item ,PASS" "" = -nodisplaytime
+		}
+	}
 
 
-
-
+;# =======================================================
 set get_info {
 Console#show ucentral certificate status
 16:12:59:406| 
