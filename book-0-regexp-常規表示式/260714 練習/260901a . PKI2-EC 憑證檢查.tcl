@@ -1,20 +1,26 @@
-	set listitem [list 	cert.pem \
+
+set ::md5_cert_pem "e07a20ced13f61bd2ef744eab1bdccfb"
+set ::md5_key_pem "28f6bf3a3444a7923588f08224a0fc61"
+set ::md5_operational_ca "e32e46fc190abe06f1046552d25c2418"
+set ::md5_operational_pem "e07a20ced13f61bd2ef744eab1bdccfb"
+
+set listitem [list 	cert.pem \
 						key.pem \
 						operational.ca \
 						operational.pem]
 
-	set listmd5 [list 	$::md5_cert_pem \
+set listmd5 [list 	$::md5_cert_pem \
 						$::md5_key_pem \
 						$::md5_operational_ca \
 						$::md5_operational_pem]
 
-	foreach md5 $listmd5 item $listitem {
+foreach md5 $listmd5 item $listitem {
 		if { ![regexp -line "${item}\\s+: $md5" $get_info] } {
 			puts "MD5 $md5 --> $item ,FAIL"
 		} else {
 			puts "MD5 $md5 --> $item ,PASS"
 		}
-	}
+}
 
 
 ;# =======================================================
