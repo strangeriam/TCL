@@ -6,6 +6,7 @@ set ec_pki "00e00c2435fe.redirector.my-openwifi.cloud"
 ;# Step 3: 判斷結果 --> ec_pki.
 regexp -all $ec_pki $tmp
 
+輸出: 1
 
 ;# ==============================================================
 ;# Step 2: 拿掉 跳行 \n.
