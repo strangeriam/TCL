@@ -1,4 +1,6 @@
 
+set ec_pki "00e00c2435fe.redirector.my-openwifi.cloud"
+
 
 set get_info {
 show ucentral redirector
