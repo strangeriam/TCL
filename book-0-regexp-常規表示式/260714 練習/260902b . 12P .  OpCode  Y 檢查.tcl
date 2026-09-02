@@ -1,4 +1,11 @@
 
+	if { ! [regexp -line {OpCode.*Y} $get_info opcode] } {
+		_f_termmsg_V1 "Check \"OpCode  Y\" ,FAIL"
+		set ::s0 "Opcode status check fail!"
+		set ::ErrorCode "T74"
+		return 0
+	}
+
 
 
 set get_info {
