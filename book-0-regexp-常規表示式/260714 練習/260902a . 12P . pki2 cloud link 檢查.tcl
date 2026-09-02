@@ -1,6 +1,7 @@
 
 set ec_pki "00e00c2435fe.redirector.my-openwifi.cloud"
 
+;# Step 1: 拿掉 log 產生的時間, eg. "08:20:09:759|"
 set get_info2 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
 puts $get_info2
 
