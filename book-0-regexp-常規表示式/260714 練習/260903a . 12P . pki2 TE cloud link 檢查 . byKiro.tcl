@@ -20,6 +20,7 @@ showucentralredirectorucentralredirectorurlbyoperationalcert:00e00c2435fe.redire
 
 ;# ====================================
 ;# Step 3: 所有換行/空白.
+;# 移除所有空白字元 (不只 \n), 確保拆行重組乾淨.
 set tmp [regsub -all {[\r\n[:space:]]} $tmp ""]
 
 輸出:
