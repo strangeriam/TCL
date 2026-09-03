@@ -17,7 +17,7 @@ show ucentral redirectorUcentral Redirector URL by Operational cert: 00e00c2435f
 
 ;# ==============================================================
 ;# Step 1: 拿掉 log 產生的時間, eg. "08:20:09:759|"
-set tmp [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
+set tmp [regsub -all {\d+:\d+:\d+:\d+\| } $get_info ""]
 
 輸出:
 show ucentral redirector
