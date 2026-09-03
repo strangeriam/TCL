@@ -1,13 +1,7 @@
-;# 目標: 取得正確字串 --> 00e00c2435fe.redirector.my-openwifi.cloud
+;# 目標: 檢查字串正確 --> 00e00c2435fe.redirector.my-openwifi.cloud
 
 
 ;# ====================================
-;# Step 4: 統一小寫.
-set tmp [string tolower $tmp]
-
-輸出:
-showucentralredirectorucentralredirectorurlbyoperationalcert:00e00c2435fe.redirector.my-openwifi.cloudconsole#
-
 ;# Step 5: 用 string first 做字面比對 (避免 . 被當萬用字元)
 if { [string first $ec_pki $tmp] >= 0 } {
     puts "Check ec_pki \"$ec_pki\" ,PASS"
@@ -15,6 +9,13 @@ if { [string first $ec_pki $tmp] >= 0 } {
 
 輸出:
 Check ec_pki "00e00c2435fe.redirector.my-openwifi.cloud" ,PASS
+
+
+;# Step 4: 統一小寫.
+set tmp [string tolower $tmp]
+
+輸出:
+showucentralredirectorucentralredirectorurlbyoperationalcert:00e00c2435fe.redirector.my-openwifi.cloudconsole#
 
 
 ;# ====================================
