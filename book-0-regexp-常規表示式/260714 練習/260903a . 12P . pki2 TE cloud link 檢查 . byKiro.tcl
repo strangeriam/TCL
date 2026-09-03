@@ -3,6 +3,7 @@
 
 ;# ====================================
 ;# Step 5: 用 string first 做字面比對 (避免 . 被當萬用字元)
+;# string first 取代 regexp 避免 . 誤判 --> 因為 . 是萬用字元, 任何字串都是被接受的.
 if { [string first $ec_pki $tmp] >= 0 } {
     puts "Check ec_pki \"$ec_pki\" ,PASS"
 }
