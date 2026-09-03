@@ -13,3 +13,16 @@ if { [string first $ec_pki $tmp] >= 0 } {
     _f_termmsg_V2 "Check ec_pki \"$ec_pki\" ,PASS" "" = -nodisplaytime
     break
 }
+
+
+
+;# ===============================================================
+set get_info {
+show ucentral redirector
+08:20:09:759| 
+08:20:09:759| Ucentral Redirector URL by Operational cert: 00e00c2435fe.redirector.my-openwifi
+08:20:09:759| 
+08:20:09:759| .cloud
+08:20:09:759| 
+08:20:09:759| Console#
+}
