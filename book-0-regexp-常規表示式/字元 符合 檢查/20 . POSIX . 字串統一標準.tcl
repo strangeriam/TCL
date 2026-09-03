@@ -39,7 +39,9 @@ if {$::tcl_platform(platform) eq "windows"} {
     set dev "/dev/$com"        ;# POSIX (Linux) 路徑寫法
 }
 回到你剛才的問題
-「POSIX 正則字元類別」（[:space:]、[:digit:] 等）只是 POSIX 標準裡關於正則表達式的一小部分規範。因為它是標準，所以 grep、sed、awk、Tcl、Python 等眾多工具都支援同樣的寫法，這就是 POSIX「可攜性」的實際好處——你在 Linux grep 學到的 [:digit:]，在 Tcl 裡也能用。
+「POSIX 正則字元類別」（[:space:]、[:digit:] 等）只是 POSIX 標準裡關於正則表達式的一小部分規範。
+因為它是標準，所以 grep、sed、awk、Tcl、Python 等眾多工具都支援同樣的寫法，
+這就是 POSIX「可攜性」的實際好處——你在 Linux grep 學到的 [:digit:]，在 Tcl 裡也能用。
 
 一句話總結
 POSIX 是一套讓不同 Unix-like 系統「長得像、行為一致」的介面標準，使程式和使用者的知識能在各系統間通用。
