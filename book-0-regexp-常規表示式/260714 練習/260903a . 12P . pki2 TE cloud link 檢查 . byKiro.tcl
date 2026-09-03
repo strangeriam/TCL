@@ -27,7 +27,7 @@ set ec_pki "[string tolow $mac].redirector.my-openwifi.cloud"
 set tmp [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
 
 ;# 輸出:
-;# ===============================================================================
+;# =====
 show ucentral redirector
 
 Ucentral Redirector URL by Operational cert: 00e00c2435fe.redirector.my-openwifi
@@ -36,6 +36,14 @@ Ucentral Redirector URL by Operational cert: 00e00c2435fe.redirector.my-openwifi
 
 Console#
 ;# ===============================================================================
+
+;# Step 3: 移除所有 空白.
+set tmp [regsub -all {[\r\n[:space:]]} $tmp ""]
+
+;# 輸出
+;# =====
+showucentralredirectorUcentralRedirectorURLbyOperationalcert:00e00c2435fe.redirector.my-openwifi.cloudConsole#
+
 
 
 
