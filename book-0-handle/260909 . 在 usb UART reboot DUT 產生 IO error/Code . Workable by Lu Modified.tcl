@@ -1,10 +1,6 @@
 
 set ::comm_buffer 			""
 set ::event_callback 		""
-# set ::comm_COS 				""
-
-# set ::comm_reconnect 		1 	;# 1=reboot/斷線自動重連, 0=僅忽略錯誤
-# set ::comm_reconnecting 	0 	;# 內部狀態: 是否正在重連中 (避免重入)
 
 ;#---------------------------------------------------------------------------
 ;# 實際開啟序列埠 (共用給初次連線與重連). 成功回 channel, 失敗回 ""
@@ -24,7 +20,6 @@ proc _f_open_serial { port baud } {
     }
     return $ch
 }
-
 
 ;# _f_ConfigConsole_rs232 COM8 COS1
 proc _f_ConfigConsole_rs232 { port COS } {
