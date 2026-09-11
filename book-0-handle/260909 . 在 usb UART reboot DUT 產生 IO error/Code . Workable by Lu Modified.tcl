@@ -1,12 +1,42 @@
 
-set ::comm_buffer 			""
-set ::event_callback 		""
+
+proc _f_comm_env_setup {} {
+	set ::COMM_METHOD [::twapi::read_inifile_key "CONTROL" "METHOD" -inifile "./MainConfig.ini" -default "NA"]
+
+	;# RS232
+	set ::COMM_SERVER1 [::twapi::read_inifile_key "CONTROL" "SERVER1" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_SERVER_COS 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_SERVER1] =] 0]
+	set ::COMM_SERVER_TYPE 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_SERVER1] =] 1]
+	set ::COMM_SERVER_PORT 	COM[lindex [split [regexp -all -inline {COM=\d+} $::COMM_SERVER1] =] 1]
+	set ::COMM_SERVER_BAUD 	[lindex [split [regexp -all -inline {COM=\d+,\d+,} $::COMM_SERVER1] ,] 1]
+
+	set ::COMM_CLIENT1 [::twapi::read_inifile_key "CONTROL" "CLIENT1" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_CLIENT_COS 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_CLIENT1] =] 0]
+	set ::COMM_CLIENT_TYPE 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_CLIENT1] =] 1]
+	set ::COMM_CLIENT_PORT 	COM[lindex [split [regexp -all -inline {COM=\d+} $::COMM_CLIENT1] =] 1]
+	set ::COMM_CLIENT_BAUD 	[lindex [split [regexp -all -inline {COM=\d+,\d+,} $::COMM_CLIENT1] ,] 1]
+
+
+	;# SSH
+	set ::COMM_SERVER2 [::twapi::read_inifile_key "CONTROL" "SERVER2" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_CLIENT2 [::twapi::read_inifile_key "CONTROL" "CLIENT2" -inifile "./MainConfig.ini" -default "NA"]
+
+
+	set ::COS1 				$::COMM_SERVER_COS
+	set ::COS2 				$::COMM_CLIENT_COS
+
+	set ::comm_buffer 		""
+	set ::event_callback_cos1 	""
+	set ::event_callback_cos2 	""
+}
+
+_f_comm_env_setup
 
 ;#---------------------------------------------------------------------------
 ;# 實際開啟序列埠 (共用給初次連線與重連). 成功回 channel, 失敗回 ""
 ;#---------------------------------------------------------------------------
-;# _f_open_serial COM8 115200
-proc _f_open_serial { port baud } {
+;# _f_comm_open_serial COM8 115200
+proc _f_comm_open_serial { port baud } {
 	if {[catch {
 		set dev "\\\\.\\$port"
 		set ch [open $dev r+]
@@ -21,31 +51,76 @@ proc _f_open_serial { port baud } {
     return $ch
 }
 
-;# _f_ConfigConsole_rs232 COM8 COS1
-proc _f_ConfigConsole_rs232 { port COS } {
-    set ch [_f_open_serial $port 115200]
+;# _f_comm_ConfigConsole_rs232 $::COS1
+;# _f_comm_ConfigConsole_rs232 $::COS2
+proc _f_comm_ConfigConsole_rs232 { COS } {
+	if {$COS == "COS1"} {
+		set port $::COMM_SERVER_PORT
+		set baud $::COMM_SERVER_BAUD
+	} elseif { $COS == "COS2" } {
+		set port $::COMM_CLIENT_PORT
+		set baud $::COMM_CLIENT_BAUD
+	}
+
+	puts "port: $port . baud: $baud"
+	set ch ""
+	puts "ch A: $ch"
+
+    set ch [_f_comm_open_serial $port $baud]
     if {$ch eq ""} {
         return -code error "RS232 連線失敗 ($port)"
     }
 
-    set ::COS[string index $COS end-0] $ch
-    fileevent $ch readable [list _f_getconsole $ch]
+    puts "ch B: $ch"
+
+    if { [string index $COS end-0] == 1} {
+    	set ::COS1 $ch
+    	puts "COS --> $COS . $::COS1"
+    } elseif {[string index $COS end-0] == 2} {
+    	set ::COS2 $ch
+    	puts "COS --> $COS . $::COS2"
+    }
+
+    fileevent $ch readable [list _f_comm_getconsole $ch]
     return $ch
 }
 
-;# _f_ConfigConsoleDisconnect $::COS1
-proc _f_ConfigConsoleDisconnect { COS } {
+;# _f_comm_ConfigConsoleDisconnect $::COS1
+;# _f_comm_ConfigConsoleDisconnect $::COS2
+proc _f_comm_ConfigConsoleDisconnect { COS } {
     catch { fileevent $COS readable {} }
     if { [catch {close $COS} err] } {
+        return 0
+    }
+
+    if { $COS == $::COS1 } {
+    	set ::COS1 COS1
+    	puts "::COS1 --> $::COS1"
+    } elseif { $COS == $::COS2 } {
+    	set ::COS2 COS2
+    	puts "::COS2 --> $::COS2"
+    }
+
+    return 1
+}
+
+;# _f_comm_transmit $::COS1 "date"
+;# _f_comm_transmit $::COS1 "reboot"
+
+;# _f_comm_transmit $::COS2 "date"
+;# _f_comm_transmit $::COS2 "reboot"
+proc _f_comm_transmit { COS cmd } {
+    if {[catch {
+        puts $COS $cmd
+        flush $COS
+    } err]} {
+        puts "COMM2: transmit ignored (device busy/gone): $err"
         return 0
     }
     return 1
 }
 
-;# _f_transmit $::COS1 "ls -la"
-;# _f_transmit $::COS1 "reboot"
-proc _f_transmit { COS cmd } {
-    ;# reboot 當下 USB-serial 可能已消失, 寫入會拋錯 -> 包 catch
+proc _f_comm_transmit_bk { COS cmd } {
     if {[catch {
         puts $COS $cmd
         flush $COS
@@ -57,8 +132,8 @@ proc _f_transmit { COS cmd } {
 }
 
 # --- RS232 讀取事件處理 ---
-;# _f_getconsole $::COS1
-proc _f_getconsole { COS } {
+;# _f_comm_getconsole $::COS2
+proc _f_comm_getconsole { COS } {
     ;# 若正在重連, 這個舊 channel 的事件一律忽略
     # if {$::comm_reconnecting} {
     #     catch { fileevent $COS readable {} }
@@ -67,37 +142,52 @@ proc _f_getconsole { COS } {
 
     ;# --- 1. EOF 檢查 (包 catch, USB 拔除時 eof 也可能拋錯) ---
     if {[catch {eof $COS} isEof]} {
-        _f_handle_io_error $COS "eof-check: $isEof"
+        _f_comm_handle_io_error $COS "eof-check: $isEof"
         return
     }
     if {$isEof} {
         puts "COMM2: EOF detected (device likely rebooting)"
-        _f_handle_io_error $COS "eof"
+        _f_comm_handle_io_error $COS "eof"
         return
     }
 
     ;# --- 2. 讀取 (核心: USB-serial 消失時 read 拋 I/O error) ---
     if {[catch {read $COS} data]} {
-        _f_handle_io_error $COS "read: $data"
+        _f_comm_handle_io_error $COS "read: $data"
         return
     }
 
     if {$data eq ""} return
 
     ;# --- 3. 累加 buffer + 觸發回呼 ---
-    append ::comm_buffer $data
-    if {$::event_callback ne ""} {
-        if {[catch {{*}$::event_callback $data} cberr]} {
-            puts "COMM2: event_callback error: $cberr"
-        }
+    if {$COS == $::COS1} {
+	    append ::comm_buffer_cos1 $data
+	    if {$::event_callback_cos1 ne ""} {
+	        if {[catch {{*}$::event_callback_cos1 $data} cberr]} {
+	            puts "COMM2: event_callback_cos1 error: $cberr"
+	        }
+	    }
+
+	    return $::comm_buffer_cos1
+    } elseif {$COS == $::COS2} {
+	    append ::comm_buffer_cos2 $data
+	    if {$::event_callback_cos2 ne ""} {
+	        if {[catch {{*}$::event_callback_cos2 $data} cberr]} {
+	            puts "COMM2: event_callback_cos2 error: $cberr"
+	        }
+	    }
+
+	    return $::comm_buffer_cos2
     }
+
+    return 0
 }
 
 ;#---------------------------------------------------------------------------
 ;# USB-serial 斷線 / I/O error 統一處理
 ;#---------------------------------------------------------------------------
 ;# _f_handle_io_error $::COS1
-proc _f_handle_io_error { COS reason } {
+proc _f_comm_handle_io_error { COS reason } {
     puts "COMM2: device I/O lost ($reason)"
 
     catch { fileevent $COS readable {} }
@@ -108,35 +198,48 @@ proc _f_handle_io_error { COS reason } {
 
     # after 2000 [list _f_reconnect_usb_serial COS1]
     after 2000
-	set ::COS[string index $COS end-0] [_f_reconnect_usb_serial]
+
+    if {$COS == $::COS1} {
+		set port $::COMM_SERVER_PORT
+		set baud $::COMM_SERVER_BAUD
+    } elseif {$COS == $::COS2} {
+		set port $::COMM_CLIENT_PORT
+		set baud $::COMM_CLIENT_BAUD
+    }
+
+	set ::COS[string index $COS end-0] [_f_comm_reconnect_usb_serial $port $baud]
 }
 
 ;#---------------------------------------------------------------------------
 ;# USB-serial 重連: 等裝置回來, 支援埠號改變
 ;#---------------------------------------------------------------------------
-proc _f_reconnect_usb_serial {} {
-    set ch [_f_open_serial COM8 115200]
+proc _f_comm_reconnect_usb_serial { port baud } {
+    set ch [_f_comm_open_serial $port $baud]
     puts "Lu.ch: $ch"
 
     if {$ch eq ""} {
-        after 1000 [list _f_reconnect_usb_serial COS1]
+        after 1000 [list _f_comm_reconnect_usb_serial $port $baud]
         return 0
     }
 
     # set ::COS[string index $COS end-0] $ch
-    fileevent $ch readable [list _f_getconsole $ch]
+    fileevent $ch readable [list _f_comm_getconsole $ch]
     return $ch
 }
 
 
 # --- 設定事件回呼 ---
-proc _f_set_event_callback {callback} {
-	set ::event_callback $callback
+proc _f_comm_set_event_callback_COS1 {callback} {
+	set ::event_callback_cos1 $callback
+}
+
+proc _f_comm_set_event_callback_COS2 {callback} {
+	set ::event_callback_cos2 $callback
 }
 
 ;# _f_waitfor $::COS2 $::expected_prompt 500
 ;# 注意: 若中途發生 reboot, channel 會被重連換掉, 這裡用全域 buffer 比對較穩
-proc _f_waitfor { ch waitfor timeout_ms } {
+proc _f_comm_waitfor { ch waitfor timeout_ms } {
     set start [clock milliseconds]
     set ::comm_buffer ""      ;# 清空, 只比對這次等待期間的新資料
 
@@ -145,7 +248,7 @@ proc _f_waitfor { ch waitfor timeout_ms } {
         update
 
         ;# 直接比對事件驅動累積的全域 buffer
-        ;# (reboot 重連後, _f_getconsole 仍會把新資料 append 進 ::comm_buffer)
+        ;# (reboot 重連後, _f_comm_getconsole 仍會把新資料 append 進 ::comm_buffer)
         if { [regexp $waitfor $::comm_buffer]} {
             ::debug::log "COMM: prompt detected"
             return 1
@@ -159,5 +262,39 @@ proc _f_waitfor { ch waitfor timeout_ms } {
 
         after 50
     }
+}
+
+
+;# 獨立工具.
+
+;#---------------------------------------------------------------------------
+;# 掃描系統目前存在的 COM 埠 (讀註冊表 SERIALCOMM)
+;# 回傳 COM 埠清單, 例: {COM8 COM3}
+;#---------------------------------------------------------------------------
+proc _f_list_serial_ports {} {
+    set ports {}
+    ;# 方法 1: registry 套件 (Windows 內建於 ActiveTcl/Magicsplat)
+    if {![catch {package require registry}]} {
+        set key "HKEY_LOCAL_MACHINE\\HARDWARE\\DEVICEMAP\\SERIALCOMM"
+        if {![catch {registry values $key} vals]} {
+            foreach v $vals {
+                if {![catch {registry get $key $v} portname]} {
+                    lappend ports $portname
+                }
+            }
+        }
+        return $ports
+    }
+
+    ;# 方法 2: 沒有 registry 套件 -> 用 reg.exe 命令列 fallback
+    if {![catch {exec reg query "HKLM\\HARDWARE\\DEVICEMAP\\SERIALCOMM"} out]} {
+        foreach line [split $out \n] {
+            ;# 每行格式: <裝置路徑>    REG_SZ    COMx
+            if {[regexp {REG_SZ\s+(COM\d+)} $line -> p]} {
+                lappend ports $p
+            }
+        }
+    }
+    return $ports
 }
 
