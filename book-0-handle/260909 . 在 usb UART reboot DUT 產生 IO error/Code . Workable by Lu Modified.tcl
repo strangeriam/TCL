@@ -1,5 +1,4 @@
 
-
 proc _f_comm_env_setup {} {
 	set ::COMM_METHOD [::twapi::read_inifile_key "CONTROL" "METHOD" -inifile "./MainConfig.ini" -default "NA"]
 
@@ -75,7 +74,7 @@ proc _f_comm_ConfigConsole_rs232 { COS } {
     	puts "COS: $COS . $::COS2 --> port: $port . baud: $baud"
     }
 
-    fileevent $ch readable [list _f_comm_getconsole $ch]
+    fileevent $ch readable [list _f_comm_readConsole $ch]
     return $ch
 }
 
@@ -115,8 +114,7 @@ proc _f_comm_transmit { cmd COS } {
 }
 
 # --- RS232 讀取事件處理 ---
-;# _f_comm_getconsole $::COS2
-proc _f_comm_getconsole { COS } {
+proc _f_comm_readConsole { COS } {
     if {[catch {eof $COS} isEof]} {
         _f_comm_handle_io_error $COS "eof-check: $isEof"
         return
@@ -144,7 +142,9 @@ proc _f_comm_getconsole { COS } {
 	        }
 	    }
 
+	    set ::commBuffer_cos1 $::comm_buffer_cos1
 	    return $::comm_buffer_cos1
+
     } elseif {$COS == $::COS2} {
 	    append ::comm_buffer_cos2 $data
 	    if {$::event_callback_cos2 ne ""} {
@@ -153,10 +153,40 @@ proc _f_comm_getconsole { COS } {
 	        }
 	    }
 
+	    set ::commBuffer_cos2 $::comm_buffer_cos2
 	    return $::comm_buffer_cos2
     }
 
     return 0
+}
+
+;# _f_comm_getconsole $::COS2
+proc _f_comm_getconsole { COS } {
+	if {$COS == "$::COS1"} {
+		set comm_buffer $::commBuffer_cos1
+	} elseif {$COS == "$::COS2"} {
+		set comm_buffer $::commBuffer_cos2
+	}
+
+    return $comm_buffer
+}
+
+;# _f_comm_clear $::COS1
+;# _f_comm_clear $::COS2
+proc _f_comm_clear { COS } {
+	if { $COS == "$::COS1"} {
+		if { [info exists ::commBuffer_cos1] } {
+			unset ::commBuffer_cos1
+			return 1
+		}
+	} elseif { $COS == "$::COS2" } {
+		if { [info exists ::commBuffer_cos2] } {
+			unset ::commBuffer_cos2
+			return 1
+		}
+	}
+
+	return 0
 }
 
 ;#---------------------------------------------------------------------------
@@ -195,7 +225,7 @@ proc _f_comm_reconnect_usb_serial { port baud } {
         return 0
     }
 
-    fileevent $ch readable [list _f_comm_getconsole $ch]
+    fileevent $ch readable [list _f_comm_readConsole $ch]
     return $ch
 }
 
