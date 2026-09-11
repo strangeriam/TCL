@@ -4,28 +4,25 @@ proc _f_comm_env_setup {} {
 	set ::COMM_METHOD [::twapi::read_inifile_key "CONTROL" "METHOD" -inifile "./MainConfig.ini" -default "NA"]
 
 	;# RS232
-	set ::COMM_SERVER1 [::twapi::read_inifile_key "CONTROL" "SERVER1" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_SERVER1 		[::twapi::read_inifile_key "CONTROL" "SERVER1" -inifile "./MainConfig.ini" -default "NA"]
 	set ::COMM_SERVER_COS 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_SERVER1] =] 0]
 	set ::COMM_SERVER_TYPE 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_SERVER1] =] 1]
 	set ::COMM_SERVER_PORT 	COM[lindex [split [regexp -all -inline {COM=\d+} $::COMM_SERVER1] =] 1]
 	set ::COMM_SERVER_BAUD 	[lindex [split [regexp -all -inline {COM=\d+,\d+,} $::COMM_SERVER1] ,] 1]
 
-	set ::COMM_CLIENT1 [::twapi::read_inifile_key "CONTROL" "CLIENT1" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_CLIENT1 		[::twapi::read_inifile_key "CONTROL" "CLIENT1" -inifile "./MainConfig.ini" -default "NA"]
 	set ::COMM_CLIENT_COS 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_CLIENT1] =] 0]
 	set ::COMM_CLIENT_TYPE 	[lindex [split [regexp -all -inline {COS\d=[23RSH]+} $::COMM_CLIENT1] =] 1]
 	set ::COMM_CLIENT_PORT 	COM[lindex [split [regexp -all -inline {COM=\d+} $::COMM_CLIENT1] =] 1]
 	set ::COMM_CLIENT_BAUD 	[lindex [split [regexp -all -inline {COM=\d+,\d+,} $::COMM_CLIENT1] ,] 1]
 
-
 	;# SSH
-	set ::COMM_SERVER2 [::twapi::read_inifile_key "CONTROL" "SERVER2" -inifile "./MainConfig.ini" -default "NA"]
-	set ::COMM_CLIENT2 [::twapi::read_inifile_key "CONTROL" "CLIENT2" -inifile "./MainConfig.ini" -default "NA"]
-
+	set ::COMM_SERVER2 		[::twapi::read_inifile_key "CONTROL" "SERVER2" -inifile "./MainConfig.ini" -default "NA"]
+	set ::COMM_CLIENT2 		[::twapi::read_inifile_key "CONTROL" "CLIENT2" -inifile "./MainConfig.ini" -default "NA"]
 
 	set ::COS1 				$::COMM_SERVER_COS
 	set ::COS2 				$::COMM_CLIENT_COS
 
-	set ::comm_buffer 		""
 	set ::event_callback_cos1 	""
 	set ::event_callback_cos2 	""
 }
@@ -45,7 +42,6 @@ proc _f_comm_open_serial { port baud } {
                        -buffering none \
                        -blocking 0
     } err]} {
-        # puts "COMM2: open $port failed: $err"
         return ""
     }
     return $ch
@@ -62,23 +58,21 @@ proc _f_comm_ConfigConsole_rs232 { COS } {
 		set baud $::COMM_CLIENT_BAUD
 	}
 
-	puts "port: $port . baud: $baud"
 	set ch ""
-	puts "ch A: $ch"
 
     set ch [_f_comm_open_serial $port $baud]
     if {$ch eq ""} {
         return -code error "RS232 連線失敗 ($port)"
     }
 
-    puts "ch B: $ch"
+    # puts "ch B: $ch"
 
     if { [string index $COS end-0] == 1} {
     	set ::COS1 $ch
-    	puts "COS --> $COS . $::COS1"
+    	puts "COS: $COS . $::COS1 --> port: $port . baud: $baud"
     } elseif {[string index $COS end-0] == 2} {
     	set ::COS2 $ch
-    	puts "COS --> $COS . $::COS2"
+    	puts "COS: $COS . $::COS2 --> port: $port . baud: $baud"
     }
 
     fileevent $ch readable [list _f_comm_getconsole $ch]
@@ -104,23 +98,12 @@ proc _f_comm_ConfigConsoleDisconnect { COS } {
     return 1
 }
 
-;# _f_comm_transmit $::COS1 "date"
-;# _f_comm_transmit $::COS1 "reboot"
+;# _f_comm_transmit "date" $::COS1
+;# _f_comm_transmit "reboot" $::COS1
 
-;# _f_comm_transmit $::COS2 "date"
-;# _f_comm_transmit $::COS2 "reboot"
-proc _f_comm_transmit { COS cmd } {
-    if {[catch {
-        puts $COS $cmd
-        flush $COS
-    } err]} {
-        puts "COMM2: transmit ignored (device busy/gone): $err"
-        return 0
-    }
-    return 1
-}
-
-proc _f_comm_transmit_bk { COS cmd } {
+;# _f_comm_transmit "date" $::COS2
+;# _f_comm_transmit "reboot" $::COS2
+proc _f_comm_transmit { cmd COS } {
     if {[catch {
         puts $COS $cmd
         flush $COS
@@ -134,13 +117,6 @@ proc _f_comm_transmit_bk { COS cmd } {
 # --- RS232 讀取事件處理 ---
 ;# _f_comm_getconsole $::COS2
 proc _f_comm_getconsole { COS } {
-    ;# 若正在重連, 這個舊 channel 的事件一律忽略
-    # if {$::comm_reconnecting} {
-    #     catch { fileevent $COS readable {} }
-    #     return
-    # }
-
-    ;# --- 1. EOF 檢查 (包 catch, USB 拔除時 eof 也可能拋錯) ---
     if {[catch {eof $COS} isEof]} {
         _f_comm_handle_io_error $COS "eof-check: $isEof"
         return
@@ -186,7 +162,6 @@ proc _f_comm_getconsole { COS } {
 ;#---------------------------------------------------------------------------
 ;# USB-serial 斷線 / I/O error 統一處理
 ;#---------------------------------------------------------------------------
-;# _f_handle_io_error $::COS1
 proc _f_comm_handle_io_error { COS reason } {
     puts "COMM2: device I/O lost ($reason)"
 
@@ -196,9 +171,6 @@ proc _f_comm_handle_io_error { COS reason } {
     ;# 清掉舊 channel 變數
     set ::COS[string index $COS end-0] ""
 
-    # after 2000 [list _f_reconnect_usb_serial COS1]
-    after 2000
-
     if {$COS == $::COS1} {
 		set port $::COMM_SERVER_PORT
 		set baud $::COMM_SERVER_BAUD
@@ -207,6 +179,7 @@ proc _f_comm_handle_io_error { COS reason } {
 		set baud $::COMM_CLIENT_BAUD
     }
 
+    after 2000
 	set ::COS[string index $COS end-0] [_f_comm_reconnect_usb_serial $port $baud]
 }
 
@@ -215,14 +188,13 @@ proc _f_comm_handle_io_error { COS reason } {
 ;#---------------------------------------------------------------------------
 proc _f_comm_reconnect_usb_serial { port baud } {
     set ch [_f_comm_open_serial $port $baud]
-    puts "Lu.ch: $ch"
+    # puts "Lu.ch: $ch"
 
     if {$ch eq ""} {
         after 1000 [list _f_comm_reconnect_usb_serial $port $baud]
         return 0
     }
 
-    # set ::COS[string index $COS end-0] $ch
     fileevent $ch readable [list _f_comm_getconsole $ch]
     return $ch
 }
