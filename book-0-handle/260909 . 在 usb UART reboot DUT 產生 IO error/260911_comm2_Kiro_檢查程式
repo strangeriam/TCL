@@ -1,0 +1,100 @@
+檢查左邊 comm2 1.tcl
+
+Kiro
+
+1 tool call
+Read File
+
+comm2 1.tcl
+我檢查完整份 comm2 1.tcl，發現幾個會導致實際故障的 bug，特別是圍繞 $::COS1/$::COS2 這個變數同時當「識別字串」又當「channel handle」用，造成邏輯混亂。
+
+嚴重 Bug（會壞掉）
+1. $::COS1/$::COS2 身分不一致 — 這是最核心的問題
+
+同一個變數在不同狀態下代表完全不同的東西：
+
+初始：set ::COS1 $::COMM_SERVER_COS → 值是字串 "COS1"
+連線後：set ::COS1 $ch → 值變成 channel handle（如 file3）
+斷線後：set ::COS1 COS1 或 set ::COS1 "" → 又變回字串或空
+問題出在 proc 的呼叫慣例混用。看註解：
+
+tcl
+
+;# _f_comm_ConfigConsole_rs232 $::COS1     <- 傳「值」
+連線前 $::COS1 = "COS1"，傳進去後 if {$COS == "COS1"} 成立，OK。 但 _f_comm_transmit、_f_comm_getconsole 的註解也是傳 $::COS1，此時 $::COS1 已經是 channel handle file3，於是：
+
+tcl
+
+proc _f_comm_getconsole { COS } {
+	if {$COS == "$::COS1"} {        ;# file3 == file3, 成立 (連線中)
+連線中可以運作，但一旦斷線重連，$::COS1 變成新 handle，舊的比對就全亂了。這個「用 channel handle 當 key 去比對」的設計在重連後必然出錯（下面 #2、#3 都是它的後果）。
+
+建議：proc 一律傳固定識別字串 "COS1"/"COS2"，內部再查對應的 channel。不要傳會變動的 $::COS1。
+
+2. _f_comm_handle_io_error 的 string index $COS end-0 對 channel handle 無效
+
+tcl
+
+set ::COS[string index $COS end-0] ""
+此時 $COS 是 channel handle（如 file3），[string index file3 end-0] = "3"，於是變成 set ::COS3 "" —— 設到不存在的 ::COS3，真正的 ::COS1/::COS2 沒被清掉。原意應該是取 COS 編號 1 或 2，但對 handle 取尾字元完全錯誤。
+
+3. _f_comm_handle_io_error 斷線判斷已失效
+
+tcl
+
+if {$COS == $::COS1} {          ;# 進來時 $COS=舊handle, 但函式一開始沒改 ::COS1
+    set port $::COMM_SERVER_PORT
+這行順序有問題：前面 set ::COS[...] "" 若真的清掉了 ::COS1（實際沒有，因 #2），這裡比對就會失敗。加上 #2 的錯誤，port/baud 可能取不到 → 重連用到空的 port。
+
+4. 重連結果是「非同步」，但被當「同步」接住
+
+tcl
+
+set ::COS[string index $COS end-0] [_f_comm_reconnect_usb_serial $port $baud]
+_f_comm_reconnect_usb_serial 開埠失敗時是 after 1000 [list ...] 排程後回傳 0，並非真正的 channel。所以：
+
+第一次失敗 → ::COSx 被設成 0
+之後 after 重試成功的 channel 沒有回填到 ::COS1/::COS2（因為那次是 after 觸發，回傳值沒人接）
+結果：重連成功了，但 ::COS1 還是 0，後續 _f_comm_transmit $::COS1 全部失敗。這是重連功能實質上壞掉的主因。
+
+5. _f_comm_waitfor 比對錯 buffer
+
+tcl
+
+proc _f_comm_waitfor { ch waitfor timeout_ms } {
+    set ::comm_buffer ""
+    ...
+    if { [regexp $waitfor $::comm_buffer]}
+但 _f_comm_readConsole 實際累加的是 ::comm_buffer_cos1 / ::comm_buffer_cos2，根本沒有人寫 ::comm_buffer。所以 _f_comm_waitfor 永遠比對空字串 → 一定 timeout。而且 waitfor 收 ch 參數卻沒用到（沒區分 COS1/COS2）。
+
+中度問題
+6. _f_comm_clear 清錯 buffer 變數
+
+清的是 ::commBuffer_cos1（大寫 B），但 _f_comm_readConsole append 的是 ::comm_buffer_cos1（小寫）+ 另存一份 ::commBuffer_cos1。兩個變數並存，清一個沒清另一個，_f_comm_getconsole 讀 ::commBuffer_cos1 而 waitfor 期望 ::comm_buffer。buffer 變數命名有三套混用（comm_buffer_cos1、commBuffer_cos1、comm_buffer），需統一。
+
+7. INI 解析很脆弱
+
+tcl
+
+set ::COMM_SERVER_BAUD [lindex [split [regexp -all -inline {COM=\d+,\d+,} $::COMM_SERVER1] ,] 1]
+若 INI 格式稍有不同（沒有第二個逗號、空白差異），baud 會抓成空。且 COM[lindex ...] 若沒抓到數字會變成 COM（無效埠）。建議加防呆與 default。
+
+8. _f_comm_reconnect_usb_serial 無限重試
+
+沒有次數上限，若裝置永遠不回來會無限 after 排程。應加 max 次數（你之前的版本有 max 60，這版拿掉了）。
+
+建議修法方向
+核心是統一 COS 的識別方式。我建議改成用陣列集中管理：
+
+tcl
+
+array set ::comm {
+    COS1,ch ""   COS1,port ""  COS1,baud ""  COS1,buf ""  COS1,cb ""
+    COS2,ch ""   COS2,port ""  COS2,baud ""  COS2,buf ""  COS2,cb ""
+}
+所有 proc 一律傳 "COS1"/"COS2" 這種固定 key（不傳會變的 handle），內部用 $::comm(COS1,ch) 取 channel。這樣就一次解決 #1~#6。
+
+要我幫你照這個方向重寫一版乾淨的嗎？會保留你現有的 proc 名稱和 INI 讀取邏輯（修好 #7），但把 COS 管理改成陣列，讓 transmit/getconsole/clear/waitfor/reconnect 在 reboot 後都能正確運作。
+
+Est. Credits Used: 2.75
+Elapsed time: 57s
