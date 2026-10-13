@@ -16,7 +16,8 @@ set pattern_pri_op "Primary\n Loader Version\\s+: .+\n Operation Code Version\\s
 set pattern_god_uboot "Golden\n Loader Version\\s+: $::Uboot_ver"
 set pattern_god_op "Golden\n Loader Version\\s+: .+\n Operation Code Version\\s+: $::OP_Version"
 
-set itemlist [list "Loader Version" "Operation Code Version"]
+set listitem [list "Loader Version" "Operation Code Version"]
+set listvalue [list $::Uboot_ver $::OP_Version]
 
 
 
