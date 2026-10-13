@@ -12,7 +12,7 @@ foreach item $listitem value $listvalue {
    set regline "${item}\\s+:\\s$value"
    # puts "regline: $regline"
 
-	  if {![regexp -line $regline $get_info]} {
+	  if {![regexp -line $regline $get_info3]} {
 		     puts "$item . $value --> FAIL"
 	  } else {
 		     puts "$item . $value --> PASS"
