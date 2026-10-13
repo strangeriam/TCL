@@ -1,5 +1,5 @@
 
-regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info2 ""
+set get_info3 [regsub -all -line {(?:^[ \t]*|//.*)(?:\n|\Z)} $get_info2 ""]
 
 輸出:
 show version
