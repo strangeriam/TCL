@@ -14,10 +14,17 @@ set ::OP_Version [string trim "V1.1.0.11" V] --> PASS
 set ::OP_Version [string trim "V1.1.0.10" V] --> FAIL
 
 set listtype [list Primary Golden]
+set pattern "\n Loader Version\\s+: $::Uboot_ver\n Operation Code Version\\s+: $::OP_Version"
 
 foreach type $listtype {
-
+   if { ![regexp -line $type$pattern $get_info3]} {
+       puts "FAIL <-- $type . Loader Version $::Uboot_ver . Operation Code Version $::OP_Version"
+   } else {
+       puts "PASS <-- $type . Loader Version $::Uboot_ver . Operation Code Version $::OP_Version"
+   }
 }
+
+;# OR
 
 ;# Check Primary uBoot + OP Ver
 set pattern_primary "Primary\n Loader Version\\s+: $::Uboot_ver\n Operation Code Version\\s+: $::OP_Version"
