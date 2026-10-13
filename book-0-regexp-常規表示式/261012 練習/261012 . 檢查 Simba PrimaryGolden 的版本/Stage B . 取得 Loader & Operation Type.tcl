@@ -3,18 +3,18 @@
 ;# ==========================
 Loader Type            : Primary
 Operation Code Type    : Primary
-Primary
- Loader Version         : 0.0.1.5
- Operation Code Version : 1.1.0.11
-Golden
- Loader Version         : 0.0.1.5
- Operation Code Version : 1.1.0.11
-
- 
-set ::Uboot_ver 0.0.1.5
-set ::OP_Version [string trim "V1.1.0.11" V]
 
 
-Step-1: 
-Loader Type            : Primary
-Operation Code Type    : Primary
+set listitem [list "Loader Type" "Operation Code Type"]
+set listvalue [list Primary Primary]
+
+foreach item $listitem value $listvalue {
+   set regline "${item}\\s+:\\s$value"
+   puts "regline: $regline"
+
+	  if {![regexp -line $regline $get_info]} {
+		     puts "$item . $value --> FAIL"
+	  } else {
+		     puts "$item . $value --> PASS"
+	  }
+}
