@@ -6,6 +6,12 @@ Golden
  Loader Version         : 0.0.1.5
  Operation Code Version : 1.1.0.11
 
+set ::Uboot_ver 0.0.1.5 --> PASS
+set ::Uboot_ver 0.0.1.4 --> FAIL
+
+set ::OP_Version [string trim "V1.1.0.11" V] --> PASS
+set ::OP_Version [string trim "V1.1.0.10" V] --> FAIL
+
 
 ;# Check Primary . Loader Version . $::Uboot_ver
 set ::Uboot_ver 0.0.1.5 --> PASS
