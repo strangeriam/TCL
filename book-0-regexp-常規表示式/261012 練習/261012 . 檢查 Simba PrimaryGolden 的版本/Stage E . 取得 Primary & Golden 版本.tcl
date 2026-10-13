@@ -10,8 +10,19 @@ Golden
 set ::Uboot_ver 0.0.1.5
 set ::OP_Version [string trim "V1.1.0.11" V]
 
+set pattern_pri_uboot "Primary\n Loader Version\\s+: $::Uboot_ver"
+set pattern_pri_op "Primary\n Loader Version\\s+: .+\n Operation Code Version\\s+: $::OP_Version"
 
-regexp -line {Primary\n\sLoader Version} $get_info
+set pattern_god_uboot "Golden\n Loader Version\\s+: $::Uboot_ver"
+set pattern_god_op "Golden\n Loader Version\\s+: .+\n Operation Code Version\\s+: $::OP_Version"
+
+set itemlist [list "Loader Version" "Operation Code Version"]
+
+
+
+
+regexp -line $pattern_god_op $get_info3
+
 
 
 
