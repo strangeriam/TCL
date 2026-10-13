@@ -10,7 +10,7 @@ set listvalue [list Primary Primary]
 
 foreach item $listitem value $listvalue {
    set regline "${item}\\s+:\\s$value"
-   puts "regline: $regline"
+   # puts "regline: $regline"
 
 	  if {![regexp -line $regline $get_info]} {
 		     puts "$item . $value --> FAIL"
@@ -18,3 +18,8 @@ foreach item $listitem value $listvalue {
 		     puts "$item . $value --> PASS"
 	  }
 }
+
+輸出:
+
+Loader Type . Primary --> PASS
+Operation Code Type . Primary --> PASS
