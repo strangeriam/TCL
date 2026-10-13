@@ -1,4 +1,5 @@
 Step 1: 移除產測產測的 Log time.
+;# ============================
 set get_info2 [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]
 show version
 
