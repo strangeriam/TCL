@@ -1,9 +1,3 @@
-
-取得以下 對應的 item & value.
-;# ==========================
-Loader Type            : Primary
-Operation Code Type    : Primary
-
 ;# 取得以下
 Primary
  Loader Version         : 0.0.1.5
