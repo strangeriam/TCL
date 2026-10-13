@@ -13,6 +13,12 @@ set ::Uboot_ver 0.0.1.4 --> FAIL
 set ::OP_Version [string trim "V1.1.0.11" V] --> PASS
 set ::OP_Version [string trim "V1.1.0.10" V] --> FAIL
 
+set listtype [list Primary Golden]
+
+foreach type $listtype {
+
+}
+
 ;# Check Primary uBoot + OP Ver
 set pattern_primary "Primary\n Loader Version\\s+: $::Uboot_ver\n Operation Code Version\\s+: $::OP_Version"
 if { ![regexp -line $pattern_primary $get_info3]} {
