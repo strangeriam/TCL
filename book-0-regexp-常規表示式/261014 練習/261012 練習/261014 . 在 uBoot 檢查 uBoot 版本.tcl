@@ -1,6 +1,8 @@
 set ::Diag_Uboot_VER "ACC 00.0b.00.02 primary"
 
 
+regexp $::Diag_Uboot_VER $get_info
+
 
 ;# ===================================
 set get_info {
