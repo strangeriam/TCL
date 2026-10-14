@@ -2,7 +2,7 @@ set ::Diag_Uboot_VER "ACC 00.0b.00.02 primary"
 
 
 
-
+;# ===================================
 set get_info {
 version
 09:42:32:649| U-Boot 2018.03-3.0.0 - ACC 00.0b.00.02 primary (Aug 12 2026 - 10:49:45 +0800)
