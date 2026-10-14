@@ -1,5 +1,5 @@
-set ::Diag_Uboot_VER "ACC 00.0b.00.02 primary"
-
+set ::Diag_Uboot_VER "ACC 00.0b.00.02 primary" --> PASS
+set ::Diag_Uboot_VER "ACC 00.0b.00.00 primary" --> FAIL
 
 regexp $::Diag_Uboot_VER $get_info
 
