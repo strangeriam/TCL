@@ -1,9 +1,11 @@
 整個 RoT Diagcode 安裝過程不能有字串 "PLDM transfer has failed with exception as".
 
+regexp {PLDM transfer has failed with exception as} $get_info
+
+輸出:
 
 
-
-
+;# ======================================================================================
 set get_info {
 rot_upd.sh /mnt/usb_storage/su_apcomp_ecs4150_v00.0b.00
 09:43:14:586| 
