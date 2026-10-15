@@ -1,6 +1,6 @@
 
-	set listitem [list low mid high default low]
-	foreach item $listitem {
+set listitem [list low mid high default low]
+foreach item $listitem {
 		if { ! [_f_Diag_TestC "FAN . Speed $item" T969 "acc_cool_fan speed $item" 15] } {
 			if {$item == "high"} {
 				if { [info exists faillist] } {unset faillist}
@@ -29,7 +29,7 @@
 		} else {
 			_f_termmsg_V2 "FAN . $item ,PASS" "" = -nodisplaytime
 		}
-	}
+}
 
 
 
