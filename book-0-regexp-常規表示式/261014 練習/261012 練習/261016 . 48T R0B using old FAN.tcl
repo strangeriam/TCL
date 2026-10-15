@@ -1,32 +1,26 @@
 
 set listitem [list low mid high default low]
 foreach item $listitem {
-		if { ! [_f_Diag_TestC "FAN . Speed $item" T969 "acc_cool_fan speed $item" 15] } {
-			if {$item == "high"} {
-				if { [info exists faillist] } {unset faillist}
-				set pattern {\d\s+\|\s+\d+\s+\|}
-				set spec 7500
+	if {$item == "high"} {
+		if { [info exists faillist] } {unset faillist}
+		set pattern {\d\s+\|\s+\d+\s+\|}
+		set spec 7500
 
-				foreach line [regexp -all -inline $pattern [_f_getconsole]] {
-				    set fan_id [lindex $line 0]
-				    set fan_rpm [lindex $line 2]
-				    if { $fan_rpm < "$spec" } {
-				        lappend faillist "FAN${fan_id}:${fan_rpm} "
-				    } else {
-				        _f_termmsg_V2 "FAN ${item} (Spec: >= $spec) . FAN${fan_id}:${fan_rpm} ,PASS" "" = -nodisplaytime
-				    }
-				}
-				if { [info exists faillist] } {
-					_f_termmsg_V1 "FAN $item (Spec: >= $spec) . $faillist ,FAIL"
-					set ::s0 "FAN fail!" ; set ::ErrorCode "FAN"
-					return 0
-				}
-			} else {
-				puts "FAN . $item ,FAIL"
-			}
-		} else {
-			puts "FAN . $item ,PASS"
+		foreach line [regexp -all -inline $pattern $get_info] {
+				set fan_id [lindex $line 0]
+			    set fan_rpm [lindex $line 2]
+				if { $fan_rpm < "$spec" } {
+			        lappend faillist "FAN${fan_id}:${fan_rpm} "
+			    } else {
+			        puts "FAN ${item} (Spec: >= $spec) . FAN${fan_id}:${fan_rpm} ,PASS"
+			    }
 		}
+		if { [info exists faillist] } {
+			puts "FAN $item (Spec: >= $spec) . $faillist ,FAIL"
+		}
+	} else {
+				puts "FAN . $item ,FAIL"
+	}
 }
 
 
