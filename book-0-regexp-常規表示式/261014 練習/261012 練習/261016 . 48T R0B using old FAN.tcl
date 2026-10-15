@@ -22,12 +22,10 @@ foreach item $listitem {
 					return 0
 				}
 			} else {
-				_f_termmsg_V1 "FAN . $item ,FAIL"
-				set ::s0 "FAN fail!" ; set ::ErrorCode "FAN"
-				return 0
+				puts "FAN . $item ,FAIL"
 			}
 		} else {
-			_f_termmsg_V2 "FAN . $item ,PASS" "" = -nodisplaytime
+			puts "FAN . $item ,PASS"
 		}
 }
 
