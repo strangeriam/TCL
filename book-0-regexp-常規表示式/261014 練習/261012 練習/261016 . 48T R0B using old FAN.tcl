@@ -10,7 +10,7 @@ set listspec [list 1100 2100 \
                     7200 8800 \
                     1100 2100]
 
-foreach item $listitem {
+foreach item $listitem {spec_min spec_max} $listspec {
 		if { [info exists faillist] } {unset faillist}
 		set pattern {\d\s+\|\s+\d+\s+\|}
 		set spec 7500
