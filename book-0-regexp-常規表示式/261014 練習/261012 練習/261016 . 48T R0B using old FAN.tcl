@@ -30,7 +30,7 @@ foreach item $listitem {spec_min spec_max} $listspec {
 		}
 
 		if { [info exists faillist] } {
-				puts "SPEED $item (SPEC $spec_min ~ $spec_max) . $faillist ,FAIL"
+				puts "SPEED $item (SPEC $spec_min ~ $spec_max) --> $faillist ,FAIL"
 				return 0
 		}
 }
