@@ -24,7 +24,7 @@ foreach item $listitem {spec_min spec_max} $listspec {
 				if { $fan_rpm >= $spec_min && $fan_rpm <= $spec_max } {
 			        puts "SPEED $item FAN $fan_id (SPEC $spec_min ~ $spec_max) --> $fan_rpm ,PASS"
 			    } else {
-					lappend faillist "FAN${fan_id}.${fan_rpm} "
+					lappend faillist "FAN${fan_id}.$fan_rpm "
 			    }
 		}
 
