@@ -35,11 +35,6 @@ foreach item $listitem {spec_min spec_max} $listspec {
 }
 
 
-
-
-
-
-
 ;# ===========================================================
 set get_info_low {
 	root@(none):/diagnostic# acc_cool_fan speed low
