@@ -10,22 +10,28 @@ set listspec [list 1100 2100 \
                     7200 8800 \
                     1100 2100]
 
+
+
+set listitem [list low ]
+set listspec [list 1100 2100 ]
+
+set regex_pattern {\d\s+\|\s+\d+\s+\|}
+
 foreach item $listitem {spec_min spec_max} $listspec {
 		if { [info exists faillist] } {unset faillist}
-		set pattern {\d\s+\|\s+\d+\s+\|}
-		set spec 7500
-
-		foreach line [regexp -all -inline $pattern $get_info] {
+		foreach line [regexp -all -inline $regex_pattern $get_info_low] {
 				set fan_id [lindex $line 0]
 			    set fan_rpm [lindex $line 2]
-				if { $fan_rpm < "$spec" } {
-			        lappend faillist "FAN${fan_id}:${fan_rpm} "
+				if { $fan_rpm >= $spec_min && $fan_rpm <= $spec_max } {
+			        puts "SPEED $item FAN $fan_id (SPEC $spec_min ~ $spec_max) --> $fan_rpm ,PASS"
 			    } else {
-			        puts "FAN ${item} (Spec: >= $spec) . FAN${fan_id}:${fan_rpm} ,PASS"
+					lappend faillist "FAN${fan_id}.${fan_rpm} "
 			    }
 		}
+
 		if { [info exists faillist] } {
-			puts "FAN $item (Spec: >= $spec) . $faillist ,FAIL"
+				puts "SPEED $item (SPEC $spec_min ~ $spec_max) . $faillist ,FAIL"
+				return 0
 		}
 }
 
@@ -47,7 +53,7 @@ set get_info_low {
 	|     | Actual Speed |        |
 	| No. |    (RPM)     | Result |
 	+-----+--------------+--------+
-	|  1  |    1785      | FAIL   |
+	|  1  |    1786      | FAIL   |
 	|  2  |    1785      | FAIL   |
 	+-----+--------------+--------+
 	fan_speed_low FAILED.
