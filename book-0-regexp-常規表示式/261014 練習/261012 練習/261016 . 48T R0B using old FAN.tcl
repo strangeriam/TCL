@@ -1,6 +1,6 @@
 
 set listitem [list low mid high default low]
-set lostspec [list 1100 2100 3400 4400 6750 8250 7200 8800]
+set listspec [list 1100 2100 3400 4400 6750 8250 7200 8800]
 
 foreach item $listitem {
 		if { [info exists faillist] } {unset faillist}
