@@ -5,6 +5,7 @@ foreach {item} $list1 {
     after 1000
 }
 
+
 ;# iterations loop
 ;# ==================================
 set x {}
@@ -16,6 +17,7 @@ set x
 ## OUTPUT: b a d c f e
 
 
+;# 多變數使用
 ;# ==================================
 set list1 "AAA BBB CCC"
 set list2 "aaa bbb ccc"
