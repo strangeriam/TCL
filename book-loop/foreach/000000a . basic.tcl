@@ -5,8 +5,8 @@ foreach {item} $list1 {
     after 1000
 }
 
-;# ==================================
 ;# iterations loop
+;# ==================================
 set x {}
 foreach {i j} {a b c d e f} {
 	lappend x $j $i
