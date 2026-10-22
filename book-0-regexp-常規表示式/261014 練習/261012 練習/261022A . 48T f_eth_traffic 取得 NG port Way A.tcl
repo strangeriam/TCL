@@ -1,11 +1,10 @@
 
 ;# 排除相同的 Port number
-if {[info exists faillist]} { unset faillist }
-
+set ports ""
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
-	lappend faillist $num
+	lappend ports $num
 }
-set failLIST [lsort -integer -unique $faillist]
+set faillist [lsort -integer -unique $ports]
 ;# 輸出
 1 2 13 14 25 26 37 38
 
