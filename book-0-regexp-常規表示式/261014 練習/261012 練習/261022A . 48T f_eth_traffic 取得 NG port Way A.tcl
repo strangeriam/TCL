@@ -1,11 +1,11 @@
 
 ;# 排除相同的 Port number
-set ports {}
+if {[info exists faillist]} { unset faillist }
+
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
-	lappend ports $num
+	lappend faillist $num
 }
 set uniq [lsort -integer -unique $ports]
-puts $uniq
 ;# 輸出
 
 
