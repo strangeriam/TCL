@@ -4,10 +4,15 @@ set ports ""
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
 	lappend ports $num
 }
-set faillist [lsort -integer -unique $ports]
+set ngPorts [lsort -integer -unique $ports]
 ;# 輸出
 1 2 13 14 25 26 37 38
 
+set totalFail [llength $ngPorts]
+;# 輸出
+8
+
+;# =====================================================
 set get_info {
 15:43:03:089| ------ --------- ------------------
 15:43:03:089| port 1 (0/0):
