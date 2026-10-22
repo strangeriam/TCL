@@ -4,6 +4,9 @@ set ports ""
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
 	lappend ports $num
 }
+;# 輸出
+1 2 13 14 25 26 37 38 1 2 13 14 25 26 37 38
+
 set ngPorts [lsort -integer -unique $ports]
 ;# 輸出
 1 2 13 14 25 26 37 38
