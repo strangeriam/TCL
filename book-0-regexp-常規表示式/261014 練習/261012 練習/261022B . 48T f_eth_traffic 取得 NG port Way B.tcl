@@ -1,26 +1,8 @@
+純用 regsub 移除「port X」中重複的號碼
+如果你指的是一行內同時出現兩個號碼（例如 port 1 (0/0)），想移除括號裡那個重複/多餘的，可以這樣：
 
-;# Step A:
-;# 列出有問題的 Port Number.
-if {[info exists faillist]} { unset faillist }
-foreach line [regexp -all -inline {port \d+} $get_info] {
-	puts "line: $line"
-    append faillist "[format %02d [lindex $line 1]] "
-}
-
-if { [info exists faillist]} {
-  puts "faillist: $faillist"
-}
-;# 輸出
-faillist: 01 02 13 14 25 26 37 38 01 02 13 14 25 26 37 38 
-
-;# Step B:
-;# 排除相同的 Port number
-set ports {}
-foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
-	lappend ports $num
-}
-set uniq [lsort -integer -unique $ports]
-puts $uniq
+# 把 "port 1 (0/0):" 變成只留 "port 1:"
+set cleaned [regsub -all -line {(port\s+\d+)\s+\(\d+/\d+\)} $get_info {\1}]
 ;# 輸出
 
 
