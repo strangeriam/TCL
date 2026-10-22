@@ -5,7 +5,7 @@ if {[info exists faillist]} { unset faillist }
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
 	lappend faillist $num
 }
-set uniq [lsort -integer -unique $ports]
+set failLIST [lsort -integer -unique $faillist]
 ;# 輸出
 
 
