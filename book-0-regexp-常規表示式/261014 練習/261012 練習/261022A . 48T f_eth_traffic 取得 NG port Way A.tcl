@@ -7,7 +7,7 @@ foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
 }
 set failLIST [lsort -integer -unique $faillist]
 ;# 輸出
-
+1 2 13 14 25 26 37 38
 
 set get_info {
 15:43:03:089| ------ --------- ------------------
