@@ -1,4 +1,6 @@
 
+;# Step A:
+;# 列出有問題的 Port Number.
 if {[info exists faillist]} { unset faillist }
 foreach line [regexp -all -inline {port \d+} $get_info] {
 	puts "line: $line"
@@ -11,24 +13,15 @@ if { [info exists faillist]} {
 ;# 輸出
 faillist: 01 02 13 14 25 26 37 38 01 02 13 14 25 26 37 38 
 
-;# 移除相同項目
-if {[info exists FAILList]} { unset FAILList }
-foreach port $faillist {
-	puts "port: $port"
-	if {[regexp $port $faillist]} {
-		append FAILList "$port "
-		set faillist [string map "$port \"\"" $faillist]
-	}
+;# Step B:
+;# 排除相同的 Port number
+set ports {}
+foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
+	lappend ports $num
 }
-set FAILList
-;# 輸出 --> 01 02 13 14 25 26 37 38 
-
-## 移除 appendL 最後的空白.
-set FAILList [string trim $FAILList]
-;# 輸出 --> 01 02 13 14 25 26 37 38
-
-set totalFail [llength $FAILList]
-;# 輸出 --> 8
+set uniq [lsort -integer -unique $ports]
+puts $uniq
+;# 輸出
 
 
 set get_info {
