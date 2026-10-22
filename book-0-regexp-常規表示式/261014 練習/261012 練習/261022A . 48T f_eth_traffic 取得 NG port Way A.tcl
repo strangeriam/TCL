@@ -1,19 +1,4 @@
 
-;# Step A:
-;# 列出有問題的 Port Number.
-if {[info exists faillist]} { unset faillist }
-foreach line [regexp -all -inline {port \d+} $get_info] {
-	puts "line: $line"
-    append faillist "[format %02d [lindex $line 1]] "
-}
-
-if { [info exists faillist]} {
-  puts "faillist: $faillist"
-}
-;# 輸出
-faillist: 01 02 13 14 25 26 37 38 01 02 13 14 25 26 37 38 
-
-;# Step B:
 ;# 排除相同的 Port number
 set ports {}
 foreach {whole num} [regexp -all -inline {port\s+(\d+)} $get_info] {
