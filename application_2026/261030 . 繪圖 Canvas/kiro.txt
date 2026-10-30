@@ -1,0 +1,63 @@
+給我一個用 TCL 寫的繪圖曲線, 且使用 multi thread 的程式. 和其程式教學說明.
+
+Kiro
+我會給你一個完整的範例：一個 worker thread 持續產生資料，主 thread（Tk GUI）用 Canvas 即時繪製曲線。這是 Tcl/Tk multi-thread + 繪圖的典型架構。
+
+
+1 tool call
+Write File
+
+plot_thread.tcl
+There's a leftover stray .top2 / .info placeholder I added by mistake. Let me clean that up so the GUI is correct.
+
+
+1 tool call
+Replace in File
+
+plot_thread.tcl
+
+
+Now let me write the tutorial/explanation document.
+
+
+1 tool call
+Write File
+
+README.md
+完成。範例與教學建立於 d:\CODE\tk_plot_thread\：
+
+檔案	說明
+plot_thread.tcl	主程式（可直接 wish plot_thread.tcl 執行）
+README.md	完整程式教學
+程式在做什麼
+一個 worker thread 持續產生資料（sin 波 + 雜訊，模擬感測器 20Hz 取樣），透過 thread::send -async 送回主 thread，由主 thread 用 Canvas 即時畫出平滑曲線，像心電圖一樣向左捲動。有「開始 / 暫停 / 清除」按鈕。
+
+核心架構（教學重點）
+
+Worker Thread (算資料)  ──thread::send -async──>  Main Thread (畫 Canvas)
+最關鍵的 3 個觀念（README 有詳細逐段解說）：
+
+Tk 不是 thread-safe — GUI 只能在主 thread 操作。worker 絕不能直接畫 Canvas，只能把資料「送回」主 thread 畫。
+
+用 thread::send -async 傳資料 — 非同步送出不等待，worker 送完立刻繼續算，才能真正平行、UI 不卡。
+
+worker 用 after 排程，不用 while 迴圈 — 事件驅動，且結尾一定要 thread::wait 進入事件迴圈，否則 thread 執行完就死、after/send 都不運作。
+
+要改成你自己的應用
+只要把 gen_one 裡的這行換掉：
+
+tcl
+
+set val [expr {sin($t) + (rand()-0.5)*0.3}]   ;# 模擬資料
+;# 改成讀序列埠、讀檔、或你的量測函式
+其他（送回、畫圖、捲動）完全不用改——這就是分層設計的好處。
+
+執行需求
+需要 Thread 套件。你的機器如果裝的是 Magicsplat Tcl/Tk（之前聊過的免費可商用發行版）就內建了，直接 wish plot_thread.tcl 即可。若 package require Thread 報錯，表示該 Tcl 沒編譯 thread 支援，需換成 Magicsplat 或有 thread 的版本。
+
+README 裡還有「三種 thread 通訊方式對照」「常見陷阱表」「延伸方向（多曲線、多 worker、存檔、Y 軸自動縮放）」，你照著看就能掌握 Tcl 多執行緒 + 繪圖的完整做法。
+
+Est. Credits Used: 7.27
+Elapsed time: 2m 26s
+
+
