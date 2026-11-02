@@ -5,7 +5,7 @@ regexp -line "${::PKG_SIMBA}\\s+OpCode\\s+Y" $get_info
 
 
 
-
+;# Shall return 1
 ;# =======================================
 set get_info {
 dir
