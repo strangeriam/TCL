@@ -1,5 +1,7 @@
-blank
 
+set ::PKG_SIMBA 		Vnet4624T_V1.2.0.14.bix
+
+regexp -line 
 
 
 
