@@ -2,8 +2,8 @@
 set ::PKG_SIMBA 		Vnet4624T_V1.2.0.14.bix
 
 regexp -line "${::PKG_SIMBA}\\s+OpCode\\s+Y" $get_info
-
-
+regexp -line "${::PKG_SIMBA}\\s+OpCode\\s+Y" $get_info opcode
+regexp -line "${::PKG_SIMBA}.*OpCode.*Y" $get_info opcode
 
 ;# Shall return 1
 ;# =======================================
