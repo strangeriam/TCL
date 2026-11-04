@@ -1,6 +1,12 @@
 Remove format "14:30:42:429| "
 
-regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""
+regexp {0\n} [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]]
+;# 輸出: 0
+
+regexp {2\n} [regsub -all -line {\d+:\d+:\d+:\d+\| } $get_info ""]]
+;# 輸出: 1
+
+
 
 ;# 輸出:
 ls -l /overlay/upper/ | wc -l
