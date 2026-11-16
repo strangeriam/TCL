@@ -4,6 +4,9 @@ set value "ECS5550-54X"
 
 regexp "$item\\s+\\d+ $value" $get_info
 
+
+
+;# ========================================
 set get_info {
 08:45:35:786| ONIE:/ # onie-syseeprom
 08:45:36:005| 
