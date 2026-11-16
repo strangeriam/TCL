@@ -1,6 +1,8 @@
 
+set item "0x21"
+set value "ECS5550-54X"
 
-
+regexp "$item\\s+\\d+ $value" $get_info
 
 set get_info {
 ONIE:/ # onie-syseeprom
