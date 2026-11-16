@@ -6,7 +6,7 @@ set regexpStr "$item\\s+\\d+ $value"
 ;# ====================================
 set item "0x25"
 set value "\"11/16/2026 00:00:00\""
-set regexpStr "${item}\\s+\\d+ $value"
+set regexpStr "${item}\\s+\\d+ [string trim $value \"]"
 
 regexp $regexpStr $get_info
 
