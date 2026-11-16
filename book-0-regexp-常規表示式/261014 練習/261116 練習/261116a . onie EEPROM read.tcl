@@ -1,12 +1,14 @@
 
 set item "0x21"
 set value "ECS5550-54X"
+set regexpStr "$item\\s+\\d+ $value"
 
-regexp "$item\\s+\\d+ $value" $get_info
-
+;# ====================================
 set item "0x25"
-set value "11/16/2026 00:00:00"
+set value "\"11/16/2026 00:00:00\""
+set regexpStr "${item}\\s+\\d+ $value"
 
+regexp $regexpStr $get_info
 
 
 ;# ========================================
